@@ -1,5 +1,5 @@
 /* Školní parťák – offline cache. Při změně souborů zvyš číslo verze. */
-const CACHE = "skolni-partak-v20";
+const CACHE = "skolni-partak-v21";
 const FILES = ["./", "./index.html", "./manifest.json", "./icon-192.png", "./icon-512.png", "./apple-touch-icon.png",
   "./fonts/IBMPlexSans-Regular.woff2","./fonts/IBMPlexSans-Medium.woff2","./fonts/IBMPlexSans-SemiBold.woff2","./fonts/IBMPlexSans-Bold.woff2",
   "./fonts/IBMPlexMono-Medium.woff2","./fonts/IBMPlexMono-SemiBold.woff2"];
