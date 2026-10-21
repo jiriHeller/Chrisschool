@@ -551,10 +551,10 @@ table.bwt{width:100%;border-collapse:collapse;table-layout:fixed;font-size:11px;
 const COLOR_HEX={pink:"#E0566F",blue:"#2F7FE0",green:"#2EA650",yellow:"#E3AE00",purple:"#8B5CF6",orange:"#F08A24",gray:"#8A96A8"};
 const COLOR_NAMES={pink:"růžová",blue:"modrá",green:"zelená",yellow:"žlutá",purple:"fialová",orange:"oranžová",gray:"šedá"};
 const ICON_NAMES={cj:"kniha",ma:"kalkulačka",pu:"list",aj:"vlajka",hv:"nota",tv:"běžec",pv:"nůžky",vv:"paleta",book:"sešit",q:"otazník"};
-const KIND={sdel:{icon:"i-msg",short:"Sdělovníček"},druz:{icon:"i-users",short:"Sešit do družiny"},food:{icon:"i-food",short:"Svačina"},drink:{icon:"i-drop",short:"Pití"},other:{icon:"i-dot",short:null}};
+const KIND={sdel:{icon:"i-msg",short:null},druz:{icon:"i-users",short:null},food:{icon:"i-food",short:"Svačina"},drink:{icon:"i-drop",short:"Pití"},other:{icon:"i-dot",short:null}};
 
 const DEFAULTS = {
-  version: 9,
+  version: 10,
   activities: [
     {id:"flo", name:"Florbal – trénink", short:"FLO", wd:3, from:"15:45", to:"16:45", place:"FZŠ Brdičkova", skipHolidays:true},
     {id:"flo2", name:"Florbal s tátou", short:"FLO", note:"s tátou", wd:2, from:"18:00", to:"20:00", skipHolidays:false}
@@ -568,7 +568,7 @@ const DEFAULTS = {
   child: "Chris",
   times: ["8:00 – 8:45","8:55 – 9:40","10:00 – 10:45","10:55 – 11:40","12:00 – 12:45","12:55 – 13:40"],
   subjects: [
-    {id:"cj", name:"Český jazyk", short:"ČJ", color:"pink", icon:"cj", items:["Čítanka pro 3. ročník","Český jazyk 3","Sešit češtiny A","Sešit češtiny D","Sešit češtiny V","Velký sešit psaní","Pracovní sešit češtiny"]},
+    {id:"cj", name:"Český jazyk", short:"ČJ", color:"pink", icon:"cj", items:["Čítanka pro 3. ročník","Český jazyk 3","Sešit češtiny A","Sešit češtiny B","Sešit češtiny D","Velký sešit psaní","Pracovní sešit češtiny"]},
     {id:"ma", name:"Matematika", short:"MA", color:"blue", icon:"ma", items:["Matematika A – VELKÝ sešit","Geometrie","Matematika B – sešit","Matematika A – běžný (malý) sešit","Kniha Matematika 3","Počítáme zpaměti 3 – sešitová knížka"]},
     {id:"pu", name:"Prvouka", short:"PU", color:"yellow", icon:"pu", items:["Prvouka 3 – učebnice","Prvouka 3 – pracovní sešit"]},
     {id:"aj", name:"Anglický jazyk", short:"AJ", color:"purple", icon:"aj", items:["Sešit na angličtinu (na vlepování pracovních listů)"]},
@@ -587,8 +587,8 @@ const DEFAULTS = {
     4:["cj","ma","ppr","pv","vv","th"],
     5:["cj","ma","cj","aj"]
   },
-  daily: [["Sdělovníček","sdel"],["Malý sešítek „Družina – šesté oddělení“","druz"],["Svačina","food"],["Pití","drink"]],
-  pencil: ["Pastelky","Guma","Nůžky","Lepidlo","Pero","Pravítko","ISIC karta"],
+  daily: [["Žákovská knížka","sdel"],["Notýsek z družiny","druz"],["Svačina","food"],["Pití","drink"]],
+  pencil: ["Pastelky","Guma","Nůžky","Lepidlo","Pero","Pravítko","ISIC karta","Tužka","Ořezávátko"],
   pe: ["Trenky","Tričko","Kraťasy","Ponožky","Boty na tělocvik","Švihadlo"],
   /* školní rok 2026/27 podle MŠMT; jarní prázdniny 1.–7. 3. 2027 podle školy */
   holidays: [
@@ -646,7 +646,21 @@ function migrate(c){
   if(!Array.isArray(c.activities)) c.activities=d.activities;
   if(!Array.isArray(c.routine)) c.routine=d.routine;
   (c.routine||[]).forEach(r=>{ if(r.id==="vec" && r.movable===undefined) r.movable=true; });
-  c.version=9;
+  if((c.version||0)<10){
+    (c.daily||[]).forEach(it=>{
+      if(it.kind==="sdel" && /sdělov/i.test(it.name||"")) it.name="Žákovská knížka";
+      if(it.kind==="druz" && /družin/i.test(it.name||"")) it.name="Notýsek z družiny";
+    });
+    if(!(c.daily||[]).some(it=>/žákovsk/i.test(it.name||""))) c.daily.unshift({id:"den-zk", name:"Žákovská knížka", kind:"sdel"});
+    const cj=c.subjects.find(x=>x.id==="cj");
+    if(cj){ cj.items.forEach(it=>{ if(/^Sešit češtiny V$/i.test((it.name||"").trim())) it.name="Sešit češtiny B"; });
+      if(!cj.items.some(it=>/^Sešit češtiny B$/i.test(it.name||""))) cj.items.push({id:"cj-b", name:"Sešit češtiny B"});
+      const re=/^Sešit češtiny [A-Z]$/i, idx=[], ss=[]; cj.items.forEach((it,i)=>{ if(re.test((it.name||"").trim())){ idx.push(i); ss.push(it); } });
+      ss.sort((x,y)=>x.name.localeCompare(y.name)); idx.forEach((i,k)=>{ cj.items[i]=ss[k]; }); }
+    if(!c.pencil.some(it=>/tužk/i.test(it.name||""))) c.pencil.push({id:"pen-7", name:"Tužka"});
+    if(!c.pencil.some(it=>/ořez/i.test(it.name||""))) c.pencil.push({id:"pen-8", name:"Ořezávátko"});
+  }
+  c.version=10;
   return c;
 }
 
@@ -892,7 +906,7 @@ function headHtml(p){
   '</header>';
 }
 const NAV=[["home","Přehled","i-grid"],["tasks","Úkoly a akce","i-flag"],["books","Učebnice a sešity","i-book"],["supplies","Pomůcky","i-pencil"],["food","Svačina a pití","i-food"],
-  ["pe","Tělocvik","i-shirt"],["sdel","Sdělovníček","i-msg"],["druz","Družina","i-users"],["check","Kontrola","i-clip"]];
+  ["pe","Tělocvik","i-shirt"],["sdel","Sdělníček","i-msg"],["check","Kontrola","i-clip"]];
 function sideHtml(){
   return '<nav class="side" aria-label="Menu"><div class="eyebrow">Menu</div>'+
     NAV.map(n=>'<button type="button" class="nav" data-view="'+n[0]+'"'+(view===n[0]?' aria-current="page"':"")+'>'+ic(n[2])+n[1]+(n[0]==="tasks"&&upcomingTasks()?'<span class="dotc">'+upcomingTasks()+'</span>':"")+'</button>').join("")+
@@ -1000,10 +1014,10 @@ function detailHtml(v,p){
     return detailCard("Tělocvik · "+dt,"i-shirt",cnt(iso,p.pe),'<div class="dgrid">'+dgroup(p.peSubjects.map(s=>s.name).join(" / "),ic("i-pulse"),iso,p.pe)+'</div>');
   }
   if(v==="sdel"||v==="druz"){
-    const list=cfg.daily.filter(d=>d.kind===v);
-    const tip=v==="sdel"?"Ukaž rodičům, jestli v něm není vzkaz ze školy.":"Sešítek do družiny – šesté oddělení.";
-    return detailCard((v==="sdel"?"Sdělovníček":"Družina")+" · "+dt, v==="sdel"?"i-msg":"i-users", cnt(iso,list),
-      '<div class="dgrid">'+dgroup(v==="sdel"?"Sdělovníček":"Družina",ic(v==="sdel"?"i-msg":"i-users"),iso,list,{itemIcon:it=>kindIcon(it)})+'</div><p class="tip">'+tip+'</p>');
+    const list=cfg.daily.filter(d=>d.kind==="sdel"||d.kind==="druz");
+    const tip="Žákovská knížka a notýsek z družiny. Ukaž je rodičům, jestli v nich není vzkaz.";
+    return detailCard("Sdělníček · "+dt, "i-msg", cnt(iso,list),
+      '<div class="dgrid">'+dgroup("Sdělníček",ic("i-msg"),iso,list,{itemIcon:it=>kindIcon(it)})+'</div><p class="tip">'+tip+'</p>');
   }
   if(v==="year"){
     const y0=schoolYearStart();
@@ -1108,7 +1122,7 @@ function printWeekSheet(mon){
   const th=days.map(d=>{ const w=dow(d); return '<th class="'+(w===0||w===6?"we":"")+(holidayOf(d)?" hol":"")+'"><b>'+cap(DAY_NAMES[w])+'</b><span>'+fmtShort(d)+'</span></th>'; }).join("");
   return '<div class="psheet">'+sheetHead("Týdenní plán",fmtShort(mon)+' – '+fmtShort(days[6])+' '+days[6].slice(0,4))+
     '<table class="ps"><colgroup><col class="c0">'+days.map(()=>'<col>').join("")+'</colgroup><thead><tr><th></th>'+th+'</tr></thead><tbody>'+rows+'</tbody></table>'+
-    '<div class="ps-foot"><span>Každý školní den: penál, svačina, pití, sdělovníček, sešit do družiny.</span><span>Vytištěno '+fmtShort(pragueToday())+'</span></div></div>';
+    '<div class="ps-foot"><span>Každý školní den: penál, svačina, pití, žákovská knížka, notýsek z družiny.</span><span>Vytištěno '+fmtShort(pragueToday())+'</span></div></div>';
 }
 function printBWSheet(mon){
   const days=[0,1,2,3,4,5,6].map(i=>addDays(mon,i)), plans=days.map(dayPlan);
@@ -1143,7 +1157,7 @@ function printBWSheet(mon){
   return '<div class="bw"><div class="bw-head"><div><div class="bw-title">Týden '+fmtShort(mon)+' – '+fmtShort(days[6])+' '+days[6].slice(0,4)+'</div><div class="bw-sub">'+(isoWeek(mon))+'. týden v roce</div></div>'+
     '<div class="bw-name">Školní parťák<b>'+esc(cfg.child||"")+'</b></div></div>'+
     '<div class="bw-tw"><table class="bwt"><colgroup><col class="c0">'+days.map(()=>'<col>').join("")+'</colgroup><thead><tr><th></th>'+th+'</tr></thead><tbody>'+rows+'</tbody></table></div>'+
-    '<div class="bw-foot"><span>'+legend+'</span><span>Každý školní den: penál, svačina, pití, sdělovníček, sešit do družiny.</span></div></div>';
+    '<div class="bw-foot"><span>'+legend+'</span><span>Každý školní den: penál, svačina, pití, žákovská knížka, notýsek z družiny.</span></div></div>';
 }
 function isoWeek(iso){ const d=toD(iso); const t=new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate())); const dn=(t.getUTCDay()+6)%7; t.setUTCDate(t.getUTCDate()-dn+3); const f=new Date(Date.UTC(t.getUTCFullYear(),0,4)); return 1+Math.round(((t-f)/864e5-3+((f.getUTCDay()+6)%7))/7); }
 function printYearSheet(){ const y0=schoolYearStart();
