@@ -219,6 +219,7 @@ svg{display:block}
 .need[aria-checked="true"] .lbl{text-decoration:none;color:var(--ink)}
 .pom .chk{gap:.55rem}
 .mini-note{display:flex;align-items:center;gap:.45rem;background:var(--warn-soft);color:var(--warn);font-weight:500;font-size:.9rem;border-radius:.45rem;padding:.3rem .5rem;margin:.1rem 0 .3rem}
+.mini-note.ev{background:var(--accent-soft);color:var(--accent)}
 .mini-note svg{width:1.05rem;height:1.05rem;flex:none}
 
 /* penál, tělocvik, stav dne */
@@ -563,7 +564,7 @@ table.bwt{width:100%;border-collapse:collapse;table-layout:fixed;font-size:11px;
 const COLOR_HEX={pink:"#E0566F",blue:"#2F7FE0",green:"#2EA650",yellow:"#E3AE00",purple:"#8B5CF6",orange:"#F08A24",gray:"#8A96A8"};
 const COLOR_NAMES={pink:"růžová",blue:"modrá",green:"zelená",yellow:"žlutá",purple:"fialová",orange:"oranžová",gray:"šedá"};
 const ICON_NAMES={cj:"kniha",ma:"kalkulačka",pu:"list",aj:"vlajka",hv:"nota",tv:"běžec",pv:"nůžky",vv:"paleta",book:"sešit",q:"otazník"};
-const APP_VERSION="26"; window.APP_VERSION=APP_VERSION;
+const APP_VERSION="27"; window.APP_VERSION=APP_VERSION;
 const KIND={sdel:{icon:"i-msg",short:null},druz:{icon:"i-users",short:null},ukol:{icon:"i-flag",short:null},food:{icon:"i-food",short:"Svačina"},drink:{icon:"i-drop",short:"Pití"},other:{icon:"i-dot",short:null}};
 
 const DEFAULTS = {
@@ -852,7 +853,7 @@ function cats(p){
            {key:"pencil",label:"Penál",icon:"i-pencil",items:p.pencil,view:"supplies"});
   if(p.hasPE) out.push({key:"pe",label:"Věci na tělocvik",icon:"i-shirt",items:p.pe,view:"pe"});
   p.daily.forEach(it=>{ const k=KIND[it.kind]||KIND.other; out.push({key:it.id,label:k.short||it.name,icon:k.icon,items:[it],single:it}); });
-  (p.acts||[]).forEach(a=>out.push(a.items.length?{key:"act-"+a.id,label:actLabel(a),icon:a.shared?"i-flag":"i-pulse",items:a.items,view:"act"}:{key:"act-"+a.id,label:actLabel(a),icon:"i-flag",items:[],view:"act"}));
+  (p.acts||[]).filter(a=>a.items.length).forEach(a=>out.push({key:"act-"+a.id,label:actLabel(a),icon:a.shared?"i-flag":"i-pulse",items:a.items,view:"act"}));
   return out.map(c=>Object.assign(c,{done:countDone(p.iso,c.items),total:c.items.length}));
 }
 
@@ -985,7 +986,7 @@ function reminders(p){
 }
 function homeCards(p){
   const iso=p.iso, c=cats(p);
-  const dnes=(p.holiday?'<div class="holi">'+ic("i-sun")+'<span>'+cap(dayWord(iso))+' je volno – <b>'+esc(p.holiday)+'</b></span></div>':"")+c.map(x=> x.single
+  const dnes=(p.holiday?'<div class="holi">'+ic("i-sun")+'<span>'+cap(dayWord(iso))+' je volno – <b>'+esc(p.holiday)+'</b></span></div>':"")+evNotes(p)+c.map(x=> x.single
     ? chk(iso,x.single,{cls:"need",icon:ic(x.icon,"it"),label:x.label,after:x.task?ttagHtml(x.single.kind):""})
     : '<button type="button" class="need" data-view="'+x.view+'">'+boxHtml(x.total>0&&x.done===x.total)+ic(x.icon,"it")+'<span class="lbl">'+x.label+'</span>'+
       '<span class="go'+(x.total>0&&x.done===x.total?" ok":"")+'">'+x.done+'/'+x.total+ic("i-chev")+'</span></button>').join("");
@@ -999,7 +1000,7 @@ function homeCards(p){
   return ''+
   '<section class="card c-roz" id="c-roz"><div class="card-h">'+ic("i-cal")+'<h2>Rozvrh hodin</h2><span class="eyebrow">týden '+fmtShort(weekDates(pragueToday())[0])+'</span></div>'+
     ttStatus()+'<div class="body" data-scroll="roz">'+ttHtml()+ttLegend()+'</div></section>'+
-  '<section class="card c-dnes'+(c.length>9?" dense":"")+(c.length>10?" xdense":"")+'" id="c-dnes"><div class="card-h">'+ic("i-clip")+'<h2>'+cap(dayWord(iso))+' potřebuji</h2><span class="eyebrow">'+DAY_SHORT[p.wd]+' '+fmtShort(iso)+'</span><button type="button" class="ibtn sm" data-addtask="'+iso+'" aria-label="Přidat úkol nebo věc">'+ic("i-plus")+'</button></div>'+
+  '<section class="card c-dnes'+((c.length+(p.acts||[]).filter(a=>a.shared&&!a.items.length&&!a.offsite).length*1.3)>8.5?" dense":"")+((c.length+(p.acts||[]).filter(a=>a.shared&&!a.items.length&&!a.offsite).length*1.3)>10?" xdense":"")+'" id="c-dnes"><div class="card-h">'+ic("i-clip")+'<h2>'+cap(dayWord(iso))+' potřebuji</h2><span class="eyebrow">'+DAY_SHORT[p.wd]+' '+fmtShort(iso)+'</span><button type="button" class="ibtn sm" data-addtask="'+iso+'" aria-label="Přidat úkol nebo věc">'+ic("i-plus")+'</button></div>'+
     '<div class="body rows" data-scroll="dnes">'+dnes+'</div></section>'+
   '<section class="card c-pom" id="c-pom"><div class="card-h">'+ic("i-book")+'<h2>Moje pomůcky</h2>'+cnt(iso,pomItems)+'</div>'+barHtml(dd,pomItems.length)+
     '<div class="body rows pom" data-scroll="pom">'+notes+(pomList.map(x=>chk(iso,x.it,{icon:x.icon})).join("")||'<p class="empty">'+(p.holiday?'Volno – učebnice nepotřebuješ.':'Žádné učebnice.')+'</p>')+'</div></section>'+
@@ -1035,6 +1036,7 @@ function detailCard(title,icon,count,inner){
     '<div class="body" data-scroll="detail">'+inner+'</div></section>';
 }
 function actLabel(a){ return a.name.replace(/\s*–\s*trénink/i," trénink")+(a.from?" "+a.from:""); }
+function evNotes(p){ return (p.acts||[]).filter(a=>a.shared&&!a.items.length&&!a.offsite).map(a=>'<div class="mini-note ev">'+ic("i-flag")+'<span><b>'+esc(actLabel(a))+(a.to?'–'+esc(a.to):"")+'</b>'+(a.place?' · '+esc(a.place):"")+(a.note?' · '+esc(a.note):"")+'</span></div>').join(""); }
 function actGroups(p,iso){ return (p.acts||[]).filter(a=>a.items.length).map(a=>dgroup(actLabel(a)+(a.to?"–"+a.to:""),ic(a.shared?"i-flag":"i-pulse"),iso,a.items,a.note?{note:a.note}:undefined)).join(""); }
 function dgroup(title,head,iso,items,o){
   o=o||{};
@@ -1289,7 +1291,7 @@ function renderModal(){
     '<p class="sub">'+cap(fmtLong(iso))+' · připraveno <b>'+done+'</b> · chybí <b>'+(p.all.length-done)+'</b></p>'+
     (done===p.all.length&&p.all.length?'<div class="okbanner">'+ic("i-okc")+'Batoh je připravený. Skvělá práce!</div>':"")+
     '<div class="chips">'+p.lessons.map(stag).join("")+'</div>'+
-    (p.holiday?'<div class="holi">'+ic("i-sun")+'<span>Volno – '+esc(p.holiday)+'</span></div>':"")+(p.ov?'<div class="mini-note">'+ic("i-alert")+'<span>Změna rozvrhu'+(p.ov.note?': '+esc(p.ov.note):"")+'</span></div>':"")+
+    (p.holiday?'<div class="holi">'+ic("i-sun")+'<span>Volno – '+esc(p.holiday)+'</span></div>':"")+(p.ov?'<div class="mini-note">'+ic("i-alert")+'<span>Změna rozvrhu'+(p.ov.note?': '+esc(p.ov.note):"")+'</span></div>':"")+evNotes(p)+
     '<div class="dgrid" style="margin-top:.7rem">'+tasksGroup(p)+p.groups.map(g=>dgroup(g.title,stag(g),iso,g.items,{note:g.note})).join("")+
     (p.hasPE?dgroup("Tělocvik",ic("i-shirt"),iso,p.pe):"")+(p.pencil.length?dgroup("Penál",ic("i-pencil"),iso,p.pencil):"")+
     (p.daily.length?dgroup("Každý den",ic("i-bag"),iso,p.daily,{itemIcon:it=>kindIcon(it)}):"")+actGroups(p,iso)+'</div>'+

@@ -10,7 +10,26 @@
       "note": "Odjezd od školy v 7:00, návrat cca 13:00. Vše do batůžku.",
       "offsite": true,
       "pe": false,
-      "items": ["Protiskluzové ponožky", "Kraťasy", "Triko", "Kapesníky", "Svačina", "Pití", "ISIC karta"]
+      "items": [
+        "Protiskluzové ponožky",
+        "Kraťasy",
+        "Triko",
+        "Kapesníky",
+        "Svačina",
+        "Pití",
+        "ISIC karta"
+      ]
+    },
+    {
+      "id": "tripartity-2026-11-12",
+      "date": "2026-11-12",
+      "title": "Tripartity",
+      "from": "14:20",
+      "place": "škola",
+      "note": "schůzka žák – rodič – učitel",
+      "offsite": false,
+      "pe": false,
+      "items": []
     }
   ]
 }
