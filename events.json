@@ -1,0 +1,14 @@
+{
+  "events": [
+    {
+      "id": "vylet-dobrichovice-2026-11-04",
+      "date": "2026-11-04",
+      "title": "Výlet – hala Dobřichovice",
+      "from": "7:00",
+      "place": "odjezd od školy",
+      "note": "Odjezd od školy v 7:00",
+      "pe": true,
+      "items": ["ISIC karta"]
+    }
+  ]
+}

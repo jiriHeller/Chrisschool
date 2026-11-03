@@ -208,6 +208,8 @@ svg{display:block}
 .grid2>.chk{border-bottom:1px solid var(--line-2);border-radius:0}
 
 /* dnes potřebuji */
+.c-dnes.dense .need,.c-dnes.dense .chk{min-height:max(28px,2.3rem);font-size:.98rem}
+.c-dnes.xdense .need,.c-dnes.xdense .chk{min-height:max(26px,2.05rem);font-size:.94rem}
 .need{display:flex;align-items:center;gap:.65rem;min-height:max(34px,2.85rem);width:100%;padding:.15rem .25rem;font-weight:500;font-size:1.06rem;line-height:1.15;color:var(--ink)}
 .need .it{width:1.4rem;height:1.4rem;flex:none;color:var(--ink-2)}
 .need .lbl{flex:1;min-width:0}
@@ -226,6 +228,8 @@ svg{display:block}
 .missing{color:var(--ink-3);font-size:.9rem;margin-top:.4rem}
 .missing b{color:var(--ink-2);font-weight:500}
 .map-row{display:grid;grid-template-columns:1.35rem minmax(0,1fr) auto 3.2rem;align-items:center;gap:.55rem;min-height:max(22px,1.75rem);font-size:.98rem;color:var(--ink)}
+.c-map.dense .map-row{min-height:max(19px,1.5rem);font-size:.92rem}
+.c-map.dense .bubble{font-size:.85rem}
 .map-row svg{width:1.25rem;height:1.25rem;color:var(--ink-3)}
 .map-row .mono{font-size:.82rem;color:var(--ink-3)}
 .map-row .mbar{height:.28rem;border-radius:999px;background:var(--line-2);overflow:hidden}
@@ -552,7 +556,7 @@ table.bwt{width:100%;border-collapse:collapse;table-layout:fixed;font-size:11px;
 const COLOR_HEX={pink:"#E0566F",blue:"#2F7FE0",green:"#2EA650",yellow:"#E3AE00",purple:"#8B5CF6",orange:"#F08A24",gray:"#8A96A8"};
 const COLOR_NAMES={pink:"růžová",blue:"modrá",green:"zelená",yellow:"žlutá",purple:"fialová",orange:"oranžová",gray:"šedá"};
 const ICON_NAMES={cj:"kniha",ma:"kalkulačka",pu:"list",aj:"vlajka",hv:"nota",tv:"běžec",pv:"nůžky",vv:"paleta",book:"sešit",q:"otazník"};
-const APP_VERSION="23"; window.APP_VERSION=APP_VERSION;
+const APP_VERSION="24"; window.APP_VERSION=APP_VERSION;
 const KIND={sdel:{icon:"i-msg",short:null},druz:{icon:"i-users",short:null},ukol:{icon:"i-flag",short:null},food:{icon:"i-food",short:"Svačina"},drink:{icon:"i-drop",short:"Pití"},other:{icon:"i-dot",short:null}};
 
 const DEFAULTS = {
@@ -710,6 +714,20 @@ function isSchool(iso){ const w=dow(iso); return w>=1 && w<=5 && !holidayOf(iso)
 function lessonIds(iso){ if(holidayOf(iso)) return []; const o=cfg.overrides&&cfg.overrides[iso]; return o&&Array.isArray(o.lessons)?o.lessons:(cfg.schedule[dow(iso)]||[]); }
 function overrideOf(iso){ return cfg.overrides&&cfg.overrides[iso]||null; }
 const TASK_KIND={ukol:{label:"Úkol",icon:"i-pencil"},prinest:{label:"Přinést",icon:"i-bag"},akce:{label:"Akce",icon:"i-flag"}};
+/* sdílené akce z events.json (zapisuje rodič / Claude, načítá se z webu) */
+const K_EV="skolni-partak.events.v1";
+let SHARED=(function(){ try{ const v=JSON.parse(localStorage.getItem(K_EV)||"null"); return Array.isArray(v)?v:[]; }catch(e){ return []; } })();
+function sharedFor(iso){ return SHARED.filter(e=>e&&e.date===iso).map(e=>({id:"ev-"+e.id, name:e.title, from:e.from||"", to:e.to||"", place:e.place||"", note:e.note||"", pe:!!e.pe, shared:true,
+  items:(e.items||[]).map((n,i)=>({id:"ev-"+e.id+"-"+i, name:n}))})); }
+function loadShared(){
+  if(!/^https?:/.test(location.protocol)) return;
+  fetch("events.json?t="+Date.now(),{cache:"no-store"}).then(r=>r.ok?r.json():null).then(v=>{
+    const list=v&&Array.isArray(v.events)?v.events:null; if(!list) return;
+    if(JSON.stringify(list)===JSON.stringify(SHARED)) return;
+    SHARED=list; try{ localStorage.setItem(K_EV,JSON.stringify(list)); }catch(e){}
+    render();
+  }).catch(()=>{});
+}
 function tasksFor(iso){ return (cfg.tasks||[]).filter(t=>t.date===iso).map(t=>({id:"t-"+t.id, tid:t.id, name:t.text, kind:t.kind, subj:t.subj})); }
 function nextSchoolDay(iso){ let d=addDays(iso,1); while(!isSchool(d)) d=addDays(d,1); return d; }
 function weekMonday(iso){ const w=dow(iso); if(w===0) return addDays(iso,1); if(w===6) return addDays(iso,2); return addDays(iso,1-w); }
@@ -738,7 +756,8 @@ function dayPlan(iso){
   const lessons=lessonIds(iso).map(id=>subj(id)||{id, name:"Neznámý předmět", short:"?", items:[], unverified:true, color:"gray", icon:"q"});
   const seen=new Set(), uniq=[];
   lessons.forEach(s=>{ if(!seen.has(s.id)){ seen.add(s.id); uniq.push(s); } });
-  const peSubjects=uniq.filter(s=>s.pe), hasPE=peSubjects.length>0;
+  const shared=holiday?[]:sharedFor(iso), evPE=shared.filter(e=>e.pe);
+  const peSubjects=uniq.filter(s=>s.pe).concat(evPE.map(e=>({name:e.name}))), hasPE=peSubjects.length>0;
   const groups=uniq.filter(s=>s.items.length || s.askParent || s.unverified).map(s=>({
     key:s.id, title:s.name, short:s.short||s.name, color:s.color, icon:s.icon, items:s.items, unverified:!!s.unverified,
     note: s.unverified ? (s.items.length ? "Neověřený předmět – rodič má zkontrolovat." : "Neověřený předmět – pomůcky doplní rodič.")
@@ -747,7 +766,7 @@ function dayPlan(iso){
   const books=[]; groups.forEach(g=>g.items.forEach(it=>books.push({id:it.id, name:it.name, color:g.color})));
   const school=!holiday && wd>=1 && wd<=5;
   const daily=school?cfg.daily:[], pencil=school?cfg.pencil:[];
-  const acts=activitiesFor(iso).filter(a=>a.items&&a.items.length), actItems=acts.flatMap(a=>a.items);
+  const acts=[...shared, ...activitiesFor(iso)].filter(a=>(a.items&&a.items.length)||a.shared), actItems=acts.flatMap(a=>a.items);
   const bag=[...tasks, ...books, ...daily, ...actItems];
   const pe=hasPE?cfg.pe:[];
   return {iso, wd, holiday, ov, tasks, acts, lessons, uniq, hasPE, peSubjects, groups, books, bag, daily, pencil, pe, all:[...bag, ...pencil, ...pe]};
@@ -819,7 +838,7 @@ function cats(p){
            {key:"pencil",label:"Penál",icon:"i-pencil",items:p.pencil,view:"supplies"});
   if(p.hasPE) out.push({key:"pe",label:"Věci na tělocvik",icon:"i-shirt",items:p.pe,view:"pe"});
   p.daily.forEach(it=>{ const k=KIND[it.kind]||KIND.other; out.push({key:it.id,label:k.short||it.name,icon:k.icon,items:[it],single:it}); });
-  (p.acts||[]).forEach(a=>out.push({key:"act-"+a.id,label:actLabel(a),icon:"i-pulse",items:a.items,view:"act"}));
+  (p.acts||[]).forEach(a=>out.push(a.items.length?{key:"act-"+a.id,label:actLabel(a),icon:a.shared?"i-flag":"i-pulse",items:a.items,view:"act"}:{key:"act-"+a.id,label:actLabel(a),icon:"i-flag",items:[],view:"act"}));
   return out.map(c=>Object.assign(c,{done:countDone(p.iso,c.items),total:c.items.length}));
 }
 
@@ -941,6 +960,7 @@ function reminders(p){
   const out=[], w=cap(dayWord(p.iso));
   if(p.holiday) return w+" je volno – "+p.holiday+".";
   if(p.ov) out.push("Změna rozvrhu"+(p.ov.note?": "+p.ov.note:"")+".");
+  (p.acts||[]).filter(a=>a.shared).forEach(a=>out.push(a.name+(a.from?" – "+a.from:"")+(a.note?" ("+a.note+")":"")+"."));
   if(p.tasks.length) out.push("Nezapomeň: "+p.tasks.map(t=>t.name).join(", ")+".");
   if(p.hasPE) out.push(w+" je tělocvik – vezmi si úbor a boty.");
   else { const n=nextPE(p.iso); if(n) out.push("Tělocvik bude "+dayWord(n)+" ("+fmtShort(n)+")."); }
@@ -965,7 +985,7 @@ function homeCards(p){
   return ''+
   '<section class="card c-roz" id="c-roz"><div class="card-h">'+ic("i-cal")+'<h2>Rozvrh hodin</h2><span class="eyebrow">týden '+fmtShort(weekDates(pragueToday())[0])+'</span></div>'+
     ttStatus()+'<div class="body" data-scroll="roz">'+ttHtml()+ttLegend()+'</div></section>'+
-  '<section class="card c-dnes" id="c-dnes"><div class="card-h">'+ic("i-clip")+'<h2>'+cap(dayWord(iso))+' potřebuji</h2><span class="eyebrow">'+DAY_SHORT[p.wd]+' '+fmtShort(iso)+'</span><button type="button" class="ibtn sm" data-addtask="'+iso+'" aria-label="Přidat úkol nebo věc">'+ic("i-plus")+'</button></div>'+
+  '<section class="card c-dnes'+(c.length>9?" dense":"")+(c.length>10?" xdense":"")+'" id="c-dnes"><div class="card-h">'+ic("i-clip")+'<h2>'+cap(dayWord(iso))+' potřebuji</h2><span class="eyebrow">'+DAY_SHORT[p.wd]+' '+fmtShort(iso)+'</span><button type="button" class="ibtn sm" data-addtask="'+iso+'" aria-label="Přidat úkol nebo věc">'+ic("i-plus")+'</button></div>'+
     '<div class="body rows" data-scroll="dnes">'+dnes+'</div></section>'+
   '<section class="card c-pom" id="c-pom"><div class="card-h">'+ic("i-book")+'<h2>Moje pomůcky</h2>'+cnt(iso,pomItems)+'</div>'+barHtml(dd,pomItems.length)+
     '<div class="body rows pom" data-scroll="pom">'+notes+(pomList.map(x=>chk(iso,x.it,{icon:x.icon})).join("")||'<p class="empty">'+(p.holiday?'Volno – učebnice nepotřebuješ.':'Žádné učebnice.')+'</p>')+'</div></section>'+
@@ -979,7 +999,7 @@ function homeCards(p){
         '<div class="body" data-scroll="pe"><div class="grid2">'+p.pe.map(it=>chk(iso,it)).join("")+'</div>'+(p.pe.length&&ed===p.pe.length?'<p class="done-line">Věci na tělocvik máš.</p>':"")+'</div>'
       : '<div class="band off">'+(p.holiday?'Volno':cap(prepDay(p.wd))+' tělocvik nemáš.')+'</div><div class="body"><p class="empty">Úbor zůstává doma.'+(n?' Tělocvik bude <b>'+dayWord(n)+'</b> ('+fmtShort(n)+').':"")+'</p></div>')+
   '</section>'+
-  '<section class="card c-map" id="c-map"><div class="card-h">'+ic("i-pulse")+'<h2>Stav dne</h2><span class="count'+(p.all.length&&countDone(iso,p.all)===p.all.length?" full":"")+'">'+(p.all.length?Math.round(countDone(iso,p.all)/p.all.length*100):0)+' %</span></div><div class="body" data-scroll="map">'+
+  '<section class="card c-map'+(c.length>9?" dense":"")+'" id="c-map"><div class="card-h">'+ic("i-pulse")+'<h2>Stav dne</h2><span class="count'+(p.all.length&&countDone(iso,p.all)===p.all.length?" full":"")+'">'+(p.all.length?Math.round(countDone(iso,p.all)/p.all.length*100):0)+' %</span></div><div class="body" data-scroll="map">'+
     c.map(x=>{ const pc=x.total?Math.round(x.done/x.total*100):0; return '<div class="map-row">'+ic(x.icon)+'<span>'+x.label+'</span><span class="mono">'+x.done+'/'+x.total+'</span><div class="mbar"><i class="'+(x.total&&x.done===x.total?"done":"")+'" style="width:'+pc+'%"></i></div></div>'; }).join("")+
     '<div class="bubble">'+ic("i-info")+'<span>'+esc(reminders(p))+'</span></div></div></section>';
 }
@@ -1000,8 +1020,8 @@ function detailCard(title,icon,count,inner){
   return '<section class="card c-detail" id="c-detail"><div class="card-h"><button type="button" class="back" data-view="home">'+ic("i-chev")+'Přehled</button>'+ic(icon)+'<h2>'+title+'</h2>'+(count||"")+'</div>'+
     '<div class="body" data-scroll="detail">'+inner+'</div></section>';
 }
-function actLabel(a){ return a.name.replace(/\s*–\s*trénink/i," trénink")+" "+a.from; }
-function actGroups(p,iso){ return (p.acts||[]).map(a=>dgroup(actLabel(a)+"–"+a.to,ic("i-pulse"),iso,a.items)).join(""); }
+function actLabel(a){ return a.name.replace(/\s*–\s*trénink/i," trénink")+(a.from?" "+a.from:""); }
+function actGroups(p,iso){ return (p.acts||[]).filter(a=>a.items.length).map(a=>dgroup(actLabel(a)+(a.to?"–"+a.to:""),ic(a.shared?"i-flag":"i-pulse"),iso,a.items,a.note?{note:a.note}:undefined)).join(""); }
 function dgroup(title,head,iso,items,o){
   o=o||{};
   return '<div class="dgroup"><h3>'+(head||"")+esc(title)+'</h3>'+(o.note?'<div class="mini-note">'+ic("i-alert")+'<span>'+esc(o.note)+'</span></div>':"")+
@@ -1026,10 +1046,10 @@ function detailHtml(v,p){
     return detailCard("Svačina a pití · "+dt,"i-food",cnt(iso,f),'<div class="dgrid">'+dgroup("Do batohu",ic("i-food"),iso,f,{itemIcon:it=>kindIcon(it)})+'</div><p class="tip">Svačina a pití patří do batohu každý den.</p>');
   }
   if(v==="act"){
-    if(!(p.acts||[]).length) return detailCard("Kroužky · "+dt,"i-pulse","",'<p class="bigmsg">'+cap(prepDay(p.wd))+' žádný kroužek nemáš.</p>');
+    if(!(p.acts||[]).length) return detailCard("Akce a kroužky · "+dt,"i-pulse","",'<p class="bigmsg">'+cap(prepDay(p.wd))+' žádný kroužek nemáš.</p>');
     const all=p.acts.flatMap(a=>a.items);
-    return detailCard("Kroužky · "+dt,"i-pulse",cnt(iso,all),'<div class="dgrid">'+actGroups(p,iso)+'</div>'+
-      p.acts.map(a=>'<p class="tip">'+esc(a.name)+' '+esc(a.from)+'–'+esc(a.to)+(a.place?' · '+esc(a.place):"")+'. Věci si vezmi do školy, trénink je hned po vyučování.</p>').join(""));
+    return detailCard("Akce a kroužky · "+dt,"i-pulse",cnt(iso,all),'<div class="dgrid">'+actGroups(p,iso)+'</div>'+
+      p.acts.map(a=>'<p class="tip">'+esc(a.name)+(a.from?' '+esc(a.from)+(a.to?'–'+esc(a.to):""):"")+(a.place?' · '+esc(a.place):"")+(a.note?'. '+esc(a.note):"")+(a.shared?(a.pe?'. Vezmi si i věci na tělocvik.':''):'. Věci si vezmi do školy, trénink je hned po vyučování.')+'</p>').join(""));
   }
   if(v==="pe"){
     if(!p.hasPE){ const n=nextPE(iso); return detailCard("Tělocvik · "+dt,"i-shirt","",'<p class="bigmsg">'+cap(prepDay(p.wd))+' tělocvik nemáš.'+(n?' Tělocvik bude '+dayWord(n)+' ('+fmtShort(n)+').':"")+'</p>'); }
@@ -1468,6 +1488,8 @@ window.__sp={dayPlan, nextSchoolDay, weekDates, pragueToday, timeline, nowMin, h
 pruneOld();
 pruneData();
 render();
+loadShared();
+document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="visible") loadShared(); });
 })();
 </script>
 
