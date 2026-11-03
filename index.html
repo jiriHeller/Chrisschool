@@ -371,6 +371,10 @@ svg{display:block}
 /* úkoly, volno, změny */
 .day.hol{color:var(--ink-3);background:repeating-linear-gradient(45deg,transparent 0 .35rem,var(--line-2) .35rem .7rem)}
 .day.hol[aria-pressed="true"]{color:var(--accent-ink)}
+.tt-c.trip{font-family:var(--f-sans);font-size:.9rem;font-weight:600;letter-spacing:0;justify-content:center}
+.wk-pill.trip{font-weight:600}
+.ps td.blk.trip{background:var(--green-bg);color:var(--green-fg);font-weight:600;text-align:center}
+.bwt td.off.trip{background:#fff;font-style:normal;font-size:12px;border:2px solid #000}
 .tt-c.hol{font-family:var(--f-sans);font-size:.9rem;font-weight:500;letter-spacing:0;background:repeating-linear-gradient(45deg,var(--gray-bg) 0 .4rem,var(--surface-2) .4rem .8rem)}
 .tt-c.chg::before{content:"";position:absolute;top:.2rem;right:.2rem;width:.42rem;height:.42rem;border-radius:50%;background:var(--warn);z-index:2}
 .ttag{font-family:var(--f-mono);font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;padding:.12rem .4rem;border-radius:.3rem;flex:none}
@@ -556,7 +560,7 @@ table.bwt{width:100%;border-collapse:collapse;table-layout:fixed;font-size:11px;
 const COLOR_HEX={pink:"#E0566F",blue:"#2F7FE0",green:"#2EA650",yellow:"#E3AE00",purple:"#8B5CF6",orange:"#F08A24",gray:"#8A96A8"};
 const COLOR_NAMES={pink:"růžová",blue:"modrá",green:"zelená",yellow:"žlutá",purple:"fialová",orange:"oranžová",gray:"šedá"};
 const ICON_NAMES={cj:"kniha",ma:"kalkulačka",pu:"list",aj:"vlajka",hv:"nota",tv:"běžec",pv:"nůžky",vv:"paleta",book:"sešit",q:"otazník"};
-const APP_VERSION="24"; window.APP_VERSION=APP_VERSION;
+const APP_VERSION="25"; window.APP_VERSION=APP_VERSION;
 const KIND={sdel:{icon:"i-msg",short:null},druz:{icon:"i-users",short:null},ukol:{icon:"i-flag",short:null},food:{icon:"i-food",short:"Svačina"},drink:{icon:"i-drop",short:"Pití"},other:{icon:"i-dot",short:null}};
 
 const DEFAULTS = {
@@ -711,7 +715,7 @@ function dow(iso){ return toD(iso).getUTCDay(); }
 function addDays(iso,n){ const d=toD(iso); d.setUTCDate(d.getUTCDate()+n); return toIso(d); }
 function holidayOf(iso){ const h=(cfg.holidays||[]).find(x=>x.from&&x.to&&iso>=x.from&&iso<=x.to); return h?(h.name||"Volno"):null; }
 function isSchool(iso){ const w=dow(iso); return w>=1 && w<=5 && !holidayOf(iso); }
-function lessonIds(iso){ if(holidayOf(iso)) return []; const o=cfg.overrides&&cfg.overrides[iso]; return o&&Array.isArray(o.lessons)?o.lessons:(cfg.schedule[dow(iso)]||[]); }
+function lessonIds(iso){ if(holidayOf(iso)||offsiteOf(iso)) return []; const o=cfg.overrides&&cfg.overrides[iso]; return o&&Array.isArray(o.lessons)?o.lessons:(cfg.schedule[dow(iso)]||[]); }
 function overrideOf(iso){ return cfg.overrides&&cfg.overrides[iso]||null; }
 const TASK_KIND={ukol:{label:"Úkol",icon:"i-pencil"},prinest:{label:"Přinést",icon:"i-bag"},akce:{label:"Akce",icon:"i-flag"}};
 /* sdílené akce z events.json (zapisuje rodič / Claude, načítá se z webu) */
@@ -728,6 +732,8 @@ function loadShared(){
     render();
   }).catch(()=>{});
 }
+function offsiteOf(iso){ const e=SHARED.find(x=>x&&x.date===iso&&x.offsite); return e&&!holidayOf(iso)?e:null; }
+function offLabel(e,short){ return (e.title||"Akce mimo školu")+(e.from?(short?" ":" · ")+e.from+(e.to?"–"+e.to:""):""); }
 function tasksFor(iso){ return (cfg.tasks||[]).filter(t=>t.date===iso).map(t=>({id:"t-"+t.id, tid:t.id, name:t.text, kind:t.kind, subj:t.subj})); }
 function nextSchoolDay(iso){ let d=addDays(iso,1); while(!isSchool(d)) d=addDays(d,1); return d; }
 function weekMonday(iso){ const w=dow(iso); if(w===0) return addDays(iso,1); if(w===6) return addDays(iso,2); return addDays(iso,1-w); }
@@ -765,11 +771,12 @@ function dayPlan(iso){
   }));
   const books=[]; groups.forEach(g=>g.items.forEach(it=>books.push({id:it.id, name:it.name, color:g.color})));
   const school=!holiday && wd>=1 && wd<=5;
-  const daily=school?cfg.daily:[], pencil=school?cfg.pencil:[];
+  const offsite=school?offsiteOf(iso):null;
+  const daily=school&&!offsite?cfg.daily:[], pencil=school&&!offsite?cfg.pencil:[];
   const acts=[...shared, ...activitiesFor(iso)].filter(a=>(a.items&&a.items.length)||a.shared), actItems=acts.flatMap(a=>a.items);
   const bag=[...tasks, ...books, ...daily, ...actItems];
   const pe=hasPE?cfg.pe:[];
-  return {iso, wd, holiday, ov, tasks, acts, lessons, uniq, hasPE, peSubjects, groups, books, bag, daily, pencil, pe, all:[...bag, ...pencil, ...pe]};
+  return {iso, wd, holiday, offsite, ov, tasks, acts, lessons, uniq, hasPE, peSubjects, groups, books, bag, daily, pencil, pe, all:[...bag, ...pencil, ...pe]};
 }
 function isChecked(iso,id){ return !!(checks[iso] && checks[iso][id]); }
 function toggle(iso,id){ checks[iso]=checks[iso]||{}; if(checks[iso][id]) delete checks[iso][id]; else checks[iso][id]=true; saveChecks(); }
@@ -803,6 +810,8 @@ function tlHtml(t){
 function ttStatus(){
   const today=pragueToday();
   if(!isSchool(today)){ const n=nextSchoolDay(today), h=holidayOf(today); return '<div class="tl-text other"><i class="tl-dot"></i><span>'+(h?'Dnes je volno – '+esc(h)+'.':'Dnes se neučí.')+' Další vyučování: <b>'+DAY_NAMES[dow(n)]+' '+fmtShort(n)+'</b></span></div>'; }
+  const os=offsiteOf(today);
+  if(os) return '<div class="tl-text other" id="tl"><i class="tl-dot"></i><span>Dnes: <b>'+esc(offLabel(os))+'</b>'+(os.note?' · '+esc(os.note):"")+'</span></div>';
   const t=timeline(dayPlan(today));
   return t?'<div class="tl-text '+t.phase+'" id="tl"><i class="tl-dot"></i><span>'+t.html+'</span></div>':"";
 }
@@ -815,6 +824,8 @@ function ttHtml(){
     const wd=dow(d), ids=lessonIds(d), isT=d===today, sel=d===selected, hol=holidayOf(d), ov=overrideOf(d), base=cfg.schedule[wd]||[];
     h+='<button type="button" class="tt-d'+(sel?" sel":"")+(isT?" today":"")+'" data-day="'+d+'" aria-label="'+cap(DAY_NAMES[wd])+' '+fmtShort(d)+'">'+DAY_SHORT[wd]+'</button>';
     if(hol){ h+='<button type="button" class="tt-c c-gray hol'+(sel?" sel":"")+'" style="grid-column:span '+n+'" data-day="'+d+'"><span>'+esc(hol)+'</span></button>'; return; }
+    const os=offsiteOf(d);
+    if(os){ h+='<button type="button" class="tt-c c-green trip'+(sel?" sel":"")+(isT?" today":"")+'" style="grid-column:span '+n+'" data-day="'+d+'" title="'+esc(os.note||"")+'"><span>'+esc(offLabel(os))+'</span></button>'; return; }
     for(let i=0;i<n;i++){
       const s=ids[i]&&subj(ids[i]);
       if(!s){ h+='<span class="tt-c empty"></span>'; continue; }
@@ -833,8 +844,8 @@ function ttLegend(){
 function ttagHtml(kind){ const k=TASK_KIND[kind]||TASK_KIND.akce; return '<span class="ttag k-'+(TASK_KIND[kind]?kind:"akce")+'">'+k.label+'</span>'; }
 function cats(p){
   const out=p.tasks.map(t=>({key:t.id,label:t.name,icon:(TASK_KIND[t.kind]||TASK_KIND.akce).icon,items:[t],single:t,task:true}));
-  if(p.holiday || !p.daily.length) return out.map(c=>Object.assign(c,{done:countDone(p.iso,c.items),total:c.items.length}));
-  out.push({key:"books",label:"Učebnice a sešity",icon:"i-book",items:p.books,view:"books"},
+  if(p.holiday || (!p.daily.length && !p.offsite)) return out.map(c=>Object.assign(c,{done:countDone(p.iso,c.items),total:c.items.length}));
+  if(!p.offsite) out.push({key:"books",label:"Učebnice a sešity",icon:"i-book",items:p.books,view:"books"},
            {key:"pencil",label:"Penál",icon:"i-pencil",items:p.pencil,view:"supplies"});
   if(p.hasPE) out.push({key:"pe",label:"Věci na tělocvik",icon:"i-shirt",items:p.pe,view:"pe"});
   p.daily.forEach(it=>{ const k=KIND[it.kind]||KIND.other; out.push({key:it.id,label:k.short||it.name,icon:k.icon,items:[it],single:it}); });
@@ -1092,6 +1103,7 @@ function detailHtml(v,p){
     for(let i=0;i<max;i++){
       rows+='<tr><td class="t">'+(i+1)+'.<small>'+esc(cfg.times[i]||"")+'</small></td>'+wk.map(d=>{ const id=lessonIds(d)[i], s=id&&subj(id), hol=holidayOf(d);
         if(hol) return '<td>'+(i===0?'<div class="wk-pill c-gray">'+esc(hol)+'</div>':"")+'</td>';
+        const os=offsiteOf(d); if(os) return '<td>'+(i===0?'<div class="wk-pill c-green trip"><span>'+esc(offLabel(os))+'</span></div>':"")+'</td>';
         return '<td>'+(s?'<div class="wk-pill c-'+s.color+(s.unverified?" unv":"")+(tt&&d===today&&i===tt.curI?" now":"")+'">'+stag(s)+'<span>'+esc(s.name)+'</span></div>':"")+'</td>'; }).join("")+'</tr>';
     }
     return detailCard("Týdenní rozvrh","i-cal",'<button type="button" class="btn small" data-view="year">'+ic("i-year","","width:1rem;height:1rem")+'Celý rok</button><button type="button" class="btn small" data-view="print">'+ic("i-printer","","width:1rem;height:1rem")+'Tisk</button>','<div class="week"><table><thead><tr><th></th>'+wk.map(d=>'<th><button type="button" class="wk-day'+(d===selected?" sel":"")+(d===today?" today":"")+'" data-day="'+d+'" data-go="home">'+DAY_SHORT[dow(d)]+' '+fmtShort(d)+'</button></th>').join("")+'</tr></thead><tbody>'+rows+'</tbody></table></div><p class="tip">Klepni na den a uvidíš, co si máš ten den vzít.</p>');
@@ -1150,12 +1162,12 @@ function sheetHead(title,sub){ return '<div class="ps-head"><div><div class="ps-
 function printWeekSheet(mon){
   const days=[0,1,2,3,4,5,6].map(i=>addDays(mon,i)), plans=days.map(dayPlan);
   const max=Math.max(1,...plans.map(p=>p.lessons.length));
-  const off=(d,p)=>!!p.holiday||dow(d)===0||dow(d)===6;
+  const off=(d,p)=>!!p.holiday||!!p.offsite||dow(d)===0||dow(d)===6;
   let rows="";
   for(let i=0;i<max;i++){
     const r=parseRange(cfg.times[i]);
     rows+='<tr class="les"><td class="rh"><b>'+(i+1)+'.</b>'+(r?fmtMin(r[0])+'–'+fmtMin(r[1]):"")+'</td>'+days.map((d,k)=>{ const p=plans[k];
-      if(off(d,p)) return i===0?'<td class="blk '+(p.holiday?"hol":"we")+'" rowspan="'+max+'">'+esc(p.holiday||"Víkend")+'</td>':"";
+      if(off(d,p)) return i===0?'<td class="blk '+(p.holiday?"hol":p.offsite?"trip":"we")+'" rowspan="'+max+'">'+esc(p.holiday||(p.offsite?offLabel(p.offsite):"Víkend"))+'</td>':"";
       const s=p.lessons[i]; return '<td>'+(s?'<div class="pc c-'+s.color+(s.unverified?" unv":"")+'"><b>'+esc(s.short||"")+'</b><span>'+esc(s.name)+'</span></div>':"")+'</td>'; }).join("")+'</tr>';
   }
   const row=(label,fn)=>'<tr class="lab"><td class="rh">'+label+'</td>'+days.map((d,k)=>'<td'+((dow(d)===0||dow(d)===6)?' class="we"':"")+'>'+fn(d,plans[k])+'</td>').join("")+'</tr>';
@@ -1178,8 +1190,8 @@ function printBWSheet(mon){
   for(let i=0;i<max;i++){
     const t=parseRange(cfg.times[i]);
     rows+='<tr'+(i===0?' class="sep"':"")+'><td class="lbl">'+(i+1)+'. hodina<span>'+(t?fmtMin(t[0])+'–'+fmtMin(t[1]):"")+'</span></td>'+days.map((d,k)=>{
-      const p=plans[k], off=!!p.holiday||we(d);
-      if(off) return i===0?'<td class="off'+(p.holiday?"":" offwe")+'" rowspan="'+max+'">'+(p.holiday?esc(p.holiday):"")+'</td>':"";
+      const p=plans[k], off=!!p.holiday||!!p.offsite||we(d);
+      if(off) return i===0?'<td class="off'+(p.holiday?"":p.offsite?" trip":" offwe")+'" rowspan="'+max+'">'+(p.holiday?esc(p.holiday):p.offsite?'<b>'+esc(p.offsite.title||"Akce")+'</b><br>'+esc((p.offsite.from||"")+(p.offsite.to?"–"+p.offsite.to:"")):"")+'</td>':"";
       const s=p.lessons[i]; return '<td class="ab'+(s&&s.unverified?" unv":"")+'">'+(s?esc(s.short||s.name.slice(0,3)):"")+'</td>'; }).join("")+'</tr>';
   }
   rows+='<tr class="sep"><td class="lbl">Odpoledne<span>aktivity a povinnosti</span></td>'+days.map(()=>'<td class="wr3"></td>').join("")+'</tr>';

@@ -5,10 +5,12 @@
       "date": "2026-11-04",
       "title": "Výlet – hala Dobřichovice",
       "from": "7:00",
+      "to": "13:00",
       "place": "odjezd od školy",
-      "note": "Odjezd od školy v 7:00",
-      "pe": true,
-      "items": ["ISIC karta"]
+      "note": "Odjezd od školy v 7:00, návrat cca 13:00. Vše do batůžku.",
+      "offsite": true,
+      "pe": false,
+      "items": ["Protiskluzové ponožky", "Kraťasy", "Triko", "Kapesníky", "Svačina", "Pití", "ISIC karta"]
     }
   ]
 }
