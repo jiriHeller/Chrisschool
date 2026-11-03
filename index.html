@@ -133,6 +133,7 @@ svg{display:block}
 .nav svg{width:1.5rem;height:1.5rem;flex:none}
 .nav[aria-current="page"]{background:var(--accent-soft);color:var(--accent);font-weight:600}
 .nav .dotc{margin-left:auto;font-family:var(--f-mono);font-size:.78rem;color:var(--ink-3)}
+.side-foot .ver{display:block;margin-top:.35rem;opacity:.7}
 .side-foot{margin-top:auto;padding:.7rem .6rem 0;border-top:1px solid var(--line);font-size:.82rem;color:var(--ink-3);line-height:1.4}
 
 /* ---------- mřížka karet ---------- */
@@ -551,6 +552,7 @@ table.bwt{width:100%;border-collapse:collapse;table-layout:fixed;font-size:11px;
 const COLOR_HEX={pink:"#E0566F",blue:"#2F7FE0",green:"#2EA650",yellow:"#E3AE00",purple:"#8B5CF6",orange:"#F08A24",gray:"#8A96A8"};
 const COLOR_NAMES={pink:"růžová",blue:"modrá",green:"zelená",yellow:"žlutá",purple:"fialová",orange:"oranžová",gray:"šedá"};
 const ICON_NAMES={cj:"kniha",ma:"kalkulačka",pu:"list",aj:"vlajka",hv:"nota",tv:"běžec",pv:"nůžky",vv:"paleta",book:"sešit",q:"otazník"};
+const APP_VERSION="22"; window.APP_VERSION=APP_VERSION;
 const KIND={sdel:{icon:"i-msg",short:null},druz:{icon:"i-users",short:null},food:{icon:"i-food",short:"Svačina"},drink:{icon:"i-drop",short:"Pití"},other:{icon:"i-dot",short:null}};
 
 const DEFAULTS = {
@@ -924,7 +926,7 @@ function sideHtml(){
     '<button type="button" class="nav" data-view="print"'+(view==="print"?' aria-current="page"':"")+'>'+ic("i-printer")+'Tisk</button>'+
     '<button type="button" class="nav" data-view="settings"'+(view==="settings"?' aria-current="page"':"")+'>'+ic("i-sliders")+'Nastavení</button>'+
     '<button type="button" class="nav" data-view="about"'+(view==="about"?' aria-current="page"':"")+'>'+ic("i-info")+'Jak to funguje</button>'+
-    '<div class="side-foot">Malé věci dělají velké úspěchy.</div></nav>';
+    '<div class="side-foot">Malé věci dělají velké úspěchy.<span class="ver mono">verze '+APP_VERSION+'</span></div></nav>';
 }
 const TABS=[["home","Přehled","i-grid"],["week","Rozvrh","i-cal"],["books","Učebnice","i-book"],["supplies","Pomůcky","i-pencil"],["check","Kontrola","i-clip"],["tasks","Úkoly","i-flag"]];
 function tabsHtml(){
@@ -1072,6 +1074,7 @@ function detailHtml(v,p){
   }
   return detailCard("Jak to funguje","i-info","",'<div class="about">'+
     '<p>Školní parťák ti každý den řekne, co si máš dát do batohu.</p>'+
+    '<p class="mono" style="opacity:.7">Verze '+APP_VERSION+'</p>'+
     '<p>1. Nahoře vyber den.<br>2. Odškrtej věci, které už máš v batohu.<br>3. Večer klepni na modré tlačítko „Co si mám připravit na zítra?“.</p>'+
     '<p>Když je kroužek nahoře plný a zelený, máš hotovo.</p>'+
     '<p class="muted">Pro rodiče: rozvrh, časy hodin a pomůcky upravíte v Nastavení. Vše se ukládá jen v tomto zařízení.</p></div>');
@@ -1467,7 +1470,25 @@ render();
 
 <script>
 if ("serviceWorker" in navigator && location.protocol.indexOf("http")===0) {
-  window.addEventListener("load", function(){ navigator.serviceWorker.register("service-worker.js").catch(function(){}); });
+  var hadSW=!!navigator.serviceWorker.controller, reloading=false;
+  navigator.serviceWorker.addEventListener("controllerchange", function(){ if(hadSW && !reloading){ reloading=true; location.reload(); } });
+  window.addEventListener("load", function(){
+    navigator.serviceWorker.register("service-worker.js",{updateViaCache:"none"}).then(function(reg){
+      function check(){
+        reg.update().catch(function(){});
+        fetch("version.json?t="+Date.now(),{cache:"no-store"}).then(function(r){ return r.ok?r.json():null; }).then(function(v){
+          if(v && v.version && window.APP_VERSION && String(v.version)!==String(window.APP_VERSION) && !reloading){
+            var key="skolni-partak.reloadfor", done=null; try{ done=sessionStorage.getItem(key); }catch(e){}
+            if(done===String(v.version)) return;
+            try{ sessionStorage.setItem(key,String(v.version)); }catch(e){}
+            reloading=true; location.reload(); }
+        }).catch(function(){});
+      }
+      check();
+      document.addEventListener("visibilitychange", function(){ if(document.visibilityState==="visible") check(); });
+      setInterval(check, 30*60*1000);
+    }).catch(function(){});
+  });
 }
 </script>
 </body>
