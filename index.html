@@ -225,7 +225,7 @@ svg{display:block}
 .done-line{color:var(--ok);font-weight:600;font-size:.95rem;margin-top:.4rem}
 .missing{color:var(--ink-3);font-size:.9rem;margin-top:.4rem}
 .missing b{color:var(--ink-2);font-weight:500}
-.map-row{display:grid;grid-template-columns:1.35rem minmax(0,1fr) auto 3.2rem;align-items:center;gap:.55rem;min-height:max(26px,2.1rem);font-size:.98rem;color:var(--ink)}
+.map-row{display:grid;grid-template-columns:1.35rem minmax(0,1fr) auto 3.2rem;align-items:center;gap:.55rem;min-height:max(22px,1.75rem);font-size:.98rem;color:var(--ink)}
 .map-row svg{width:1.25rem;height:1.25rem;color:var(--ink-3)}
 .map-row .mono{font-size:.82rem;color:var(--ink-3)}
 .map-row .mbar{height:.28rem;border-radius:999px;background:var(--line-2);overflow:hidden}
@@ -552,11 +552,11 @@ table.bwt{width:100%;border-collapse:collapse;table-layout:fixed;font-size:11px;
 const COLOR_HEX={pink:"#E0566F",blue:"#2F7FE0",green:"#2EA650",yellow:"#E3AE00",purple:"#8B5CF6",orange:"#F08A24",gray:"#8A96A8"};
 const COLOR_NAMES={pink:"růžová",blue:"modrá",green:"zelená",yellow:"žlutá",purple:"fialová",orange:"oranžová",gray:"šedá"};
 const ICON_NAMES={cj:"kniha",ma:"kalkulačka",pu:"list",aj:"vlajka",hv:"nota",tv:"běžec",pv:"nůžky",vv:"paleta",book:"sešit",q:"otazník"};
-const APP_VERSION="22"; window.APP_VERSION=APP_VERSION;
-const KIND={sdel:{icon:"i-msg",short:null},druz:{icon:"i-users",short:null},food:{icon:"i-food",short:"Svačina"},drink:{icon:"i-drop",short:"Pití"},other:{icon:"i-dot",short:null}};
+const APP_VERSION="23"; window.APP_VERSION=APP_VERSION;
+const KIND={sdel:{icon:"i-msg",short:null},druz:{icon:"i-users",short:null},ukol:{icon:"i-flag",short:null},food:{icon:"i-food",short:"Svačina"},drink:{icon:"i-drop",short:"Pití"},other:{icon:"i-dot",short:null}};
 
 const DEFAULTS = {
-  version: 11,
+  version: 12,
   activities: [
     {id:"flo", name:"Florbal – trénink", short:"FLO", wd:3, from:"15:45", to:"16:45", place:"FZŠ Brdičkova", skipHolidays:true, items:["Sálovky (boty do haly)","Kraťasy","Tričko","Hokejka","Míček"]},
     {id:"flo2", name:"Florbal s tátou", short:"FLO", note:"s tátou", wd:2, from:"18:00", to:"20:00", skipHolidays:false}
@@ -589,7 +589,7 @@ const DEFAULTS = {
     4:["cj","ma","ppr","pv","vv","th"],
     5:["cj","ma","cj","aj"]
   },
-  daily: [["Žákovská knížka","sdel"],["Notýsek z družiny","druz"],["Svačina","food"],["Pití","drink"]],
+  daily: [["Žákovská knížka","sdel"],["Úkolníček","ukol"],["Notýsek z družiny","druz"],["Svačina","food"],["Pití","drink"]],
   pencil: ["Pastelky","Guma","Nůžky","Lepidlo","Pero","Pravítko","ISIC karta","Tužka","Ořezávátko"],
   pe: ["Trenky","Tričko","Kraťasy","Ponožky","Boty na tělocvik","Švihadlo"],
   /* školní rok 2026/27 podle MŠMT; jarní prázdniny 1.–7. 3. 2027 podle školy */
@@ -668,7 +668,11 @@ function migrate(c){
     if(cf && !(cf.items&&cf.items.length)) cf.items=df.items;
   }
   (c.activities||[]).forEach(a=>{ if(!Array.isArray(a.items)) a.items=[]; });
-  c.version=11;
+  if((c.version||0)<12 && !(c.daily||[]).some(it=>/úkolníč/i.test(it.name||""))){
+    const i=c.daily.findIndex(it=>it.kind==="sdel");
+    c.daily.splice(i>=0?i+1:0,0,{id:"den-uk", name:"Úkolníček", kind:"ukol"});
+  }
+  c.version=12;
   return c;
 }
 
@@ -1141,7 +1145,7 @@ function printWeekSheet(mon){
   const th=days.map(d=>{ const w=dow(d); return '<th class="'+(w===0||w===6?"we":"")+(holidayOf(d)?" hol":"")+'"><b>'+cap(DAY_NAMES[w])+'</b><span>'+fmtShort(d)+'</span></th>'; }).join("");
   return '<div class="psheet">'+sheetHead("Týdenní plán",fmtShort(mon)+' – '+fmtShort(days[6])+' '+days[6].slice(0,4))+
     '<table class="ps"><colgroup><col class="c0">'+days.map(()=>'<col>').join("")+'</colgroup><thead><tr><th></th>'+th+'</tr></thead><tbody>'+rows+'</tbody></table>'+
-    '<div class="ps-foot"><span>Každý školní den: penál, svačina, pití, žákovská knížka, notýsek z družiny.</span><span>Vytištěno '+fmtShort(pragueToday())+'</span></div></div>';
+    '<div class="ps-foot"><span>Každý školní den: penál, svačina, pití, žákovská knížka, úkolníček, notýsek z družiny.</span><span>Vytištěno '+fmtShort(pragueToday())+'</span></div></div>';
 }
 function printBWSheet(mon){
   const days=[0,1,2,3,4,5,6].map(i=>addDays(mon,i)), plans=days.map(dayPlan);
@@ -1176,7 +1180,7 @@ function printBWSheet(mon){
   return '<div class="bw"><div class="bw-head"><div><div class="bw-title">Týden '+fmtShort(mon)+' – '+fmtShort(days[6])+' '+days[6].slice(0,4)+'</div><div class="bw-sub">'+(isoWeek(mon))+'. týden v roce</div></div>'+
     '<div class="bw-name">Školní parťák<b>'+esc(cfg.child||"")+'</b></div></div>'+
     '<div class="bw-tw"><table class="bwt"><colgroup><col class="c0">'+days.map(()=>'<col>').join("")+'</colgroup><thead><tr><th></th>'+th+'</tr></thead><tbody>'+rows+'</tbody></table></div>'+
-    '<div class="bw-foot"><span>'+legend+'</span><span>Každý školní den: penál, svačina, pití, žákovská knížka, notýsek z družiny.</span></div></div>';
+    '<div class="bw-foot"><span>'+legend+'</span><span>Každý školní den: penál, svačina, pití, žákovská knížka, úkolníček, notýsek z družiny.</span></div></div>';
 }
 function isoWeek(iso){ const d=toD(iso); const t=new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate())); const dn=(t.getUTCDay()+6)%7; t.setUTCDate(t.getUTCDate()-dn+3); const f=new Date(Date.UTC(t.getUTCFullYear(),0,4)); return 1+Math.round(((t-f)/864e5-3+((f.getUTCDay()+6)%7))/7); }
 function printYearSheet(){ const y0=schoolYearStart();
