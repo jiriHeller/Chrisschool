@@ -503,8 +503,11 @@ table.bwt{width:100%;border-collapse:collapse;table-layout:fixed;font-size:11px;
 .bw-foot{flex:none;display:flex;justify-content:space-between;gap:14px;margin-top:6px;font-size:9.5px;line-height:1.4}
 .bw-foot b{font-family:var(--f-mono)}
 @media print{
-  @page{size:A4 landscape;margin:5mm}
-  .bw{box-shadow:none;border-radius:0;padding:0;width:287mm;height:199mm}
+  @page{size:A4 landscape;margin:8mm}
+  /* rezerva pro tiskárny / Safari s vlastními okraji (až ~13 mm) i pro tisk bez okrajů */
+  .bw{box-shadow:none;border-radius:0;padding:0;width:270mm;height:180mm;margin:0 auto;break-inside:avoid;page-break-inside:avoid;page-break-after:avoid}
+  .pscale{width:auto!important}
+  .psheet{width:270mm;margin:0 auto;break-inside:avoid;page-break-inside:avoid}
   html,body,#app{height:auto!important;overflow:visible!important;background:#fff!important}
   body::before{display:none}
   .head,.side,.tabs,.ptools,.tip,.c-detail>.card-h,.toast,.overlay{display:none!important}
@@ -560,7 +563,7 @@ table.bwt{width:100%;border-collapse:collapse;table-layout:fixed;font-size:11px;
 const COLOR_HEX={pink:"#E0566F",blue:"#2F7FE0",green:"#2EA650",yellow:"#E3AE00",purple:"#8B5CF6",orange:"#F08A24",gray:"#8A96A8"};
 const COLOR_NAMES={pink:"růžová",blue:"modrá",green:"zelená",yellow:"žlutá",purple:"fialová",orange:"oranžová",gray:"šedá"};
 const ICON_NAMES={cj:"kniha",ma:"kalkulačka",pu:"list",aj:"vlajka",hv:"nota",tv:"běžec",pv:"nůžky",vv:"paleta",book:"sešit",q:"otazník"};
-const APP_VERSION="25"; window.APP_VERSION=APP_VERSION;
+const APP_VERSION="26"; window.APP_VERSION=APP_VERSION;
 const KIND={sdel:{icon:"i-msg",short:null},druz:{icon:"i-users",short:null},ukol:{icon:"i-flag",short:null},food:{icon:"i-food",short:"Svačina"},drink:{icon:"i-drop",short:"Pití"},other:{icon:"i-dot",short:null}};
 
 const DEFAULTS = {
