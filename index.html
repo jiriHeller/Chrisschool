@@ -320,6 +320,40 @@ svg{display:block}
 @keyframes conf{0%{transform:translateY(0) rotate(0)}100%{transform:translateY(420px) rotate(540deg);opacity:.2}}
 .lvlhint{display:inline-flex;align-items:center;gap:.25rem;color:#6B4FE0}
 .lvlhint svg{width:1.1rem;height:1.1rem;color:#F7C531}
+.wallet{display:flex;gap:.8rem;flex-wrap:wrap;font-size:.95rem}
+.wallet span{display:inline-flex;align-items:center;gap:.3rem;background:#FFF6DA;color:#6B4E00;border-radius:2rem;padding:.25rem .7rem .25rem .35rem}
+.wallet span.g{background:#FFF0B8}
+.wallet b{font-family:var(--f-mono);font-size:1.05rem}
+.cn{width:1.3rem;height:1.3rem;display:inline-block;vertical-align:-.3rem}
+.ptabs{display:grid;grid-template-columns:repeat(3,1fr);gap:.3rem;background:var(--surface-2);border:1px solid var(--line);border-radius:.8rem;padding:.25rem}
+.ptabs button{width:100%;justify-content:center;text-align:center;display:flex;align-items:center;min-height:2.6rem;border-radius:.6rem;border:none;background:transparent;font:inherit;font-weight:600;color:var(--ink-2)}
+.ptabs button.on{background:var(--surface);color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.s-hint{font-size:.9rem;color:var(--ink-3)}
+.trybar{display:flex;align-items:center;gap:.5rem;font-size:.95rem;background:#EEE8FF;color:#4B2FB8;border-radius:.6rem;padding:.35rem .6rem}
+.trybar .btn{margin-left:auto}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(7.2rem,1fr));gap:.5rem}
+.sitem{display:flex;flex-direction:column;align-items:center;gap:.2rem;padding:.5rem .4rem .6rem;border-radius:.9rem;border:1.5px solid var(--line);background:var(--surface);text-align:center;color:var(--ink);font:inherit}
+.sitem .s-prev{border:none;background:var(--surface-2);border-radius:.6rem;width:100%;padding:.3rem}
+.sitem .th{width:100%;height:3.2rem}
+.sitem .s-name{font-size:.86rem;font-weight:600;line-height:1.2}
+.sitem .s-slot{font-size:.72rem;color:var(--ink-3)}
+.sitem .btn.small{min-height:2.1rem;padding:.1rem .6rem;font-family:var(--f-mono)}
+.sitem .btn .cn{width:1.05rem;height:1.05rem}
+.sitem .s-own{display:inline-flex;align-items:center;gap:.2rem;font-size:.82rem;color:var(--ok);font-weight:600}
+.sitem .s-own svg{width:1rem;height:1rem}
+.sitem.try{border-color:#9B7BF7;box-shadow:0 0 0 3px rgba(155,123,247,.25)}
+.sitem.gold{background:linear-gradient(160deg,#FFF8DC,#FFE8A3);border-color:#E8C14A}
+.sitem.gold .s-prev{background:rgba(255,255,255,.6)}
+.sitem.wear .th{height:3rem}
+.sitem.wear.on{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 10%,var(--surface))}
+.sitem.gold.wear.on{border-color:#C99700}
+.goldh{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;margin-top:.6rem}
+.goldh span{font-weight:400;text-transform:none;letter-spacing:0;color:var(--ink-3)}
+.lcard.bigt{grid-column:1/-1;background:linear-gradient(135deg,#FFF6DA,#FFEFC2);border-color:#F2D27A}
+.lcard.bigt .lc-top svg{width:1.3rem;height:1.3rem;color:#E0A800}
+.lcard.bigt .lc-foot{flex-wrap:wrap;gap:.45rem}
+.lr-earn b.g{color:#8A6400}
+
 .pet-right h4{font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);margin-top:.3rem}
 .pitems{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.45rem}
 .pitem{display:flex;flex-direction:column;align-items:center;gap:.15rem;padding:.55rem .2rem;border-radius:.9rem;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-size:.9rem;transition:transform .15s}
@@ -332,6 +366,7 @@ svg{display:block}
 .pet-love:disabled{background:var(--line-2);color:var(--ink-3)}
 .pet-earn{background:var(--surface-2);border:1px solid var(--line);border-radius:.8rem;padding:.6rem .8rem;font-size:.92rem}
 .pet-earn ul{margin:.3rem 0 .5rem 1rem;display:grid;gap:.15rem}
+.pet-earn .cn{width:1.05rem;height:1.05rem}
 .pet-earn .it,.lr-earn .it{display:inline-block;width:1.2rem;height:1.2rem;vertical-align:-.25rem}
 .pet-adopt{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1.2rem;align-items:center;max-width:52rem;margin:1rem auto}
 @media (orientation:portrait){ .pet-adopt{grid-template-columns:1fr} }
@@ -759,7 +794,7 @@ table.bwt{width:100%;border-collapse:collapse;table-layout:fixed;font-size:11px;
 const COLOR_HEX={pink:"#E0566F",blue:"#2F7FE0",green:"#2EA650",yellow:"#E3AE00",purple:"#8B5CF6",orange:"#F08A24",gray:"#8A96A8"};
 const COLOR_NAMES={pink:"růžová",blue:"modrá",green:"zelená",yellow:"žlutá",purple:"fialová",orange:"oranžová",gray:"šedá"};
 const ICON_NAMES={cj:"kniha",ma:"kalkulačka",pu:"list",aj:"vlajka",hv:"nota",tv:"běžec",pv:"nůžky",vv:"paleta",book:"sešit",q:"otazník"};
-const APP_VERSION="37"; window.APP_VERSION=APP_VERSION;
+const APP_VERSION="38"; window.APP_VERSION=APP_VERSION;
 const KIND={sdel:{icon:"i-msg",short:null},druz:{icon:"i-users",short:null},ukol:{icon:"i-flag",short:null},food:{icon:"i-food",short:"Svačina"},drink:{icon:"i-drop",short:"Pití"},other:{icon:"i-dot",short:null}};
 
 const DEFAULTS = {
@@ -1251,18 +1286,23 @@ function lrec(id){ return LEARN[id]||(LEARN[id]={attempts:0,qs:{},hist:[]}); }
 function qstat(lid,qi){ const r=LEARN[lid], l=lessonById(lid); const s=r&&r.qs&&r.qs[l?qkey(l,qi):qi]; return s||[0,0]; }
 function dailyRec(){ return (LEARN._daily||{})[pragueToday()]; }
 function dailyPending(){ return LESSONS.some(l=>l.quiz&&l.quiz.length) && !(dailyRec()&&dailyRec().done); }
-function dailyRefs(dateIso){
-  LESSONS.forEach(l=>{ if(l.gen) prepGen(l,"day-"+dateIso); });
-  const r=rng("daily-"+dateIso), groups={ma:[],cj:[],other:[]};
+function mixRefs(seed,mix,only){
+  LESSONS.forEach(l=>{ if(l.gen) prepGen(l,seed); });
+  const r=rng(seed), groups={ma:[],cj:[],other:[]}, today=pragueToday();
   LESSONS.forEach(l=>{ const g=l.subject==="ma"?"ma":l.subject==="cj"?"cj":"other";
-    const fresh=l.added&&l.added>=addDays(dateIso,-7)?2:0;
+    if(only && g!==only) return;
+    const fresh=l.added&&l.added>=addDays(today,-7)?2:0;
     (l.quiz||[]).forEach((q,qi)=>{ const [ok,bad]=qstat(l.id,qi); groups[g].push({ref:[l.id,qi], w:Math.max(1,2+3*bad-ok)+fresh}); }); });
   const pick=(pool,n,out)=>{ while(n>0 && pool.length){ const tot=pool.reduce((s,x)=>s+x.w,0); let x=r()*tot, k=0; for(;k<pool.length-1;k++){ x-=pool[k].w; if(x<=0) break; } out.push(pool[k].ref); pool.splice(k,1); n--; } };
   const out=[]; let rest=0;
-  ["ma","cj","other"].forEach(g=>{ const before=out.length; pick(groups[g],DAILY_MIX[g],out); rest+=DAILY_MIX[g]-(out.length-before); });
+  ["ma","cj","other"].forEach(g=>{ const before=out.length; pick(groups[g],mix[g]||0,out); rest+=(mix[g]||0)-(out.length-before); });
   pick(groups.ma.concat(groups.cj,groups.other),rest,out);
   return shuf(out,r);
 }
+function dailyRefs(dateIso){ return mixRefs("day-"+dateIso, DAILY_MIX); }
+const BIG={big:{n:25,title:"Velký test",mix:{ma:8,cj:9,other:8},coin:3,bonus:30,goldAt:90,gold:2,xp:25,goldKey:"big-week"},
+  subj:{n:20,coin:3,bonus:15,goldAt:90,gold:1,xp:15}};
+const SUBJ_LABEL={ma:"matematiky",cj:"češtiny",other:"prvouky"};
 /* generované příklady (počítání zpaměti) */
 const GEN_TYPES={add:"Sčítání do 100",sub:"Odčítání do 100",mul:"Násobilka",div:"Dělení",miss:"Chybějící číslo",cmp:"Porovnávání",word:"Slovní úlohy"};
 function ri(r,a,b){ return a+Math.floor(r()*(b-a+1)); }
@@ -1296,6 +1336,8 @@ function qkey(l,qi){ const q=l.quiz[qi]; return q&&q.t?q.t:qi; }
 function startQuiz(mode,lid){
   let refs=[], title="";
   if(mode==="daily"){ refs=dailyRefs(pragueToday()); title="Test dne"; }
+  else if(mode==="big"){ refs=mixRefs("big-"+Date.now(),BIG.big.mix); title="Velký test"; }
+  else if(mode==="subj"){ const m={}; m[lid]=BIG.subj.n; refs=mixRefs("subj-"+Date.now(),m,lid); title="Velký test z "+SUBJ_LABEL[lid]; quiz={subjKey:lid}; }
   else {
     const l=lessonById(lid); if(!l) return; title=l.title;
     if(l.gen){ const wt=mode==="wrong"?((LEARN[l.id]&&LEARN[l.id].wrongT)||[]):null; prepGen(l,"q-"+Date.now(),wt); }
@@ -1303,14 +1345,17 @@ function startQuiz(mode,lid){
     if(mode==="wrong" && !l.gen){ const w=(LEARN[l.id]&&LEARN[l.id].wrong)||[]; if(w.length) idx=w.filter(i=>i<l.quiz.length); }
     refs=shuf(idx).map(i=>[l.id,i]);
   }
-  quiz={mode, lid:lid||null, title, refs, opts:{}, i:0, picked:null, ok:0, wrong:[]};
+  const sk=mode==="subj"?lid:null;
+  quiz={mode, lid:(mode==="subj"||mode==="big"||mode==="daily")?null:(lid||null), subjKey:sk, title, refs, opts:{}, i:0, picked:null, ok:0, wrong:[]};
   refs.forEach(([a,qi])=>{ const q=lessonById(a).quiz[qi]; quiz.opts[a+":"+qi]=shuf(q.a.map((_,k)=>k)); });
-  learnId=lid||learnId; learnMode="test";
+  if(mode!=="subj"&&mode!=="big") learnId=lid||learnId; learnMode="test";
 }
 function finishQuiz(){
   const n=quiz.refs.length, pct=n?Math.round(quiz.ok/n*100):0, today=pragueToday();
   if(quiz.mode==="daily"){
     LEARN._daily=LEARN._daily||{}; const prevR=LEARN._daily[today]&&LEARN._daily[today].rewarded; LEARN._daily[today]={done:true, ok:quiz.ok, n, rewarded:!!prevR};
+  } else if(quiz.mode==="big"||quiz.mode==="subj"){
+    LEARN._big=(LEARN._big||[]).concat([{d:today,mode:quiz.mode,subj:quiz.subjKey||null,ok:quiz.ok,n,pct}]).slice(-60);
   } else {
     const r=lrec(quiz.lid); r.attempts=(r.attempts||0)+1; r.last=pct; r.lastDate=today;
     r.hist=(r.hist||[]).concat([{d:today,pct,n,mode:quiz.mode}]).slice(-30);
@@ -1321,9 +1366,16 @@ function finishQuiz(){
   }
   saveLearn();
   if(quiz.mode==="daily"){ if(!(LEARN._daily[today]&&LEARN._daily[today].rewarded)){ petEarn("carrot",1); petEarn("water",2); LEARN._daily[today].rewarded=true; saveLearn(); } }
-  else petEarn("water",2);
-  if(pct>=90) petEarn("treat",1);
-  petXP(quiz.mode==="daily"?10:5);
+  else petEarn("water",quiz.mode==="big"?4:2);
+  if(pct>=90) petEarn("treat",quiz.mode==="big"?2:1);
+  if(PET.name){
+    const big=quiz.mode==="big"?BIG.big:quiz.mode==="subj"?BIG.subj:null;
+    earnCoins(big?big.bonus:quiz.mode==="daily"?10:5);
+    if(big){ if(pct>=big.goldAt){ const wk=quiz.mode==="big"?"big-"+addDays(today,-((dow(today)+6)%7)):"subj-"+quiz.subjKey; if(PET.goldDay[wk]!==(quiz.mode==="big"?"w":today)){ PET.goldDay[wk]=quiz.mode==="big"?"w":today; PET.gold=(PET.gold||0)+big.gold; quiz.gold=(quiz.gold||0)+big.gold; savePet(); } } }
+    else if(pct===100) earnGold(quiz.mode==="daily"?"daily":"l-"+quiz.lid);
+    if(pct===100 && !big) earnCoins(10);
+  }
+  petXP(quiz.mode==="big"?BIG.big.xp:quiz.mode==="subj"?BIG.subj.xp:quiz.mode==="daily"?10:5);
   if(pct===100) toast("Super! Všechno správně!");
 }
 function recordAnswer(lid,qi,good){ const r=lrec(lid), k=qkey(lessonById(lid),qi); r.qs=r.qs||{}; const s=r.qs[k]||[0,0]; s[good?0:1]++; r.qs[k]=s; saveLearn(); }
@@ -1359,6 +1411,11 @@ function learnHtml(){
     const daily=total?'<article class="lcard daily'+(dr&&dr.done?" done":"")+'"><div class="lc-top">'+ic("i-pulse")+'<b>Test dne</b><span class="lc-src">'+Math.min(DAILY_N,total)+' otázek · matika, čeština, prvouka</span></div>'+week+
       (dr&&dr.done?'<p>Dnes hotovo: <b>'+dr.ok+' / '+dr.n+'</b>. Zítra přijde nový test.</p><div class="lc-foot"><span class="sp"></span><button type="button" class="btn small" data-ldaily>Zkusit znovu</button></div>'
         :'<p>Každý den nový test. Častěji přijdou otázky, které ti zatím nejdou, a nové učivo.</p><div class="lc-foot"><span class="sp"></span><button type="button" class="btn small primary" data-ldaily>'+ic("i-okc")+'Začít test dne</button></div>')+'</article>':"";
+    const has=g=>LESSONS.some(l=>(g==="ma"?l.subject==="ma":g==="cj"?l.subject==="cj":(l.subject!=="ma"&&l.subject!=="cj"))&&((l.quiz||[]).length||l.gen));
+    const bigCard=total?'<article class="lcard bigt"><div class="lc-top">'+ic("i-star")+'<b>Velké testy – za víc bodů</b><span class="lc-src">3 mince za každou správnou odpověď</span></div>'+
+      '<p>Velký test má 25 otázek ze všech předmětů. Za 90 % a víc dostaneš 2 zlaté hvězdy (jednou za týden) a +30 mincí navíc.</p>'+
+      '<div class="lc-foot"><button type="button" class="btn small primary" data-lbig="big">'+ic("i-star")+'Velký test (25)</button>'+
+      ["ma","cj","other"].filter(has).map(g=>'<button type="button" class="btn small" data-lbig="'+g+'">Velký test z '+SUBJ_LABEL[g]+' (20)</button>').join("")+'</div></article>':"";
     const order=["ma","cj","pu","aj"], subjName=k=>{ const x=subj(k); return x?x.name:k; };
     const sorted=LESSONS.slice().sort((a,b)=>(order.indexOf(a.subject)+1||9)-(order.indexOf(b.subject)+1||9));
     let lastSubj=null;
@@ -1371,7 +1428,7 @@ function learnHtml(){
         '<button type="button" class="btn small primary" data-ltest="'+esc(l.id)+'">'+ic("i-okc")+'Test</button></div></article>';
     })(); }).join("");
     return detailCard("Výuka","i-learn",'<button type="button" class="btn small" data-lstats>'+ic("i-users")+'Přehled pro rodiče</button>',
-      (LESSONS.length?'<div class="lgrid">'+daily+list+'</div>':'<p class="empty">Zatím tu není žádné učivo.</p>')+'<p class="tip">Nové učivo přidá táta: stačí poslat fotky stránek ze sešitu.</p>');
+      (LESSONS.length?'<div class="lgrid">'+daily+bigCard+list+'</div>':'<p class="empty">Zatím tu není žádné učivo.</p>')+'<p class="tip">Nové učivo přidá táta: stačí poslat fotky stránek ze sešitu.</p>');
   }
   if(learnMode==="stats"){
     const today=pragueToday(), days=[]; for(let i=13;i>=0;i--) days.push(addDays(today,-i));
@@ -1401,16 +1458,17 @@ function learnHtml(){
       '<div class="lcta"><button type="button" class="btn primary big" data-ltest="'+esc(l.id)+'">'+ic("i-okc")+(l.gen?'Spustit počítání ('+(l.n||20)+' příkladů, pokaždé jiné)':'Spustit test ('+l.quiz.length+' otázek)')+'</button></div>');
   }
   // test
-  const n=quiz.refs.length, head=quiz.mode==="daily"?"Test dne":"Test · "+esc(quiz.title), chip=quiz.lid?lessonChip(lessonById(quiz.lid)):"";
+  const n=quiz.refs.length, head=quiz.mode==="daily"?"Test dne":(quiz.mode==="big"||quiz.mode==="subj")?esc(quiz.title):"Test · "+esc(quiz.title), chip=quiz.lid?lessonChip(lessonById(quiz.lid)):(quiz.mode==="big"||quiz.mode==="subj")?'<span class="stag c-yellow">velký</span>':"";
   if(quiz.i>=n){
     const pct=n?Math.round(quiz.ok/n*100):0, st=starsFor(pct);
     const msg=pct===100?"Výborně! Všechno správně!":pct>=70?"Moc dobře!":pct>=50?"Dobrý začátek – ještě si to zopakuj.":"Nevadí, projdi si učivo a zkus to znovu.";
     const wrongList=quiz.wrong.length?'<div class="lsec watch"><h3>'+ic("i-alert")+'<span>Tohle si zopakuj</span></h3><ul>'+quiz.wrong.map(([a,qi])=>{ const q=lessonById(a).quiz[qi]; return '<li><b>'+esc(q.q)+'</b> – '+esc(q.a[q.c])+'</li>'; }).join("")+'</ul></div>':"";
-    const btns=quiz.mode==="daily"?'<button type="button" class="btn primary" data-llist>Hotovo</button>':
+    const btns=(quiz.mode==="daily"||quiz.mode==="big"||quiz.mode==="subj")?'<button type="button" class="btn primary" data-llist>Hotovo</button>':
       (quiz.wrong.length?'<button type="button" class="btn primary" data-ltest="'+esc(quiz.lid)+'" data-lwrong="1">'+ic("i-pulse")+'Opravit chyby ('+quiz.wrong.length+')</button>':"")+
       '<button type="button" class="btn" data-ltest="'+esc(quiz.lid)+'">Celý test znovu</button><button type="button" class="btn" data-lopen="'+esc(quiz.lid)+'">'+ic("i-book")+'Zpět k učivu</button>';
     const earn=quiz.earn||{}, ek=["hay","carrot","water","treat"].filter(k=>earn[k]);
-    const earnHtml=ek.length?'<div class="lr-earn"><span>Pro morče'+(PET.name?" "+esc(PET.name):"")+' jsi získal:</span>'+ek.map(k=>'<b>'+itemSvg(k)+earn[k]+'×</b>').join("")+(PET.lvlUp?'<b class="lvlhint">'+ic("i-star")+'Nová úroveň!</b>':"")+'<button type="button" class="btn small primary" data-view="pet">'+ic("i-pig")+(PET.lvlUp?'Podívat se na morče':'Nakrmit morče')+'</button></div>':"";
+    const money=(quiz.coins?'<b>'+coinSvg(false)+quiz.coins+'</b>':"")+(quiz.gold?'<b class="g">'+coinSvg(true)+quiz.gold+'</b>':"");
+    const earnHtml=ek.length?'<div class="lr-earn"><span>Pro morče'+(PET.name?" "+esc(PET.name):"")+' jsi získal:</span>'+ek.map(k=>'<b>'+itemSvg(k)+earn[k]+'×</b>').join("")+money+(PET.lvlUp?'<b class="lvlhint">'+ic("i-star")+'Nová úroveň!</b>':"")+'<button type="button" class="btn small primary" data-view="pet">'+ic("i-pig")+(PET.lvlUp?'Podívat se na morče':'Nakrmit morče')+'</button></div>':"";
     return detailCard(head,"i-learn",chip,'<div class="lhead">'+back+'</div><div class="lresult">'+starsHtml(st)+'<div class="lr-score">'+quiz.ok+' / '+n+'</div><div class="lr-pct">'+pct+' %</div><p>'+msg+'</p>'+earnHtml+'<div class="lr-btns">'+btns+'</div></div>'+wrongList);
   }
   const [a,qi]=quiz.refs[quiz.i], l=lessonById(a), q=l.quiz[qi], picked=quiz.picked, ord=quiz.opts[a+":"+qi];
@@ -1421,7 +1479,7 @@ function learnHtml(){
   const fb=picked==null?"":'<div class="lfb '+(picked===q.c?"ok":"bad")+'"><span><b>'+(picked===q.c?"Správně!":"Tohle není ono.")+'</b> '+esc(q.e||"")+'</span>'+spkBtn("fb")+'</div>'+
     '<button type="button" class="btn primary big" data-lnext>'+(quiz.i+1<n?"Další otázka":"Výsledek")+ic("i-arrow")+'</button>';
   return detailCard(head,"i-learn",'<span class="count">'+(quiz.i+1)+' / '+n+'</span>',
-    '<div class="lhead">'+back+(quiz.mode==="wrong"?'<span class="lc-src">jen otázky, které minule nevyšly</span>':"")+(quiz.mode==="daily"?'<span class="lc-src">'+esc(l.title)+'</span>':"")+'</div>'+
+    '<div class="lhead">'+back+(quiz.mode==="wrong"?'<span class="lc-src">jen otázky, které minule nevyšly</span>':"")+((quiz.mode==="daily"||quiz.mode==="big"||quiz.mode==="subj")?'<span class="lc-src">'+esc(l.title)+'</span>':"")+'</div>'+
     '<div class="lprog"><i style="width:'+Math.round(quiz.i/n*100)+'%"></i></div>'+
     '<div class="lq"><h3><span>'+esc(q.q)+'</span>'+spkBtn("q")+'</h3><div class="lopts">'+opts+'</div>'+fb+'</div>');
 }
@@ -1451,7 +1509,7 @@ const PET_STAGES=[
   {xp:1100,name:"Král morčat",        gift:"korunka, plášť a zlatá miska",k:1}];
 const PET_LEVELS=PET_STAGES.map(x=>x.xp);
 const PET_UNLOCK=PET_STAGES.map(x=>x.gift);
-function petXP(n){ if(!PET||!PET.name) return; const b=petLevel(); PET.xp=(PET.xp||0)+n; savePet(); if(petLevel()>b){ PET.lvlUp=petLevel(); savePet(); } }
+function petXP(n){ if(!PET||!PET.name) return; const b=petLevel(); PET.xp=(PET.xp||0)+n; if(petLevel()>b){ shopInit(); PET.lvlUp=petLevel(); } savePet(); }
 let PET=(function(){ try{ return JSON.parse(localStorage.getItem(K_PET)||"null"); }catch(e){ return null; } })();
 if(!PET||typeof PET!=="object") PET={name:"",stats:{food:80,water:80,joy:80},inv:{hay:5,carrot:1,water:3,treat:1},last:Date.now(),xp:0,petAt:0,born:Date.now()};
 let petAnim=null, petTimer=null;
@@ -1498,8 +1556,8 @@ function pigSvg(mood,lvl,anim){
   const glasses=sleep?"":'<g fill="none" stroke="#2E3A59" stroke-width="2.6"><circle cx="112" cy="188" r="13"/><circle cx="150" cy="186" r="13"/><path d="M125 187h12M99 185l-10-4"/></g>';
   const medal='<g transform="translate(176 214)"><path d="M-8 -16l8 14 8-14" fill="none" stroke="#E53935" stroke-width="5"/><circle cx="0" cy="4" r="10" fill="#F7C531" stroke="#C99700" stroke-width="2"/><path d="M0 -1l2 4 4 .5-3 3 1 4-4-2-4 2 1-4-3-3 4-.5z" fill="#fff"/></g>';
   const cape='<path d="M196 150c30-6 70 4 92 30 8 10 10 26 6 40-24-16-60-26-98-24z" fill="#C62828" opacity=".92"/><path d="M196 150c30-6 70 4 92 30" stroke="#F7C531" stroke-width="4" fill="none"/>';
-  const acc=(lvl>=8?crown:lvl>=4?hat:"")+(lvl>=2&&lvl<4?bow:"")+(lvl>=5?glasses:"")+(lvl>=7?medal:"");
-  const back=lvl>=8?cape:"";
+  const acc=wearSvg("head")+(sleep?"":wearSvg("face"))+wearSvg("neck");
+  const back=wearSvg("back");
   const fluff=lvl<=1?'<path d="M176 136c-2-10 4-16 10-14M186 134c2-9 9-12 14-8M168 140c-6-6-4-14 2-15" stroke="#F8EAD5" stroke-width="4" fill="none" stroke-linecap="round"/>':"";
   return '<g class="pig'+(anim?" a-"+anim:"")+'">'+
     '<ellipse cx="205" cy="262" rx="105" ry="12" fill="#000" opacity=".12"/>'+
@@ -1538,23 +1596,24 @@ function petScene(){
     (mood==="sleep"?'<rect x="0" y="0" width="420" height="300" rx="22" fill="#1E2550" opacity=".35"/><circle cx="360" cy="46" r="18" fill="#FFF3C4"/><circle cx="352" cy="40" r="18" fill="#3A4170" opacity=".55"/>':'<circle cx="360" cy="46" r="20" fill="#FFD66B" opacity=".9"/>')+
     '<path d="M0 220h420v58a22 22 0 0 1-22 22H22A22 22 0 0 1 0 278z" fill="url(#pfloor)"/>'+
     '<g fill="#D7AF6A" opacity=".7">'+[...Array(26)].map((_,i)=>'<rect x="'+(12+i*16)%410+'" y="'+(232+(i*37)%56)+'" width="9" height="3" rx="1.5" transform="rotate('+((i*47)%60-30)+' '+((12+i*16)%410)+' '+(232+(i*37)%56)+')"/>').join("")+'</g>'+
+    cageSvg("rainbow")+cageSvg("rug")+cageSvg("hammock")+cageSvg("tunnel")+cageSvg("flower")+cageSvg("ball")+
     // domeček
-    '<g transform="translate(300 150)"><path d="M0 40L50 0l50 40z" fill="#B7713A"/><rect x="8" y="38" width="84" height="66" rx="6" fill="#D99A5B"/><path d="M34 104v-30a16 16 0 0 1 32 0v30z" fill="#5A3A22"/><g stroke="#B7713A" stroke-width="2" opacity=".6"><path d="M8 56h84M8 76h26M66 76h26"/></g></g>'+
-    (lvl>=5?'<g transform="translate(372 226)"><path d="M-12 30h24l-4 22h-16z" fill="#E07A4F"/><path d="M0 30v-26" stroke="#4CAF50" stroke-width="3"/><g fill="#FF8FB1"><circle cx="0" cy="-2" r="7"/><circle cx="-7" cy="4" r="6"/><circle cx="7" cy="4" r="6"/></g><circle cx="0" cy="3" r="4" fill="#FFD54F"/></g>':"")+
-    (lvl>=3?'<g transform="translate(16 236)"><path d="M0 34a34 34 0 0 1 68 0h-16a18 18 0 0 0-36 0z" fill="#6CC28C"/><path d="M6 34a28 28 0 0 1 56 0" stroke="#4FA673" stroke-width="3" fill="none"/></g>':"")+
+    (cageOn("house_gold")?'<g transform="translate(300 150)">'+SHOP_BY.house_gold.svg+'</g>':'<g transform="translate(300 150)"><path d="M0 40L50 0l50 40z" fill="#B7713A"/><rect x="8" y="38" width="84" height="66" rx="6" fill="#D99A5B"/><path d="M34 104v-30a16 16 0 0 1 32 0v30z" fill="#5A3A22"/><g stroke="#B7713A" stroke-width="2" opacity=".6"><path d="M8 56h84M8 76h26M66 76h26"/></g></g>')+
+    (false?'<g transform="translate(372 226)"><path d="M-12 30h24l-4 22h-16z" fill="#E07A4F"/><path d="M0 30v-26" stroke="#4CAF50" stroke-width="3"/><g fill="#FF8FB1"><circle cx="0" cy="-2" r="7"/><circle cx="-7" cy="4" r="6"/><circle cx="7" cy="4" r="6"/></g><circle cx="0" cy="3" r="4" fill="#FFD54F"/></g>':"")+
+    (false?'<g transform="translate(16 236)"><path d="M0 34a34 34 0 0 1 68 0h-16a18 18 0 0 0-36 0z" fill="#6CC28C"/><path d="M6 34a28 28 0 0 1 56 0" stroke="#4FA673" stroke-width="3" fill="none"/></g>':"")+
     // napáječka
     '<g transform="translate(26 40)"><rect x="0" y="0" width="34" height="70" rx="12" fill="#E8F4FF" stroke="#9CC9EE" stroke-width="2.5"/><rect x="3" y="'+(67-waterH)+'" width="28" height="'+waterH+'" rx="9" fill="#5BB8F5" opacity=".85"/><rect x="13" y="70" width="8" height="22" rx="3" fill="#B0BEC5"/><circle cx="17" cy="95" r="4.5" fill="#90A4AE"/></g>'+
-    (lvl>=8?'<ellipse cx="210" cy="268" rx="160" ry="22" fill="#B23A48" opacity=".55"/><ellipse cx="210" cy="268" rx="146" ry="17" fill="none" stroke="#F7C531" stroke-width="3" opacity=".8"/>':"")+
-    (lvl>=6?'<g><path d="M250 92q50 40 120 0" fill="#7FB3FF" stroke="#4A7BD0" stroke-width="3"/><path d="M250 92l-8-30M370 92l8-30" stroke="#8D6E63" stroke-width="3"/><path d="M262 100q48 26 96 0" stroke="#fff" stroke-width="2" fill="none" opacity=".6"/></g>':"")+
+    (false?'<ellipse cx="210" cy="268" rx="160" ry="22" fill="#B23A48" opacity=".55"/><ellipse cx="210" cy="268" rx="146" ry="17" fill="none" stroke="#F7C531" stroke-width="3" opacity=".8"/>':"")+
+    (false?'<g><path d="M250 92q50 40 120 0" fill="#7FB3FF" stroke="#4A7BD0" stroke-width="3"/><path d="M250 92l-8-30M370 92l8-30" stroke="#8D6E63" stroke-width="3"/><path d="M262 100q48 26 96 0" stroke="#fff" stroke-width="2" fill="none" opacity=".6"/></g>':"")+
     // miska se senem
-    '<g transform="translate(40 226)"><g stroke="#C9A04A" stroke-width="2.2" stroke-linecap="round">'+[...Array(hay*3)].map((_,i)=>'<path d="M'+(10+i*4)%60+' 8l'+((i%3)-1)*6+' -'+(8+(i*7)%10)+'"/>').join("")+'</g><path d="M0 8h70l-8 20H8z" fill="'+(lvl>=8?"#E0B21E":"#5E8DEB")+'"/><ellipse cx="35" cy="8" rx="35" ry="5" fill="'+(lvl>=8?"#F7D64A":"#86A9F2")+'"/></g>'+
+    '<g transform="translate(40 226)"><g stroke="#C9A04A" stroke-width="2.2" stroke-linecap="round">'+[...Array(hay*3)].map((_,i)=>'<path d="M'+(10+i*4)%60+' 8l'+((i%3)-1)*6+' -'+(8+(i*7)%10)+'"/>').join("")+'</g><path d="M0 8h70l-8 20H8z" fill="'+(cageOn("bowl_gold")?"#E0B21E":"#5E8DEB")+'"/><ellipse cx="35" cy="8" rx="35" ry="5" fill="'+(cageOn("bowl_gold")?"#F7D64A":"#86A9F2")+'"/></g>'+
     '<g transform="translate(18 0) translate(200 262) scale('+PET_STAGES[lvl-1].k+') translate(-200 -262)">'+pigSvg(mood,lvl,a)+'</g>'+
     (a==="eat"&&petAnim.item?'<g class="feeditem" transform="translate(150 196) scale(.9)">'+itemSvg(petAnim.item).replace('class="it"','width="48" height="48"')+'</g>':"")+
   '</svg>';
 }
 function statBar(k,label,color,val){ const v=Math.round(val); return '<div class="pstat'+(v<30?" low":"")+'"><div class="ps-h"><span>'+label+'</span><b>'+v+' %</b></div><div class="ps-b"><i style="width:'+v+'%;background:'+color+'"></i></div></div>'; }
 function petHtml(){
-  petTick();
+  petTick(); shopInit();
   if(!PET.name){
     return detailCard("Moje morče","i-pig","",'<div class="pet-adopt">'+'<svg viewBox="0 0 420 300" class="petscene small">'+'<rect width="420" height="300" rx="22" fill="#FFF6E6"/>'+'<g transform="translate(18 0)">'+pigSvg("happy",1,null)+'</g></svg>'+
       '<div><h3>Ahoj! Já jsem tvoje nové morčátko.</h3><p>Jak se budu jmenovat? Za cvičení ve Výuce mi budeš nosit seno, mrkev, vodu a jahody.</p>'+
@@ -1570,11 +1629,12 @@ function petHtml(){
 
   return detailCard(esc(PET.name),"i-pig",'<span class="count">'+lvl+'. '+esc(st.name)+'</span>',
     celeb+'<div class="petwrap"><div class="pet-left">'+petScene()+'<p class="pet-msg">'+esc(petMsg())+'</p>'+path+'</div>'+
-    '<div class="pet-right">'+statBar("food","Sytost","#F0A030",s.food)+statBar("water","Pití","#3FA9F5",s.water)+statBar("joy","Radost","#FF5C8A",s.joy)+lvlBar+
+    '<div class="pet-right">'+walletHtml()+'<div class="ptabs">'+[["care","Péče"],["shop","Obchod"],["ward","Šatník"]].map(x=>'<button type="button" class="'+(petTab===x[0]?"on":"")+'" data-ptab="'+x[0]+'">'+x[1]+'</button>').join("")+'</div>'+
+    (petTab==="shop"?shopHtml():petTab==="ward"?wardrobeHtml():(statBar("food","Sytost","#F0A030",s.food)+statBar("water","Pití","#3FA9F5",s.water)+statBar("joy","Radost","#FF5C8A",s.joy)+lvlBar+
     '<h4>Zásoby</h4><div class="pitems">'+items+'</div>'+
     '<button type="button" class="btn big pet-love" data-ppet'+(canPet?"":" disabled")+'>'+ic("i-heart")+(asleep?'Spinká – nebuď ho':canPet?'Pohladit':'Pohladit můžeš za chvilku')+'</button>'+
-    '<div class="pet-earn"><b>Jak získat jídlo:</b><ul><li>každá správná odpověď ve Výuce = '+itemSvg("hay")+' seno</li><li>dokončený test = 2× '+itemSvg("water")+' voda</li><li>test na 90 % a víc = '+itemSvg("treat")+' jahoda</li><li>Test dne = '+itemSvg("carrot")+' mrkev + 2× voda</li></ul>'+
-    '<button type="button" class="btn small primary" data-view="learn">'+ic("i-learn")+'Jít do Výuky</button></div></div></div>');
+    '<div class="pet-earn"><b>Jak získat jídlo a mince:</b><ul><li>správná odpověď = '+itemSvg("hay")+' seno + 2 '+coinSvg(false)+'</li><li>dokončený test = 2× '+itemSvg("water")+' voda + 5 '+coinSvg(false)+'</li><li>test na 90 % a víc = '+itemSvg("treat")+' jahoda</li><li>test na 100 % = 1 '+coinSvg(true)+' zlatá hvězda (za každé téma jednou denně)</li><li>Test dne = '+itemSvg("carrot")+' mrkev + 2× voda + 10 '+coinSvg(false)+'</li><li><b>Velký test</b> = 3 '+coinSvg(false)+' za odpověď, +30 '+coinSvg(false)+' a za 90 % 2 '+coinSvg(true)+'</li></ul>'+
+    '<button type="button" class="btn small primary" data-view="learn">'+ic("i-learn")+'Jít do Výuky</button></div>'))+'</div></div>');
 }
 function petAction(type,item){
   petTick(); const before=petLevel();
@@ -1583,8 +1643,73 @@ function petAction(type,item){
     PET.xp+=item==="treat"?3:item==="carrot"?2:1; petAnim={type:item==="treat"?"treat":"eat",item,until:Date.now()+1800}; }
   else { PET.stats.joy=Math.min(100,PET.stats.joy+6); PET.petAt=Date.now(); PET.xp+=1; petAnim={type:"love",until:Date.now()+1800}; }
   savePet(); render();
-  if(petLevel()>before){ PET.lvlUp=petLevel(); savePet(); render(); }
+  if(petLevel()>before){ shopInit(); PET.lvlUp=petLevel(); savePet(); render(); }
   clearTimeout(petTimer); petTimer=setTimeout(()=>{ petAnim=null; if(view==="pet") render(); },1850);
+}
+
+/* ---------- obchod a šatník morčete ---------- */
+const HAT0='<ellipse cx="26" cy="30" rx="30" ry="7" fill="#3D5AFE"/><path d="M8 30c0-16 8-26 18-26s18 10 18 26z" fill="#536DFE"/><rect x="8" y="22" width="36" height="5" fill="#FFD54F"/>';
+const CROWN0='<path d="M0 22l6-18 9 12 9-14 9 14 9-12 6 18z" fill="#F7C531" stroke="#C99700" stroke-width="2" stroke-linejoin="round"/><circle cx="24" cy="6" r="3" fill="#E8344E"/><circle cx="6" cy="5" r="2.2" fill="#4FC3F7"/><circle cx="42" cy="5" r="2.2" fill="#4FC3F7"/>';
+const GL=(c,w,fill)=>'<g fill="'+(fill||"none")+'" stroke="'+c+'" stroke-width="'+w+'"><circle cx="-19" cy="1" r="13"/><circle cx="19" cy="-1" r="13"/></g><path d="M-6 0h12M-32 -2l-10-4" stroke="'+c+'" stroke-width="'+w+'" fill="none"/>'+(fill?'<path d="M-26-5l6-4M12-7l6-4" stroke="#fff" stroke-width="2" opacity=".6"/>':"");
+const SHOP=[
+ {id:"bow_pink", name:"Růžová mašle", slot:"head", price:15, at:"translate(160 158)", vb:"-18 -12 36 24", svg:'<path d="M0 0l-14-8v16zM0 0l14-8v16z" fill="#FF6FA8"/><circle r="4.5" fill="#E8488A"/>'},
+ {id:"bow_blue", name:"Modrá mašle", slot:"head", price:15, at:"translate(160 158)", vb:"-18 -12 36 24", svg:'<path d="M0 0l-14-8v16zM0 0l14-8v16z" fill="#5AA8FF"/><circle r="4.5" fill="#2F80ED"/>'},
+ {id:"flowerband", name:"Čelenka s kytičkou", slot:"head", price:25, at:"translate(131 150)", vb:"-34 -26 68 40", svg:'<path d="M-30 8q30-28 60 0" stroke="#7CB342" stroke-width="4" fill="none"/><g transform="translate(12 -12)"><circle cy="-6" r="5" fill="#FF8FB1"/><circle cx="-6" r="5" fill="#FF8FB1"/><circle cx="6" r="5" fill="#FF8FB1"/><circle cy="6" r="5" fill="#FF8FB1"/><circle r="4" fill="#FFD54F"/></g>'},
+ {id:"hat", name:"Modrý klobouček", slot:"head", price:35, at:"translate(134 142)", vb:"-32 -22 64 40", svg:'<g transform="translate(-26 -22)">'+HAT0+'</g>'},
+ {id:"cap", name:"Kšiltovka", slot:"head", price:30, at:"translate(131 150)", vb:"-30 -26 60 40", svg:'<path d="M-22 6c0-16 10-24 22-24s22 8 22 24z" fill="#E53935"/><path d="M-28 6h32q14 0 18 6h-50z" fill="#B71C1C"/><circle cy="-18" r="3" fill="#B71C1C"/>'},
+ {id:"beanie", name:"Čepice s bambulí", slot:"head", price:30, at:"translate(131 148)", vb:"-30 -34 60 48", svg:'<path d="M-24 8c0-20 10-30 24-30s24 10 24 30z" fill="#26A69A"/><rect x="-26" y="2" width="52" height="9" rx="4" fill="#00897B"/><circle cy="-24" r="7" fill="#fff"/>'},
+ {id:"glasses", name:"Brýle", slot:"face", price:30, at:"translate(131 187)", vb:"-46 -16 92 32", svg:GL("#2E3A59",2.6)},
+ {id:"sunglasses", name:"Sluneční brýle", slot:"face", price:35, at:"translate(131 187)", vb:"-46 -16 92 32", svg:GL("#1E2A3A",2.6,"#1E2A3A")},
+ {id:"scarf", name:"Šátek", slot:"neck", price:20, at:"translate(150 230)", vb:"-32 -12 64 44", svg:'<path d="M-28 -6q28 14 56 0l2 10q-30 16-60 0z" fill="#E53935"/><path d="M14 4l6 22-10 2-4-20z" fill="#C62828"/>'},
+ {id:"bowtie", name:"Motýlek", slot:"neck", price:20, at:"translate(152 232)", vb:"-16 -10 32 20", svg:'<path d="M0 0l-12-7v14zM0 0l12-7v14z" fill="#3949AB"/><circle r="3.5" fill="#283593"/>'},
+ {id:"cape", name:"Červený plášť", slot:"back", price:50, at:"", vb:"190 140 110 90", svg:'<path d="M196 150c30-6 70 4 92 30 8 10 10 26 6 40-24-16-60-26-98-24z" fill="#C62828" opacity=".92"/><path d="M196 150c30-6 70 4 92 30" stroke="#F7C531" stroke-width="4" fill="none"/>'},
+ {id:"tunnel", name:"Tunel", slot:"cage", price:40, vb:"-4 -4 76 44", svg:'<path d="M0 34a34 34 0 0 1 68 0h-16a18 18 0 0 0-36 0z" fill="#6CC28C"/><path d="M6 34a28 28 0 0 1 56 0" stroke="#4FA673" stroke-width="3" fill="none"/>', at:"translate(16 236)"},
+ {id:"ball", name:"Míček", slot:"cage", price:15, vb:"-15 -15 30 30", svg:'<circle r="12" fill="#FF7043"/><path d="M-12 0h24M0-12v24" stroke="#fff" stroke-width="2.5"/>', at:"translate(338 284)"},
+ {id:"flower", name:"Kytička", slot:"cage", price:20, vb:"-16 -12 32 66", svg:'<path d="M-12 30h24l-4 22h-16z" fill="#E07A4F"/><path d="M0 30v-26" stroke="#4CAF50" stroke-width="3"/><g fill="#FF8FB1"><circle cy="-2" r="7"/><circle cx="-7" cy="4" r="6"/><circle cx="7" cy="4" r="6"/></g><circle cy="3" r="4" fill="#FFD54F"/>', at:"translate(372 226)"},
+ {id:"hammock", name:"Houpací síť", slot:"cage", price:60, vb:"240 56 140 54", svg:'<path d="M250 92q50 40 120 0" fill="#7FB3FF" stroke="#4A7BD0" stroke-width="3"/><path d="M250 92l-8-30M370 92l8-30" stroke="#8D6E63" stroke-width="3"/><path d="M262 100q48 26 96 0" stroke="#fff" stroke-width="2" fill="none" opacity=".6"/>', at:""},
+ {id:"rainbow", name:"Duha na zeď", slot:"cage", price:40, vb:"-50 -46 100 50", svg:'<g fill="none" stroke-width="7"><path d="M-42 0a42 42 0 0 1 84 0" stroke="#FF6B6B"/><path d="M-34 0a34 34 0 0 1 68 0" stroke="#FFD93D"/><path d="M-26 0a26 26 0 0 1 52 0" stroke="#6BCB77"/><path d="M-18 0a18 18 0 0 1 36 0" stroke="#4D96FF"/></g>', at:"translate(200 92)"},
+ {id:"rug", name:"Koberec", slot:"cage", price:45, vb:"40 240 340 56", svg:'<ellipse cx="210" cy="268" rx="160" ry="22" fill="#B23A48" opacity=".55"/><ellipse cx="210" cy="268" rx="146" ry="17" fill="none" stroke="#F7C531" stroke-width="3" opacity=".8"/>', at:""},
+ // zlaté super bonusy
+ {id:"crown", name:"Zlatá korunka", slot:"head", gold:10, at:"translate(132 140)", vb:"-28 -16 56 34", svg:'<g transform="translate(-24 -12)">'+CROWN0+'</g>'},
+ {id:"glasses_gold", name:"Zlaté brýle", slot:"face", gold:5, at:"translate(131 187)", vb:"-46 -16 92 32", svg:GL("#D4A017",3.2)},
+ {id:"medal", name:"Zlatá medaile", slot:"neck", gold:3, at:"translate(176 214)", vb:"-14 -20 28 36", svg:'<path d="M-8 -16l8 14 8-14" fill="none" stroke="#E53935" stroke-width="5"/><circle cy="4" r="10" fill="#F7C531" stroke="#C99700" stroke-width="2"/><path d="M0 -1l2 4 4 .5-3 3 1 4-4-2-4 2 1-4-3-3 4-.5z" fill="#fff"/>'},
+ {id:"cape_gold", name:"Zlatý plášť", slot:"back", gold:8, at:"", vb:"190 140 110 90", svg:'<path d="M196 150c30-6 70 4 92 30 8 10 10 26 6 40-24-16-60-26-98-24z" fill="#F7C531"/><path d="M196 150c30-6 70 4 92 30" stroke="#C99700" stroke-width="4" fill="none"/><g fill="#fff" opacity=".7"><circle cx="240" cy="172" r="2.5"/><circle cx="262" cy="186" r="2"/><circle cx="226" cy="186" r="2"/></g>'},
+ {id:"bowl_gold", name:"Zlatá miska", slot:"cage", gold:4, vb:"-4 -6 78 38", svg:'<path d="M0 8h70l-8 20H8z" fill="#E0B21E"/><ellipse cx="35" cy="8" rx="35" ry="5" fill="#F7D64A"/>', at:""},
+ {id:"house_gold", name:"Zlatý domeček", slot:"cage", gold:12, vb:"-4 -4 108 112", svg:'<path d="M0 40L50 0l50 40z" fill="#E0B21E"/><rect x="8" y="38" width="84" height="66" rx="6" fill="#F7D64A"/><path d="M34 104v-30a16 16 0 0 1 32 0v30z" fill="#8A6A10"/><circle cx="50" cy="22" r="6" fill="#fff" opacity=".8"/>', at:""}
+];
+const SHOP_BY=Object.fromEntries(SHOP.map(x=>[x.id,x]));
+const LEVEL_GIFTS={2:["bow_pink"],3:["tunnel"],4:["hat"],5:["glasses","flower"],6:["hammock"],7:["medal"],8:["crown","cape","bowl_gold","rug"]};
+let petTab="care", petTry=null;
+function shopInit(){
+  PET.coins=PET.coins||0; PET.gold=PET.gold||0; PET.owned=PET.owned||[]; PET.eq=PET.eq||{}; PET.cage=PET.cage||{}; PET.goldDay=PET.goldDay||{};
+  const l=petLevel(); if((PET.giftLvl||1)<l){ for(let i=(PET.giftLvl||1)+1;i<=l;i++) grantGifts(i,true); PET.giftLvl=l; savePet(); }
+}
+function grantGifts(lvl,quiet){ (LEVEL_GIFTS[lvl]||[]).forEach(id=>{ if(!PET.owned.includes(id)) PET.owned.push(id); equip(id,true); }); }
+function equip(id,on){ const it=SHOP_BY[id]; if(!it) return; if(it.slot==="cage"){ PET.cage[id]=on; } else { if(on) PET.eq[it.slot]=id; else if(PET.eq[it.slot]===id) delete PET.eq[it.slot]; } }
+function isOn(id){ const it=SHOP_BY[id]; return it.slot==="cage"?!!PET.cage[id]:PET.eq[it.slot]===id; }
+function wearSvg(slot){ let id=PET.eq[slot]; if(petTry&&SHOP_BY[petTry]&&SHOP_BY[petTry].slot===slot) id=petTry; const it=id&&SHOP_BY[id]; if(!it) return ""; return it.at?'<g transform="'+it.at+'">'+it.svg+'</g>':it.svg; }
+function cageOn(id){ return PET.cage[id] || petTry===id; }
+function cageSvg(id){ const it=SHOP_BY[id]; return cageOn(id)? (it.at?'<g transform="'+it.at+'">'+it.svg+'</g>':it.svg) : ""; }
+function thumb(it){ return '<svg viewBox="'+it.vb+'" class="th">'+it.svg+'</svg>'; }
+function coinSvg(gold){ return gold?'<svg viewBox="0 0 24 24" class="cn"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z" fill="#F7C531" stroke="#C99700" stroke-width="1.2" stroke-linejoin="round"/></svg>'
+  :'<svg viewBox="0 0 24 24" class="cn"><circle cx="12" cy="12" r="9.5" fill="#FFC93C" stroke="#D69E00" stroke-width="1.6"/><circle cx="12" cy="12" r="6" fill="none" stroke="#E8AE12" stroke-width="1.4"/><path d="M12 8.5v7" stroke="#B8860B" stroke-width="2" stroke-linecap="round"/></svg>'; }
+function walletHtml(){ return '<div class="wallet"><span>'+coinSvg(false)+'<b>'+(PET.coins||0)+'</b> mincí</span><span class="g">'+coinSvg(true)+'<b>'+(PET.gold||0)+'</b> zlatých hvězd</span></div>'; }
+function earnCoins(n,why){ PET.coins=(PET.coins||0)+n; savePet(); if(quiz){ quiz.coins=(quiz.coins||0)+n; } }
+function earnGold(lessonKey){ const d=pragueToday(); if(PET.goldDay[lessonKey]===d) return false; PET.goldDay[lessonKey]=d; PET.gold=(PET.gold||0)+1; savePet(); if(quiz) quiz.gold=(quiz.gold||0)+1; return true; }
+function shopHtml(){
+  const slotName={head:"Na hlavu",face:"Na oči",neck:"Na krk",back:"Na záda",cage:"Do klece"};
+  const card=it=>{ const own=PET.owned.includes(it.id), gold=!!it.gold, price=gold?it.gold:it.price, have=gold?PET.gold:PET.coins;
+    return '<div class="sitem'+(gold?" gold":"")+(own?" own":"")+(petTry===it.id?" try":"")+'"><button type="button" class="s-prev" data-ptry="'+it.id+'" aria-label="Vyzkoušet">'+thumb(it)+'</button>'+
+      '<div class="s-name">'+esc(it.name)+'</div><div class="s-slot">'+slotName[it.slot]+'</div>'+
+      (own?'<span class="s-own">'+ic("i-check")+'Máš</span>':'<button type="button" class="btn small'+(have>=price?" primary":"")+'" data-pbuy="'+it.id+'"'+(have>=price?"":" disabled")+'>'+coinSvg(gold)+price+'</button>')+'</div>'; };
+  const normal=SHOP.filter(x=>!x.gold), golden=SHOP.filter(x=>x.gold);
+  return (petTry?'<div class="trybar">Zkoušíš: <b>'+esc(SHOP_BY[petTry].name)+'</b> <button type="button" class="btn small" data-ptry="">Sundat</button></div>':'<p class="s-hint">Klepni na obrázek a vyzkoušej, jak to morčeti sluší.</p>')+
+    '<div class="sgrid">'+normal.map(card).join("")+'</div><h4 class="goldh">'+coinSvg(true)+'Zlaté super bonusy <span>za zlaté hvězdy z testů na 100 %</span></h4><div class="sgrid">'+golden.map(card).join("")+'</div>';
+}
+function wardrobeHtml(){
+  if(!PET.owned.length) return '<p class="s-hint">Zatím nemáš žádné věci. Kup si něco v Obchodě, nebo počkej na dárek za další úroveň.</p>';
+  return '<p class="s-hint">Klepnutím věc oblékneš nebo sundáš. Na hlavu, oči, krk i záda může mít vždy jednu věc.</p><div class="sgrid">'+
+    PET.owned.map(id=>SHOP_BY[id]).filter(Boolean).map(it=>'<button type="button" class="sitem wear'+(isOn(it.id)?" on":"")+(it.gold?" gold":"")+'" data-pwear="'+it.id+'">'+thumb(it)+'<div class="s-name">'+esc(it.name)+'</div><div class="s-slot">'+(isOn(it.id)?"oblečeno":"sundáno")+'</div></button>').join("")+'</div>';
 }
 
 function detailCard(title,icon,count,inner){
@@ -1969,10 +2094,15 @@ document.addEventListener("click", async e=>{
   if(t.closest("#btn-ics")){ downloadICS(); return; }
   const pf=t.closest("[data-pfeed]"); if(pf){ petAction("feed",pf.dataset.pfeed); return; }
   if(t.closest("[data-ppet]")){ petAction("pet"); return; }
+  const ptab=t.closest("[data-ptab]"); if(ptab){ petTab=ptab.dataset.ptab; petTry=null; render(); return; }
+  const ptry=t.closest("[data-ptry]"); if(ptry){ petTry=ptry.dataset.ptry&&petTry!==ptry.dataset.ptry?ptry.dataset.ptry:null; render(); return; }
+  const pbuy=t.closest("[data-pbuy]"); if(pbuy){ const it=SHOP_BY[pbuy.dataset.pbuy]; if(it&&!PET.owned.includes(it.id)){ const g=!!it.gold, pr=g?it.gold:it.price; if((g?PET.gold:PET.coins)>=pr){ if(g) PET.gold-=pr; else PET.coins-=pr; PET.owned.push(it.id); equip(it.id,true); petTry=null; savePet(); petAnim={type:"love",until:Date.now()+1800}; render(); toast("Koupeno: "+it.name+"!"); clearTimeout(petTimer); petTimer=setTimeout(()=>{ petAnim=null; if(view==="pet") render(); },1850); } } return; }
+  const pwr=t.closest("[data-pwear]"); if(pwr){ const id=pwr.dataset.pwear; equip(id,!isOn(id)); savePet(); render(); return; }
   if(t.closest("[data-plvok]")){ PET.lvlUp=0; savePet(); render(); return; }
   if(t.closest("[data-pname]")){ const v=(document.getElementById("petname")||{}).value||""; const nm=v.trim().slice(0,16); if(!nm){ toast("Napiš jméno morčete."); return; } PET.name=nm; PET.last=Date.now(); savePet(); render(); toast("Ahoj, "+nm+"!"); return; }
   const lo=t.closest("[data-lopen]"); if(lo){ learnId=lo.dataset.lopen; learnMode="study"; quiz=null; view="learn"; resetScroll=true; render(); return; }
   const lt=t.closest("[data-ltest]"); if(lt){ if(lessonById(lt.dataset.ltest)){ startQuiz(lt.dataset.lwrong?"wrong":"lesson", lt.dataset.ltest); view="learn"; resetScroll=true; render(); } return; }
+  const lb=t.closest("[data-lbig]"); if(lb){ startQuiz(lb.dataset.lbig==="big"?"big":"subj", lb.dataset.lbig==="big"?null:lb.dataset.lbig); view="learn"; resetScroll=true; render(); return; }
   if(t.closest("[data-ldaily]")){ startQuiz("daily"); view="learn"; resetScroll=true; render(); return; }
   if(t.closest("[data-lstats]")){ learnMode="stats"; quiz=null; view="learn"; resetScroll=true; render(); return; }
   if(t.closest("[data-llist]")){ learnMode="list"; quiz=null; try{ speechSynthesis.cancel(); }catch(e){} resetScroll=true; render(); return; }
@@ -1981,7 +2111,7 @@ document.addEventListener("click", async e=>{
   const lp=t.closest("[data-lpick]"); if(lp && quiz && quiz.picked==null){
     const [a,qi]=quiz.refs[quiz.i], q=lessonById(a).quiz[qi], k=+lp.dataset.lpick; quiz.picked=k;
     if(k===q.c) quiz.ok++; else quiz.wrong.push([a,qi]);
-    recordAnswer(a,qi,k===q.c); if(k===q.c){ petEarn("hay",1); petXP(1); }
+    recordAnswer(a,qi,k===q.c); if(k===q.c){ petEarn("hay",1); petXP(1); if(PET.name) earnCoins(quiz.mode==="big"||quiz.mode==="subj"?BIG.big.coin:2); }
     render(); return; }
   if(t.closest("[data-lnext]") && quiz){
     try{ speechSynthesis.cancel(); }catch(e){}
