@@ -264,7 +264,7 @@ svg{display:block}
 .c-stat .clear{font-size:.85rem;font-weight:600;color:var(--ink-3);padding:.2rem 0;min-height:2rem;text-decoration:underline;text-underline-offset:.15rem}
 
 /* spodní lišta (jen na výšku) */
-.tabs{grid-area:tabs;display:none;grid-template-columns:repeat(7,minmax(0,1fr));background:var(--surface);border-top:1px solid var(--line);
+.tabs{grid-area:tabs;display:none;grid-template-columns:repeat(8,minmax(0,1fr));background:var(--surface);border-top:1px solid var(--line);
   padding-block:.15rem;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .tab{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15rem;min-height:3.6rem;font-weight:500;font-size:.85rem;color:var(--ink-3);text-align:center;white-space:nowrap}
 .tab svg{width:1.5rem;height:1.5rem}
@@ -280,6 +280,64 @@ svg{display:block}
 .dgroup .chk{background:var(--surface);border:1px solid var(--line);min-height:3.1rem;margin-top:.35rem;padding:.35rem .6rem;font-size:1.12rem}
 .dgroup .chk .box{width:1.7rem;height:1.7rem}
 .dgroup .chk .box svg{width:1.2rem;height:1.2rem}
+.petwrap{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(17rem,1fr);gap:1rem;align-items:start}
+@media (max-width:900px),(orientation:portrait){ .petwrap{grid-template-columns:1fr} }
+.petscene{width:100%;height:auto;display:block;border-radius:1.2rem;box-shadow:0 6px 24px rgba(120,80,30,.15)}
+.petscene.small{max-width:22rem}
+@media (orientation:portrait){ .pet-left .petscene{max-width:34rem;margin:0 auto} }
+.pet-msg{margin:.7rem .2rem 0;font-size:1.15rem;font-weight:600;color:var(--ink);text-align:center}
+.pet-right{display:flex;flex-direction:column;gap:.6rem}
+.pstat .ps-h{display:flex;justify-content:space-between;font-size:.95rem;margin-bottom:.2rem}
+.pstat .ps-h b{font-family:var(--f-mono);font-weight:600}
+.ps-b{height:.8rem;border-radius:1rem;background:var(--line-2);overflow:hidden}
+.ps-b i{display:block;height:100%;border-radius:1rem;transition:width .6s ease}
+.pstat.low .ps-h{color:#C02646}
+.pstat.low .ps-b{animation:pulseLow 1.4s ease-in-out infinite}
+@keyframes pulseLow{50%{opacity:.55}}
+.plv{display:grid;grid-template-columns:auto 1fr auto;gap:.5rem;align-items:center;font-size:.88rem;color:var(--ink-2)}
+.plv .nx{color:var(--ink-3)}
+.pet-right h4{font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);margin-top:.3rem}
+.pitems{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.45rem}
+.pitem{display:flex;flex-direction:column;align-items:center;gap:.15rem;padding:.55rem .2rem;border-radius:.9rem;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-size:.9rem;transition:transform .15s}
+.pitem:not(:disabled):active{transform:scale(.94)}
+.pitem .it{width:2.6rem;height:2.6rem}
+.pitem b{font-family:var(--f-mono);font-size:.95rem}
+.pitem:disabled{opacity:.4}
+.pet-love{justify-content:center;background:linear-gradient(135deg,#FF7AA2,#FF5C8A);color:#fff;border:none}
+.pet-love svg{width:1.3rem;height:1.3rem}
+.pet-love:disabled{background:var(--line-2);color:var(--ink-3)}
+.pet-earn{background:var(--surface-2);border:1px solid var(--line);border-radius:.8rem;padding:.6rem .8rem;font-size:.92rem}
+.pet-earn ul{margin:.3rem 0 .5rem 1rem;display:grid;gap:.15rem}
+.pet-earn .it,.lr-earn .it{display:inline-block;width:1.2rem;height:1.2rem;vertical-align:-.25rem}
+.pet-adopt{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1.2rem;align-items:center;max-width:52rem;margin:1rem auto}
+@media (orientation:portrait){ .pet-adopt{grid-template-columns:1fr} }
+.pet-adopt h3{font-size:1.5rem;margin-bottom:.4rem}
+.pet-adopt p{font-size:1.1rem;color:var(--ink-2);line-height:1.45}
+.pet-name{display:flex;gap:.5rem;margin-top:.8rem}
+.pet-name input{flex:1;min-height:3rem;border-radius:.7rem;border:1.5px solid var(--line);padding:0 .8rem;font:inherit;font-size:1.15rem;background:var(--surface);color:var(--ink)}
+.lr-earn{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;justify-content:center;background:#FFF4E5;color:#5A3A12;border-radius:.8rem;padding:.6rem .8rem;margin:0 auto 1rem;max-width:40rem}
+.lr-earn b{display:inline-flex;align-items:center;gap:.2rem;font-family:var(--f-mono)}
+.lr-earn .it{width:1.6rem;height:1.6rem}
+.pig-body{transform-origin:200px 260px;animation:breathe 3.2s ease-in-out infinite}
+@keyframes breathe{50%{transform:scale(1.015,.985)}}
+.pig .eye{transform-box:fill-box;transform-origin:center;animation:blink 5s infinite}
+@keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+.pig .ear{transform-box:fill-box;transform-origin:bottom center;animation:ear 6s ease-in-out infinite}
+.pig .ear.e2{animation-delay:1.3s}
+@keyframes ear{0%,88%,100%{transform:rotate(0)}92%{transform:rotate(-12deg)}96%{transform:rotate(6deg)}}
+.pig.a-eat .mouth,.pig.a-treat .mouth{transform-box:fill-box;transform-origin:center;animation:chew .25s linear infinite}
+@keyframes chew{50%{transform:scaleY(.4)}}
+.pig.a-love .pig-body,.pig.a-treat .pig-body{animation:popcorn .6s ease-out 3}
+@keyframes popcorn{0%,100%{transform:translateY(0)}40%{transform:translateY(-26px) rotate(-3deg)}}
+.hearts{animation:hearts 1.8s ease-out forwards}
+@keyframes hearts{0%{transform:translateY(20px);opacity:0}20%{opacity:1}100%{transform:translateY(-40px);opacity:0}}
+.feeditem{animation:feed 1.6s ease-in forwards}
+@keyframes feed{0%{transform:translate(150px,120px) scale(.9);opacity:0}25%{opacity:1}80%{transform:translate(126px,196px) scale(.6);opacity:1}100%{transform:translate(126px,200px) scale(.2);opacity:0}}
+.zzz text{animation:zz 2.6s ease-in-out infinite}
+.zzz text:nth-child(2){animation-delay:.5s}.zzz text:nth-child(3){animation-delay:1s}
+@keyframes zz{0%,100%{opacity:.2;transform:translateY(4px)}50%{opacity:1;transform:translateY(-4px)}}
+@media (prefers-reduced-motion:reduce){ .pig *,.hearts,.feeditem,.zzz text{animation:none!important} }
+
 .lgh{grid-column:1/-1;font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);margin:.5rem 0 -.2rem}
 .lcard.daily{grid-column:1/-1}
 .wkstrip{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:.35rem;margin:.2rem 0}
@@ -660,6 +718,8 @@ table.bwt{width:100%;border-collapse:collapse;table-layout:fixed;font-size:11px;
   <symbol id="i-learn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 9L12 4.5 21.5 9 12 13.5z"/><path d="M6.5 11v4.5c0 1.5 2.5 3 5.5 3s5.5-1.5 5.5-3V11"/><path d="M21.5 9v5"/></symbol>
   <symbol id="i-star" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 3.2l2.6 5.5 6 .8-4.4 4.1 1.1 5.9L12 16.6l-5.3 2.9 1.1-5.9L3.4 9.5l6-.8z"/></symbol>
   <symbol id="i-sound" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></symbol>
+  <symbol id="i-pig" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14c0-4.5 3.8-7.5 9-7.5 4.6 0 7.5 2.6 7.5 6.3 0 3.6-3 5.7-8 5.7-5.2 0-8.5-1.6-8.5-4.5z"/><path d="M6.5 8.5c-.8-1.6-.3-3 1-3 1 0 1.5 1.2 1.3 2.4M11 7c.4-1.6 1.7-2.3 2.6-1.6.7.6.4 1.6-.4 2.2"/><circle cx="7.6" cy="11.6" r=".9" fill="currentColor"/><path d="M8 18.5v1.3M17 18v1.4"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 20.3l-1.4-1.3C5.4 14.4 2 11.3 2 7.6 2 4.8 4.2 2.6 7 2.6c1.6 0 3.1.7 4 1.9 1-1.2 2.5-1.9 4-1.9 2.8 0 5 2.2 5 5 0 3.7-3.4 6.8-8.6 11.4z"/></symbol>
   <symbol id="i-dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4"/></symbol>
   </g>
 </defs>
@@ -675,7 +735,7 @@ table.bwt{width:100%;border-collapse:collapse;table-layout:fixed;font-size:11px;
 const COLOR_HEX={pink:"#E0566F",blue:"#2F7FE0",green:"#2EA650",yellow:"#E3AE00",purple:"#8B5CF6",orange:"#F08A24",gray:"#8A96A8"};
 const COLOR_NAMES={pink:"růžová",blue:"modrá",green:"zelená",yellow:"žlutá",purple:"fialová",orange:"oranžová",gray:"šedá"};
 const ICON_NAMES={cj:"kniha",ma:"kalkulačka",pu:"list",aj:"vlajka",hv:"nota",tv:"běžec",pv:"nůžky",vv:"paleta",book:"sešit",q:"otazník"};
-const APP_VERSION="34"; window.APP_VERSION=APP_VERSION;
+const APP_VERSION="35"; window.APP_VERSION=APP_VERSION;
 const KIND={sdel:{icon:"i-msg",short:null},druz:{icon:"i-users",short:null},ukol:{icon:"i-flag",short:null},food:{icon:"i-food",short:"Svačina"},drink:{icon:"i-drop",short:"Pití"},other:{icon:"i-dot",short:null}};
 
 const DEFAULTS = {
@@ -1070,10 +1130,10 @@ function headHtml(p){
   '</header>';
 }
 const NAV=[["home","Přehled","i-grid"],["tasks","Úkoly a akce","i-flag"],["books","Učebnice a sešity","i-book"],["supplies","Pomůcky","i-pencil"],["food","Svačina a pití","i-food"],
-  ["pe","Tělocvik","i-shirt"],["sdel","Sdělníček","i-msg"],["check","Kontrola","i-clip"],["learn","Výuka","i-learn"]];
+  ["pe","Tělocvik","i-shirt"],["sdel","Sdělníček","i-msg"],["check","Kontrola","i-clip"],["learn","Výuka","i-learn"],["pet","Morče","i-pig"]];
 function sideHtml(){
   return '<nav class="side" aria-label="Menu"><div class="eyebrow">Menu</div>'+
-    NAV.map(n=>'<button type="button" class="nav" data-view="'+n[0]+'"'+(view===n[0]?' aria-current="page"':"")+'>'+ic(n[2])+n[1]+(n[0]==="tasks"&&upcomingTasks()?'<span class="dotc">'+upcomingTasks()+'</span>':"")+(n[0]==="learn"&&dailyPending()?'<span class="dotc">1</span>':"")+'</button>').join("")+
+    NAV.map(n=>'<button type="button" class="nav" data-view="'+n[0]+'"'+(view===n[0]?' aria-current="page"':"")+'>'+ic(n[2])+n[1]+(n[0]==="tasks"&&upcomingTasks()?'<span class="dotc">'+upcomingTasks()+'</span>':"")+(n[0]==="learn"&&dailyPending()?'<span class="dotc">1</span>':"")+(n[0]==="pet"&&PET.name&&(petTick(),petNeeds())&&!petAsleepAt(Date.now())?'<span class="dotc">!</span>':"")+'</button>').join("")+
     '<div class="eyebrow" style="margin-top:.6rem">Ostatní</div>'+
     '<button type="button" class="nav" data-view="week"'+(view==="week"?' aria-current="page"':"")+'>'+ic("i-cal")+'Týdenní rozvrh</button>'+
     '<button type="button" class="nav" data-view="year"'+(view==="year"?' aria-current="page"':"")+'>'+ic("i-year")+'Celý rok</button>'+
@@ -1082,7 +1142,7 @@ function sideHtml(){
     '<button type="button" class="nav" data-view="about"'+(view==="about"?' aria-current="page"':"")+'>'+ic("i-info")+'Jak to funguje</button>'+
     '<div class="side-foot">Malé věci dělají velké úspěchy.<span class="ver mono">verze '+APP_VERSION+'</span></div></nav>';
 }
-const TABS=[["home","Přehled","i-grid"],["week","Rozvrh","i-cal"],["books","Učebnice","i-book"],["supplies","Pomůcky","i-pencil"],["check","Kontrola","i-clip"],["tasks","Úkoly","i-flag"],["learn","Výuka","i-learn"]];
+const TABS=[["home","Přehled","i-grid"],["week","Rozvrh","i-cal"],["books","Učebnice","i-book"],["supplies","Pomůcky","i-pencil"],["check","Kontrola","i-clip"],["tasks","Úkoly","i-flag"],["learn","Výuka","i-learn"],["pet","Morče","i-pig"]];
 function tabsHtml(){
   return '<nav class="tabs" aria-label="Spodní lišta">'+TABS.map(t=>'<button type="button" class="tab" data-view="'+t[0]+'"'+(view===t[0]?' aria-current="page"':"")+'>'+ic(t[2])+'<span>'+t[1]+'</span></button>').join("")+'</nav>';
 }
@@ -1091,6 +1151,7 @@ function reminders(p){
   const out=[], w=cap(dayWord(p.iso));
   if(p.holiday) return w+" je volno – "+p.holiday+"."+(dailyPending()?" Dnes ještě Test dne ve Výuce.":"");
   if(dailyPending()) out.push("Dnes ještě: Test dne ve Výuce (10 otázek).");
+  if(PET.name&&!petAsleepAt(Date.now())){ petTick(); if(petNeeds()) out.push(petMsg()); }
   if(p.ov) out.push("Změna rozvrhu"+(p.ov.note?": "+p.ov.note:"")+".");
   (p.acts||[]).filter(a=>a.shared).forEach(a=>out.push(a.name+(a.from?" – "+a.from:"")+(a.note?" ("+a.note+")":"")+"."));
   if(p.tasks.length) out.push("Nezapomeň: "+p.tasks.map(t=>t.name).join(", ")+".");
@@ -1225,7 +1286,7 @@ function startQuiz(mode,lid){
 function finishQuiz(){
   const n=quiz.refs.length, pct=n?Math.round(quiz.ok/n*100):0, today=pragueToday();
   if(quiz.mode==="daily"){
-    LEARN._daily=LEARN._daily||{}; LEARN._daily[today]={done:true, ok:quiz.ok, n};
+    LEARN._daily=LEARN._daily||{}; const prevR=LEARN._daily[today]&&LEARN._daily[today].rewarded; LEARN._daily[today]={done:true, ok:quiz.ok, n, rewarded:!!prevR};
   } else {
     const r=lrec(quiz.lid); r.attempts=(r.attempts||0)+1; r.last=pct; r.lastDate=today;
     r.hist=(r.hist||[]).concat([{d:today,pct,n,mode:quiz.mode}]).slice(-30);
@@ -1235,6 +1296,9 @@ function finishQuiz(){
     else r.wrong=(r.wrong||[]).filter(i=>wq.includes(i));
   }
   saveLearn();
+  if(quiz.mode==="daily"){ if(!(LEARN._daily[today]&&LEARN._daily[today].rewarded)){ petEarn("carrot",1); petEarn("water",2); LEARN._daily[today].rewarded=true; saveLearn(); } }
+  else petEarn("water",2);
+  if(pct>=90) petEarn("treat",1);
   if(pct===100) toast("Super! Všechno správně!");
 }
 function recordAnswer(lid,qi,good){ const r=lrec(lid), k=qkey(lessonById(lid),qi); r.qs=r.qs||{}; const s=r.qs[k]||[0,0]; s[good?0:1]++; r.qs[k]=s; saveLearn(); }
@@ -1320,7 +1384,9 @@ function learnHtml(){
     const btns=quiz.mode==="daily"?'<button type="button" class="btn primary" data-llist>Hotovo</button>':
       (quiz.wrong.length?'<button type="button" class="btn primary" data-ltest="'+esc(quiz.lid)+'" data-lwrong="1">'+ic("i-pulse")+'Opravit chyby ('+quiz.wrong.length+')</button>':"")+
       '<button type="button" class="btn" data-ltest="'+esc(quiz.lid)+'">Celý test znovu</button><button type="button" class="btn" data-lopen="'+esc(quiz.lid)+'">'+ic("i-book")+'Zpět k učivu</button>';
-    return detailCard(head,"i-learn",chip,'<div class="lhead">'+back+'</div><div class="lresult">'+starsHtml(st)+'<div class="lr-score">'+quiz.ok+' / '+n+'</div><div class="lr-pct">'+pct+' %</div><p>'+msg+'</p><div class="lr-btns">'+btns+'</div></div>'+wrongList);
+    const earn=quiz.earn||{}, ek=["hay","carrot","water","treat"].filter(k=>earn[k]);
+    const earnHtml=ek.length?'<div class="lr-earn"><span>Pro morče'+(PET.name?" "+esc(PET.name):"")+' jsi získal:</span>'+ek.map(k=>'<b>'+itemSvg(k)+earn[k]+'×</b>').join("")+'<button type="button" class="btn small primary" data-view="pet">'+ic("i-pig")+'Nakrmit morče</button></div>':"";
+    return detailCard(head,"i-learn",chip,'<div class="lhead">'+back+'</div><div class="lresult">'+starsHtml(st)+'<div class="lr-score">'+quiz.ok+' / '+n+'</div><div class="lr-pct">'+pct+' %</div><p>'+msg+'</p>'+earnHtml+'<div class="lr-btns">'+btns+'</div></div>'+wrongList);
   }
   const [a,qi]=quiz.refs[quiz.i], l=lessonById(a), q=l.quiz[qi], picked=quiz.picked, ord=quiz.opts[a+":"+qi];
   const opts=ord.map((k,pos)=>{
@@ -1346,6 +1412,134 @@ function printQuizSheet(id){
     '<p class="qz-i">Zakroužkuj nebo zaškrtni správnou odpověď. Vždy je správně jen jedna.</p>'+
     '<ol class="qz-l">'+items+'</ol><div class="qz-key">Klíč pro rodiče: '+key.join(" · ")+'</div></div>';
 }
+/* ---------- morče (tamagoči) ---------- */
+const K_PET="skolni-partak.pet.v1";
+const PET_ITEMS={hay:{name:"Seno",food:6,joy:0,water:0},carrot:{name:"Mrkev",food:20,joy:5,water:0},water:{name:"Voda",food:0,joy:0,water:25},treat:{name:"Jahoda",food:8,joy:20,water:0}};
+const PET_LEVELS=[0,30,80,160,300,500];
+const PET_UNLOCK=[null,"mašle","tunel","klobouček","kytička","korunka"];
+let PET=(function(){ try{ return JSON.parse(localStorage.getItem(K_PET)||"null"); }catch(e){ return null; } })();
+if(!PET||typeof PET!=="object") PET={name:"",stats:{food:80,water:80,joy:80},inv:{hay:5,carrot:1,water:3,treat:1},last:Date.now(),xp:0,petAt:0,born:Date.now()};
+let petAnim=null, petTimer=null;
+function savePet(){ try{ localStorage.setItem(K_PET,JSON.stringify(PET)); }catch(e){} }
+function petAsleepAt(ts){ const d=new Date(ts), h=Number(new Intl.DateTimeFormat("en-GB",{hour:"2-digit",hour12:false,timeZone:"Europe/Prague"}).format(d))%24, m=Number(new Intl.DateTimeFormat("en-GB",{minute:"2-digit",timeZone:"Europe/Prague"}).format(d)); const t=h*60+m; return t>=20*60+30||t<6*60+30; }
+function petTick(){
+  const now=Date.now(); let t=PET.last||now; if(now<=t){ PET.last=now; return; }
+  const step=15*60*1000, R={food:4,water:5,joy:3};
+  while(t<now){ const dt=Math.min(step,now-t), f=(petAsleepAt(t)?0.5:1)*dt/3600000;
+    for(const k in R) PET.stats[k]=Math.max(0,PET.stats[k]-R[k]*f); t+=dt; }
+  PET.last=now; savePet();
+}
+function petLevel(){ let l=1; PET_LEVELS.forEach((x,i)=>{ if(PET.xp>=x) l=i+1; }); return Math.min(l,PET_LEVELS.length); }
+function petMood(){ const s=PET.stats, low=Math.min(s.food,s.water,s.joy), avg=(s.food+s.water+s.joy)/3;
+  if(petAsleepAt(Date.now())) return "sleep"; if(low<20) return "sad"; if(avg>=70) return "happy"; return "ok"; }
+function petNeeds(){ const s=PET.stats; return s.food<30||s.water<30||s.joy<25; }
+function petEarn(k,n){ PET.inv[k]=(PET.inv[k]||0)+n; savePet(); if(quiz){ quiz.earn=quiz.earn||{}; quiz.earn[k]=(quiz.earn[k]||0)+n; } }
+function petMsg(){
+  const s=PET.stats, n=PET.name||"Morče", m=petMood();
+  if(m==="sleep") return n+" spinká. Zzz…"+(s.food<30||s.water<30?" Má ale hlad nebo žízeň – můžeš mu potichu dát jídlo a vodu.":" Ráno bude mít zase hlad.");
+  if(s.water<30) return n+" má žízeň. Dej mu vodu!";
+  if(s.food<30) return n+" má hlad. Dej mu seno nebo mrkev.";
+  if(s.joy<25) return n+" se nudí. Pohlaď ho nebo mu dej jahodu.";
+  if(m==="happy") return n+" je spokojené a radostí poskakuje!";
+  return n+" je v pohodě. Za cvičení ve Výuce získáš další dobroty.";
+}
+function itemSvg(k){
+  if(k==="hay") return '<svg viewBox="0 0 48 48" class="it"><g stroke="#B88A2E" stroke-width="2.2" stroke-linecap="round" fill="none"><path d="M10 38c4-10 6-18 7-26"/><path d="M17 39c2-9 4-17 8-25"/><path d="M24 39c1-9 1-17 0-27"/><path d="M31 39c-1-8-3-16-7-24"/><path d="M38 38c-3-9-6-17-11-24"/></g><path d="M8 37h32c1 0 2 2 0 3H8c-2-1-1-3 0-3z" fill="#D9A93F"/></svg>';
+  if(k==="carrot") return '<svg viewBox="0 0 48 48" class="it"><path d="M30 14c4 1 6 4 5 8L17 41c-2 2-5 0-4-2l11-22c1-3 4-4 6-3z" fill="#F08A24"/><path d="M20 30l3 1M23 24l3 1M17 36l2 1" stroke="#C9600F" stroke-width="1.6" stroke-linecap="round"/><path d="M31 14c1-5 4-8 8-8-1 4-3 7-8 8zM33 16c4-2 8-1 10 2-4 1-7 1-10-2zM30 13c-2-4-1-8 1-10 2 3 2 7-1 10z" fill="#4CAF50"/></svg>';
+  if(k==="water") return '<svg viewBox="0 0 48 48" class="it"><path d="M24 5c7 10 13 17 13 25a13 13 0 0 1-26 0c0-8 6-15 13-25z" fill="#3FA9F5"/><path d="M18 30c0 4 3 7 6 7" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".7"/></svg>';
+  return '<svg viewBox="0 0 48 48" class="it"><path d="M24 14c9-2 16 3 15 11-1 9-9 17-15 18-6-1-14-9-15-18-1-8 6-13 15-11z" fill="#E8344E"/><path d="M24 14c-3-5-8-6-11-5 3 1 6 4 11 5zm0 0c3-5 8-6 11-5-3 1-6 4-11 5zm0 0c0-4 1-7 3-9" fill="#3E9B48" stroke="#3E9B48" stroke-width="1.5" stroke-linejoin="round"/><g fill="#FFE07A"><circle cx="18" cy="24" r="1.1"/><circle cx="24" cy="21" r="1.1"/><circle cx="30" cy="24" r="1.1"/><circle cx="21" cy="30" r="1.1"/><circle cx="27" cy="30" r="1.1"/><circle cx="24" cy="36" r="1.1"/></g></svg>';
+}
+function pigSvg(mood,lvl,anim){
+  const sleep=mood==="sleep", sad=mood==="sad";
+  const eyes=sleep?'<path d="M104 190q8 6 16 0M142 188q8 6 16 0" stroke="#3A2416" stroke-width="3.2" fill="none" stroke-linecap="round"/>'
+    :'<g class="eye"><ellipse cx="112" cy="188" rx="8" ry="9" fill="#2B1A10"/><circle cx="115" cy="184.5" r="3" fill="#fff"/><circle cx="109.5" cy="191.5" r="1.3" fill="#fff" opacity=".8"/></g>'+
+     '<g class="eye"><ellipse cx="150" cy="186" rx="8" ry="9" fill="#2B1A10"/><circle cx="153" cy="182.5" r="3" fill="#fff"/><circle cx="147.5" cy="189.5" r="1.3" fill="#fff" opacity=".8"/></g>'+
+     (sad?'<path d="M100 179l16-6M163 177l-16-6" stroke="#7A4A26" stroke-width="2.6" stroke-linecap="round"/><path d="M106 200q-3 7 0 10q4-3 0-10z" fill="#7CC3F5"/>':'');
+  const mouth=sad?'<path d="M124 223q7-5 14 0" stroke="#7A3B2A" stroke-width="2.4" fill="none" stroke-linecap="round"/>'
+    :'<path d="M123 217q4 6 8 0q4 6 8 0" stroke="#7A3B2A" stroke-width="2.4" fill="none" stroke-linecap="round"/>';
+  const acc=(lvl>=6?'<g transform="translate(108 128)"><path d="M0 22l6-18 9 12 9-14 9 14 9-12 6 18z" fill="#F7C531" stroke="#C99700" stroke-width="2" stroke-linejoin="round"/><circle cx="24" cy="6" r="3" fill="#E8344E"/></g>'
+    :lvl>=4?'<g transform="translate(108 120)"><ellipse cx="26" cy="30" rx="30" ry="7" fill="#3D5AFE"/><path d="M8 30c0-16 8-26 18-26s18 10 18 26z" fill="#536DFE"/><rect x="8" y="22" width="36" height="5" fill="#FFD54F"/></g>':"")+
+    (lvl>=2&&lvl<4?'<g transform="translate(160 150)"><path d="M0 8l-14-8v16zM0 8l14-8v16z" fill="#FF6FA8"/><circle cx="0" cy="8" r="4.5" fill="#E8488A"/></g>':"");
+  return '<g class="pig'+(anim?" a-"+anim:"")+'">'+
+    '<ellipse cx="205" cy="262" rx="105" ry="12" fill="#000" opacity=".12"/>'+
+    '<g class="pig-body">'+
+      '<defs><clipPath id="pigclip"><path d="M86 215c-6-48 30-80 86-82 58-2 116 20 134 62 14 33-6 64-58 68-60 5-152 4-162-48z"/></clipPath></defs>'+
+      '<path d="M86 215c-6-48 30-80 86-82 58-2 116 20 134 62 14 33-6 64-58 68-60 5-152 4-162-48z" fill="#F8EAD5"/>'+
+      '<g clip-path="url(#pigclip)">'+
+        '<ellipse cx="124" cy="176" rx="46" ry="38" fill="#D08A45"/>'+
+        '<path d="M131 132c6 0 9 4 9 9v58c0 6-4 9-9 9s-9-3-9-9v-58c0-5 3-9 9-9z" fill="#F8EAD5"/>'+
+        '<ellipse cx="228" cy="158" rx="58" ry="32" fill="#D08A45"/>'+
+        '<ellipse cx="292" cy="214" rx="46" ry="54" fill="#5B3D2B"/>'+
+        '<path d="M100 250c40 10 120 12 190-4" stroke="#EAD3B4" stroke-width="5" fill="none" stroke-linecap="round" opacity=".8"/>'+
+      '</g>'+
+      '<g class="ear"><path d="M96 160c-10-14-6-30 8-30 10 0 14 14 10 28z" fill="#B9773D"/><path d="M100 156c-5-9-3-19 4-19 6 0 8 9 6 18z" fill="#F2A6A0"/></g>'+
+      '<g class="ear e2"><path d="M160 150c4-16 18-24 28-16 8 7 2 20-10 26z" fill="#B9773D"/><path d="M166 150c3-9 11-14 17-10 4 4 0 11-7 14z" fill="#F2A6A0"/></g>'+
+      '<ellipse cx="96" cy="210" rx="11" ry="7" fill="#F6A9A9" opacity=".55"/><ellipse cx="166" cy="206" rx="11" ry="7" fill="#F6A9A9" opacity=".55"/>'+
+      eyes+
+      '<path d="M124 204q7-6 14 0q-2 8-7 8t-7-8z" fill="#E98A8A"/>'+
+      '<g class="mouth">'+mouth+'</g>'+
+      '<g stroke="#8A6A4A" stroke-width="1.3" stroke-linecap="round" opacity=".6"><path d="M118 210l-30-4M118 214l-28 5M144 208l30-6M144 212l29 3"/></g>'+
+      '<g fill="#F2B3A6"><ellipse cx="120" cy="262" rx="13" ry="6"/><ellipse cx="160" cy="264" rx="12" ry="6"/><ellipse cx="262" cy="258" rx="14" ry="6"/></g>'+
+      '<path d="M190 140c4-8 10-10 14-6M198 140c6-6 12-6 15-1" stroke="#A66A33" stroke-width="2.5" fill="none" stroke-linecap="round"/>'+
+      acc+
+    '</g>'+
+    (sleep?'<g class="zzz" font-family="var(--f-mono)" font-weight="700" fill="#7C8CF8"><text x="168" y="130" font-size="22">z</text><text x="186" y="110" font-size="28">z</text><text x="208" y="86" font-size="34">Z</text></g>':"")+
+    (anim==="love"||anim==="treat"?'<g class="hearts" fill="#FF5C8A"><path d="M150 120c-6-10-20-4-14 6l14 12 14-12c6-10-8-16-14-6z"/><path d="M190 100c-4-7-14-3-10 4l10 9 10-9c4-7-6-11-10-4z"/><path d="M120 96c-4-7-14-3-10 4l10 9 10-9c4-7-6-11-10-4z"/></g>':"")+
+  '</g>';
+}
+function petScene(){
+  const s=PET.stats, lvl=petLevel(), mood=petMood(), a=petAnim&&petAnim.until>Date.now()?petAnim.type:null;
+  const waterH=Math.round(56*s.water/100), hay=Math.max(0,Math.round(s.food/20));
+  return '<svg class="petscene" viewBox="0 0 420 300" role="img" aria-label="Morče v kleci">'+
+    '<defs><linearGradient id="pwall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF6E6"/><stop offset="1" stop-color="#FDE8CC"/></linearGradient>'+
+    '<linearGradient id="pfloor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F3D9A8"/><stop offset="1" stop-color="#E8C487"/></linearGradient></defs>'+
+    '<rect x="0" y="0" width="420" height="300" rx="22" fill="url(#pwall)"/>'+
+    (mood==="sleep"?'<rect x="0" y="0" width="420" height="300" rx="22" fill="#1E2550" opacity=".35"/><circle cx="360" cy="46" r="18" fill="#FFF3C4"/><circle cx="352" cy="40" r="18" fill="#3A4170" opacity=".55"/>':'<circle cx="360" cy="46" r="20" fill="#FFD66B" opacity=".9"/>')+
+    '<path d="M0 220h420v58a22 22 0 0 1-22 22H22A22 22 0 0 1 0 278z" fill="url(#pfloor)"/>'+
+    '<g fill="#D7AF6A" opacity=".7">'+[...Array(26)].map((_,i)=>'<rect x="'+(12+i*16)%410+'" y="'+(232+(i*37)%56)+'" width="9" height="3" rx="1.5" transform="rotate('+((i*47)%60-30)+' '+((12+i*16)%410)+' '+(232+(i*37)%56)+')"/>').join("")+'</g>'+
+    // domeček
+    '<g transform="translate(300 150)"><path d="M0 40L50 0l50 40z" fill="#B7713A"/><rect x="8" y="38" width="84" height="66" rx="6" fill="#D99A5B"/><path d="M34 104v-30a16 16 0 0 1 32 0v30z" fill="#5A3A22"/><g stroke="#B7713A" stroke-width="2" opacity=".6"><path d="M8 56h84M8 76h26M66 76h26"/></g></g>'+
+    (lvl>=5?'<g transform="translate(372 226)"><path d="M-12 30h24l-4 22h-16z" fill="#E07A4F"/><path d="M0 30v-26" stroke="#4CAF50" stroke-width="3"/><g fill="#FF8FB1"><circle cx="0" cy="-2" r="7"/><circle cx="-7" cy="4" r="6"/><circle cx="7" cy="4" r="6"/></g><circle cx="0" cy="3" r="4" fill="#FFD54F"/></g>':"")+
+    (lvl>=3?'<g transform="translate(16 236)"><path d="M0 34a34 34 0 0 1 68 0h-16a18 18 0 0 0-36 0z" fill="#6CC28C"/><path d="M6 34a28 28 0 0 1 56 0" stroke="#4FA673" stroke-width="3" fill="none"/></g>':"")+
+    // napáječka
+    '<g transform="translate(26 40)"><rect x="0" y="0" width="34" height="70" rx="12" fill="#E8F4FF" stroke="#9CC9EE" stroke-width="2.5"/><rect x="3" y="'+(67-waterH)+'" width="28" height="'+waterH+'" rx="9" fill="#5BB8F5" opacity=".85"/><rect x="13" y="70" width="8" height="22" rx="3" fill="#B0BEC5"/><circle cx="17" cy="95" r="4.5" fill="#90A4AE"/></g>'+
+    // miska se senem
+    '<g transform="translate(40 226)"><g stroke="#C9A04A" stroke-width="2.2" stroke-linecap="round">'+[...Array(hay*3)].map((_,i)=>'<path d="M'+(10+i*4)%60+' 8l'+((i%3)-1)*6+' -'+(8+(i*7)%10)+'"/>').join("")+'</g><path d="M0 8h70l-8 20H8z" fill="#5E8DEB"/><ellipse cx="35" cy="8" rx="35" ry="5" fill="#86A9F2"/></g>'+
+    '<g transform="translate(18 0)">'+pigSvg(mood,lvl,a)+'</g>'+
+    (a==="eat"&&petAnim.item?'<g class="feeditem" transform="translate(150 196) scale(.9)">'+itemSvg(petAnim.item).replace('class="it"','width="48" height="48"')+'</g>':"")+
+  '</svg>';
+}
+function statBar(k,label,color,val){ const v=Math.round(val); return '<div class="pstat'+(v<30?" low":"")+'"><div class="ps-h"><span>'+label+'</span><b>'+v+' %</b></div><div class="ps-b"><i style="width:'+v+'%;background:'+color+'"></i></div></div>'; }
+function petHtml(){
+  petTick();
+  if(!PET.name){
+    return detailCard("Moje morče","i-pig","",'<div class="pet-adopt">'+'<svg viewBox="0 0 420 300" class="petscene small">'+'<rect width="420" height="300" rx="22" fill="#FFF6E6"/>'+'<g transform="translate(18 0)">'+pigSvg("happy",1,null)+'</g></svg>'+
+      '<div><h3>Ahoj! Já jsem tvoje nové morčátko.</h3><p>Jak se budu jmenovat? Za cvičení ve Výuce mi budeš nosit seno, mrkev, vodu a jahody.</p>'+
+      '<div class="pet-name"><input id="petname" maxlength="16" placeholder="Jméno morčete" autocomplete="off"><button type="button" class="btn primary" data-pname>Pojmenovat</button></div></div></div>');
+  }
+  const s=PET.stats, lvl=petLevel(), next=PET_LEVELS[lvl]||null, inv=PET.inv, asleep=petAsleepAt(Date.now());
+  const items=["hay","carrot","water","treat"].map(k=>'<button type="button" class="pitem" data-pfeed="'+k+'"'+(!(inv[k]>0)?" disabled":"")+'>'+itemSvg(k)+'<span>'+PET_ITEMS[k].name+'</span><b>'+(inv[k]||0)+'×</b></button>').join("");
+  const canPet=!asleep && Date.now()-(PET.petAt||0)>3*60*1000;
+  const lvlBar=next?'<div class="plv"><span>Úroveň '+lvl+'</span><div class="ps-b"><i style="width:'+Math.round((PET.xp-PET_LEVELS[lvl-1])/(next-PET_LEVELS[lvl-1])*100)+'%;background:#9B7BF7"></i></div><span class="nx">další: '+(PET_UNLOCK[lvl]||"")+'</span></div>':'<div class="plv"><span>Úroveň '+lvl+' – maximum! 👑</span></div>';
+  return detailCard(esc(PET.name),"i-pig",'<span class="count">úroveň '+lvl+'</span>',
+    '<div class="petwrap"><div class="pet-left">'+petScene()+'<p class="pet-msg">'+esc(petMsg())+'</p></div>'+
+    '<div class="pet-right">'+statBar("food","Sytost","#F0A030",s.food)+statBar("water","Pití","#3FA9F5",s.water)+statBar("joy","Radost","#FF5C8A",s.joy)+lvlBar+
+    '<h4>Zásoby</h4><div class="pitems">'+items+'</div>'+
+    '<button type="button" class="btn big pet-love" data-ppet'+(canPet?"":" disabled")+'>'+ic("i-heart")+(asleep?'Spinká – nebuď ho':canPet?'Pohladit':'Pohladit můžeš za chvilku')+'</button>'+
+    '<div class="pet-earn"><b>Jak získat jídlo:</b><ul><li>každá správná odpověď ve Výuce = '+itemSvg("hay")+' seno</li><li>dokončený test = 2× '+itemSvg("water")+' voda</li><li>test na 90 % a víc = '+itemSvg("treat")+' jahoda</li><li>Test dne = '+itemSvg("carrot")+' mrkev + 2× voda</li></ul>'+
+    '<button type="button" class="btn small primary" data-view="learn">'+ic("i-learn")+'Jít do Výuky</button></div></div></div>');
+}
+function petAction(type,item){
+  petTick();
+  if(type==="feed"){ if(!(PET.inv[item]>0)) return; const it=PET_ITEMS[item]; PET.inv[item]--;
+    PET.stats.food=Math.min(100,PET.stats.food+it.food); PET.stats.water=Math.min(100,PET.stats.water+it.water); PET.stats.joy=Math.min(100,PET.stats.joy+it.joy);
+    PET.xp+=item==="treat"?4:item==="carrot"?3:item==="water"?2:1; petAnim={type:item==="treat"?"treat":"eat",item,until:Date.now()+1800}; }
+  else { PET.stats.joy=Math.min(100,PET.stats.joy+6); PET.petAt=Date.now(); PET.xp+=1; petAnim={type:"love",until:Date.now()+1800}; }
+  const before=petLevel(); savePet(); render();
+  if(petLevel()>before) toast("Nová úroveň! Odemčeno: "+PET_UNLOCK[petLevel()-1]);
+  clearTimeout(petTimer); petTimer=setTimeout(()=>{ petAnim=null; if(view==="pet") render(); },1850);
+}
+
 function detailCard(title,icon,count,inner){
   return '<section class="card c-detail" id="c-detail"><div class="card-h"><button type="button" class="back" data-view="home">'+ic("i-chev")+'Přehled</button>'+ic(icon)+'<h2>'+title+'</h2>'+(count||"")+'</div>'+
     '<div class="body" data-scroll="detail">'+inner+'</div></section>';
@@ -1701,6 +1895,7 @@ function renderNow(){
   else if(view==="settings"){ cls+=" settings"; main=settingsHtml(); }
   else if(view==="print"){ cls+=" settings"; main=printView(); }
   else if(view==="learn"){ cls+=" settings"; main=learnHtml(); }
+  else if(view==="pet"){ cls+=" settings"; main=petHtml(); }
   else { cls+=" single"; main=detailHtml(view,p)+bottomRow(p); }
   $app.innerHTML='<div class="app">'+headHtml(p)+sideHtml()+'<main class="'+cls+'">'+main+'</main>'+tabsHtml()+'</div>';
   if(view==="print"){ fitPreview(); requestAnimationFrame(fitPreview); }
@@ -1725,6 +1920,9 @@ document.addEventListener("click", async e=>{
   const pw=t.closest("[data-pweek]"); if(pw){ printMon = pw.dataset.pweek==="next" ? defaultPrintMon() : addDays(printMon||defaultPrintMon(), +pw.dataset.pweek); render(); return; }
   if(t.closest("#btn-print")){ try{ window.print(); }catch(err){ toast("Tisk se nepodařilo otevřít."); } return; }
   if(t.closest("#btn-ics")){ downloadICS(); return; }
+  const pf=t.closest("[data-pfeed]"); if(pf){ petAction("feed",pf.dataset.pfeed); return; }
+  if(t.closest("[data-ppet]")){ petAction("pet"); return; }
+  if(t.closest("[data-pname]")){ const v=(document.getElementById("petname")||{}).value||""; const nm=v.trim().slice(0,16); if(!nm){ toast("Napiš jméno morčete."); return; } PET.name=nm; PET.last=Date.now(); savePet(); render(); toast("Ahoj, "+nm+"!"); return; }
   const lo=t.closest("[data-lopen]"); if(lo){ learnId=lo.dataset.lopen; learnMode="study"; quiz=null; view="learn"; resetScroll=true; render(); return; }
   const lt=t.closest("[data-ltest]"); if(lt){ if(lessonById(lt.dataset.ltest)){ startQuiz(lt.dataset.lwrong?"wrong":"lesson", lt.dataset.ltest); view="learn"; resetScroll=true; render(); } return; }
   if(t.closest("[data-ldaily]")){ startQuiz("daily"); view="learn"; resetScroll=true; render(); return; }
@@ -1735,7 +1933,7 @@ document.addEventListener("click", async e=>{
   const lp=t.closest("[data-lpick]"); if(lp && quiz && quiz.picked==null){
     const [a,qi]=quiz.refs[quiz.i], q=lessonById(a).quiz[qi], k=+lp.dataset.lpick; quiz.picked=k;
     if(k===q.c) quiz.ok++; else quiz.wrong.push([a,qi]);
-    recordAnswer(a,qi,k===q.c);
+    recordAnswer(a,qi,k===q.c); if(k===q.c) petEarn("hay",1);
     render(); return; }
   if(t.closest("[data-lnext]") && quiz){
     try{ speechSynthesis.cancel(); }catch(e){}
