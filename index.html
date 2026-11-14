@@ -15,7 +15,7 @@
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);height:100%}body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
 <title>Školní parťák</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<style>@font-face{font-family:'IBM Plex Sans';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/IBMPlexSans-Regular.woff2) format('woff2')}@font-face{font-family:'IBM Plex Sans';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/IBMPlexSans-Medium.woff2) format('woff2')}@font-face{font-family:'IBM Plex Sans';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/IBMPlexSans-SemiBold.woff2) format('woff2')}@font-face{font-family:'IBM Plex Sans';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/IBMPlexSans-Bold.woff2) format('woff2')}@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/IBMPlexMono-Medium.woff2) format('woff2')}@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/IBMPlexMono-SemiBold.woff2) format('woff2')}</style>
+<style>@font-face{font-family:'IBM Plex Sans';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/IBMPlexSans-Regular.woff2) format('woff2')}@font-face{font-family:'IBM Plex Sans';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/IBMPlexSans-Medium.woff2) format('woff2')}@font-face{font-family:'IBM Plex Sans';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/IBMPlexSans-SemiBold.woff2) format('woff2')}@font-face{font-family:'IBM Plex Sans';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/IBMPlexSans-Bold.woff2) format('woff2')}@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/IBMPlexMono-Medium.woff2) format('woff2')}@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/IBMPlexMono-SemiBold.woff2) format('woff2')}@font-face{font-family:'Titan One';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/TitanOne-latinext.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+20A0-20C0,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:'Titan One';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/TitanOne-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2212}</style>
 <style>
 /* Layout: aplikace na jednu obrazovku iPadu — horní lišta (logo · dny · hodiny · postup), boční navigace,
    mřížka karet (rozvrh · dnes potřebuji · moje pomůcky / penál · tělocvik · stav dne), řada „na zítra“.
@@ -34,7 +34,7 @@
   --gray-bg:#EEF1F5; --gray-fg:#4A5568; --gray-bd:#CBD3DE;
   --shadow:0 1px 2px rgba(14,22,38,.05),0 2px 8px rgba(14,22,38,.04);
   --f-sans:"IBM Plex Sans",-apple-system,"Segoe UI",system-ui,sans-serif;
-  --f-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --f-game:'Titan One','Arial Rounded MT Bold',var(--f-sans);--f-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
   --r:.85rem;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
@@ -320,35 +320,61 @@ svg{display:block}
 @keyframes conf{0%{transform:translateY(0) rotate(0)}100%{transform:translateY(420px) rotate(540deg);opacity:.2}}
 .lvlhint{display:inline-flex;align-items:center;gap:.25rem;color:#6B4FE0}
 .lvlhint svg{width:1.1rem;height:1.1rem;color:#F7C531}
-.wallet{display:flex;gap:.8rem;flex-wrap:wrap;font-size:.95rem}
-.wallet span{display:inline-flex;align-items:center;gap:.3rem;background:#FFF6DA;color:#6B4E00;border-radius:2rem;padding:.25rem .7rem .25rem .35rem}
-.wallet span.g{background:#FFF0B8}
-.wallet b{font-family:var(--f-mono);font-size:1.05rem}
-.cn{width:1.3rem;height:1.3rem;display:inline-block;vertical-align:-.3rem}
+.wallet{display:flex;gap:.5rem;flex-wrap:wrap;font-size:.92rem;margin-left:auto}
+.wallet span{display:inline-flex;align-items:center;gap:.3rem;background:#2A1670;color:#E9E3FF;border:2px solid #5B3FD1;border-radius:2rem;padding:.2rem .7rem .2rem .3rem;box-shadow:0 3px 0 #170B45}
+.wallet b{font-family:var(--f-game);font-weight:400;font-size:1.2rem;color:#FFE14D;letter-spacing:.02em}
+.wallet .cn{width:1.3rem;height:1.3rem}
 .ptabs{display:grid;grid-template-columns:repeat(3,1fr);gap:.3rem;background:var(--surface-2);border:1px solid var(--line);border-radius:.8rem;padding:.25rem}
-.ptabs button{width:100%;justify-content:center;text-align:center;display:flex;align-items:center;min-height:2.6rem;border-radius:.6rem;border:none;background:transparent;font:inherit;font-weight:600;color:var(--ink-2)}
-.ptabs button.on{background:var(--surface);color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,.08)}
-.s-hint{font-size:.9rem;color:var(--ink-3)}
-.trybar{display:flex;align-items:center;gap:.5rem;font-size:.95rem;background:#EEE8FF;color:#4B2FB8;border-radius:.6rem;padding:.35rem .6rem}
-.trybar .btn{margin-left:auto}
-.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(7.2rem,1fr));gap:.5rem}
-.sitem{display:flex;flex-direction:column;align-items:center;gap:.2rem;padding:.5rem .4rem .6rem;border-radius:.9rem;border:1.5px solid var(--line);background:var(--surface);text-align:center;color:var(--ink);font:inherit}
-.sitem .s-prev{border:none;background:var(--surface-2);border-radius:.6rem;width:100%;padding:.3rem}
-.sitem .th{width:100%;height:3.2rem}
-.sitem .s-name{font-size:.86rem;font-weight:600;line-height:1.2}
-.sitem .s-slot{font-size:.72rem;color:var(--ink-3)}
-.sitem .btn.small{min-height:2.1rem;padding:.1rem .6rem;font-family:var(--f-mono)}
-.sitem .btn .cn{width:1.05rem;height:1.05rem}
-.sitem .s-own{display:inline-flex;align-items:center;gap:.2rem;font-size:.82rem;color:var(--ok);font-weight:600}
-.sitem .s-own svg{width:1rem;height:1rem}
-.sitem.try{border-color:#9B7BF7;box-shadow:0 0 0 3px rgba(155,123,247,.25)}
-.sitem.gold{background:linear-gradient(160deg,#FFF8DC,#FFE8A3);border-color:#E8C14A}
-.sitem.gold .s-prev{background:rgba(255,255,255,.6)}
-.sitem.wear .th{height:3rem}
-.sitem.wear.on{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 10%,var(--surface))}
-.sitem.gold.wear.on{border-color:#C99700}
-.goldh{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;margin-top:.6rem}
-.goldh span{font-weight:400;text-transform:none;letter-spacing:0;color:var(--ink-3)}
+.ptabs button{width:100%;justify-content:center;text-align:center;display:flex;align-items:center;min-height:2.6rem;border-radius:.6rem;border:none;background:transparent;font-family:var(--f-game);font-size:1.12rem;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-2)}
+.ptabs button.on{background:#FFE14D;color:#2A1300;box-shadow:0 3px 0 #C77C0E}
+.trybar{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;font-size:.95rem;background:#2A1670;color:#fff;border-radius:.8rem;padding:.45rem .6rem;margin-top:.5rem}
+.trybar b{font-family:var(--f-game);font-weight:400;font-size:1.1rem;color:#FFE14D}
+.trybar .btn{margin-left:auto}.trybar .btn+.btn{margin-left:0}
+.trybar .cn{width:1.05rem;height:1.05rem}
+.ishop{position:relative;border-radius:1.1rem;padding:.8rem;color:#fff;background:linear-gradient(165deg,#25105E 0%,#3B1A8F 48%,#16348F 100%);overflow:hidden;isolation:isolate}
+.ishop::before{content:"";position:absolute;inset:0;z-index:-1;background:repeating-linear-gradient(115deg,rgba(255,255,255,.045) 0 16px,transparent 16px 42px),radial-gradient(60% 40% at 80% 0%,rgba(255,225,77,.18),transparent)}
+.ish-h{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+.ish-h h3{margin:0;font-family:var(--f-game);font-weight:400;font-size:1.8rem;line-height:1;letter-spacing:.03em;text-transform:uppercase;color:#FFE14D;text-shadow:0 3px 0 #C2410C,0 6px 12px rgba(0,0,0,.45)}
+.ish-cats{display:flex;flex-wrap:wrap;gap:.35rem;padding:.7rem 0 .2rem;scrollbar-width:none}
+.ish-cats::-webkit-scrollbar{display:none}
+.ish-cats button{flex:none;font-family:var(--f-game);font-size:1.02rem;letter-spacing:.03em;text-transform:uppercase;color:#D9D0FF;background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.14);border-radius:.6rem;padding:.3rem .75rem;min-height:2.5rem}
+.ish-cats button.on{background:#FFE14D;color:#2A1300;border-color:#FFF3A6;box-shadow:0 3px 0 #C77C0E}
+.ish-hint{margin:.45rem 0 .2rem;font-size:.85rem;color:#C8BFF5}
+.ish-sec{margin-top:.6rem}
+.ishop .ish-sec h4{margin:0 0 .45rem;font-family:var(--f-game);font-weight:400;font-size:1.25rem;letter-spacing:.03em;text-transform:uppercase;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.4);display:flex;align-items:baseline;gap:.5rem;flex-wrap:wrap}
+.ishop .ish-sec h4 span{font-family:var(--f-sans);font-size:.78rem;letter-spacing:0;text-transform:none;color:#C8BFF5;text-shadow:none}
+.icards{display:grid;grid-template-columns:repeat(auto-fill,minmax(8.6rem,1fr));gap:.6rem;margin-top:.5rem}
+.icards.upg{grid-template-columns:repeat(auto-fit,minmax(8rem,1fr));align-items:stretch}
+.upg-arr{display:none}
+.icard{--r1:#7BD86A;--r2:#2F8F3A;--rb:#B5F5A8;position:relative;display:flex;flex-direction:column;border-radius:.85rem;overflow:hidden;color:#fff;
+  background:radial-gradient(120% 85% at 50% 28%,var(--r1),var(--r2) 75%);border:3px solid var(--rb);box-shadow:0 4px 0 rgba(8,3,30,.55),0 8px 16px rgba(8,3,30,.35);transition:transform .15s}
+.icard::after{content:"";position:absolute;left:-40%;top:0;width:35%;height:62%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.22),transparent);transform:skewX(-18deg);pointer-events:none}
+.icard.r-rare{--r1:#5CC2FF;--r2:#1554C4;--rb:#AEE0FF}
+.icard.r-epic{--r1:#CF8BFF;--r2:#6519B5;--rb:#E8C9FF}
+.icard.r-legend{--r1:#FFE07A;--r2:#E2620E;--rb:#FFF2B0}
+.icards.deals{grid-template-columns:repeat(2,minmax(0,15rem))}
+.icard.big .ic-art{aspect-ratio:1.5}
+.icard.try{border-color:#FFE14D;box-shadow:0 0 0 3px #FFE14D,0 0 22px 4px rgba(255,225,77,.6)}
+.icard.on{border-color:#7CFF9B}
+.icard.locked .ic-art{filter:grayscale(.7) brightness(.8)}
+.icard:active{transform:scale(.97)}
+.ic-art{position:relative;border:none;background:transparent;padding:0;aspect-ratio:1.3;min-height:0;overflow:hidden;cursor:pointer;width:100%}
+.ic-art .th{position:absolute;left:8%;top:8%;width:84%;height:86%;filter:drop-shadow(0 4px 2px rgba(10,4,30,.4))}
+.ic-nm{padding:.3rem .45rem .35rem;text-align:center;font-family:var(--f-game);font-size:1.02rem;line-height:1.05;letter-spacing:.02em;text-transform:uppercase;text-shadow:0 2px 0 rgba(0,0,0,.45);background:linear-gradient(rgba(10,4,30,0),rgba(10,4,30,.38) 40%)}
+.ic-nm span{display:block;margin-top:.2rem;font-family:var(--f-sans);font-size:.62rem;font-weight:700;letter-spacing:.07em;opacity:.85;text-shadow:none}
+.ic-act{display:flex;align-items:center;justify-content:center;gap:.3rem;min-height:2.6rem;margin-top:auto;border:none;background:rgba(10,4,30,.72);color:#fff;font-family:var(--f-game);font-size:1.2rem;letter-spacing:.02em;text-transform:uppercase}
+.ic-act svg{width:1.15rem;height:1.15rem}
+.ic-act.buy{background:linear-gradient(#FFE867,#FFC21A);color:#2A1300;box-shadow:inset 0 -3px 0 #D98A00}
+.ic-act.buy[disabled]{background:rgba(10,4,30,.72);color:#B7AEDB;box-shadow:none}
+.ic-act s{font-size:.85rem;opacity:.65;margin-right:.1rem}
+.ic-act.own{color:#7CFF9B;font-size:1rem}
+.ic-act.lock{font-family:var(--f-sans);font-size:.72rem;font-weight:600;text-transform:none;color:#E0D8FF;padding:0 .4rem;text-align:center;line-height:1.2}
+.ic-act.on{background:#22A85A;color:#fff;font-size:1rem}
+button.ic-act{cursor:pointer}
+.ic-badge{position:absolute;top:.4rem;left:-.15rem;z-index:2;font-style:normal;font-family:var(--f-game);font-size:.85rem;letter-spacing:.04em;text-transform:uppercase;background:#FFE14D;color:#2A1300;padding:.1rem .5rem .1rem .55rem;border-radius:0 .4rem .4rem 0;box-shadow:0 2px 0 rgba(0,0,0,.35);transform:rotate(-4deg)}
+.ic-badge.deal{background:#FF3D6E;color:#fff}
+.petwrap.shopping .pet-msg,.petwrap.shopping .ppath{display:none}
+@media (max-width:900px){.petwrap.shopping .pet-left{position:sticky;top:-1px;z-index:5;background:var(--surface);padding-bottom:.4rem}.petwrap.shopping .petscene{max-height:34vh;width:auto;margin:0 auto;display:block}}
 .lcard.bigt{grid-column:1/-1;background:linear-gradient(135deg,#FFF6DA,#FFEFC2);border-color:#F2D27A}
 .lcard.bigt .lc-top svg{width:1.3rem;height:1.3rem;color:#E0A800}
 .lcard.bigt .lc-foot{flex-wrap:wrap;gap:.45rem}
@@ -794,7 +820,7 @@ table.bwt{width:100%;border-collapse:collapse;table-layout:fixed;font-size:11px;
 const COLOR_HEX={pink:"#E0566F",blue:"#2F7FE0",green:"#2EA650",yellow:"#E3AE00",purple:"#8B5CF6",orange:"#F08A24",gray:"#8A96A8"};
 const COLOR_NAMES={pink:"růžová",blue:"modrá",green:"zelená",yellow:"žlutá",purple:"fialová",orange:"oranžová",gray:"šedá"};
 const ICON_NAMES={cj:"kniha",ma:"kalkulačka",pu:"list",aj:"vlajka",hv:"nota",tv:"běžec",pv:"nůžky",vv:"paleta",book:"sešit",q:"otazník"};
-const APP_VERSION="38"; window.APP_VERSION=APP_VERSION;
+const APP_VERSION="39"; window.APP_VERSION=APP_VERSION;
 const KIND={sdel:{icon:"i-msg",short:null},druz:{icon:"i-users",short:null},ukol:{icon:"i-flag",short:null},food:{icon:"i-food",short:"Svačina"},drink:{icon:"i-drop",short:"Pití"},other:{icon:"i-dot",short:null}};
 
 const DEFAULTS = {
@@ -1556,7 +1582,7 @@ function pigSvg(mood,lvl,anim){
   const glasses=sleep?"":'<g fill="none" stroke="#2E3A59" stroke-width="2.6"><circle cx="112" cy="188" r="13"/><circle cx="150" cy="186" r="13"/><path d="M125 187h12M99 185l-10-4"/></g>';
   const medal='<g transform="translate(176 214)"><path d="M-8 -16l8 14 8-14" fill="none" stroke="#E53935" stroke-width="5"/><circle cx="0" cy="4" r="10" fill="#F7C531" stroke="#C99700" stroke-width="2"/><path d="M0 -1l2 4 4 .5-3 3 1 4-4-2-4 2 1-4-3-3 4-.5z" fill="#fff"/></g>';
   const cape='<path d="M196 150c30-6 70 4 92 30 8 10 10 26 6 40-24-16-60-26-98-24z" fill="#C62828" opacity=".92"/><path d="M196 150c30-6 70 4 92 30" stroke="#F7C531" stroke-width="4" fill="none"/>';
-  const acc=wearSvg("head")+(sleep?"":wearSvg("face"))+wearSvg("neck");
+  const acc=wearSvg("head")+wearSvg("face")+wearSvg("neck");
   const back=wearSvg("back");
   const fluff=lvl<=1?'<path d="M176 136c-2-10 4-16 10-14M186 134c2-9 9-12 14-8M168 140c-6-6-4-14 2-15" stroke="#F8EAD5" stroke-width="4" fill="none" stroke-linecap="round"/>':"";
   return '<g class="pig'+(anim?" a-"+anim:"")+'">'+
@@ -1570,7 +1596,7 @@ function pigSvg(mood,lvl,anim){
         '<ellipse cx="228" cy="158" rx="58" ry="32" fill="#D08A45"/>'+
         '<ellipse cx="292" cy="214" rx="46" ry="54" fill="#5B3D2B"/>'+
         '<path d="M100 250c40 10 120 12 190-4" stroke="#EAD3B4" stroke-width="5" fill="none" stroke-linecap="round" opacity=".8"/>'+
-      '</g>'+back+fluff+
+      wearSvg("body")+'</g>'+back+fluff+
       '<g class="ear"><path d="M96 160c-10-14-6-30 8-30 10 0 14 14 10 28z" fill="#B9773D"/><path d="M100 156c-5-9-3-19 4-19 6 0 8 9 6 18z" fill="#F2A6A0"/></g>'+
       '<g class="ear e2"><path d="M160 150c4-16 18-24 28-16 8 7 2 20-10 26z" fill="#B9773D"/><path d="M166 150c3-9 11-14 17-10 4 4 0 11-7 14z" fill="#F2A6A0"/></g>'+
       '<ellipse cx="96" cy="210" rx="11" ry="7" fill="#F6A9A9" opacity=".55"/><ellipse cx="166" cy="206" rx="11" ry="7" fill="#F6A9A9" opacity=".55"/>'+
@@ -1578,7 +1604,7 @@ function pigSvg(mood,lvl,anim){
       '<path d="M124 204q7-6 14 0q-2 8-7 8t-7-8z" fill="#E98A8A"/>'+
       '<g class="mouth">'+mouth+'</g>'+
       '<g stroke="#8A6A4A" stroke-width="1.3" stroke-linecap="round" opacity=".6"><path d="M118 210l-30-4M118 214l-28 5M144 208l30-6M144 212l29 3"/></g>'+
-      '<g fill="#F2B3A6"><ellipse cx="120" cy="262" rx="13" ry="6"/><ellipse cx="160" cy="264" rx="12" ry="6"/><ellipse cx="262" cy="258" rx="14" ry="6"/></g>'+
+      '<g fill="#F2B3A6"><ellipse cx="120" cy="262" rx="13" ry="6"/><ellipse cx="160" cy="264" rx="12" ry="6"/><ellipse cx="262" cy="258" rx="14" ry="6"/></g>'+wearSvg("paws")+
       '<path d="M190 140c4-8 10-10 14-6M198 140c6-6 12-6 15-1" stroke="#A66A33" stroke-width="2.5" fill="none" stroke-linecap="round"/>'+
       acc+
     '</g>'+
@@ -1596,17 +1622,14 @@ function petScene(){
     (mood==="sleep"?'<rect x="0" y="0" width="420" height="300" rx="22" fill="#1E2550" opacity=".35"/><circle cx="360" cy="46" r="18" fill="#FFF3C4"/><circle cx="352" cy="40" r="18" fill="#3A4170" opacity=".55"/>':'<circle cx="360" cy="46" r="20" fill="#FFD66B" opacity=".9"/>')+
     '<path d="M0 220h420v58a22 22 0 0 1-22 22H22A22 22 0 0 1 0 278z" fill="url(#pfloor)"/>'+
     '<g fill="#D7AF6A" opacity=".7">'+[...Array(26)].map((_,i)=>'<rect x="'+(12+i*16)%410+'" y="'+(232+(i*37)%56)+'" width="9" height="3" rx="1.5" transform="rotate('+((i*47)%60-30)+' '+((12+i*16)%410)+' '+(232+(i*37)%56)+')"/>').join("")+'</g>'+
-    cageSvg("rainbow")+cageSvg("rug")+cageSvg("hammock")+cageSvg("tunnel")+cageSvg("flower")+cageSvg("ball")+
-    // domeček
-    (cageOn("house_gold")?'<g transform="translate(300 150)">'+SHOP_BY.house_gold.svg+'</g>':'<g transform="translate(300 150)"><path d="M0 40L50 0l50 40z" fill="#B7713A"/><rect x="8" y="38" width="84" height="66" rx="6" fill="#D99A5B"/><path d="M34 104v-30a16 16 0 0 1 32 0v30z" fill="#5A3A22"/><g stroke="#B7713A" stroke-width="2" opacity=".6"><path d="M8 56h84M8 76h26M66 76h26"/></g></g>')+
-    (false?'<g transform="translate(372 226)"><path d="M-12 30h24l-4 22h-16z" fill="#E07A4F"/><path d="M0 30v-26" stroke="#4CAF50" stroke-width="3"/><g fill="#FF8FB1"><circle cx="0" cy="-2" r="7"/><circle cx="-7" cy="4" r="6"/><circle cx="7" cy="4" r="6"/></g><circle cx="0" cy="3" r="4" fill="#FFD54F"/></g>':"")+
-    (false?'<g transform="translate(16 236)"><path d="M0 34a34 34 0 0 1 68 0h-16a18 18 0 0 0-36 0z" fill="#6CC28C"/><path d="M6 34a28 28 0 0 1 56 0" stroke="#4FA673" stroke-width="3" fill="none"/></g>':"")+
+    cageLayer()+
+    houseSvg()+wearSvg("bed")+
     // napáječka
     '<g transform="translate(26 40)"><rect x="0" y="0" width="34" height="70" rx="12" fill="#E8F4FF" stroke="#9CC9EE" stroke-width="2.5"/><rect x="3" y="'+(67-waterH)+'" width="28" height="'+waterH+'" rx="9" fill="#5BB8F5" opacity=".85"/><rect x="13" y="70" width="8" height="22" rx="3" fill="#B0BEC5"/><circle cx="17" cy="95" r="4.5" fill="#90A4AE"/></g>'+
     (false?'<ellipse cx="210" cy="268" rx="160" ry="22" fill="#B23A48" opacity=".55"/><ellipse cx="210" cy="268" rx="146" ry="17" fill="none" stroke="#F7C531" stroke-width="3" opacity=".8"/>':"")+
     (false?'<g><path d="M250 92q50 40 120 0" fill="#7FB3FF" stroke="#4A7BD0" stroke-width="3"/><path d="M250 92l-8-30M370 92l8-30" stroke="#8D6E63" stroke-width="3"/><path d="M262 100q48 26 96 0" stroke="#fff" stroke-width="2" fill="none" opacity=".6"/></g>':"")+
     // miska se senem
-    '<g transform="translate(40 226)"><g stroke="#C9A04A" stroke-width="2.2" stroke-linecap="round">'+[...Array(hay*3)].map((_,i)=>'<path d="M'+(10+i*4)%60+' 8l'+((i%3)-1)*6+' -'+(8+(i*7)%10)+'"/>').join("")+'</g><path d="M0 8h70l-8 20H8z" fill="'+(cageOn("bowl_gold")?"#E0B21E":"#5E8DEB")+'"/><ellipse cx="35" cy="8" rx="35" ry="5" fill="'+(cageOn("bowl_gold")?"#F7D64A":"#86A9F2")+'"/></g>'+
+    '<g transform="translate(40 226)"><g stroke="#C9A04A" stroke-width="2.2" stroke-linecap="round">'+[...Array(hay*3)].map((_,i)=>'<path d="M'+(10+i*4)%60+' 8l'+((i%3)-1)*6+' -'+(8+(i*7)%10)+'"/>').join("")+'</g><path d="M0 8h70l-8 20H8z" fill="'+(cageOn("bowl_gold")?"#E0B21E":"#5E8DEB")+'" '+S(2)+'/><ellipse cx="35" cy="8" rx="35" ry="5" fill="'+(cageOn("bowl_gold")?"#F7D64A":"#86A9F2")+'" '+S(2)+'/></g>'+
     '<g transform="translate(18 0) translate(200 262) scale('+PET_STAGES[lvl-1].k+') translate(-200 -262)">'+pigSvg(mood,lvl,a)+'</g>'+
     (a==="eat"&&petAnim.item?'<g class="feeditem" transform="translate(150 196) scale(.9)">'+itemSvg(petAnim.item).replace('class="it"','width="48" height="48"')+'</g>':"")+
   '</svg>';
@@ -1628,8 +1651,8 @@ function petHtml(){
   const celeb=PET.lvlUp?'<div class="pcele"><div class="pc-box"><div class="confetti">'+[...Array(24)].map((_,i)=>'<i style="left:'+((i*37)%100)+'%;animation-delay:'+((i%8)*.12)+'s;background:'+["#FF5C8A","#FFD54F","#4FC3F7","#81C784","#9B7BF7"][i%5]+'"></i>').join("")+'</div><h3>Úroveň '+PET.lvlUp+'!</h3><p>'+esc(PET.name)+' je teď <b>'+esc(PET_STAGES[PET.lvlUp-1].name)+'</b>!</p><p class="gift">Dárek: <b>'+esc(PET_STAGES[PET.lvlUp-1].gift)+'</b></p><button type="button" class="btn primary big" data-plvok>Hurá!</button></div></div>':"";
 
   return detailCard(esc(PET.name),"i-pig",'<span class="count">'+lvl+'. '+esc(st.name)+'</span>',
-    celeb+'<div class="petwrap"><div class="pet-left">'+petScene()+'<p class="pet-msg">'+esc(petMsg())+'</p>'+path+'</div>'+
-    '<div class="pet-right">'+walletHtml()+'<div class="ptabs">'+[["care","Péče"],["shop","Obchod"],["ward","Šatník"]].map(x=>'<button type="button" class="'+(petTab===x[0]?"on":"")+'" data-ptab="'+x[0]+'">'+x[1]+'</button>').join("")+'</div>'+
+    celeb+'<div class="petwrap'+(petTab!=="care"?" shopping":"")+'"><div class="pet-left">'+petScene()+tryBar()+'<p class="pet-msg">'+esc(petMsg())+'</p>'+path+'</div>'+
+    '<div class="pet-right">'+(petTab==="care"?walletHtml():"")+'<div class="ptabs">'+[["care","Péče"],["shop","Obchod"],["ward","Šatník"]].map(x=>'<button type="button" class="'+(petTab===x[0]?"on":"")+'" data-ptab="'+x[0]+'">'+x[1]+'</button>').join("")+'</div>'+
     (petTab==="shop"?shopHtml():petTab==="ward"?wardrobeHtml():(statBar("food","Sytost","#F0A030",s.food)+statBar("water","Pití","#3FA9F5",s.water)+statBar("joy","Radost","#FF5C8A",s.joy)+lvlBar+
     '<h4>Zásoby</h4><div class="pitems">'+items+'</div>'+
     '<button type="button" class="btn big pet-love" data-ppet'+(canPet?"":" disabled")+'>'+ic("i-heart")+(asleep?'Spinká – nebuď ho':canPet?'Pohladit':'Pohladit můžeš za chvilku')+'</button>'+
@@ -1647,69 +1670,203 @@ function petAction(type,item){
   clearTimeout(petTimer); petTimer=setTimeout(()=>{ petAnim=null; if(view==="pet") render(); },1850);
 }
 
-/* ---------- obchod a šatník morčete ---------- */
-const HAT0='<ellipse cx="26" cy="30" rx="30" ry="7" fill="#3D5AFE"/><path d="M8 30c0-16 8-26 18-26s18 10 18 26z" fill="#536DFE"/><rect x="8" y="22" width="36" height="5" fill="#FFD54F"/>';
-const CROWN0='<path d="M0 22l6-18 9 12 9-14 9 14 9-12 6 18z" fill="#F7C531" stroke="#C99700" stroke-width="2" stroke-linejoin="round"/><circle cx="24" cy="6" r="3" fill="#E8344E"/><circle cx="6" cy="5" r="2.2" fill="#4FC3F7"/><circle cx="42" cy="5" r="2.2" fill="#4FC3F7"/>';
-const GL=(c,w,fill)=>'<g fill="'+(fill||"none")+'" stroke="'+c+'" stroke-width="'+w+'"><circle cx="-19" cy="1" r="13"/><circle cx="19" cy="-1" r="13"/></g><path d="M-6 0h12M-32 -2l-10-4" stroke="'+c+'" stroke-width="'+w+'" fill="none"/>'+(fill?'<path d="M-26-5l6-4M12-7l6-4" stroke="#fff" stroke-width="2" opacity=".6"/>':"");
+/* ---------- obchod a šatník morčete (v2) ---------- */
+const OL="#2D1B3D";
+const S=(a)=>'stroke="'+OL+'" stroke-width="'+(a||2)+'" stroke-linejoin="round" stroke-linecap="round"';
+const GL=(c,w,lens,shine)=>'<g fill="'+(lens||"none")+'" stroke="'+c+'" stroke-width="'+w+'"><circle cx="-19" cy="1" r="13"/><circle cx="19" cy="-1" r="13"/></g><path d="M-6 0q6-4 12 0M-32 -2l-10-4M32 -4l8-4" stroke="'+c+'" stroke-width="'+w+'" fill="none" stroke-linecap="round"/>'+(shine?'<path d="M-27-5l6-5M11-7l6-5" stroke="#fff" stroke-width="2.4" opacity=".75" stroke-linecap="round"/>':"");
+// tričko: TORSO na morčeti (oříznuté tělem), TEE jako obrázek v obchodě
+const TORSO="M172 100C184 170 182 232 170 300H340V100Z";
+const TEE="M182 132l-34 22 14 30 18-10v92h80v-92l18 10 14-30-34-22q-18 14-38 0z";
+const cloth=(base,deco)=>({svg:'<path d="'+TORSO+'" fill="'+base+'"/>'+deco+'<path d="M172 100C184 170 182 232 170 300" fill="none" '+S(3)+'/><path d="M176 102C188 170 186 232 174 300" fill="none" stroke="#fff" stroke-width="3" opacity=".35"/>',
+  th:'<defs><clipPath id="teeclip"><path d="'+TEE+'"/></clipPath></defs><path d="'+TEE+'" fill="'+base+'"/><g clip-path="url(#teeclip)">'+deco+'</g><path d="'+TEE+'" fill="none" '+S(3)+'/>', tvb:"140 124 160 160"});
+const NAILS=(c,extra)=>'<g fill="'+c+'" stroke="'+OL+'" stroke-width=".9">'+[[108,262],[148,264],[249,258]].map(([x,y])=>'<circle cx="'+x+'" cy="'+(y-3.5)+'" r="3.2"/><circle cx="'+(x-1.5)+'" cy="'+(y+1)+'" r="3.2"/><circle cx="'+(x+.5)+'" cy="'+(y+5.5)+'" r="3.2"/>').join("")+'</g>'+(extra||"");
+const PAWTH=(c,glit)=>'<ellipse cx="0" cy="6" rx="26" ry="14" fill="#F2B3A6" '+S(2)+'/><g fill="'+c+'" '+S(1.6)+'><ellipse cx="-20" cy="-2" rx="6" ry="5"/><ellipse cx="-22" cy="9" rx="6" ry="5"/><ellipse cx="-16" cy="18" rx="6" ry="5"/></g>'+(glit?'<g fill="#fff"><circle cx="-21" cy="-3" r="1.4"/><circle cx="-23" cy="8" r="1.4"/><circle cx="-17" cy="17" r="1.4"/></g>':"");
+const HOUSE_AT="translate(300 150)";
+const HOUSE_WOOD='<path d="M-4 42L50 -2l54 44z" fill="#B7713A" '+S(2.5)+'/><rect x="8" y="38" width="84" height="66" rx="6" fill="#D99A5B" '+S(2.5)+'/><path d="M34 104v-30a16 16 0 0 1 32 0v30z" fill="#5A3A22" '+S(2.5)+'/><g stroke="#B7713A" stroke-width="2" opacity=".6"><path d="M10 56h80M10 76h24M66 76h24"/></g>';
+
 const SHOP=[
- {id:"bow_pink", name:"Růžová mašle", slot:"head", price:15, at:"translate(160 158)", vb:"-18 -12 36 24", svg:'<path d="M0 0l-14-8v16zM0 0l14-8v16z" fill="#FF6FA8"/><circle r="4.5" fill="#E8488A"/>'},
- {id:"bow_blue", name:"Modrá mašle", slot:"head", price:15, at:"translate(160 158)", vb:"-18 -12 36 24", svg:'<path d="M0 0l-14-8v16zM0 0l14-8v16z" fill="#5AA8FF"/><circle r="4.5" fill="#2F80ED"/>'},
- {id:"flowerband", name:"Čelenka s kytičkou", slot:"head", price:25, at:"translate(131 150)", vb:"-34 -26 68 40", svg:'<path d="M-30 8q30-28 60 0" stroke="#7CB342" stroke-width="4" fill="none"/><g transform="translate(12 -12)"><circle cy="-6" r="5" fill="#FF8FB1"/><circle cx="-6" r="5" fill="#FF8FB1"/><circle cx="6" r="5" fill="#FF8FB1"/><circle cy="6" r="5" fill="#FF8FB1"/><circle r="4" fill="#FFD54F"/></g>'},
- {id:"hat", name:"Modrý klobouček", slot:"head", price:35, at:"translate(134 142)", vb:"-32 -22 64 40", svg:'<g transform="translate(-26 -22)">'+HAT0+'</g>'},
- {id:"cap", name:"Kšiltovka", slot:"head", price:30, at:"translate(131 150)", vb:"-30 -26 60 40", svg:'<path d="M-22 6c0-16 10-24 22-24s22 8 22 24z" fill="#E53935"/><path d="M-28 6h32q14 0 18 6h-50z" fill="#B71C1C"/><circle cy="-18" r="3" fill="#B71C1C"/>'},
- {id:"beanie", name:"Čepice s bambulí", slot:"head", price:30, at:"translate(131 148)", vb:"-30 -34 60 48", svg:'<path d="M-24 8c0-20 10-30 24-30s24 10 24 30z" fill="#26A69A"/><rect x="-26" y="2" width="52" height="9" rx="4" fill="#00897B"/><circle cy="-24" r="7" fill="#fff"/>'},
- {id:"glasses", name:"Brýle", slot:"face", price:30, at:"translate(131 187)", vb:"-46 -16 92 32", svg:GL("#2E3A59",2.6)},
- {id:"sunglasses", name:"Sluneční brýle", slot:"face", price:35, at:"translate(131 187)", vb:"-46 -16 92 32", svg:GL("#1E2A3A",2.6,"#1E2A3A")},
- {id:"scarf", name:"Šátek", slot:"neck", price:20, at:"translate(150 230)", vb:"-32 -12 64 44", svg:'<path d="M-28 -6q28 14 56 0l2 10q-30 16-60 0z" fill="#E53935"/><path d="M14 4l6 22-10 2-4-20z" fill="#C62828"/>'},
- {id:"bowtie", name:"Motýlek", slot:"neck", price:20, at:"translate(152 232)", vb:"-16 -10 32 20", svg:'<path d="M0 0l-12-7v14zM0 0l12-7v14z" fill="#3949AB"/><circle r="3.5" fill="#283593"/>'},
- {id:"cape", name:"Červený plášť", slot:"back", price:50, at:"", vb:"190 140 110 90", svg:'<path d="M196 150c30-6 70 4 92 30 8 10 10 26 6 40-24-16-60-26-98-24z" fill="#C62828" opacity=".92"/><path d="M196 150c30-6 70 4 92 30" stroke="#F7C531" stroke-width="4" fill="none"/>'},
- {id:"tunnel", name:"Tunel", slot:"cage", price:40, vb:"-4 -4 76 44", svg:'<path d="M0 34a34 34 0 0 1 68 0h-16a18 18 0 0 0-36 0z" fill="#6CC28C"/><path d="M6 34a28 28 0 0 1 56 0" stroke="#4FA673" stroke-width="3" fill="none"/>', at:"translate(16 236)"},
- {id:"ball", name:"Míček", slot:"cage", price:15, vb:"-15 -15 30 30", svg:'<circle r="12" fill="#FF7043"/><path d="M-12 0h24M0-12v24" stroke="#fff" stroke-width="2.5"/>', at:"translate(338 284)"},
- {id:"flower", name:"Kytička", slot:"cage", price:20, vb:"-16 -12 32 66", svg:'<path d="M-12 30h24l-4 22h-16z" fill="#E07A4F"/><path d="M0 30v-26" stroke="#4CAF50" stroke-width="3"/><g fill="#FF8FB1"><circle cy="-2" r="7"/><circle cx="-7" cy="4" r="6"/><circle cx="7" cy="4" r="6"/></g><circle cy="3" r="4" fill="#FFD54F"/>', at:"translate(372 226)"},
- {id:"hammock", name:"Houpací síť", slot:"cage", price:60, vb:"240 56 140 54", svg:'<path d="M250 92q50 40 120 0" fill="#7FB3FF" stroke="#4A7BD0" stroke-width="3"/><path d="M250 92l-8-30M370 92l8-30" stroke="#8D6E63" stroke-width="3"/><path d="M262 100q48 26 96 0" stroke="#fff" stroke-width="2" fill="none" opacity=".6"/>', at:""},
- {id:"rainbow", name:"Duha na zeď", slot:"cage", price:40, vb:"-50 -46 100 50", svg:'<g fill="none" stroke-width="7"><path d="M-42 0a42 42 0 0 1 84 0" stroke="#FF6B6B"/><path d="M-34 0a34 34 0 0 1 68 0" stroke="#FFD93D"/><path d="M-26 0a26 26 0 0 1 52 0" stroke="#6BCB77"/><path d="M-18 0a18 18 0 0 1 36 0" stroke="#4D96FF"/></g>', at:"translate(200 92)"},
- {id:"rug", name:"Koberec", slot:"cage", price:45, vb:"40 240 340 56", svg:'<ellipse cx="210" cy="268" rx="160" ry="22" fill="#B23A48" opacity=".55"/><ellipse cx="210" cy="268" rx="146" ry="17" fill="none" stroke="#F7C531" stroke-width="3" opacity=".8"/>', at:""},
- // zlaté super bonusy
- {id:"crown", name:"Zlatá korunka", slot:"head", gold:10, at:"translate(132 140)", vb:"-28 -16 56 34", svg:'<g transform="translate(-24 -12)">'+CROWN0+'</g>'},
- {id:"glasses_gold", name:"Zlaté brýle", slot:"face", gold:5, at:"translate(131 187)", vb:"-46 -16 92 32", svg:GL("#D4A017",3.2)},
- {id:"medal", name:"Zlatá medaile", slot:"neck", gold:3, at:"translate(176 214)", vb:"-14 -20 28 36", svg:'<path d="M-8 -16l8 14 8-14" fill="none" stroke="#E53935" stroke-width="5"/><circle cy="4" r="10" fill="#F7C531" stroke="#C99700" stroke-width="2"/><path d="M0 -1l2 4 4 .5-3 3 1 4-4-2-4 2 1-4-3-3 4-.5z" fill="#fff"/>'},
- {id:"cape_gold", name:"Zlatý plášť", slot:"back", gold:8, at:"", vb:"190 140 110 90", svg:'<path d="M196 150c30-6 70 4 92 30 8 10 10 26 6 40-24-16-60-26-98-24z" fill="#F7C531"/><path d="M196 150c30-6 70 4 92 30" stroke="#C99700" stroke-width="4" fill="none"/><g fill="#fff" opacity=".7"><circle cx="240" cy="172" r="2.5"/><circle cx="262" cy="186" r="2"/><circle cx="226" cy="186" r="2"/></g>'},
- {id:"bowl_gold", name:"Zlatá miska", slot:"cage", gold:4, vb:"-4 -6 78 38", svg:'<path d="M0 8h70l-8 20H8z" fill="#E0B21E"/><ellipse cx="35" cy="8" rx="35" ry="5" fill="#F7D64A"/>', at:""},
- {id:"house_gold", name:"Zlatý domeček", slot:"cage", gold:12, vb:"-4 -4 108 112", svg:'<path d="M0 40L50 0l50 40z" fill="#E0B21E"/><rect x="8" y="38" width="84" height="66" rx="6" fill="#F7D64A"/><path d="M34 104v-30a16 16 0 0 1 32 0v30z" fill="#8A6A10"/><circle cx="50" cy="22" r="6" fill="#fff" opacity=".8"/>', at:""}
+ // ---- na hlavu ----
+ {id:"bow_pink", name:"Růžová mašle", slot:"head", r:"common", price:15, at:"translate(166 150)", vb:"-28 -16 56 38",
+  svg:'<g '+S()+'><path d="M-3 0C-10-13-25-13-25 0s15 13 22 0z" fill="#FF6FA8"/><path d="M3 0c7-13 22-13 22 0S10 13 3 0z" fill="#FF6FA8"/><path d="M-3 4l-8 14 5-1 3 4zM3 4l8 14-5-1-3 4z" fill="#E8488A"/><rect x="-5" y="-5" width="10" height="10" rx="3" fill="#E8488A"/></g><path d="M-20-4q4-5 9-3M20-4q-4-5-9-3" stroke="#fff" stroke-width="2.2" fill="none" opacity=".75" stroke-linecap="round"/>'},
+ {id:"bow_blue", name:"Hvězdná mašle", slot:"head", r:"rare", price:35, at:"translate(166 150)", vb:"-28 -16 56 38",
+  svg:'<g '+S()+'><path d="M-3 0C-10-13-25-13-25 0s15 13 22 0z" fill="#4D8DFF"/><path d="M3 0c7-13 22-13 22 0S10 13 3 0z" fill="#4D8DFF"/><path d="M-3 4l-8 14 5-1 3 4zM3 4l8 14-5-1-3 4z" fill="#2F5FD0"/><rect x="-5" y="-5" width="10" height="10" rx="3" fill="#2F5FD0"/></g><g fill="#FFE14D"><path d="M-15-3l1.5 3 3 .4-2.2 2 .6 3-2.9-1.5-2.9 1.5.6-3-2.2-2 3-.4z"/><path d="M15-3l1.5 3 3 .4-2.2 2 .6 3-2.9-1.5-2.9 1.5.6-3-2.2-2 3-.4z"/></g>'},
+ {id:"flowerband", name:"Květinová čelenka", slot:"head", r:"rare", price:40, at:"translate(136 152)", vb:"-44 -30 88 42",
+  svg:'<path d="M-38 6Q0-30 38 6" fill="none" stroke="'+OL+'" stroke-width="7" stroke-linecap="round"/><path d="M-38 6Q0-30 38 6" fill="none" stroke="#7CB342" stroke-width="4" stroke-linecap="round"/>'+
+   [[-22,-8,"#FF8FB1"],[0,-14,"#FFD54F"],[22,-8,"#9FA8FF"]].map(([x,y,c])=>'<g transform="translate('+x+' '+y+')" '+S(1.5)+'><circle cy="-5" r="5" fill="'+c+'"/><circle cx="-5" r="5" fill="'+c+'"/><circle cx="5" r="5" fill="'+c+'"/><circle cy="5" r="5" fill="'+c+'"/><circle r="3.6" fill="#fff"/></g>').join("")},
+ {id:"cap", name:"Kšiltovka", slot:"head", r:"common", price:20, at:"translate(134 148)", vb:"-52 -30 82 42",
+  svg:'<g '+S()+'><path d="M-48 5q12-9 28-7l2 8q-18 0-30 4z" fill="#B71C1C"/><path d="M-22 6c0-19 10-29 24-29s24 10 24 29z" fill="#E53935"/></g><path d="M2-23v29" stroke="#B71C1C" stroke-width="2"/><circle cx="2" cy="-23" r="3" fill="#B71C1C" '+S(1.4)+'/><path d="M-13-10q4-8 10-9" stroke="#fff" stroke-width="2.6" fill="none" opacity=".6" stroke-linecap="round"/>'},
+ {id:"beanie", name:"Kulich s bambulí", slot:"head", r:"common", price:25, at:"translate(136 148)", vb:"-32 -44 64 60",
+  svg:'<g '+S()+'><path d="M-26 6c0-22 12-32 26-32s26 10 26 32z" fill="#26A69A"/><rect x="-28" y="0" width="56" height="12" rx="5" fill="#00897B"/><circle cy="-31" r="8" fill="#fff"/></g><g stroke="#00695C" stroke-width="2"><path d="M-18 2v8M-9 2v8M0 2v8M9 2v8M18 2v8"/></g><path d="M-14-12q4-8 10-10" stroke="#fff" stroke-width="2.6" fill="none" opacity=".5" stroke-linecap="round"/>'},
+ {id:"party", name:"Párty čepička", slot:"head", r:"common", price:20, at:"translate(138 146)", vb:"-24 -52 48 62",
+  svg:'<g '+S()+'><path d="M-18 4L0-40 18 4z" fill="#FF5C8A"/></g><g fill="#FFE14D"><circle cx="-6" cy="-6" r="3"/><circle cx="6" cy="-18" r="3"/><circle cx="-2" cy="-28" r="2.5"/><circle cx="8" cy="-2" r="2.5"/></g><path d="M-18 4q18 6 36 0" fill="none" stroke="#7C4DFF" stroke-width="4"/><g '+S(1.5)+' fill="#7CE0FF"><circle cy="-42" r="5"/></g>'},
+ {id:"hat", name:"Kovbojský klobouk", slot:"head", r:"rare", price:45, at:"translate(136 146)", vb:"-46 -36 92 54",
+  svg:'<g '+S()+'><path d="M-42 0q8 12 42 12t42-12q-4 14-42 16T-42 0z" fill="#8D5A2B"/><path d="M-24 4c-3-16 0-30 8-32q7 5 16 0 9 5 16 0c8 2 11 16 8 32q-24 7-48 0z" fill="#B0703A"/></g><path d="M-24-3q24 7 48 0l1 6q-25 7-50 0z" fill="#4E2C12"/><path d="M-12-20q3-5 6-4" stroke="#fff" stroke-width="2.4" opacity=".5" fill="none" stroke-linecap="round"/>'},
+ {id:"chef", name:"Kuchařská čepice", slot:"head", r:"rare", price:40, at:"translate(136 146)", vb:"-34 -50 68 64",
+  svg:'<g '+S()+' fill="#fff"><path d="M-20 6v-18c-14-4-14-24 2-24 2-12 34-12 36 0 16 0 16 20 2 24v18z"/><rect x="-21" y="-2" width="42" height="10" rx="2" fill="#ECEFF1"/></g><path d="M-8-14v10M4-16v12" stroke="#CFD8DC" stroke-width="2" stroke-linecap="round"/>'},
+ {id:"pirate", name:"Pirátský klobouk", slot:"head", r:"epic", price:60, at:"translate(136 146)", vb:"-48 -36 96 50",
+  svg:'<g '+S()+'><path d="M-44 2q10-30 44-30t44 30q-14-6-44-6t-44 6z" fill="#263238"/></g><path d="M-36-4q36-8 72 0" stroke="#FFD54F" stroke-width="3" fill="none"/><g transform="translate(0 -14)"><circle r="7" fill="#fff" '+S(1.5)+'/><path d="M-3-1h1M2-1h1M-3 4h6" stroke="'+OL+'" stroke-width="2" stroke-linecap="round"/></g>'},
+ {id:"wizard", name:"Čarodějnický klobouk", slot:"head", r:"epic", price:70, at:"translate(136 148)", vb:"-46 -80 92 92",
+  svg:'<g '+S()+'><path d="M-42 4q42 14 84 0-10-8-22-8z" fill="#4527A0"/><path d="M-22 2C-14-20-6-48 14-74c-2 26 4 50 10 76q-23 6-46 0z" fill="#5E35B1"/></g><path d="M-22-4q24 6 47 0" stroke="#FFD54F" stroke-width="4" fill="none"/><g fill="#FFE14D"><path d="M-2-30l2 4 4.5.6-3.2 3 .8 4.4L-2-20l-4 2 .8-4.4-3.2-3 4.5-.6z"/><circle cx="8" cy="-48" r="2.4"/><circle cx="-8" cy="-12" r="2"/></g>'},
+ {id:"unicorn", name:"Roh jednorožce", slot:"head", r:"epic", price:75, at:"translate(136 150)", vb:"-40 -66 80 76",
+  svg:'<path d="M-36 6Q0-26 36 6" fill="none" stroke="'+OL+'" stroke-width="7" stroke-linecap="round"/><path d="M-36 6Q0-26 36 6" fill="none" stroke="#F48FB1" stroke-width="4" stroke-linecap="round"/><g '+S()+'><path d="M-8-10L4-62 10-8z" fill="#FFF59D"/></g><path d="M-6-18l14-4M-3-30l11-3M0-42l8-2" stroke="#F9A825" stroke-width="2.2" stroke-linecap="round"/><g '+S(1.4)+'><circle cx="-16" cy="-8" r="5" fill="#B39DDB"/><circle cx="18" cy="-6" r="5" fill="#80DEEA"/></g>'},
+ {id:"headphones", name:"Herní sluchátka", slot:"head", r:"epic", price:80, at:"", vb:"80 104 120 80",
+  svg:'<path d="M98 164c-6-46 84-58 88-12" fill="none" stroke="'+OL+'" stroke-width="10" stroke-linecap="round"/><path d="M98 164c-6-46 84-58 88-12" fill="none" stroke="#7C4DFF" stroke-width="5.5" stroke-linecap="round"/><g '+S()+'><rect x="84" y="150" width="22" height="30" rx="10" fill="#7C4DFF"/><rect x="176" y="138" width="22" height="30" rx="10" fill="#7C4DFF"/></g><circle cx="95" cy="165" r="5.5" fill="#00E5FF"/><circle cx="187" cy="153" r="5.5" fill="#00E5FF"/><path d="M90 178q-6 10 6 14h20" fill="none" stroke="'+OL+'" stroke-width="2.4" stroke-linecap="round"/><circle cx="118" cy="192" r="4" fill="#424242"/>'},
+ // ---- na oči ----
+ {id:"glasses", name:"Chytré brýle", slot:"face", r:"rare", price:35, at:"translate(131 187)", vb:"-46 -16 92 32", svg:GL("#2E3A59",3,"rgba(170,220,255,.35)",true)},
+ {id:"sunglasses", name:"Sluneční brýle", slot:"face", r:"rare", price:45, at:"translate(131 187)", vb:"-46 -16 92 32", svg:GL("#1E2A3A",3,"#1E2A3A",true)},
+ {id:"heartglasses", name:"Srdíčkové brýle", slot:"face", r:"epic", price:60, at:"translate(131 187)", vb:"-46 -18 92 36",
+  svg:'<g fill="#FF4F8B" '+S(2.4)+'><path d="M-19 12c-14-8-20-16-16-22 3-5 11-4 16 2 5-6 13-7 16-2 4 6-2 14-16 22z"/><path d="M19 10c-14-8-20-16-16-22 3-5 11-4 16 2 5-6 13-7 16-2 4 6-2 14-16 22z"/></g><path d="M-4 0q4-3 8 0M-34-2l-9-4M34-4l8-4" stroke="'+OL+'" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M-27-6l4-3M11-8l4-3" stroke="#fff" stroke-width="2.2" opacity=".8" stroke-linecap="round"/>'},
+ {id:"eyepatch", name:"Pirátská páska", slot:"face", r:"rare", price:40, at:"", vb:"88 158 100 44",
+  svg:'<path d="M94 178L182 166" stroke="'+OL+'" stroke-width="3" stroke-linecap="round"/><ellipse cx="150" cy="186" rx="13" ry="12" fill="#212121" '+S()+'/><path d="M143 180l5-3" stroke="#fff" stroke-width="2" opacity=".5" stroke-linecap="round"/>'},
+ // ---- na krk ----
+ {id:"scarf", name:"Šátek", slot:"neck", r:"common", price:20, at:"translate(152 230)", vb:"-34 -14 68 46",
+  svg:'<g '+S()+'><path d="M-30-6q30 14 60 0l2 10q-32 16-64 0z" fill="#E53935"/><path d="M14 5l7 22-11 3-4-21z" fill="#C62828"/></g><path d="M-20 0h4M-6 3h4M8 2h4" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>'},
+ {id:"bowtie", name:"Motýlek", slot:"neck", r:"common", price:15, at:"translate(152 232)", vb:"-18 -12 36 24",
+  svg:'<g '+S(1.8)+'><path d="M-2 0l-13-8v16zM2 0l13-8v16z" fill="#3949AB"/><rect x="-4" y="-4" width="8" height="8" rx="2.5" fill="#283593"/></g>'},
+ {id:"necklace", name:"Perlový náhrdelník", slot:"neck", r:"rare", price:40, at:"translate(152 228)", vb:"-32 -6 64 26",
+  svg:'<g fill="#FFF8F0" '+S(1.4)+'>'+[...Array(9)].map((_,i)=>{const a=Math.PI*(.1+.8*i/8);return '<circle cx="'+(-28*Math.cos(a)).toFixed(1)+'" cy="'+(12*Math.sin(a)).toFixed(1)+'" r="3.6"/>';}).join("")+'</g><circle cy="15" r="5" fill="#FF8FB1" '+S(1.4)+'/>'},
+ // ---- oblečení ----
+ Object.assign({id:"tee", name:"Pruhované tričko", slot:"body", r:"common", price:25, at:""}, cloth("#4FC3F7",[150,180,210,240,270].map(y=>'<rect x="140" y="'+y+'" width="200" height="12" fill="#fff"/>').join(""))),
+ Object.assign({id:"hoodie", name:"Mikina s kapucí", slot:"body", r:"rare", price:45, at:""}, cloth("#FF7043",'<rect x="190" y="220" width="54" height="30" rx="8" fill="#F4511E" '+S(2)+'/><path d="M196 140v26M210 140v20" stroke="#fff" stroke-width="3" stroke-linecap="round"/><circle cx="196" cy="168" r="3" fill="#fff"/><circle cx="210" cy="162" r="3" fill="#fff"/><path d="M176 132q30 18 70 0" fill="none" stroke="#D84315" stroke-width="7"/>')),
+ Object.assign({id:"sweater", name:"Svetr s vločkami", slot:"body", r:"rare", price:50, at:""}, cloth("#D32F2F",'<path d="M140 196l10-10 10 10 10-10 10 10 10-10 10 10 10-10 10 10 10-10 10 10 10-10 10 10 10-10 10 10 10-10 10 10 10-10 10 10 10-10 10 10" fill="none" stroke="#fff" stroke-width="5"/>'+[[196,160],[236,160],[216,236],[188,262],[246,262]].map(([x,y])=>'<g stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M'+(x-7)+' '+y+'h14M'+x+' '+(y-7)+'v14M'+(x-5)+' '+(y-5)+'l10 10M'+(x+5)+' '+(y-5)+'l-10 10"/></g>').join(""))),
+ Object.assign({id:"jersey", name:"Fotbalový dres", slot:"body", r:"epic", price:65, at:""}, cloth("#43A047",'<path d="M190 132l20 20 20-20" fill="none" stroke="#fff" stroke-width="6"/><rect x="140" y="250" width="200" height="10" fill="#fff"/><text x="215" y="226" text-anchor="middle" font-family="Titan One,Arial Black,sans-serif" font-size="52" fill="#fff" stroke="'+OL+'" stroke-width="2.5" paint-order="stroke">10</text>')),
+ Object.assign({id:"hero", name:"Superhrdinský oblek", slot:"body", r:"epic", price:80, at:""}, cloth("#1E63E9",'<circle cx="215" cy="200" r="30" fill="#FFE14D" '+S(2.4)+'/><path d="M220 176l-16 26h12l-6 22 18-30h-12l8-18z" fill="#E53935" '+S(1.6)+'/><rect x="140" y="252" width="200" height="12" fill="#E53935"/>')),
+ // ---- na záda ----
+ {id:"cape", name:"Hrdinský plášť", slot:"back", r:"epic", price:60, at:"", vb:"186 136 120 96",
+  svg:'<path d="M196 150c30-6 70 4 92 30 8 10 10 26 6 40-24-16-60-26-98-24z" fill="#C62828" '+S(2.2)+'/><path d="M198 152c30-6 66 4 88 28" stroke="#F7C531" stroke-width="4" fill="none"/><path d="M246 182l4 8 9 1-7 6 2 9-8-5-8 5 2-9-7-6 9-1z" fill="#FFE14D" '+S(1.2)+'/>'},
+ {id:"wings", name:"Andělská křídla", slot:"back", r:"epic", price:85, at:"", vb:"190 66 120 100",
+  svg:'<g '+S(2.2)+'><path d="M236 150c-14-34 4-70 46-74-6 8-4 14-12 20 12-2 14 8 2 14 10 2 8 12-4 14 8 4 4 12-8 12-6 8-14 12-24 14z" fill="#E3F2FD"/><path d="M212 150c-14-34 4-70 46-74-6 8-4 14-12 20 12-2 14 8 2 14 10 2 8 12-4 14 8 4 4 12-8 12-6 8-14 12-24 14z" fill="#fff"/></g><path d="M222 136c4-18 14-34 30-44M230 126c8-8 16-12 24-14" stroke="#B3E5FC" stroke-width="2.4" fill="none" stroke-linecap="round"/>'},
+ {id:"backpack", name:"Školní batůžek", slot:"back", r:"rare", price:40, at:"", vb:"196 126 76 74",
+  svg:'<g '+S(2.2)+'><rect x="208" y="134" width="52" height="58" rx="14" fill="#FFB300"/><rect x="216" y="160" width="36" height="24" rx="6" fill="#FF8F00"/></g><path d="M216 160h36" stroke="'+OL+'" stroke-width="1.6"/><path d="M220 142q14-8 28 0" stroke="#fff" stroke-width="2.6" fill="none" opacity=".6" stroke-linecap="round"/><circle cx="234" cy="172" r="3" fill="#fff"/>'},
+ // ---- manikúra ----
+ {id:"nails_pink", name:"Růžová manikúra", slot:"paws", r:"common", price:10, at:"", svg:NAILS("#FF4F8B"), th:PAWTH("#FF4F8B"), tvb:"-34 -14 64 40"},
+ {id:"nails_rainbow", name:"Duhová manikúra", slot:"paws", r:"rare", price:30, at:"", svg:'<g stroke="'+OL+'" stroke-width=".9">'+[[108,262],[148,264],[249,258]].map(([x,y])=>'<circle cx="'+x+'" cy="'+(y-3.5)+'" r="3.2" fill="#FF5252"/><circle cx="'+(x-1.5)+'" cy="'+(y+1)+'" r="3.2" fill="#FFD740"/><circle cx="'+(x+.5)+'" cy="'+(y+5.5)+'" r="3.2" fill="#40C4FF"/>').join("")+'</g>',
+  th:'<ellipse cx="0" cy="6" rx="26" ry="14" fill="#F2B3A6" '+S(2)+'/><g '+S(1.6)+'><ellipse cx="-20" cy="-2" rx="6" ry="5" fill="#FF5252"/><ellipse cx="-22" cy="9" rx="6" ry="5" fill="#FFD740"/><ellipse cx="-16" cy="18" rx="6" ry="5" fill="#40C4FF"/></g>', tvb:"-34 -14 64 40"},
+ // ---- domečky ----
+ {id:"house_igloo", name:"Iglú", slot:"house", r:"rare", price:55, at:HOUSE_AT, vb:"-10 -4 120 112",
+  svg:'<path d="M0 104C0 40 28 12 50 12s50 28 50 92z" fill="#E3F2FD" '+S(2.5)+'/><g stroke="#90CAF9" stroke-width="2" fill="none"><path d="M6 80h88M14 56h72M28 34h44M30 34v22M64 34v22M20 56v24M50 56v24M80 56v24M36 80v24M66 80v24"/></g><path d="M32 104v-22a18 18 0 0 1 36 0v22z" fill="#1565C0" '+S(2.5)+'/>'},
+ {id:"house_pumpkin", name:"Dýňový domek", slot:"house", r:"rare", price:60, at:HOUSE_AT, vb:"-10 -14 120 122",
+  svg:'<g '+S(2.5)+'><path d="M50 4c-6-6-2-14 6-14l2 12z" fill="#558B2F"/><ellipse cx="50" cy="60" rx="52" ry="46" fill="#FB8C00"/></g><g stroke="#E65100" stroke-width="2.4" fill="none"><path d="M30 18q-12 42 0 86M70 18q12 42 0 86M50 14v92"/></g><path d="M36 104V82a14 14 0 0 1 28 0v22z" fill="#5D2E0B" '+S(2.5)+'/><circle cx="24" cy="54" r="8" fill="#FFE082" '+S(2)+'/><circle cx="76" cy="54" r="8" fill="#FFE082" '+S(2)+'/>'},
+ {id:"house_castle", name:"Hrad", slot:"house", r:"epic", price:95, at:HOUSE_AT, vb:"-14 -40 128 148",
+  svg:'<g '+S(2.5)+'><rect x="-8" y="10" width="28" height="94" fill="#B0BEC5"/><rect x="80" y="10" width="28" height="94" fill="#B0BEC5"/><rect x="14" y="34" width="72" height="70" fill="#CFD8DC"/><path d="M-8 10v-10h7v6h7v-6h7v6h7v-6V10zM80 10v-10h7v6h7v-6h7v6h7v-6V10zM14 34v-9h9v6h9v-6h9v6h9v-6h9v6h9v-6h9v9z" fill="#CFD8DC"/><path d="M-8 0L6-26 20 0zM80 0l14-26 14 26z" fill="#7E57C2"/><path d="M34 104V78a16 16 0 0 1 32 0v26z" fill="#6D4C41"/></g><path d="M6-26v-12l12 4-12 4M94-26v-12l12 4-12 4" fill="#FF5252" stroke="'+OL+'" stroke-width="1.6"/><g fill="#455A64"><rect x="0" y="34" width="8" height="14" rx="4"/><rect x="92" y="34" width="8" height="14" rx="4"/></g>'},
+ {id:"house_rocket", name:"Vesmírná raketa", slot:"house", r:"epic", price:110, at:HOUSE_AT, vb:"-16 -50 132 158",
+  svg:'<g '+S(2.5)+'><path d="M22 70L-8 104h30zM78 70l30 34H78z" fill="#E53935"/><path d="M50-44C80-20 82 30 78 104H22c-4-74-2-124 28-148z" fill="#ECEFF1"/><path d="M50-44c12 10 20 22 24 34H26c4-12 12-24 24-34z" fill="#E53935"/><circle cx="50" cy="22" r="14" fill="#4FC3F7"/><path d="M36 104V82a14 14 0 0 1 28 0v22z" fill="#455A64"/></g><path d="M43 16l5-5" stroke="#fff" stroke-width="3" stroke-linecap="round"/>'},
+ // ---- postel (vylepšuje se krok za krokem) ----
+ {id:"bed_hay", name:"Kupka sena", slot:"bed", r:"common", price:20, bedLv:1, at:"", vb:"84 236 268 52",
+  svg:'<ellipse cx="218" cy="268" rx="130" ry="20" fill="#D9A93F" '+S(2.2)+'/><ellipse cx="218" cy="262" rx="114" ry="12" fill="#F2D27E"/><g stroke="#B88A2E" stroke-width="2" stroke-linecap="round">'+[...Array(16)].map((_,i)=>{const x=104+i*15;return '<path d="M'+x+' '+(270+(i%3)*3)+'l'+((i%2)?8:-8)+' -10"/>';}).join("")+'</g>'},
+ {id:"bed_soft", name:"Měkký pelíšek", slot:"bed", r:"rare", price:50, bedLv:2, req:"bed_hay", at:"", vb:"80 232 276 58",
+  svg:'<ellipse cx="218" cy="268" rx="136" ry="24" fill="#7E57C2" '+S(2.2)+'/><ellipse cx="218" cy="263" rx="114" ry="14" fill="#D1C4E9"/><path d="M110 258q108-16 216 0" stroke="#fff" stroke-width="3" fill="none" opacity=".6" stroke-linecap="round"/><g fill="#B39DDB"><circle cx="150" cy="272" r="3"/><circle cx="200" cy="276" r="3"/><circle cx="250" cy="275" r="3"/><circle cx="300" cy="271" r="3"/></g>'},
+ {id:"bed_wood", name:"Postýlka s polštářem", slot:"bed", r:"epic", price:90, bedLv:3, req:"bed_soft", at:"", vb:"74 172 284 120",
+  svg:'<g '+S(2.4)+'><rect x="80" y="180" width="24" height="106" rx="8" fill="#A1683A"/><rect x="88" y="252" width="262" height="30" rx="10" fill="#C68A52"/><rect x="96" y="244" width="250" height="16" rx="8" fill="#E3F2FD"/><ellipse cx="128" cy="246" rx="28" ry="12" fill="#fff"/></g><path d="M100 268h236" stroke="#8D5A2B" stroke-width="2"/><g fill="#90CAF9"><circle cx="160" cy="252" r="2.5"/><circle cx="220" cy="252" r="2.5"/><circle cx="280" cy="252" r="2.5"/></g>'},
+ // ---- do klece ----
+ {id:"ball", name:"Míček", slot:"cage", r:"common", price:10, vb:"-15 -15 30 30", at:"translate(372 284)",
+  svg:'<circle r="12" fill="#FF7043" '+S(2)+'/><path d="M-12 0h24M0-12v24" stroke="#fff" stroke-width="2.6"/><path d="M-6-8a8 8 0 0 1 4-2" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>'},
+ {id:"flower", name:"Kytička v květináči", slot:"cage", r:"common", price:15, vb:"-18 -14 36 70", at:"translate(282 250)",
+  svg:'<g '+S(1.8)+'><path d="M-12 30h24l-4 22h-16z" fill="#E07A4F"/></g><path d="M0 30v-26" stroke="#4CAF50" stroke-width="3"/><g fill="#FF8FB1" '+S(1.4)+'><circle cy="-2" r="7"/><circle cx="-7" cy="4" r="6"/><circle cx="7" cy="4" r="6"/></g><circle cy="3" r="4" fill="#FFD54F"/>'},
+ {id:"tunnel", name:"Tunel", slot:"cage", r:"rare", price:35, vb:"-4 -4 76 44", at:"translate(16 236)",
+  svg:'<path d="M0 34a34 34 0 0 1 68 0h-16a18 18 0 0 0-36 0z" fill="#6CC28C" '+S(2)+'/><path d="M8 34a26 26 0 0 1 52 0" stroke="#4FA673" stroke-width="3" fill="none"/>'},
+ {id:"rainbow", name:"Duha na zeď", slot:"cage", r:"rare", price:35, vb:"-50 -46 100 50", at:"translate(200 92)",
+  svg:'<g fill="none" stroke-width="7"><path d="M-42 0a42 42 0 0 1 84 0" stroke="#FF6B6B"/><path d="M-34 0a34 34 0 0 1 68 0" stroke="#FFD93D"/><path d="M-26 0a26 26 0 0 1 52 0" stroke="#6BCB77"/><path d="M-18 0a18 18 0 0 1 36 0" stroke="#4D96FF"/></g>'},
+ {id:"rug", name:"Koberec", slot:"cage", r:"rare", price:40, vb:"40 240 340 56", at:"",
+  svg:'<ellipse cx="210" cy="272" rx="164" ry="22" fill="#B23A48" opacity=".7"/><ellipse cx="210" cy="272" rx="150" ry="17" fill="none" stroke="#F7C531" stroke-width="3" opacity=".9"/>'},
+ {id:"hammock", name:"Houpací síť", slot:"cage", r:"epic", price:60, vb:"236 54 148 58", at:"",
+  svg:'<path d="M250 92q50 40 120 0" fill="#7FB3FF" '+S(2.4)+'/><path d="M250 92l-8-30M370 92l8-30" stroke="#8D6E63" stroke-width="3.5" stroke-linecap="round"/><path d="M262 100q48 26 96 0" stroke="#fff" stroke-width="2" fill="none" opacity=".6"/>'},
+ {id:"console", name:"Herní konzole", slot:"cage", r:"epic", price:100, vb:"78 26 110 96", at:"translate(0 -18)",
+  svg:'<g '+S(2.4)+'><rect x="84" y="32" width="98" height="60" rx="6" fill="#263238"/><rect x="90" y="38" width="86" height="48" rx="3" fill="#4FC3F7"/></g><rect x="90" y="70" width="86" height="16" fill="#7CB342"/><path d="M104 70v-10h10v10M140 62h12" stroke="#8D6E63" stroke-width="4"/><circle cx="160" cy="50" r="6" fill="#FFE14D"/><path d="M120 56l6-6 6 6z" fill="#E53935"/><path d="M133 92v8" stroke="'+OL+'" stroke-width="3"/><g '+S(2)+'><rect x="104" y="100" width="58" height="12" rx="4" fill="#ECEFF1"/><path d="M118 116c-10 0-12 6-8 10 4 3 8 0 10-2h26c2 2 6 5 10 2 4-4 2-10-8-10z" fill="#37474F"/></g><circle cx="152" cy="119" r="2" fill="#E53935"/><path d="M114 119h6M117 116v6" stroke="#fff" stroke-width="1.8"/><circle cx="150" cy="106" r="2" fill="#4FC3F7"/>'},
+ // ---- legendární za zlaté hvězdy ----
+ {id:"crown", name:"Královská koruna", slot:"head", r:"legend", gold:10, at:"translate(136 142)", vb:"-30 -18 60 36",
+  svg:'<g transform="translate(-24 -12)"><path d="M0 22l6-18 9 12 9-14 9 14 9-12 6 18z" fill="#F7C531" '+S(2.2)+'/><rect x="0" y="20" width="48" height="6" rx="2" fill="#E0A800" '+S(2)+'/><circle cx="24" cy="6" r="3" fill="#E8344E"/><circle cx="6" cy="5" r="2.2" fill="#4FC3F7"/><circle cx="42" cy="5" r="2.2" fill="#4FC3F7"/></g>'},
+ {id:"glasses_gold", name:"Zlaté brýle", slot:"face", r:"legend", gold:5, at:"translate(131 187)", vb:"-46 -16 92 32", svg:GL("#D4A017",3.4,"rgba(255,230,120,.35)",true)},
+ {id:"medal", name:"Zlatá medaile", slot:"neck", r:"legend", gold:3, at:"translate(176 214)", vb:"-14 -20 28 36",
+  svg:'<path d="M-8 -16l8 14 8-14" fill="none" stroke="#E53935" stroke-width="5"/><circle cy="4" r="10" fill="#F7C531" '+S(2)+'/><path d="M0 -1l2 4 4 .5-3 3 1 4-4-2-4 2 1-4-3-3 4-.5z" fill="#fff"/>'},
+ Object.assign({id:"armor_gold", name:"Zlaté brnění", slot:"body", r:"legend", gold:12, at:""}, cloth("#F7C531",'<g stroke="#C99700" stroke-width="3" fill="none"><path d="M140 170q100 18 200 0M140 214q100 18 200 0M140 258q100 18 200 0"/></g><path d="M215 186l10 12-10 12-10-12z" fill="#E53935" '+S(1.8)+'/><g fill="#fff" opacity=".7"><circle cx="196" cy="150" r="3"/><circle cx="240" cy="236" r="2.5"/></g>')),
+ {id:"cape_gold", name:"Zlatý plášť", slot:"back", r:"legend", gold:8, at:"", vb:"186 136 120 96",
+  svg:'<path d="M196 150c30-6 70 4 92 30 8 10 10 26 6 40-24-16-60-26-98-24z" fill="#F7C531" '+S(2.2)+'/><path d="M198 152c30-6 66 4 88 28" stroke="#C99700" stroke-width="4" fill="none"/><g fill="#fff" opacity=".8"><circle cx="240" cy="172" r="2.5"/><circle cx="262" cy="186" r="2"/><circle cx="226" cy="186" r="2"/></g>'},
+ {id:"wings_rainbow", name:"Duhová křídla", slot:"back", r:"legend", gold:15, at:"", vb:"190 66 120 100",
+  svg:'<g '+S(2.2)+'><path d="M236 150c-14-34 4-70 46-74-6 8-4 14-12 20 12-2 14 8 2 14 10 2 8 12-4 14 8 4 4 12-8 12-6 8-14 12-24 14z" fill="#B388FF"/><path d="M212 150c-14-34 4-70 46-74-6 8-4 14-12 20 12-2 14 8 2 14 10 2 8 12-4 14 8 4 4 12-8 12-6 8-14 12-24 14z" fill="#FF80AB"/></g><path d="M222 136c4-18 14-34 30-44" stroke="#FFE14D" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M228 142c6-14 16-26 30-34" stroke="#80D8FF" stroke-width="4" fill="none" stroke-linecap="round"/>'},
+ {id:"nails_gold", name:"Třpytivá zlatá manikúra", slot:"paws", r:"legend", gold:3, at:"", svg:NAILS("#F7C531",'<g fill="#fff">'+[[108,262],[148,264],[249,258]].map(([x,y])=>'<circle cx="'+(x-.6)+'" cy="'+(y-3.6)+'" r=".9"/><circle cx="'+(x+.4)+'" cy="'+(y+3.8)+'" r=".9"/>').join("")+'</g>'), th:PAWTH("#F7C531",true), tvb:"-34 -14 64 40"},
+ {id:"bowl_gold", name:"Zlatá miska", slot:"cage", r:"legend", gold:4, vb:"-4 -6 78 38", at:"",
+  svg:'<path d="M0 8h70l-8 20H8z" fill="#E0B21E" '+S(2)+'/><ellipse cx="35" cy="8" rx="35" ry="5" fill="#F7D64A" '+S(2)+'/>'},
+ {id:"house_gold", name:"Zlatý palác", slot:"house", r:"legend", gold:12, at:HOUSE_AT, vb:"-14 -34 128 142",
+  svg:'<g '+S(2.5)+'><rect x="-6" y="20" width="22" height="84" fill="#F7D64A"/><rect x="84" y="20" width="22" height="84" fill="#F7D64A"/><path d="M-10 22L5-6l15 28zM80 22l15-28 15 28z" fill="#E0A800"/><path d="M6 42L50-4l44 46z" fill="#E0B21E"/><rect x="12" y="40" width="76" height="64" rx="4" fill="#FFE57F"/><path d="M34 104V76a16 16 0 0 1 32 0v28z" fill="#8A6A10"/></g><path d="M38-4l6-12 6 8 6-8 6 12z" fill="#F7C531" '+S(1.6)+'/><g fill="#fff" opacity=".85"><circle cx="50" cy="22" r="5"/><circle cx="5" cy="40" r="2.5"/><circle cx="95" cy="40" r="2.5"/></g>'},
+ {id:"bed_royal", name:"Královská postel", slot:"bed", r:"legend", gold:10, bedLv:4, req:"bed_wood", at:"", vb:"70 150 292 142",
+  svg:'<g '+S(2.4)+'><path d="M76 286V178c0-10 8-18 14-18s14 8 14 18v108z" fill="#F7C531"/><rect x="86" y="250" width="270" height="34" rx="10" fill="#E0A800"/><rect x="98" y="240" width="250" height="18" rx="9" fill="#C2185B"/><ellipse cx="130" cy="242" rx="30" ry="13" fill="#F8BBD0"/></g><path d="M82 178l8-12 8 12" fill="none" stroke="#C99700" stroke-width="3"/><circle cx="90" cy="192" r="5" fill="#E53935" '+S(1.4)+'/><path d="M98 268h244" stroke="#C99700" stroke-width="2.4"/><g fill="#FFE14D"><circle cx="160" cy="249" r="2.5"/><circle cx="220" cy="249" r="2.5"/><circle cx="280" cy="249" r="2.5"/></g>'}
 ];
 const SHOP_BY=Object.fromEntries(SHOP.map(x=>[x.id,x]));
-const LEVEL_GIFTS={2:["bow_pink"],3:["tunnel"],4:["hat"],5:["glasses","flower"],6:["hammock"],7:["medal"],8:["crown","cape","bowl_gold","rug"]};
-let petTab="care", petTry=null;
+window.__shop={SHOP,priceOf:x=>priceOf(SHOP_BY[x]),dealIds:()=>dealIds()};
+const RAR={common:"Běžné",rare:"Vzácné",epic:"Epické",legend:"Legendární"}, RORD={common:0,rare:1,epic:2,legend:3};
+const SLOT_NAME={head:"Na hlavu",face:"Na oči",neck:"Na krk",body:"Oblečení",back:"Na záda",paws:"Manikúra",house:"Domeček",bed:"Postel",cage:"Do klece"};
+const NEW_IDS=["headphones","wizard","unicorn","pirate","chef","party","heartglasses","necklace","tee","hoodie","sweater","jersey","hero","wings","backpack","nails_pink","nails_rainbow","house_igloo","house_pumpkin","house_castle","house_rocket","bed_hay","bed_soft","bed_wood","console","armor_gold","wings_rainbow","nails_gold","bed_royal"];
+const SHOP_CATS=[["today","Dnes"],["head","Hlava"],["body","Oblečení"],["acc","Doplňky"],["house","Domečky"],["bed","Postel"],["cage","Klec"],["legend","Legendární"]];
+const catOf=it=>it.gold?"legend":it.slot==="head"?"head":it.slot==="body"?"body":["face","neck","back","paws"].includes(it.slot)?"acc":it.slot;
+const LEVEL_GIFTS={2:["bow_pink"],3:["tunnel","bed_hay"],4:["hat"],5:["glasses","flower"],6:["hammock"],7:["medal"],8:["crown","cape","bowl_gold","rug"]};
+let petTab="care", petTry=null, shopCat="today", wardCat="all";
 function shopInit(){
-  PET.coins=PET.coins||0; PET.gold=PET.gold||0; PET.owned=PET.owned||[]; PET.eq=PET.eq||{}; PET.cage=PET.cage||{}; PET.goldDay=PET.goldDay||{};
+  PET.coins=PET.coins||0; PET.gold=PET.gold||0; PET.owned=(PET.owned||[]).filter((x,i,a)=>a.indexOf(x)===i); PET.eq=PET.eq||{}; PET.cage=PET.cage||{}; PET.goldDay=PET.goldDay||{};
+  if(PET.cage.house_gold){ PET.eq.house="house_gold"; delete PET.cage.house_gold; }
   const l=petLevel(); if((PET.giftLvl||1)<l){ for(let i=(PET.giftLvl||1)+1;i<=l;i++) grantGifts(i,true); PET.giftLvl=l; savePet(); }
 }
 function grantGifts(lvl,quiet){ (LEVEL_GIFTS[lvl]||[]).forEach(id=>{ if(!PET.owned.includes(id)) PET.owned.push(id); equip(id,true); }); }
 function equip(id,on){ const it=SHOP_BY[id]; if(!it) return; if(it.slot==="cage"){ PET.cage[id]=on; } else { if(on) PET.eq[it.slot]=id; else if(PET.eq[it.slot]===id) delete PET.eq[it.slot]; } }
 function isOn(id){ const it=SHOP_BY[id]; return it.slot==="cage"?!!PET.cage[id]:PET.eq[it.slot]===id; }
-function wearSvg(slot){ let id=PET.eq[slot]; if(petTry&&SHOP_BY[petTry]&&SHOP_BY[petTry].slot===slot) id=petTry; const it=id&&SHOP_BY[id]; if(!it) return ""; return it.at?'<g transform="'+it.at+'">'+it.svg+'</g>':it.svg; }
+function slotItem(slot){ let id=PET.eq[slot]; if(petTry&&SHOP_BY[petTry]&&SHOP_BY[petTry].slot===slot) id=petTry; return id&&SHOP_BY[id]; }
+function placed(it){ return it.at?'<g transform="'+it.at+'">'+it.svg+'</g>':it.svg; }
+function wearSvg(slot){ const it=slotItem(slot); return it?placed(it):""; }
+function houseSvg(){ const it=slotItem("house"); return it?placed(it):'<g transform="'+HOUSE_AT+'">'+HOUSE_WOOD+'</g>'; }
 function cageOn(id){ return PET.cage[id] || petTry===id; }
-function cageSvg(id){ const it=SHOP_BY[id]; return cageOn(id)? (it.at?'<g transform="'+it.at+'">'+it.svg+'</g>':it.svg) : ""; }
-function thumb(it){ return '<svg viewBox="'+it.vb+'" class="th">'+it.svg+'</svg>'; }
+function cageSvg(id){ const it=SHOP_BY[id]; return cageOn(id)?placed(it):""; }
+function cageLayer(){ return ["rainbow","console","rug","hammock","tunnel","flower","ball"].map(cageSvg).join(""); }
+function thumb(it){ return '<svg viewBox="'+(it.tvb||it.vb)+'" class="th" preserveAspectRatio="xMidYMid meet">'+(it.th||it.svg)+'</svg>'; }
+function dealIds(){ const d=pragueToday(); let h=0; for(const c of d) h=(h*31+c.charCodeAt(0))>>>0;
+  const pool=SHOP.filter(x=>!x.gold&&!x.req), w=pool.filter(x=>x.slot!=="cage"&&x.slot!=="house"&&x.slot!=="bed"), o=pool.filter(x=>!w.includes(x));
+  return [w[h%w.length].id, o[(h>>>5)%o.length].id]; }
+function priceOf(it){ if(it.gold) return it.gold; return dealIds().includes(it.id)?Math.round(it.price*.7):it.price; }
+function canBuy(it){ if(PET.owned.includes(it.id)) return false; if(it.req&&!PET.owned.includes(it.req)) return false; return (it.gold?PET.gold:PET.coins)>=priceOf(it); }
 function coinSvg(gold){ return gold?'<svg viewBox="0 0 24 24" class="cn"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z" fill="#F7C531" stroke="#C99700" stroke-width="1.2" stroke-linejoin="round"/></svg>'
   :'<svg viewBox="0 0 24 24" class="cn"><circle cx="12" cy="12" r="9.5" fill="#FFC93C" stroke="#D69E00" stroke-width="1.6"/><circle cx="12" cy="12" r="6" fill="none" stroke="#E8AE12" stroke-width="1.4"/><path d="M12 8.5v7" stroke="#B8860B" stroke-width="2" stroke-linecap="round"/></svg>'; }
 function walletHtml(){ return '<div class="wallet"><span>'+coinSvg(false)+'<b>'+(PET.coins||0)+'</b> mincí</span><span class="g">'+coinSvg(true)+'<b>'+(PET.gold||0)+'</b> zlatých hvězd</span></div>'; }
 function earnCoins(n,why){ PET.coins=(PET.coins||0)+n; savePet(); if(quiz){ quiz.coins=(quiz.coins||0)+n; } }
 function earnGold(lessonKey){ const d=pragueToday(); if(PET.goldDay[lessonKey]===d) return false; PET.goldDay[lessonKey]=d; PET.gold=(PET.gold||0)+1; savePet(); if(quiz) quiz.gold=(quiz.gold||0)+1; return true; }
+function icard(it,o){
+  o=o||{}; const own=PET.owned.includes(it.id), gold=!!it.gold, pr=priceOf(it), deal=!gold&&pr<it.price, locked=it.req&&!PET.owned.includes(it.req)&&!own;
+  let foot;
+  if(o.ward) foot='<button type="button" class="ic-act'+(isOn(it.id)?" on":"")+'" data-pwear="'+it.id+'">'+(isOn(it.id)?ic("i-check")+(it.slot==="cage"||it.slot==="house"||it.slot==="bed"?"Je v kleci":"Má na sobě"):(it.slot==="cage"||it.slot==="house"||it.slot==="bed"?"Dát do klece":"Obléct"))+'</button>';
+  else if(own) foot='<div class="ic-act own">'+ic("i-check")+'Vlastníš</div>';
+  else if(locked) foot='<div class="ic-act lock">Nejdřív: '+esc(SHOP_BY[it.req].name)+'</div>';
+  else { const have=gold?PET.gold:PET.coins; foot='<button type="button" class="ic-act buy" data-pbuy="'+it.id+'"'+(have>=pr?"":" disabled")+'>'+coinSvg(gold)+(deal?'<s>'+it.price+'</s>':"")+pr+'</button>'; }
+  const badge=deal?'<i class="ic-badge deal">−30 %</i>':(NEW_IDS.includes(it.id)&&!own&&!o.ward?'<i class="ic-badge">Nové</i>':"");
+  return '<div class="icard r-'+it.r+(o.big?" big":"")+(own&&!o.ward?" own":"")+(petTry===it.id?" try":"")+(o.ward&&isOn(it.id)?" on":"")+(locked?" locked":"")+'">'+badge+
+    '<button type="button" class="ic-art" data-ptry="'+it.id+'" aria-label="Vyzkoušet '+esc(it.name)+'">'+thumb(it)+'</button>'+
+    '<div class="ic-nm">'+esc(it.name)+'<span>'+RAR[it.r]+' · '+SLOT_NAME[it.slot]+'</span></div>'+foot+'</div>';
+}
+function sortItems(a){ return a.slice().sort((x,y)=>(x.bedLv||0)-(y.bedLv||0)||RORD[x.r]-RORD[y.r]||(x.gold||x.price)-(y.gold||y.price)); }
 function shopHtml(){
-  const slotName={head:"Na hlavu",face:"Na oči",neck:"Na krk",back:"Na záda",cage:"Do klece"};
-  const card=it=>{ const own=PET.owned.includes(it.id), gold=!!it.gold, price=gold?it.gold:it.price, have=gold?PET.gold:PET.coins;
-    return '<div class="sitem'+(gold?" gold":"")+(own?" own":"")+(petTry===it.id?" try":"")+'"><button type="button" class="s-prev" data-ptry="'+it.id+'" aria-label="Vyzkoušet">'+thumb(it)+'</button>'+
-      '<div class="s-name">'+esc(it.name)+'</div><div class="s-slot">'+slotName[it.slot]+'</div>'+
-      (own?'<span class="s-own">'+ic("i-check")+'Máš</span>':'<button type="button" class="btn small'+(have>=price?" primary":"")+'" data-pbuy="'+it.id+'"'+(have>=price?"":" disabled")+'>'+coinSvg(gold)+price+'</button>')+'</div>'; };
-  const normal=SHOP.filter(x=>!x.gold), golden=SHOP.filter(x=>x.gold);
-  return (petTry?'<div class="trybar">Zkoušíš: <b>'+esc(SHOP_BY[petTry].name)+'</b> <button type="button" class="btn small" data-ptry="">Sundat</button></div>':'<p class="s-hint">Klepni na obrázek a vyzkoušej, jak to morčeti sluší.</p>')+
-    '<div class="sgrid">'+normal.map(card).join("")+'</div><h4 class="goldh">'+coinSvg(true)+'Zlaté super bonusy <span>za zlaté hvězdy z testů na 100 %</span></h4><div class="sgrid">'+golden.map(card).join("")+'</div>';
+  const cats='<div class="ish-cats">'+SHOP_CATS.map(c=>'<button type="button" class="'+(shopCat===c[0]?"on":"")+'" data-pcat="'+c[0]+'">'+c[1]+'</button>').join("")+'</div>';
+  let body;
+  if(shopCat==="today"){
+    const now=new Date(), left=24-now.getHours();
+    body='<div class="ish-sec"><h4>Nabídka dne <span>sleva 30 % · mění se o půlnoci (ještě '+left+' h)</span></h4><div class="icards deals">'+dealIds().map(id=>icard(SHOP_BY[id],{big:true})).join("")+'</div></div>'+
+      '<div class="ish-sec"><h4>Nové v obchodě</h4><div class="icards">'+sortItems(SHOP.filter(x=>NEW_IDS.includes(x.id)&&!x.req&&!dealIds().includes(x.id))).slice(0,8).map(x=>icard(x)).join("")+'</div></div>';
+  } else if(shopCat==="bed"){
+    const beds=SHOP.filter(x=>x.slot==="bed").sort((a,b)=>a.bedLv-b.bedLv);
+    body='<div class="ish-sec"><h4>Vylepšuj postel krok za krokem <span>každá další je pohodlnější</span></h4><div class="icards upg">'+beds.map((b,i)=>icard(b)+(i<beds.length-1?'<i class="upg-arr">›</i>':"")).join("")+'</div></div>';
+  } else {
+    body='<div class="icards">'+sortItems(SHOP.filter(x=>catOf(x)===shopCat)).map(x=>icard(x)).join("")+'</div>';
+  }
+  return '<div class="ishop"><div class="ish-h"><h3>Obchod</h3>'+walletHtml()+'</div>'+cats+
+    '<p class="ish-hint">Klepni na obrázek a morče si věc vyzkouší.</p>'+body+'</div>';
 }
 function wardrobeHtml(){
-  if(!PET.owned.length) return '<p class="s-hint">Zatím nemáš žádné věci. Kup si něco v Obchodě, nebo počkej na dárek za další úroveň.</p>';
-  return '<p class="s-hint">Klepnutím věc oblékneš nebo sundáš. Na hlavu, oči, krk i záda může mít vždy jednu věc.</p><div class="sgrid">'+
-    PET.owned.map(id=>SHOP_BY[id]).filter(Boolean).map(it=>'<button type="button" class="sitem wear'+(isOn(it.id)?" on":"")+(it.gold?" gold":"")+'" data-pwear="'+it.id+'">'+thumb(it)+'<div class="s-name">'+esc(it.name)+'</div><div class="s-slot">'+(isOn(it.id)?"oblečeno":"sundáno")+'</div></button>').join("")+'</div>';
+  if(!PET.owned.length) return '<div class="ishop ward"><p class="ish-hint">Zatím nemáš žádné věci. Kup si něco v Obchodě, nebo počkej na dárek za další úroveň.</p></div>';
+  const own=PET.owned.map(id=>SHOP_BY[id]).filter(Boolean);
+  const groups=["head","face","neck","body","back","paws","house","bed","cage"].map(sl=>[sl,sortItems(own.filter(x=>x.slot===sl))]).filter(g=>g[1].length);
+  return '<div class="ishop ward"><div class="ish-h"><h3>Šatník</h3></div><p class="ish-hint">Klepnutím na tlačítko věc oblékneš nebo sundáš. Z každé skupiny může mít morče jednu věc, do klece můžeš dát všechno.</p>'+
+    groups.map(g=>'<div class="ish-sec"><h4>'+SLOT_NAME[g[0]]+'</h4><div class="icards">'+g[1].map(x=>icard(x,{ward:true})).join("")+'</div></div>').join("")+'</div>';
+}
+function tryBar(){
+  if(!petTry||!SHOP_BY[petTry]) return "";
+  const it=SHOP_BY[petTry], own=PET.owned.includes(it.id), pr=priceOf(it);
+  return '<div class="trybar"><span>Zkoušíš: <b>'+esc(it.name)+'</b></span>'+(own?"":'<button type="button" class="btn small primary" data-pbuy="'+it.id+'"'+(canBuy(it)?"":" disabled")+'>Koupit '+coinSvg(!!it.gold)+pr+'</button>')+'<button type="button" class="btn small" data-ptry="">Sundat</button></div>';
 }
 
 function detailCard(title,icon,count,inner){
@@ -2096,7 +2253,8 @@ document.addEventListener("click", async e=>{
   if(t.closest("[data-ppet]")){ petAction("pet"); return; }
   const ptab=t.closest("[data-ptab]"); if(ptab){ petTab=ptab.dataset.ptab; petTry=null; render(); return; }
   const ptry=t.closest("[data-ptry]"); if(ptry){ petTry=ptry.dataset.ptry&&petTry!==ptry.dataset.ptry?ptry.dataset.ptry:null; render(); return; }
-  const pbuy=t.closest("[data-pbuy]"); if(pbuy){ const it=SHOP_BY[pbuy.dataset.pbuy]; if(it&&!PET.owned.includes(it.id)){ const g=!!it.gold, pr=g?it.gold:it.price; if((g?PET.gold:PET.coins)>=pr){ if(g) PET.gold-=pr; else PET.coins-=pr; PET.owned.push(it.id); equip(it.id,true); petTry=null; savePet(); petAnim={type:"love",until:Date.now()+1800}; render(); toast("Koupeno: "+it.name+"!"); clearTimeout(petTimer); petTimer=setTimeout(()=>{ petAnim=null; if(view==="pet") render(); },1850); } } return; }
+  const pcat=t.closest("[data-pcat]"); if(pcat){ shopCat=pcat.dataset.pcat; petTry=null; render(); return; }
+  const pbuy=t.closest("[data-pbuy]"); if(pbuy){ const it=SHOP_BY[pbuy.dataset.pbuy]; if(it&&canBuy(it)){ const g=!!it.gold, pr=priceOf(it); { if(g) PET.gold-=pr; else PET.coins-=pr; PET.owned.push(it.id); equip(it.id,true); petTry=null; savePet(); petAnim={type:"love",until:Date.now()+1800}; render(); toast("Koupeno: "+it.name+"!"); clearTimeout(petTimer); petTimer=setTimeout(()=>{ petAnim=null; if(view==="pet") render(); },1850); } } return; }
   const pwr=t.closest("[data-pwear]"); if(pwr){ const id=pwr.dataset.pwear; equip(id,!isOn(id)); savePet(); render(); return; }
   if(t.closest("[data-plvok]")){ PET.lvlUp=0; savePet(); render(); return; }
   if(t.closest("[data-pname]")){ const v=(document.getElementById("petname")||{}).value||""; const nm=v.trim().slice(0,16); if(!nm){ toast("Napiš jméno morčete."); return; } PET.name=nm; PET.last=Date.now(); savePet(); render(); toast("Ahoj, "+nm+"!"); return; }

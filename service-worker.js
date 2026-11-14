@@ -1,8 +1,8 @@
 /* Školní parťák – offline cache. Při změně souborů zvyš číslo verze. */
-const CACHE = "skolni-partak-v38";
+const CACHE = "skolni-partak-v39";
 const FILES = ["./", "./index.html", "./manifest.json", "./icon-192.png", "./icon-512.png", "./apple-touch-icon.png",
   "./fonts/IBMPlexSans-Regular.woff2","./fonts/IBMPlexSans-Medium.woff2","./fonts/IBMPlexSans-SemiBold.woff2","./fonts/IBMPlexSans-Bold.woff2",
-  "./fonts/IBMPlexMono-Medium.woff2","./fonts/IBMPlexMono-SemiBold.woff2"];
+  "./fonts/IBMPlexMono-Medium.woff2","./fonts/IBMPlexMono-SemiBold.woff2","./fonts/TitanOne-latin.woff2","./fonts/TitanOne-latinext.woff2"];
 
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES)).then(() => self.skipWaiting()));
