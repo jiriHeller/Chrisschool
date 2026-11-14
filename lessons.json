@@ -1,160 +1,839 @@
 {
-  "lessons": [
+ "lessons": [
+  {
+   "id": "pu-lide-kolem-nas",
+   "subject": "pu",
+   "title": "Lidé kolem nás",
+   "source": "Prvouka 3 – pracovní sešit str. 17–20 (učebnice str. 20–25)",
+   "added": "2026-11-14",
+   "intro": "Každý člověk je jiný. Naučíš se, jaké máme vlastnosti, jak pomáhat lidem, kteří to mají těžší, jak se chovat k cizím lidem a jaká povolání lidé dělají.",
+   "sections": [
     {
-      "id": "pu-lide-kolem-nas",
-      "subject": "pu",
-      "title": "Lidé kolem nás",
-      "source": "Prvouka 3 – pracovní sešit str. 17–20 (učebnice str. 20–25)",
-      "added": "2026-11-14",
-      "intro": "Každý člověk je jiný. Naučíš se, jaké máme vlastnosti, jak pomáhat lidem, kteří to mají těžší, jak se chovat k cizím lidem a jaká povolání lidé dělají.",
-      "sections": [
-        {
-          "title": "Lidé se od sebe liší",
-          "icon": "i-users",
-          "points": [
-            "Lidé se liší <b>vzhledem, chováním a vlastnostmi</b>.",
-            "Jsme různí, ale je důležité se <b>vzájemně respektovat</b>.",
-            "Lidé žijící spolu si vytvořili <b>společná pravidla</b>, která musíme dodržovat.",
-            "<b>Všichni lidé mají stejná práva</b> – a také povinnosti."
-          ]
-        },
-        {
-          "title": "Povahové vlastnosti a jejich opak",
-          "icon": "i-okc",
-          "table": {
-            "cols": ["Vlastnost", "Opak"],
-            "rows": [
-              ["veselý", "smutný"],
-              ["pracovitý", "líný"],
-              ["usměvavý", "zamračený"],
-              ["rychlý", "pomalý"],
-              ["hodný", "zlý"],
-              ["smělý (odvážný)", "bojácný"],
-              ["ochotný", "neochotný"]
-            ]
-          },
-          "points": [
-            "<b>Kladné</b> (dobré) vlastnosti: vytrvalý, vtipný, ochotný, chytrý, hodný, smělý, milý.",
-            "<b>Záporné</b> (špatné) vlastnosti: hrubý, zlý, drzý, krutý."
-          ]
-        },
-        {
-          "title": "Zvířata a jejich vlastnosti",
-          "icon": "i-sun",
-          "table": {
-            "cols": ["Zvíře", "Říkáme, že je…"],
-            "rows": [
-              ["lev", "silný"],
-              ["liška", "chytrá (mazaná)"],
-              ["sova", "moudrá"],
-              ["pes", "věrný"],
-              ["páv", "pyšný"],
-              ["včela", "pracovitá"]
-            ]
-          }
-        },
-        {
-          "title": "Lidé se zdravotním postižením",
-          "icon": "i-info",
-          "points": [
-            "Lidem se zdravotním postižením <b>pomáháme</b> – nevyhýbáme se jim. Nejdřív se zeptáme, jestli pomoc chtějí.",
-            "<b>Nevidomí</b> (nevidí) chodí s bílou holí a pomáhá jim <b>vodicí pes</b>.",
-            "Vodicí pes v postroji je v práci – nehladíme ho a nevoláme na něj.",
-            "<b>Neslyšící</b> (neslyší) se domlouvají znakovou řečí.",
-            "Modrá <b>značka s vozíčkem</b> označuje místa pro lidi na vozíku (vozíčkáře)."
-          ]
-        },
-        {
-          "title": "Senioři",
-          "icon": "i-users",
-          "points": [
-            "<b>Senioři jsou starší lidé</b>, většinou už jsou v důchodu.",
-            "Starším lidem <b>pomáháme</b> a vážíme si jich – třeba je pustíme sednout v tramvaji."
-          ]
-        },
-        {
-          "title": "Cizí lidé – pozor!",
-          "icon": "i-alert",
-          "points": [
-            "S cizím člověkem <b>NIKDY nikam neodcházíme</b>.",
-            "Cizí lidé, kteří nám něco nabízejí (bonbony, hru, svezení), <b>nemusí být hodní</b>. Nic si od nich nebereme.",
-            "Když se nám něco nelíbí, řekneme to <b>dospělému, kterému věříme</b>."
-          ]
-        },
-        {
-          "title": "Šikana",
-          "icon": "i-alert",
-          "points": [
-            "<b>Šikana</b> je chování, kdy někdo někomu <b>schválně a opakovaně ubližuje</b>.",
-            "Když vidíme šikanu, <b>řekneme to dospělému, kterému věříme</b> (paní učitelce, rodičům). To není žalování – tím pomáháme."
-          ]
-        },
-        {
-          "title": "Povolání",
-          "icon": "i-clip",
-          "table": {
-            "cols": ["Povolání", "Co potřebuje"],
-            "rows": [
-              ["kuchař", "nůž, hrnec, struhadlo"],
-              ["dřevorubec", "sekera, motorová pila, polena"],
-              ["policistka", "píšťalka, zastavovací terčík, pouta"],
-              ["zedník", "cihly, zednická lžíce, metr"],
-              ["pekař", "peče chleba a rohlíky"],
-              ["lékař", "stará se o naše zdraví"],
-              ["kadeřník", "stříhá a češe vlasy (nůžky, hřeben)"],
-              ["učitelka", "vyučuje žáky – stará se o naše vzdělání"]
-            ]
-          },
-          "points": [
-            "<b>Všechna povolání jsou důležitá.</b>",
-            "Za práci dostávají lidé <b>PLAT</b> (říká se také mzda nebo výplata).",
-            "<b>Penězi platíme za práci druhých lidí.</b>"
-          ]
-        },
-        {
-          "title": "Lidé z jiných zemí – Jadwiga z Polska",
-          "icon": "i-flag",
-          "points": [
-            "<b>Polsko</b> leží na <b>severu</b> od České republiky. Hlavní město je <b>Varšava</b>.",
-            "Polština je podobná češtině – trochu bychom si rozuměli.",
-            "<b>Boršč</b> je polévka z červené řepy."
-          ]
-        }
+     "title": "Lidé se od sebe liší",
+     "icon": "i-users",
+     "points": [
+      "Lidé se liší <b>vzhledem, chováním a vlastnostmi</b>.",
+      "Jsme různí, ale je důležité se <b>vzájemně respektovat</b>.",
+      "Lidé žijící spolu si vytvořili <b>společná pravidla</b>, která musíme dodržovat.",
+      "<b>Všichni lidé mají stejná práva</b> – a také povinnosti."
+     ]
+    },
+    {
+     "title": "Povahové vlastnosti a jejich opak",
+     "icon": "i-okc",
+     "table": {
+      "cols": [
+       "Vlastnost",
+       "Opak"
       ],
-      "watch": [
-        "Lidem s postižením <b>pomáháme</b> (ne: vyhýbáme se jim).",
-        "Senioři jsou <b>starší lidé</b> (ne: mladí).",
-        "Penězi platíme <b>za práci druhých lidí</b>.",
-        "Za práci dostávají lidé <b>PLAT</b> – P-L-A-T, ne „plán“.",
-        "S cizím člověkem <b>NIKDY</b> nikam neodcházíme.",
-        "Opak slova <b>veselý</b> je <b>smutný</b>."
-      ],
-      "quiz": [
-        {"q": "Čím se lidé od sebe liší?", "a": ["vzhledem, chováním a vlastnostmi", "jenom vzhledem", "jenom oblečením"], "c": 0, "e": "Lidé se liší vzhledem, chováním i vlastnostmi."},
-        {"q": "Lidem se zdravotním postižením…", "a": ["pomáháme", "se vyhýbáme", "se smějeme"], "c": 0, "e": "Lidem s postižením pomáháme. Nejdřív se zeptáme, jestli pomoc chtějí."},
-        {"q": "Senioři jsou…", "a": ["starší lidé", "mladí lidé", "malé děti"], "c": 0, "e": "Senioři jsou starší lidé, většinou už v důchodu."},
-        {"q": "Co uděláš, když tě cizí člověk zve, ať jdeš s ním?", "a": ["Nikam nejdu a řeknu to dospělému, kterému věřím.", "Půjdu, když je hodný.", "Půjdu, když mi dá bonbon."], "c": 0, "e": "S cizím člověkem NIKDY nikam neodcházíme."},
-        {"q": "Cizí lidé, kteří nám něco nabízejí…", "a": ["nemusí být hodní – nic si nebereme", "jsou vždycky hodní", "jsou naši kamarádi"], "c": 0, "e": "Ten, kdo nabízí bonbony nebo svezení, nemusí mít dobré úmysly."},
-        {"q": "Co je šikana?", "a": ["Když někdo někomu schválně a opakovaně ubližuje.", "Když se dva kamarádi jednou pohádají.", "Když hrajeme na honěnou."], "c": 0, "e": "Šikana je, když někdo někomu schválně a opakovaně ubližuje."},
-        {"q": "Když vidíš šikanu, co uděláš?", "a": ["Řeknu to dospělému, kterému věřím.", "Budu dělat, že nic nevidím.", "Přidám se."], "c": 0, "e": "Řekneme to paní učitelce nebo rodičům. Tím pomáháme."},
-        {"q": "K základním lidským právům patří…", "a": ["vzdělávat se", "ubližovat druhým", "nedodržovat pravidla"], "c": 0, "e": "Každý má právo se vzdělávat. Ubližovat druhým není právo."},
-        {"q": "Lidé žijící společně…", "a": ["si vytvořili společná pravidla", "si mohou dělat, co chtějí", "nemají žádná pravidla"], "c": 0, "e": "Lidé si vytvořili společná pravidla, která musíme dodržovat."},
-        {"q": "Penězi platíme za…", "a": ["práci druhých lidí", "to, že můžeme pracovat", "nic"], "c": 0, "e": "Když něco kupujeme, platíme za práci lidí, kteří to vyrobili nebo udělali."},
-        {"q": "Za práci dostávají lidé…", "a": ["plat", "plán", "pokutu"], "c": 0, "e": "Za práci dostávají lidé PLAT (mzdu, výplatu)."},
-        {"q": "Které povolání peče chleba a rohlíky?", "a": ["pekař", "lékař", "kadeřník"], "c": 0, "e": "Pekař peče chleba a rohlíky."},
-        {"q": "Kdo se stará o naše vzdělání?", "a": ["učitelé", "lékaři", "kuchaři"], "c": 0, "e": "O vzdělání se starají učitelé, o zdraví lékaři."},
-        {"q": "Co potřebuje dřevorubec?", "a": ["sekeru a motorovou pilu", "hrnec a struhadlo", "píšťalku a pouta"], "c": 0, "e": "Dřevorubec kácí stromy – potřebuje sekeru a motorovou pilu."},
-        {"q": "Komu patří píšťalka a pouta?", "a": ["policistce", "kuchaři", "zedníkovi"], "c": 0, "e": "Píšťalka, zastavovací terčík a pouta patří policii."},
-        {"q": "Jaký je opak slova VESELÝ?", "a": ["smutný", "rychlý", "pracovitý"], "c": 0, "e": "Veselý × smutný."},
-        {"q": "Jaký je opak slova PRACOVITÝ?", "a": ["líný", "pomalý", "smutný"], "c": 0, "e": "Pracovitý × líný."},
-        {"q": "Která vlastnost je KLADNÁ (dobrá)?", "a": ["ochotný", "drzý", "krutý"], "c": 0, "e": "Ochotný je dobrá vlastnost. Drzý a krutý jsou špatné."},
-        {"q": "Které zvíře je podle přísloví VĚRNÉ?", "a": ["pes", "páv", "liška"], "c": 0, "e": "Pes je věrný, páv pyšný, liška chytrá."},
-        {"q": "Které zvíře je PRACOVITÉ?", "a": ["včela", "lev", "sova"], "c": 0, "e": "Včela je pracovitá, lev silný, sova moudrá."},
-        {"q": "Komu nejčastěji pomáhají vodicí psi?", "a": ["nevidomým lidem", "neslyšícím lidem", "malým dětem"], "c": 0, "e": "Vodicí pes pomáhá nevidomým – lidem, kteří nevidí."},
-        {"q": "Na jaké světové straně od nás leží Polsko?", "a": ["na severu", "na jihu", "na západě"], "c": 0, "e": "Polsko je na severu od České republiky. Hlavní město je Varšava."},
-        {"q": "Jak se jmenuje hlavní město Polska?", "a": ["Varšava", "Vídeň", "Bratislava"], "c": 0, "e": "Varšava. Vídeň je v Rakousku, Bratislava na Slovensku."},
-        {"q": "Všechna povolání jsou…", "a": ["důležitá", "nudná", "zbytečná"], "c": 0, "e": "Každé povolání je důležité – potřebujeme pekaře, lékaře i zedníky."}
+      "rows": [
+       [
+        "veselý",
+        "smutný"
+       ],
+       [
+        "pracovitý",
+        "líný"
+       ],
+       [
+        "usměvavý",
+        "zamračený"
+       ],
+       [
+        "rychlý",
+        "pomalý"
+       ],
+       [
+        "hodný",
+        "zlý"
+       ],
+       [
+        "smělý (odvážný)",
+        "bojácný"
+       ],
+       [
+        "ochotný",
+        "neochotný"
+       ]
       ]
+     },
+     "points": [
+      "<b>Kladné</b> (dobré) vlastnosti: vytrvalý, vtipný, ochotný, chytrý, hodný, smělý, milý.",
+      "<b>Záporné</b> (špatné) vlastnosti: hrubý, zlý, drzý, krutý."
+     ]
+    },
+    {
+     "title": "Zvířata a jejich vlastnosti",
+     "icon": "i-sun",
+     "table": {
+      "cols": [
+       "Zvíře",
+       "Říkáme, že je…"
+      ],
+      "rows": [
+       [
+        "lev",
+        "silný"
+       ],
+       [
+        "liška",
+        "chytrá (mazaná)"
+       ],
+       [
+        "sova",
+        "moudrá"
+       ],
+       [
+        "pes",
+        "věrný"
+       ],
+       [
+        "páv",
+        "pyšný"
+       ],
+       [
+        "včela",
+        "pracovitá"
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Lidé se zdravotním postižením",
+     "icon": "i-info",
+     "points": [
+      "Lidem se zdravotním postižením <b>pomáháme</b> – nevyhýbáme se jim. Nejdřív se zeptáme, jestli pomoc chtějí.",
+      "<b>Nevidomí</b> (nevidí) chodí s bílou holí a pomáhá jim <b>vodicí pes</b>.",
+      "Vodicí pes v postroji je v práci – nehladíme ho a nevoláme na něj.",
+      "<b>Neslyšící</b> (neslyší) se domlouvají znakovou řečí.",
+      "Modrá <b>značka s vozíčkem</b> označuje místa pro lidi na vozíku (vozíčkáře)."
+     ]
+    },
+    {
+     "title": "Senioři",
+     "icon": "i-users",
+     "points": [
+      "<b>Senioři jsou starší lidé</b>, většinou už jsou v důchodu.",
+      "Starším lidem <b>pomáháme</b> a vážíme si jich – třeba je pustíme sednout v tramvaji."
+     ]
+    },
+    {
+     "title": "Cizí lidé – pozor!",
+     "icon": "i-alert",
+     "points": [
+      "S cizím člověkem <b>NIKDY nikam neodcházíme</b>.",
+      "Cizí lidé, kteří nám něco nabízejí (bonbony, hru, svezení), <b>nemusí být hodní</b>. Nic si od nich nebereme.",
+      "Když se nám něco nelíbí, řekneme to <b>dospělému, kterému věříme</b>."
+     ]
+    },
+    {
+     "title": "Šikana",
+     "icon": "i-alert",
+     "points": [
+      "<b>Šikana</b> je chování, kdy někdo někomu <b>schválně a opakovaně ubližuje</b>.",
+      "Když vidíme šikanu, <b>řekneme to dospělému, kterému věříme</b> (paní učitelce, rodičům). To není žalování – tím pomáháme."
+     ]
+    },
+    {
+     "title": "Povolání",
+     "icon": "i-clip",
+     "table": {
+      "cols": [
+       "Povolání",
+       "Co potřebuje"
+      ],
+      "rows": [
+       [
+        "kuchař",
+        "nůž, hrnec, struhadlo"
+       ],
+       [
+        "dřevorubec",
+        "sekera, motorová pila, polena"
+       ],
+       [
+        "policistka",
+        "píšťalka, zastavovací terčík, pouta"
+       ],
+       [
+        "zedník",
+        "cihly, zednická lžíce, metr"
+       ],
+       [
+        "pekař",
+        "peče chleba a rohlíky"
+       ],
+       [
+        "lékař",
+        "stará se o naše zdraví"
+       ],
+       [
+        "kadeřník",
+        "stříhá a češe vlasy (nůžky, hřeben)"
+       ],
+       [
+        "učitelka",
+        "vyučuje žáky – stará se o naše vzdělání"
+       ]
+      ]
+     },
+     "points": [
+      "<b>Všechna povolání jsou důležitá.</b>",
+      "Za práci dostávají lidé <b>PLAT</b> (říká se také mzda nebo výplata).",
+      "<b>Penězi platíme za práci druhých lidí.</b>"
+     ]
+    },
+    {
+     "title": "Lidé z jiných zemí – Jadwiga z Polska",
+     "icon": "i-flag",
+     "points": [
+      "<b>Polsko</b> leží na <b>severu</b> od České republiky. Hlavní město je <b>Varšava</b>.",
+      "Polština je podobná češtině – trochu bychom si rozuměli.",
+      "<b>Boršč</b> je polévka z červené řepy."
+     ]
     }
-  ]
+   ],
+   "watch": [
+    "Lidem s postižením <b>pomáháme</b> (ne: vyhýbáme se jim).",
+    "Senioři jsou <b>starší lidé</b> (ne: mladí).",
+    "Penězi platíme <b>za práci druhých lidí</b>.",
+    "Za práci dostávají lidé <b>PLAT</b> – P-L-A-T, ne „plán“.",
+    "S cizím člověkem <b>NIKDY</b> nikam neodcházíme.",
+    "Opak slova <b>veselý</b> je <b>smutný</b>."
+   ],
+   "quiz": [
+    {
+     "q": "Čím se lidé od sebe liší?",
+     "a": [
+      "vzhledem, chováním a vlastnostmi",
+      "jenom vzhledem",
+      "jenom oblečením"
+     ],
+     "c": 0,
+     "e": "Lidé se liší vzhledem, chováním i vlastnostmi."
+    },
+    {
+     "q": "Lidem se zdravotním postižením…",
+     "a": [
+      "pomáháme",
+      "se vyhýbáme",
+      "se smějeme"
+     ],
+     "c": 0,
+     "e": "Lidem s postižením pomáháme. Nejdřív se zeptáme, jestli pomoc chtějí."
+    },
+    {
+     "q": "Senioři jsou…",
+     "a": [
+      "starší lidé",
+      "mladí lidé",
+      "malé děti"
+     ],
+     "c": 0,
+     "e": "Senioři jsou starší lidé, většinou už v důchodu."
+    },
+    {
+     "q": "Co uděláš, když tě cizí člověk zve, ať jdeš s ním?",
+     "a": [
+      "Nikam nejdu a řeknu to dospělému, kterému věřím.",
+      "Půjdu, když je hodný.",
+      "Půjdu, když mi dá bonbon."
+     ],
+     "c": 0,
+     "e": "S cizím člověkem NIKDY nikam neodcházíme."
+    },
+    {
+     "q": "Cizí lidé, kteří nám něco nabízejí…",
+     "a": [
+      "nemusí být hodní – nic si nebereme",
+      "jsou vždycky hodní",
+      "jsou naši kamarádi"
+     ],
+     "c": 0,
+     "e": "Ten, kdo nabízí bonbony nebo svezení, nemusí mít dobré úmysly."
+    },
+    {
+     "q": "Co je šikana?",
+     "a": [
+      "Když někdo někomu schválně a opakovaně ubližuje.",
+      "Když se dva kamarádi jednou pohádají.",
+      "Když hrajeme na honěnou."
+     ],
+     "c": 0,
+     "e": "Šikana je, když někdo někomu schválně a opakovaně ubližuje."
+    },
+    {
+     "q": "Když vidíš šikanu, co uděláš?",
+     "a": [
+      "Řeknu to dospělému, kterému věřím.",
+      "Budu dělat, že nic nevidím.",
+      "Přidám se."
+     ],
+     "c": 0,
+     "e": "Řekneme to paní učitelce nebo rodičům. Tím pomáháme."
+    },
+    {
+     "q": "K základním lidským právům patří…",
+     "a": [
+      "vzdělávat se",
+      "ubližovat druhým",
+      "nedodržovat pravidla"
+     ],
+     "c": 0,
+     "e": "Každý má právo se vzdělávat. Ubližovat druhým není právo."
+    },
+    {
+     "q": "Lidé žijící společně…",
+     "a": [
+      "si vytvořili společná pravidla",
+      "si mohou dělat, co chtějí",
+      "nemají žádná pravidla"
+     ],
+     "c": 0,
+     "e": "Lidé si vytvořili společná pravidla, která musíme dodržovat."
+    },
+    {
+     "q": "Penězi platíme za…",
+     "a": [
+      "práci druhých lidí",
+      "to, že můžeme pracovat",
+      "nic"
+     ],
+     "c": 0,
+     "e": "Když něco kupujeme, platíme za práci lidí, kteří to vyrobili nebo udělali."
+    },
+    {
+     "q": "Za práci dostávají lidé…",
+     "a": [
+      "plat",
+      "plán",
+      "pokutu"
+     ],
+     "c": 0,
+     "e": "Za práci dostávají lidé PLAT (mzdu, výplatu)."
+    },
+    {
+     "q": "Které povolání peče chleba a rohlíky?",
+     "a": [
+      "pekař",
+      "lékař",
+      "kadeřník"
+     ],
+     "c": 0,
+     "e": "Pekař peče chleba a rohlíky."
+    },
+    {
+     "q": "Kdo se stará o naše vzdělání?",
+     "a": [
+      "učitelé",
+      "lékaři",
+      "kuchaři"
+     ],
+     "c": 0,
+     "e": "O vzdělání se starají učitelé, o zdraví lékaři."
+    },
+    {
+     "q": "Co potřebuje dřevorubec?",
+     "a": [
+      "sekeru a motorovou pilu",
+      "hrnec a struhadlo",
+      "píšťalku a pouta"
+     ],
+     "c": 0,
+     "e": "Dřevorubec kácí stromy – potřebuje sekeru a motorovou pilu."
+    },
+    {
+     "q": "Komu patří píšťalka a pouta?",
+     "a": [
+      "policistce",
+      "kuchaři",
+      "zedníkovi"
+     ],
+     "c": 0,
+     "e": "Píšťalka, zastavovací terčík a pouta patří policii."
+    },
+    {
+     "q": "Jaký je opak slova VESELÝ?",
+     "a": [
+      "smutný",
+      "rychlý",
+      "pracovitý"
+     ],
+     "c": 0,
+     "e": "Veselý × smutný."
+    },
+    {
+     "q": "Jaký je opak slova PRACOVITÝ?",
+     "a": [
+      "líný",
+      "pomalý",
+      "smutný"
+     ],
+     "c": 0,
+     "e": "Pracovitý × líný."
+    },
+    {
+     "q": "Která vlastnost je KLADNÁ (dobrá)?",
+     "a": [
+      "ochotný",
+      "drzý",
+      "krutý"
+     ],
+     "c": 0,
+     "e": "Ochotný je dobrá vlastnost. Drzý a krutý jsou špatné."
+    },
+    {
+     "q": "Které zvíře je podle přísloví VĚRNÉ?",
+     "a": [
+      "pes",
+      "páv",
+      "liška"
+     ],
+     "c": 0,
+     "e": "Pes je věrný, páv pyšný, liška chytrá."
+    },
+    {
+     "q": "Které zvíře je PRACOVITÉ?",
+     "a": [
+      "včela",
+      "lev",
+      "sova"
+     ],
+     "c": 0,
+     "e": "Včela je pracovitá, lev silný, sova moudrá."
+    },
+    {
+     "q": "Komu nejčastěji pomáhají vodicí psi?",
+     "a": [
+      "nevidomým lidem",
+      "neslyšícím lidem",
+      "malým dětem"
+     ],
+     "c": 0,
+     "e": "Vodicí pes pomáhá nevidomým – lidem, kteří nevidí."
+    },
+    {
+     "q": "Na jaké světové straně od nás leží Polsko?",
+     "a": [
+      "na severu",
+      "na jihu",
+      "na západě"
+     ],
+     "c": 0,
+     "e": "Polsko je na severu od České republiky. Hlavní město je Varšava."
+    },
+    {
+     "q": "Jak se jmenuje hlavní město Polska?",
+     "a": [
+      "Varšava",
+      "Vídeň",
+      "Bratislava"
+     ],
+     "c": 0,
+     "e": "Varšava. Vídeň je v Rakousku, Bratislava na Slovensku."
+    },
+    {
+     "q": "Všechna povolání jsou…",
+     "a": [
+      "důležitá",
+      "nudná",
+      "zbytečná"
+     ],
+     "c": 0,
+     "e": "Každé povolání je důležité – potřebujeme pekaře, lékaře i zedníky."
+    }
+   ]
+  },
+  {
+   "id": "cj-vyjmenovana-z",
+   "subject": "cj",
+   "title": "Vyjmenovaná slova po Z",
+   "source": "Český jazyk 3 – vyjmenovaná slova",
+   "added": "2026-11-14",
+   "intro": "Po Z píšeme většinou měkké i/í. Tvrdé y/ý píšeme jen ve vyjmenovaných slovech a ve slovech, která jsou s nimi příbuzná.",
+   "sections": [
+    {
+     "title": "Vyjmenovaná slova po Z",
+     "icon": "i-book",
+     "points": [
+      "<b>brzy</b>",
+      "<b>jazyk</b>",
+      "<b>nazývat (se)</b>",
+      "<b>Ruzyně</b>",
+      "Zapamatuj si je jako básničku: <b>brzy – jazyk – nazývat – Ruzyně</b>."
+     ]
+    },
+    {
+     "title": "Příbuzná slova – taky s Y",
+     "icon": "i-okc",
+     "table": {
+      "cols": [
+       "Vyjmenované",
+       "Příbuzná slova"
+      ],
+      "rows": [
+       [
+        "brzy",
+        "brzký (brzký příchod)"
+       ],
+       [
+        "jazyk",
+        "jazýček, jazykový, jazykověda, dvojjazyčný"
+       ],
+       [
+        "nazývat (se)",
+        "nazývání, vyzývat, ozývat se, přezývka"
+       ],
+       [
+        "Ruzyně",
+        "ruzyňský (ruzyňské letiště)"
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Pozor – tady je měkké I",
+     "icon": "i-alert",
+     "points": [
+      "<b>zívat</b> – když jsem ospalý, <b>zívám</b> (í!). Nesouvisí s nazývat.",
+      "<b>zima, zítra, zisk, zinek, zip</b> – nejsou vyjmenovaná, píšeme <b>i</b>.",
+      "<b>přezývka</b> (od nazývat) píšeme s <b>ý</b>. Pozor: <b>přezdívka</b> znamená totéž, ale píše se s <b>í</b>.",
+      "<b>brzda, brzdit</b> – tam žádné i/y není, nepleť si to s <b>brzy</b>."
+     ]
+    },
+    {
+     "title": "Jak na to",
+     "icon": "i-info",
+     "points": [
+      "Z je <b>obojetná souhláska</b> – může po ní být i/í i y/ý.",
+      "Zeptej se: <b>je to vyjmenované slovo, nebo slovo příbuzné?</b> Když ano → <b>y/ý</b>. Když ne → <b>i/í</b>.",
+      "Příbuzná slova mají <b>stejný kořen</b> a podobný význam: jazyk → jazýček, jazykový."
+     ]
+    }
+   ],
+   "watch": [
+    "Vyjmenovaná slova po Z jsou jen čtyři: <b>brzy, jazyk, nazývat, Ruzyně</b>.",
+    "<b>zívat</b> (když jsem ospalý) se píše s <b>í</b>.",
+    "<b>jazýček</b> je příbuzné s jazyk → <b>ý</b>."
+   ],
+   "quiz": [
+    {
+     "q": "Která slova jsou vyjmenovaná po Z?",
+     "a": [
+      "brzy, jazyk, nazývat, Ruzyně",
+      "zima, zítra, zisk, zip",
+      "brzda, jazyk, zívat, Ruzyně"
+     ],
+     "c": 0,
+     "e": "Vyjmenovaná slova po Z: brzy, jazyk, nazývat (se), Ruzyně."
+    },
+    {
+     "q": "Doplň: br_ ráno",
+     "a": [
+      "brzy",
+      "brzi"
+     ],
+     "c": 0,
+     "e": "Brzy je vyjmenované slovo → y."
+    },
+    {
+     "q": "Doplň: ja_yk",
+     "a": [
+      "jazyk",
+      "jazik"
+     ],
+     "c": 0,
+     "e": "Jazyk je vyjmenované slovo → y."
+    },
+    {
+     "q": "Doplň: ja_ýček",
+     "a": [
+      "jazýček",
+      "jazíček"
+     ],
+     "c": 0,
+     "e": "Jazýček je příbuzné s jazyk → ý."
+    },
+    {
+     "q": "Doplň: na_ývat se",
+     "a": [
+      "nazývat se",
+      "nazívat se"
+     ],
+     "c": 0,
+     "e": "Nazývat (se) je vyjmenované slovo → ý."
+    },
+    {
+     "q": "Doplň: letiště v Ru_yni",
+     "a": [
+      "Ruzyni",
+      "Ruzini"
+     ],
+     "c": 0,
+     "e": "Ruzyně je vyjmenované slovo → y. Píše se s velkým R."
+    },
+    {
+     "q": "Doplň: Když jsem ospalý, z_vám.",
+     "a": [
+      "zívám",
+      "zývám"
+     ],
+     "c": 0,
+     "e": "Zívat nesouvisí s nazývat – píšeme í."
+    },
+    {
+     "q": "Doplň: venku je z_ma",
+     "a": [
+      "zima",
+      "zyma"
+     ],
+     "c": 0,
+     "e": "Zima není vyjmenované slovo → i."
+    },
+    {
+     "q": "Doplň: přijdu z_tra",
+     "a": [
+      "zítra",
+      "zýtra"
+     ],
+     "c": 0,
+     "e": "Zítra není vyjmenované slovo → í."
+    },
+    {
+     "q": "Doplň: učitelka nás vy_ývá k tabuli",
+     "a": [
+      "vyzývá",
+      "vyzívá"
+     ],
+     "c": 0,
+     "e": "Vyzývat je příbuzné s nazývat → ý."
+    },
+    {
+     "q": "Doplň: z lesa se o_ývá kukačka",
+     "a": [
+      "ozývá",
+      "ozívá"
+     ],
+     "c": 0,
+     "e": "Ozývat se je příbuzné s nazývat → ý."
+    },
+    {
+     "q": "Doplň: jeho pře_ývka je Kuba",
+     "a": [
+      "přezývka",
+      "přezivka"
+     ],
+     "c": 0,
+     "e": "Přezývka je příbuzná s nazývat → ý."
+    },
+    {
+     "q": "Doplň: ja_ykový koutek",
+     "a": [
+      "jazykový",
+      "jazikový"
+     ],
+     "c": 0,
+     "e": "Jazykový je příbuzné s jazyk → y."
+    },
+    {
+     "q": "Doplň: br_ký příchod",
+     "a": [
+      "brzký",
+      "brzkí"
+     ],
+     "c": 0,
+     "e": "Brzký je příbuzné s brzy → ý."
+    },
+    {
+     "q": "Doplň: zapni si z_p",
+     "a": [
+      "zip",
+      "zyp"
+     ],
+     "c": 0,
+     "e": "Zip není vyjmenované slovo → i."
+    },
+    {
+     "q": "Které slovo je napsané SPRÁVNĚ?",
+     "a": [
+      "jazýček",
+      "jazíček",
+      "jazyček"
+     ],
+     "c": 0,
+     "e": "Jazýček – příbuzné s jazyk, píšeme ý."
+    },
+    {
+     "q": "Které slovo je napsané SPRÁVNĚ?",
+     "a": [
+      "zívat",
+      "zývat",
+      "zivat"
+     ],
+     "c": 0,
+     "e": "Zívat (když jsem ospalý) se píše s í."
+    },
+    {
+     "q": "Ve které větě je CHYBA?",
+     "a": [
+      "Vstávám brzi ráno.",
+      "Jak se nazývá tvůj pes?",
+      "Letadlo přistálo v Ruzyni."
+     ],
+     "c": 0,
+     "e": "Správně je: Vstávám brzy ráno."
+    },
+    {
+     "q": "Ve které větě je CHYBA?",
+     "a": [
+      "Pes vyplázl jazik.",
+      "V zimě padá sníh.",
+      "Babička zívá."
+     ],
+     "c": 0,
+     "e": "Správně je: Pes vyplázl jazyk."
+    },
+    {
+     "q": "Proč píšeme ve slově JAZÝČEK tvrdé ý?",
+     "a": [
+      "Je příbuzné s vyjmenovaným slovem jazyk.",
+      "Protože je to krátké slovo.",
+      "Po z se vždycky píše ý."
+     ],
+     "c": 0,
+     "e": "Jazýček je příbuzný se slovem jazyk."
+    },
+    {
+     "q": "Jaká souhláska je Z?",
+     "a": [
+      "obojetná",
+      "tvrdá",
+      "měkká"
+     ],
+     "c": 0,
+     "e": "Z je obojetná – po ní může být i/í i y/ý."
+    }
+   ]
+  },
+  {
+   "id": "ma-pocitani-zpameti",
+   "subject": "ma",
+   "title": "Počítání zpaměti",
+   "gen": "ma3-podzim",
+   "n": 20,
+   "source": "Matematika 3 – učivo listopad (Počítáme zpaměti 3)",
+   "added": "2026-11-14",
+   "intro": "Každý test má nové příklady: sčítání a odčítání do 100, malá násobilka a dělení, chybějící číslo, porovnávání a slovní úlohy.",
+   "sections": [
+    {
+     "title": "Sčítání přes desítku",
+     "icon": "i-okc",
+     "points": [
+      "Nejdřív <b>doplň do celé desítky</b>, pak přičti zbytek.",
+      "<b>47 + 8</b> → 47 + 3 = 50, 50 + 5 = <b>55</b>",
+      "<b>36 + 25</b> → 36 + 20 = 56, 56 + 5 = <b>61</b>"
+     ]
+    },
+    {
+     "title": "Odčítání přes desítku",
+     "icon": "i-okc",
+     "points": [
+      "Nejdřív <b>odečti do celé desítky</b>, pak zbytek.",
+      "<b>53 − 7</b> → 53 − 3 = 50, 50 − 4 = <b>46</b>",
+      "<b>72 − 25</b> → 72 − 20 = 52, 52 − 5 = <b>47</b>"
+     ]
+    },
+    {
+     "title": "Násobilka 6, 7, 8, 9",
+     "icon": "i-book",
+     "table": {
+      "cols": [
+       "",
+       "· 2",
+       "· 3",
+       "· 4",
+       "· 5",
+       "· 6",
+       "· 7",
+       "· 8",
+       "· 9",
+       "· 10"
+      ],
+      "rows": [
+       [
+        "6",
+        "12",
+        "18",
+        "24",
+        "30",
+        "36",
+        "42",
+        "48",
+        "54",
+        "60"
+       ],
+       [
+        "7",
+        "14",
+        "21",
+        "28",
+        "35",
+        "42",
+        "49",
+        "56",
+        "63",
+        "70"
+       ],
+       [
+        "8",
+        "16",
+        "24",
+        "32",
+        "40",
+        "48",
+        "56",
+        "64",
+        "72",
+        "80"
+       ],
+       [
+        "9",
+        "18",
+        "27",
+        "36",
+        "45",
+        "54",
+        "63",
+        "72",
+        "81",
+        "90"
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Dělení = násobilka obráceně",
+     "icon": "i-info",
+     "points": [
+      "<b>56 : 8</b> → kolikrát 8 je 56? 8 · <b>7</b> = 56, takže 56 : 8 = <b>7</b>.",
+      "Zkouška: výsledek vynásob dělitelem – musí vyjít původní číslo."
+     ]
+    },
+    {
+     "title": "Triky",
+     "icon": "i-sun",
+     "points": [
+      "<b>· 9</b>: 9 · 6 = 60 − 6 = <b>54</b> (vynásob deseti a jednou odečti).",
+      "<b>· 5</b>: polovina z násobení deseti – 5 · 8 = 80 : 2 = <b>40</b>.",
+      "Když nevíš 7 · 8, vzpomeň si: <b>5, 6, 7, 8</b> → <b>56 = 7 · 8</b>."
+     ]
+    }
+   ],
+   "watch": [
+    "Násobilka <b>6, 7, 8 a 9</b> – tu je potřeba umět zpaměti.",
+    "U odčítání přes desítku nejdřív <b>odečti do celé desítky</b>."
+   ],
+   "quiz": []
+  }
+ ]
 }
