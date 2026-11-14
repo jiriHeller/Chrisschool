@@ -2565,6 +2565,701 @@
      "e": "Rok má 365 dní, přestupný 366."
     }
    ]
+  },
+  {
+   "id": "cj-nauka-o-slove",
+   "subject": "cj",
+   "title": "Nauka o slově – význam slov",
+   "source": "Český jazyk 3 – pracovní sešit str. 16–20 (učebnice str. 22–27)",
+   "added": "2026-11-14",
+   "intro": "Slova mají různé vztahy: některá znamenají totéž, jiná opak, jiná mají víc významů nebo jsou si příbuzná. Pojď to zvládnout!",
+   "sections": [
+    {
+     "title": "Slova souznačná a protikladná",
+     "icon": "i-okc",
+     "points": [
+      "<b>Souznačná</b> slova znamenají <b>skoro totéž</b>: hezká – pěkná, dívka – děvče, běžet – utíkat.",
+      "<b>Protikladná</b> slova znamenají <b>opak</b>: uvnitř – venku, studený – teplý, den – noc."
+     ],
+     "table": {
+      "cols": [
+       "Slovo",
+       "Souznačné slovo"
+      ],
+      "rows": [
+       [
+        "studený",
+        "chladný"
+       ],
+       [
+        "oblaka",
+        "mraky"
+       ],
+       [
+        "pokrm",
+        "jídlo"
+       ],
+       [
+        "dívat se",
+        "hledět"
+       ],
+       [
+        "plakat",
+        "naříkat"
+       ],
+       [
+        "svítit",
+        "zářit"
+       ],
+       [
+        "mluvit",
+        "povídat"
+       ],
+       [
+        "obtížný",
+        "těžký"
+       ],
+       [
+        "kopaná",
+        "fotbal"
+       ],
+       [
+        "sirka",
+        "zápalka"
+       ],
+       [
+        "náhle",
+        "najednou"
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Slova mnohoznačná",
+     "icon": "i-info",
+     "points": [
+      "Mají <b>víc významů</b>.",
+      "<b>myš</b> – zvířátko / ovládání k počítači",
+      "<b>houba</b> – roste v lese / na mytí",
+      "<b>zebra</b> – zvíře / přechod pro chodce",
+      "<b>koruna</b> – na hlavě krále / peníze / koruna stromu",
+      "<b>jazyk</b> – v puse / řeč (český jazyk)"
+     ]
+    },
+    {
+     "title": "Slova citově zabarvená",
+     "icon": "i-sun",
+     "points": [
+      "Ukazují, jestli máme něco <b>rádi</b>: maminka, bráška, pejsánek, sluníčko, mráčky, spinká.",
+      "Nebo jestli se nám něco <b>nelíbí</b>: barabizna, psisko, drzoun, pačesy, ségra, necpi se.",
+      "Obyčejná slova jako <b>úkol</b> nebo <b>párky</b> citově zabarvená nejsou."
+     ]
+    },
+    {
+     "title": "Nadřazená, podřazená, souřadná",
+     "icon": "i-users",
+     "points": [
+      "<b>Nadřazené</b> slovo je skupina: <b>pečivo</b>, <b>povolání</b>, <b>strom</b>.",
+      "<b>Podřazená</b> slova do skupiny patří: rohlík, chleba, buchta / hasič, kuchař, prodavačka.",
+      "<b>Souřadná</b> slova jsou ve stejné skupině vedle sebe: dub, buk, javor, bříza."
+     ],
+     "table": {
+      "cols": [
+       "Skupina",
+       "Souřadná slova",
+       "Nepatří tam"
+      ],
+      "rows": [
+       [
+        "barvy",
+        "červená, modrá, žlutá",
+        "borůvka"
+       ],
+       [
+        "města",
+        "Praha, Brno, Zlín",
+        "Vltava (řeka)"
+       ],
+       [
+        "dívčí jména",
+        "Helena, Sára, Věra",
+        "Petr"
+       ],
+       [
+        "oblečení",
+        "čepice, šála, bunda",
+        "sáně"
+       ]
+      ]
+     }
+    },
+    {
+     "title": "Slova příbuzná a kořen",
+     "icon": "i-book",
+     "points": [
+      "Příbuzná slova mají <b>společnou část – kořen</b>.",
+      "<b>les</b>: lesník, prales, zalesněný, lesík",
+      "<b>hrad</b>: hradba, hradní, podhradí",
+      "<b>kost</b>: kostra, kostička, kostlivec",
+      "<b>lyž</b>: lyže, lyžař, lyžovat"
+     ]
+    },
+    {
+     "title": "Sloh – příběh podle obrázků",
+     "icon": "i-clip",
+     "points": [
+      "Příběh potřebuje <b>nadpis</b>.",
+      "Píšeme <b>celé věty</b>: velké písmeno na začátku, <b>tečka</b> na konci.",
+      "Každá věta říká, <b>kdo</b> co <b>dělá</b>: Děti uviděly plakát na drakiádu."
+     ]
+    }
+   ],
+   "watch": [
+    "U příběhu podle obrázků paní učitelka napsala „To nejsou věty!“ – piš vždy <b>celou větu</b> s velkým písmenem a tečkou, a nezapomeň na <b>nadpis</b>.",
+    "Citově zabarvená jsou jen slova, která ukazují lásku nebo zlost (bráška, psisko). <b>Úkol</b> nebo <b>párky</b> jsou obyčejná slova.",
+    "Souznačné k <b>neslyšící</b> je <b>hluchý</b>, k <b>kamarád</b> je <b>kámoš</b> – to máš dobře!"
+   ],
+   "quiz": [
+    {
+     "q": "Které slovo je souznačné ke slovu hezká?",
+     "a": [
+      "pěkná",
+      "ošklivá",
+      "velká"
+     ],
+     "c": 0,
+     "e": "Hezká = pěkná."
+    },
+    {
+     "q": "Které slovo je souznačné ke slovu studený?",
+     "a": [
+      "chladný",
+      "teplý",
+      "mokrý"
+     ],
+     "c": 0,
+     "e": "Studený = chladný."
+    },
+    {
+     "q": "Které slovo je souznačné ke slovu pokrm?",
+     "a": [
+      "jídlo",
+      "talíř",
+      "kuchyně"
+     ],
+     "c": 0,
+     "e": "Pokrm = jídlo."
+    },
+    {
+     "q": "Které slovo je souznačné ke slovu běžet?",
+     "a": [
+      "utíkat",
+      "stát",
+      "skákat"
+     ],
+     "c": 0,
+     "e": "Běžet = utíkat."
+    },
+    {
+     "q": "Které slovo je souznačné ke slovu kopaná?",
+     "a": [
+      "fotbal",
+      "tenis",
+      "hokej"
+     ],
+     "c": 0,
+     "e": "Kopaná = fotbal."
+    },
+    {
+     "q": "Které slovo je protikladné ke slovu uvnitř?",
+     "a": [
+      "venku",
+      "doma",
+      "dole"
+     ],
+     "c": 0,
+     "e": "Uvnitř × venku – to je opak."
+    },
+    {
+     "q": "Slova hezký a ošklivý jsou…",
+     "a": [
+      "protikladná",
+      "souznačná",
+      "příbuzná"
+     ],
+     "c": 0,
+     "e": "Znamenají opak, proto protikladná."
+    },
+    {
+     "q": "Které slovo je mnohoznačné?",
+     "a": [
+      "myš",
+      "rohlík",
+      "pondělí"
+     ],
+     "c": 0,
+     "e": "Myš je zvířátko i ovládání počítače."
+    },
+    {
+     "q": "Co může znamenat slovo zebra?",
+     "a": [
+      "zvíře i přechod pro chodce",
+      "jen barvu",
+      "druh ovoce"
+     ],
+     "c": 0,
+     "e": "Zebra je zvíře a taky přechod pro chodce."
+    },
+    {
+     "q": "Které slovo je citově zabarvené?",
+     "a": [
+      "pejsánek",
+      "pes",
+      "bouda"
+     ],
+     "c": 0,
+     "e": "Pejsánek – říkáme to s láskou."
+    },
+    {
+     "q": "Které slovo je citově zabarvené (nelíbí se nám)?",
+     "a": [
+      "psisko",
+      "pes",
+      "štěně"
+     ],
+     "c": 0,
+     "e": "Psisko zní ošklivě, nelíbí se nám."
+    },
+    {
+     "q": "Které slovo NENÍ citově zabarvené?",
+     "a": [
+      "úkol",
+      "drzoun",
+      "barabizna"
+     ],
+     "c": 0,
+     "e": "Úkol je obyčejné slovo."
+    },
+    {
+     "q": "Které slovo je citově zabarvené?",
+     "a": [
+      "sluníčko",
+      "slunce",
+      "obloha"
+     ],
+     "c": 0,
+     "e": "Sluníčko – zdrobnělé, mile znějící slovo."
+    },
+    {
+     "q": "Které slovo je nadřazené ke slovům rohlík, chleba, buchta?",
+     "a": [
+      "pečivo",
+      "mouka",
+      "pekař"
+     ],
+     "c": 0,
+     "e": "Rohlík, chleba i buchta jsou pečivo."
+    },
+    {
+     "q": "Které slovo je podřazené ke slovu povolání?",
+     "a": [
+      "hasič",
+      "škola",
+      "auto"
+     ],
+     "c": 0,
+     "e": "Hasič je povolání."
+    },
+    {
+     "q": "Které slovo nepatří mezi souřadná: červená, modrá, borůvka, žlutá?",
+     "a": [
+      "borůvka",
+      "modrá",
+      "žlutá"
+     ],
+     "c": 0,
+     "e": "Borůvka je ovoce, ostatní jsou barvy."
+    },
+    {
+     "q": "Které slovo nepatří mezi souřadná: Praha, Brno, Vltava, Zlín?",
+     "a": [
+      "Vltava",
+      "Brno",
+      "Zlín"
+     ],
+     "c": 0,
+     "e": "Vltava je řeka, ostatní jsou města."
+    },
+    {
+     "q": "Které slovo nepatří mezi souřadná: čepice, šála, sáně, bunda?",
+     "a": [
+      "sáně",
+      "šála",
+      "bunda"
+     ],
+     "c": 0,
+     "e": "Sáně nejsou oblečení."
+    },
+    {
+     "q": "Do které skupiny patří dub, buk, javor, bříza?",
+     "a": [
+      "stromy",
+      "nářadí",
+      "sporty"
+     ],
+     "c": 0,
+     "e": "Jsou to stromy."
+    },
+    {
+     "q": "Jak říkáme společné části příbuzných slov?",
+     "a": [
+      "kořen",
+      "konec",
+      "slabika"
+     ],
+     "c": 0,
+     "e": "Společná část příbuzných slov je kořen."
+    },
+    {
+     "q": "Které slovo je příbuzné ke slovu les?",
+     "a": [
+      "lesník",
+      "strom",
+      "louka"
+     ],
+     "c": 0,
+     "e": "Les – lesník, mají kořen les."
+    },
+    {
+     "q": "Které slovo je příbuzné ke slovu lyže?",
+     "a": [
+      "lyžař",
+      "sníh",
+      "hora"
+     ],
+     "c": 0,
+     "e": "Lyže – lyžař – lyžovat."
+    },
+    {
+     "q": "Které slovo je příbuzné ke slovu kostra?",
+     "a": [
+      "kostlivec",
+      "kostka",
+      "kostel"
+     ],
+     "c": 0,
+     "e": "Kostra – kostlivec – kostička, kořen kost."
+    },
+    {
+     "q": "Co musí mít správná věta v příběhu?",
+     "a": [
+      "velké písmeno na začátku a tečku na konci",
+      "jen jedno slovo",
+      "obrázek"
+     ],
+     "c": 0,
+     "e": "Věta začíná velkým písmenem a končí tečkou."
+    },
+    {
+     "q": "Co napíšeš nad příběh jako první?",
+     "a": [
+      "nadpis",
+      "podpis",
+      "datum narození"
+     ],
+     "c": 0,
+     "e": "Každý příběh má nadpis."
+    }
+   ]
+  },
+  {
+   "id": "cj-hlaskoslovi",
+   "subject": "cj",
+   "title": "Hláskosloví – slabiky, přízvuk, souhlásky",
+   "source": "Český jazyk 3 – pracovní sešit str. 21–23 (učebnice str. 28–31)",
+   "added": "2026-11-14",
+   "intro": "Slova se skládají ze slabik a hlásek. Naučíš se dělit slova, najít přízvuk a poznat tvrdé, měkké a obojetné souhlásky.",
+   "sections": [
+    {
+     "title": "Slabiky",
+     "icon": "i-book",
+     "points": [
+      "Slovo dělíme na <b>slabiky</b>: hous-le, kon-tra-bas, trub-ka, har-fa, flét-na, kla-vír, lout-na.",
+      "<b>Jednoslabičná</b> slova: vlk, krk, smrk, les.",
+      "<b>Trojslabičná</b> slova: ží-ža-la, ka-lu-ži, kon-tra-bas."
+     ]
+    },
+    {
+     "title": "Slabikotvorné R a L",
+     "icon": "i-info",
+     "points": [
+      "Některé slabiky nemají samohlásku – slabiku tvoří <b>r</b> nebo <b>l</b>.",
+      "Příklady: <b>vlk</b>, <b>krk</b>, <b>prst</b>, <b>slza</b>, <b>srpen</b>, <b>vlna</b>, <b>mlha</b>, <b>zmrzlina</b>, <b>krmítko</b>, <b>smrk</b>, <b>kapr</b>."
+     ]
+    },
+    {
+     "title": "Slovní přízvuk",
+     "icon": "i-sun",
+     "points": [
+      "V češtině dáváme důraz na <b>první slabiku</b> slova: <b>Kr</b>tek <b>vr</b>tá.",
+      "S předložkou se přízvuk přesune na předložku: <b>na</b> zahradě, <b>od</b> okurek.",
+      "Slovíčka <b>se, si, už</b> přízvuk nemají."
+     ]
+    },
+    {
+     "title": "Souhlásky",
+     "icon": "i-users",
+     "table": {
+      "cols": [
+       "Druh",
+       "Souhlásky",
+       "Píšeme"
+      ],
+      "rows": [
+       [
+        "tvrdé",
+        "h, ch, k, r, d, t, n",
+        "y / ý"
+       ],
+       [
+        "měkké",
+        "ž, š, č, ř, c, j, ď, ť, ň",
+        "i / í"
+       ],
+       [
+        "obojetné",
+        "b, f, l, m, p, s, v, z",
+        "i/í nebo y/ý"
+       ]
+      ]
+     },
+     "points": [
+      "Po obojetných souhláskách píšeme <b>y/ý</b> jen ve <b>vyjmenovaných</b> a příbuzných slovech."
+     ]
+    }
+   ],
+   "watch": [
+    "U slabikotvorného r a l dobře poslouchej: ve slově <b>krmítko</b> je r, ve slově <b>slza</b> je l.",
+    "Když doplňuješ y/i, nejdřív se zeptej: je souhláska <b>tvrdá</b>, <b>měkká</b>, nebo <b>obojetná</b>?",
+    "U vyjmenovaných slov po B si dej pozor na <b>bydlet</b> a <b>obyvatel</b> – vždy y."
+   ],
+   "quiz": [
+    {
+     "q": "Jak správně rozdělíš slovo trubka?",
+     "a": [
+      "trub-ka",
+      "tru-bka",
+      "t-rubka"
+     ],
+     "c": 0,
+     "e": "trub-ka – dvě slabiky."
+    },
+    {
+     "q": "Jak správně rozdělíš slovo kontrabas?",
+     "a": [
+      "kon-tra-bas",
+      "ko-ntra-bas",
+      "kontra-bas"
+     ],
+     "c": 0,
+     "e": "kon-tra-bas – tři slabiky."
+    },
+    {
+     "q": "Kolik slabik má slovo klavír?",
+     "a": [
+      "2",
+      "1",
+      "3"
+     ],
+     "c": 0,
+     "e": "kla-vír – 2 slabiky."
+    },
+    {
+     "q": "Kolik slabik má slovo žížala?",
+     "a": [
+      "3",
+      "2",
+      "4"
+     ],
+     "c": 0,
+     "e": "ží-ža-la – 3 slabiky."
+    },
+    {
+     "q": "Které slovo je jednoslabičné?",
+     "a": [
+      "vlk",
+      "kapr",
+      "harfa"
+     ],
+     "c": 0,
+     "e": "Vlk má jednu slabiku, tvoří ji l."
+    },
+    {
+     "q": "Které písmeno chybí: v_na (na moři)?",
+     "a": [
+      "l",
+      "r",
+      "n"
+     ],
+     "c": 0,
+     "e": "vlna"
+    },
+    {
+     "q": "Které písmeno chybí: p_st (na ruce)?",
+     "a": [
+      "r",
+      "l",
+      "e"
+     ],
+     "c": 0,
+     "e": "prst"
+    },
+    {
+     "q": "Které písmeno chybí: s_za (z oka)?",
+     "a": [
+      "l",
+      "r",
+      "a"
+     ],
+     "c": 0,
+     "e": "slza"
+    },
+    {
+     "q": "Které písmeno chybí: k_mítko (pro ptáčky)?",
+     "a": [
+      "r",
+      "l",
+      "o"
+     ],
+     "c": 0,
+     "e": "krmítko"
+    },
+    {
+     "q": "Které písmeno chybí: s_pen (měsíc)?",
+     "a": [
+      "r",
+      "l",
+      "e"
+     ],
+     "c": 0,
+     "e": "srpen"
+    },
+    {
+     "q": "Které písmeno chybí: m_ha (když není vidět)?",
+     "a": [
+      "l",
+      "r",
+      "a"
+     ],
+     "c": 0,
+     "e": "mlha"
+    },
+    {
+     "q": "Na kterou slabiku dáváme v češtině přízvuk?",
+     "a": [
+      "na první",
+      "na poslední",
+      "na prostřední"
+     ],
+     "c": 0,
+     "e": "Vždy na první slabiku slova."
+    },
+    {
+     "q": "Kde je přízvuk ve spojení „na zahradě“?",
+     "a": [
+      "na předložce na",
+      "na slabice -dě",
+      "na slabice -hra-"
+     ],
+     "c": 0,
+     "e": "S předložkou je přízvuk na předložce."
+    },
+    {
+     "q": "Které slovíčko nemá přízvuk?",
+     "a": [
+      "se",
+      "krtek",
+      "metro"
+     ],
+     "c": 0,
+     "e": "Se, si, už přízvuk nemají."
+    },
+    {
+     "q": "Která souhláska je tvrdá?",
+     "a": [
+      "k",
+      "č",
+      "b"
+     ],
+     "c": 0,
+     "e": "Tvrdé: h, ch, k, r, d, t, n."
+    },
+    {
+     "q": "Která souhláska je měkká?",
+     "a": [
+      "ř",
+      "d",
+      "m"
+     ],
+     "c": 0,
+     "e": "Měkké: ž, š, č, ř, c, j, ď, ť, ň."
+    },
+    {
+     "q": "Která souhláska je obojetná?",
+     "a": [
+      "b",
+      "h",
+      "ž"
+     ],
+     "c": 0,
+     "e": "Obojetné: b, f, l, m, p, s, v, z."
+    },
+    {
+     "q": "Doplň: kř_da",
+     "a": [
+      "křída",
+      "křýda"
+     ],
+     "c": 0,
+     "e": "Po měkkém ř píšeme í."
+    },
+    {
+     "q": "Doplň: r_ba",
+     "a": [
+      "ryba",
+      "riba"
+     ],
+     "c": 0,
+     "e": "Po tvrdém r píšeme y."
+    },
+    {
+     "q": "Doplň: pohádk_",
+     "a": [
+      "pohádky",
+      "pohádki"
+     ],
+     "c": 0,
+     "e": "Po tvrdém k píšeme y."
+    },
+    {
+     "q": "Doplň: uč_tel",
+     "a": [
+      "učitel",
+      "učytel"
+     ],
+     "c": 0,
+     "e": "Po měkkém č píšeme i."
+    },
+    {
+     "q": "Doplň: ob_vatel",
+     "a": [
+      "obyvatel",
+      "obivatel"
+     ],
+     "c": 0,
+     "e": "Obyvatel je vyjmenované slovo po B."
+    }
+   ]
   }
  ]
 }
