@@ -296,6 +296,30 @@ svg{display:block}
 @keyframes pulseLow{50%{opacity:.55}}
 .plv{display:grid;grid-template-columns:auto 1fr auto;gap:.5rem;align-items:center;font-size:.88rem;color:var(--ink-2)}
 .plv .nx{color:var(--ink-3)}
+.plv2{display:flex;flex-direction:column;gap:.25rem}
+.plv-top{display:flex;justify-content:space-between;align-items:baseline}
+.plv-top b{font-size:1.05rem}
+.plv-top span,.plv2 .nx{font-size:.82rem;color:var(--ink-3)}
+.ppath{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:.25rem;margin-top:.8rem;position:relative}
+.ppath:before{content:"";position:absolute;left:6%;right:6%;top:1.05rem;height:3px;background:var(--line-2);z-index:0}
+.pst{display:flex;flex-direction:column;align-items:center;gap:.2rem;position:relative;z-index:1;text-align:center}
+.pst i{display:grid;place-items:center;width:2.1rem;height:2.1rem;border-radius:50%;background:var(--surface);border:2px solid var(--line);font-style:normal;font-family:var(--f-mono);font-weight:600;font-size:.9rem;color:var(--ink-3)}
+.pst i svg{width:1rem;height:1rem;color:var(--line)}
+.pst span{font-size:.68rem;line-height:1.15;color:var(--ink-3)}
+.pst.done i{background:#9B7BF7;border-color:#9B7BF7;color:#fff}
+.pst.cur i{background:#fff;border-color:#9B7BF7;color:#6B4FE0;box-shadow:0 0 0 4px rgba(155,123,247,.25)}
+.pst.cur span{color:var(--ink);font-weight:600}
+.pcele{position:fixed;inset:0;z-index:80;background:rgba(20,16,40,.45);display:grid;place-items:center;padding:1rem}
+.pc-box{position:relative;overflow:hidden;background:var(--surface);border-radius:1.4rem;padding:2rem 2.2rem 1.6rem;text-align:center;max-width:26rem;box-shadow:0 20px 60px rgba(0,0,0,.3);animation:pop .4s cubic-bezier(.2,1.4,.4,1)}
+@keyframes pop{0%{transform:scale(.6);opacity:0}100%{transform:scale(1);opacity:1}}
+.pc-box h3{font-size:2rem;margin-bottom:.4rem;color:#6B4FE0}
+.pc-box p{font-size:1.15rem;margin-bottom:.4rem}
+.pc-box .gift{color:var(--ink-2);margin-bottom:1rem}
+.confetti{position:absolute;inset:0;pointer-events:none}
+.confetti i{position:absolute;top:-10px;width:8px;height:14px;border-radius:2px;animation:conf 1.8s ease-in forwards}
+@keyframes conf{0%{transform:translateY(0) rotate(0)}100%{transform:translateY(420px) rotate(540deg);opacity:.2}}
+.lvlhint{display:inline-flex;align-items:center;gap:.25rem;color:#6B4FE0}
+.lvlhint svg{width:1.1rem;height:1.1rem;color:#F7C531}
 .pet-right h4{font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);margin-top:.3rem}
 .pitems{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.45rem}
 .pitem{display:flex;flex-direction:column;align-items:center;gap:.15rem;padding:.55rem .2rem;border-radius:.9rem;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-size:.9rem;transition:transform .15s}
@@ -735,7 +759,7 @@ table.bwt{width:100%;border-collapse:collapse;table-layout:fixed;font-size:11px;
 const COLOR_HEX={pink:"#E0566F",blue:"#2F7FE0",green:"#2EA650",yellow:"#E3AE00",purple:"#8B5CF6",orange:"#F08A24",gray:"#8A96A8"};
 const COLOR_NAMES={pink:"růžová",blue:"modrá",green:"zelená",yellow:"žlutá",purple:"fialová",orange:"oranžová",gray:"šedá"};
 const ICON_NAMES={cj:"kniha",ma:"kalkulačka",pu:"list",aj:"vlajka",hv:"nota",tv:"běžec",pv:"nůžky",vv:"paleta",book:"sešit",q:"otazník"};
-const APP_VERSION="36"; window.APP_VERSION=APP_VERSION;
+const APP_VERSION="37"; window.APP_VERSION=APP_VERSION;
 const KIND={sdel:{icon:"i-msg",short:null},druz:{icon:"i-users",short:null},ukol:{icon:"i-flag",short:null},food:{icon:"i-food",short:"Svačina"},drink:{icon:"i-drop",short:"Pití"},other:{icon:"i-dot",short:null}};
 
 const DEFAULTS = {
@@ -1299,6 +1323,7 @@ function finishQuiz(){
   if(quiz.mode==="daily"){ if(!(LEARN._daily[today]&&LEARN._daily[today].rewarded)){ petEarn("carrot",1); petEarn("water",2); LEARN._daily[today].rewarded=true; saveLearn(); } }
   else petEarn("water",2);
   if(pct>=90) petEarn("treat",1);
+  petXP(quiz.mode==="daily"?10:5);
   if(pct===100) toast("Super! Všechno správně!");
 }
 function recordAnswer(lid,qi,good){ const r=lrec(lid), k=qkey(lessonById(lid),qi); r.qs=r.qs||{}; const s=r.qs[k]||[0,0]; s[good?0:1]++; r.qs[k]=s; saveLearn(); }
@@ -1385,7 +1410,7 @@ function learnHtml(){
       (quiz.wrong.length?'<button type="button" class="btn primary" data-ltest="'+esc(quiz.lid)+'" data-lwrong="1">'+ic("i-pulse")+'Opravit chyby ('+quiz.wrong.length+')</button>':"")+
       '<button type="button" class="btn" data-ltest="'+esc(quiz.lid)+'">Celý test znovu</button><button type="button" class="btn" data-lopen="'+esc(quiz.lid)+'">'+ic("i-book")+'Zpět k učivu</button>';
     const earn=quiz.earn||{}, ek=["hay","carrot","water","treat"].filter(k=>earn[k]);
-    const earnHtml=ek.length?'<div class="lr-earn"><span>Pro morče'+(PET.name?" "+esc(PET.name):"")+' jsi získal:</span>'+ek.map(k=>'<b>'+itemSvg(k)+earn[k]+'×</b>').join("")+'<button type="button" class="btn small primary" data-view="pet">'+ic("i-pig")+'Nakrmit morče</button></div>':"";
+    const earnHtml=ek.length?'<div class="lr-earn"><span>Pro morče'+(PET.name?" "+esc(PET.name):"")+' jsi získal:</span>'+ek.map(k=>'<b>'+itemSvg(k)+earn[k]+'×</b>').join("")+(PET.lvlUp?'<b class="lvlhint">'+ic("i-star")+'Nová úroveň!</b>':"")+'<button type="button" class="btn small primary" data-view="pet">'+ic("i-pig")+(PET.lvlUp?'Podívat se na morče':'Nakrmit morče')+'</button></div>':"";
     return detailCard(head,"i-learn",chip,'<div class="lhead">'+back+'</div><div class="lresult">'+starsHtml(st)+'<div class="lr-score">'+quiz.ok+' / '+n+'</div><div class="lr-pct">'+pct+' %</div><p>'+msg+'</p>'+earnHtml+'<div class="lr-btns">'+btns+'</div></div>'+wrongList);
   }
   const [a,qi]=quiz.refs[quiz.i], l=lessonById(a), q=l.quiz[qi], picked=quiz.picked, ord=quiz.opts[a+":"+qi];
@@ -1415,8 +1440,18 @@ function printQuizSheet(id){
 /* ---------- morče (tamagoči) ---------- */
 const K_PET="skolni-partak.pet.v1";
 const PET_ITEMS={hay:{name:"Seno",food:6,joy:0,water:0},carrot:{name:"Mrkev",food:20,joy:5,water:0},water:{name:"Voda",food:0,joy:0,water:25},treat:{name:"Jahoda",food:8,joy:20,water:0}};
-const PET_LEVELS=[0,30,80,160,300,500];
-const PET_UNLOCK=[null,"mašle","tunel","klobouček","kytička","korunka"];
+const PET_STAGES=[
+  {xp:0,   name:"Miminko",            gift:"",                         k:.6},
+  {xp:40,  name:"Mládě",              gift:"růžová mašle",             k:.7},
+  {xp:100, name:"Zvědavé morčátko",   gift:"tunel na hraní",           k:.8},
+  {xp:200, name:"Velké morče",        gift:"klobouček",                k:.88},
+  {xp:350, name:"Šikula",             gift:"brýle a kytička",          k:.94},
+  {xp:550, name:"Mistr sena",         gift:"houpací síť",              k:1},
+  {xp:800, name:"Šampion",            gift:"zlatá medaile",            k:1},
+  {xp:1100,name:"Král morčat",        gift:"korunka, plášť a zlatá miska",k:1}];
+const PET_LEVELS=PET_STAGES.map(x=>x.xp);
+const PET_UNLOCK=PET_STAGES.map(x=>x.gift);
+function petXP(n){ if(!PET||!PET.name) return; const b=petLevel(); PET.xp=(PET.xp||0)+n; savePet(); if(petLevel()>b){ PET.lvlUp=petLevel(); savePet(); } }
 let PET=(function(){ try{ return JSON.parse(localStorage.getItem(K_PET)||"null"); }catch(e){ return null; } })();
 if(!PET||typeof PET!=="object") PET={name:"",stats:{food:80,water:80,joy:80},inv:{hay:5,carrot:1,water:3,treat:1},last:Date.now(),xp:0,petAt:0,born:Date.now()};
 let petAnim=null, petTimer=null;
@@ -1457,9 +1492,15 @@ function pigSvg(mood,lvl,anim){
      (sad?'<path d="M100 179l16-6M163 177l-16-6" stroke="#7A4A26" stroke-width="2.6" stroke-linecap="round"/><path d="M106 200q-3 7 0 10q4-3 0-10z" fill="#7CC3F5"/>':'');
   const mouth=sad?'<path d="M124 223q7-5 14 0" stroke="#7A3B2A" stroke-width="2.4" fill="none" stroke-linecap="round"/>'
     :'<path d="M123 217q4 6 8 0q4 6 8 0" stroke="#7A3B2A" stroke-width="2.4" fill="none" stroke-linecap="round"/>';
-  const acc=(lvl>=6?'<g transform="translate(108 128)"><path d="M0 22l6-18 9 12 9-14 9 14 9-12 6 18z" fill="#F7C531" stroke="#C99700" stroke-width="2" stroke-linejoin="round"/><circle cx="24" cy="6" r="3" fill="#E8344E"/></g>'
-    :lvl>=4?'<g transform="translate(108 120)"><ellipse cx="26" cy="30" rx="30" ry="7" fill="#3D5AFE"/><path d="M8 30c0-16 8-26 18-26s18 10 18 26z" fill="#536DFE"/><rect x="8" y="22" width="36" height="5" fill="#FFD54F"/></g>':"")+
-    (lvl>=2&&lvl<4?'<g transform="translate(160 150)"><path d="M0 8l-14-8v16zM0 8l14-8v16z" fill="#FF6FA8"/><circle cx="0" cy="8" r="4.5" fill="#E8488A"/></g>':"");
+  const crown='<g transform="translate(108 128)"><path d="M0 22l6-18 9 12 9-14 9 14 9-12 6 18z" fill="#F7C531" stroke="#C99700" stroke-width="2" stroke-linejoin="round"/><circle cx="24" cy="6" r="3" fill="#E8344E"/><circle cx="6" cy="5" r="2.2" fill="#4FC3F7"/><circle cx="42" cy="5" r="2.2" fill="#4FC3F7"/></g>';
+  const hat='<g transform="translate(108 120)"><ellipse cx="26" cy="30" rx="30" ry="7" fill="#3D5AFE"/><path d="M8 30c0-16 8-26 18-26s18 10 18 26z" fill="#536DFE"/><rect x="8" y="22" width="36" height="5" fill="#FFD54F"/></g>';
+  const bow='<g transform="translate(160 150)"><path d="M0 8l-14-8v16zM0 8l14-8v16z" fill="#FF6FA8"/><circle cx="0" cy="8" r="4.5" fill="#E8488A"/></g>';
+  const glasses=sleep?"":'<g fill="none" stroke="#2E3A59" stroke-width="2.6"><circle cx="112" cy="188" r="13"/><circle cx="150" cy="186" r="13"/><path d="M125 187h12M99 185l-10-4"/></g>';
+  const medal='<g transform="translate(176 214)"><path d="M-8 -16l8 14 8-14" fill="none" stroke="#E53935" stroke-width="5"/><circle cx="0" cy="4" r="10" fill="#F7C531" stroke="#C99700" stroke-width="2"/><path d="M0 -1l2 4 4 .5-3 3 1 4-4-2-4 2 1-4-3-3 4-.5z" fill="#fff"/></g>';
+  const cape='<path d="M196 150c30-6 70 4 92 30 8 10 10 26 6 40-24-16-60-26-98-24z" fill="#C62828" opacity=".92"/><path d="M196 150c30-6 70 4 92 30" stroke="#F7C531" stroke-width="4" fill="none"/>';
+  const acc=(lvl>=8?crown:lvl>=4?hat:"")+(lvl>=2&&lvl<4?bow:"")+(lvl>=5?glasses:"")+(lvl>=7?medal:"");
+  const back=lvl>=8?cape:"";
+  const fluff=lvl<=1?'<path d="M176 136c-2-10 4-16 10-14M186 134c2-9 9-12 14-8M168 140c-6-6-4-14 2-15" stroke="#F8EAD5" stroke-width="4" fill="none" stroke-linecap="round"/>':"";
   return '<g class="pig'+(anim?" a-"+anim:"")+'">'+
     '<ellipse cx="205" cy="262" rx="105" ry="12" fill="#000" opacity=".12"/>'+
     '<g class="pig-body">'+
@@ -1471,7 +1512,7 @@ function pigSvg(mood,lvl,anim){
         '<ellipse cx="228" cy="158" rx="58" ry="32" fill="#D08A45"/>'+
         '<ellipse cx="292" cy="214" rx="46" ry="54" fill="#5B3D2B"/>'+
         '<path d="M100 250c40 10 120 12 190-4" stroke="#EAD3B4" stroke-width="5" fill="none" stroke-linecap="round" opacity=".8"/>'+
-      '</g>'+
+      '</g>'+back+fluff+
       '<g class="ear"><path d="M96 160c-10-14-6-30 8-30 10 0 14 14 10 28z" fill="#B9773D"/><path d="M100 156c-5-9-3-19 4-19 6 0 8 9 6 18z" fill="#F2A6A0"/></g>'+
       '<g class="ear e2"><path d="M160 150c4-16 18-24 28-16 8 7 2 20-10 26z" fill="#B9773D"/><path d="M166 150c3-9 11-14 17-10 4 4 0 11-7 14z" fill="#F2A6A0"/></g>'+
       '<ellipse cx="96" cy="210" rx="11" ry="7" fill="#F6A9A9" opacity=".55"/><ellipse cx="166" cy="206" rx="11" ry="7" fill="#F6A9A9" opacity=".55"/>'+
@@ -1503,9 +1544,11 @@ function petScene(){
     (lvl>=3?'<g transform="translate(16 236)"><path d="M0 34a34 34 0 0 1 68 0h-16a18 18 0 0 0-36 0z" fill="#6CC28C"/><path d="M6 34a28 28 0 0 1 56 0" stroke="#4FA673" stroke-width="3" fill="none"/></g>':"")+
     // napáječka
     '<g transform="translate(26 40)"><rect x="0" y="0" width="34" height="70" rx="12" fill="#E8F4FF" stroke="#9CC9EE" stroke-width="2.5"/><rect x="3" y="'+(67-waterH)+'" width="28" height="'+waterH+'" rx="9" fill="#5BB8F5" opacity=".85"/><rect x="13" y="70" width="8" height="22" rx="3" fill="#B0BEC5"/><circle cx="17" cy="95" r="4.5" fill="#90A4AE"/></g>'+
+    (lvl>=8?'<ellipse cx="210" cy="268" rx="160" ry="22" fill="#B23A48" opacity=".55"/><ellipse cx="210" cy="268" rx="146" ry="17" fill="none" stroke="#F7C531" stroke-width="3" opacity=".8"/>':"")+
+    (lvl>=6?'<g><path d="M250 92q50 40 120 0" fill="#7FB3FF" stroke="#4A7BD0" stroke-width="3"/><path d="M250 92l-8-30M370 92l8-30" stroke="#8D6E63" stroke-width="3"/><path d="M262 100q48 26 96 0" stroke="#fff" stroke-width="2" fill="none" opacity=".6"/></g>':"")+
     // miska se senem
-    '<g transform="translate(40 226)"><g stroke="#C9A04A" stroke-width="2.2" stroke-linecap="round">'+[...Array(hay*3)].map((_,i)=>'<path d="M'+(10+i*4)%60+' 8l'+((i%3)-1)*6+' -'+(8+(i*7)%10)+'"/>').join("")+'</g><path d="M0 8h70l-8 20H8z" fill="#5E8DEB"/><ellipse cx="35" cy="8" rx="35" ry="5" fill="#86A9F2"/></g>'+
-    '<g transform="translate(18 0)">'+pigSvg(mood,lvl,a)+'</g>'+
+    '<g transform="translate(40 226)"><g stroke="#C9A04A" stroke-width="2.2" stroke-linecap="round">'+[...Array(hay*3)].map((_,i)=>'<path d="M'+(10+i*4)%60+' 8l'+((i%3)-1)*6+' -'+(8+(i*7)%10)+'"/>').join("")+'</g><path d="M0 8h70l-8 20H8z" fill="'+(lvl>=8?"#E0B21E":"#5E8DEB")+'"/><ellipse cx="35" cy="8" rx="35" ry="5" fill="'+(lvl>=8?"#F7D64A":"#86A9F2")+'"/></g>'+
+    '<g transform="translate(18 0) translate(200 262) scale('+PET_STAGES[lvl-1].k+') translate(-200 -262)">'+pigSvg(mood,lvl,a)+'</g>'+
     (a==="eat"&&petAnim.item?'<g class="feeditem" transform="translate(150 196) scale(.9)">'+itemSvg(petAnim.item).replace('class="it"','width="48" height="48"')+'</g>':"")+
   '</svg>';
 }
@@ -1520,9 +1563,13 @@ function petHtml(){
   const s=PET.stats, lvl=petLevel(), next=PET_LEVELS[lvl]||null, inv=PET.inv, asleep=petAsleepAt(Date.now());
   const items=["hay","carrot","water","treat"].map(k=>'<button type="button" class="pitem" data-pfeed="'+k+'"'+(!(inv[k]>0)?" disabled":"")+'>'+itemSvg(k)+'<span>'+PET_ITEMS[k].name+'</span><b>'+(inv[k]||0)+'×</b></button>').join("");
   const canPet=!asleep && Date.now()-(PET.petAt||0)>3*60*1000;
-  const lvlBar=next?'<div class="plv"><span>Úroveň '+lvl+'</span><div class="ps-b"><i style="width:'+Math.round((PET.xp-PET_LEVELS[lvl-1])/(next-PET_LEVELS[lvl-1])*100)+'%;background:#9B7BF7"></i></div><span class="nx">další: '+(PET_UNLOCK[lvl]||"")+'</span></div>':'<div class="plv"><span>Úroveň '+lvl+' – maximum! 👑</span></div>';
-  return detailCard(esc(PET.name),"i-pig",'<span class="count">úroveň '+lvl+'</span>',
-    '<div class="petwrap"><div class="pet-left">'+petScene()+'<p class="pet-msg">'+esc(petMsg())+'</p></div>'+
+  const st=PET_STAGES[lvl-1], nx=PET_STAGES[lvl];
+  const lvlBar='<div class="plv2"><div class="plv-top"><b>'+lvl+'. '+esc(st.name)+'</b><span>'+PET.xp+' zkušeností</span></div>'+(nx?'<div class="ps-b"><i style="width:'+Math.round((PET.xp-st.xp)/(nx.xp-st.xp)*100)+'%;background:linear-gradient(90deg,#9B7BF7,#6C8CFF)"></i></div><span class="nx">Do úrovně '+(lvl+1)+' („'+esc(nx.name)+'“) chybí '+(nx.xp-PET.xp)+' – dárek: '+esc(nx.gift)+'</span>':'<span class="nx">Nejvyšší úroveň! Je z něj král morčat.</span>')+'</div>';
+  const path='<div class="ppath">'+PET_STAGES.map((x,i)=>'<div class="pst'+(i+1<lvl?" done":i+1===lvl?" cur":"")+'" title="'+esc(x.name)+(x.gift?" – "+esc(x.gift):"")+'"><i>'+(i+1<=lvl?(i+1):ic("i-star"))+'</i><span>'+esc(x.name)+'</span></div>').join("")+'</div>';
+  const celeb=PET.lvlUp?'<div class="pcele"><div class="pc-box"><div class="confetti">'+[...Array(24)].map((_,i)=>'<i style="left:'+((i*37)%100)+'%;animation-delay:'+((i%8)*.12)+'s;background:'+["#FF5C8A","#FFD54F","#4FC3F7","#81C784","#9B7BF7"][i%5]+'"></i>').join("")+'</div><h3>Úroveň '+PET.lvlUp+'!</h3><p>'+esc(PET.name)+' je teď <b>'+esc(PET_STAGES[PET.lvlUp-1].name)+'</b>!</p><p class="gift">Dárek: <b>'+esc(PET_STAGES[PET.lvlUp-1].gift)+'</b></p><button type="button" class="btn primary big" data-plvok>Hurá!</button></div></div>':"";
+
+  return detailCard(esc(PET.name),"i-pig",'<span class="count">'+lvl+'. '+esc(st.name)+'</span>',
+    celeb+'<div class="petwrap"><div class="pet-left">'+petScene()+'<p class="pet-msg">'+esc(petMsg())+'</p>'+path+'</div>'+
     '<div class="pet-right">'+statBar("food","Sytost","#F0A030",s.food)+statBar("water","Pití","#3FA9F5",s.water)+statBar("joy","Radost","#FF5C8A",s.joy)+lvlBar+
     '<h4>Zásoby</h4><div class="pitems">'+items+'</div>'+
     '<button type="button" class="btn big pet-love" data-ppet'+(canPet?"":" disabled")+'>'+ic("i-heart")+(asleep?'Spinká – nebuď ho':canPet?'Pohladit':'Pohladit můžeš za chvilku')+'</button>'+
@@ -1530,13 +1577,13 @@ function petHtml(){
     '<button type="button" class="btn small primary" data-view="learn">'+ic("i-learn")+'Jít do Výuky</button></div></div></div>');
 }
 function petAction(type,item){
-  petTick();
+  petTick(); const before=petLevel();
   if(type==="feed"){ if(!(PET.inv[item]>0)) return; const it=PET_ITEMS[item]; PET.inv[item]--;
     PET.stats.food=Math.min(100,PET.stats.food+it.food); PET.stats.water=Math.min(100,PET.stats.water+it.water); PET.stats.joy=Math.min(100,PET.stats.joy+it.joy);
-    PET.xp+=item==="treat"?4:item==="carrot"?3:item==="water"?2:1; petAnim={type:item==="treat"?"treat":"eat",item,until:Date.now()+1800}; }
+    PET.xp+=item==="treat"?3:item==="carrot"?2:1; petAnim={type:item==="treat"?"treat":"eat",item,until:Date.now()+1800}; }
   else { PET.stats.joy=Math.min(100,PET.stats.joy+6); PET.petAt=Date.now(); PET.xp+=1; petAnim={type:"love",until:Date.now()+1800}; }
-  const before=petLevel(); savePet(); render();
-  if(petLevel()>before) toast("Nová úroveň! Odemčeno: "+PET_UNLOCK[petLevel()-1]);
+  savePet(); render();
+  if(petLevel()>before){ PET.lvlUp=petLevel(); savePet(); render(); }
   clearTimeout(petTimer); petTimer=setTimeout(()=>{ petAnim=null; if(view==="pet") render(); },1850);
 }
 
@@ -1922,6 +1969,7 @@ document.addEventListener("click", async e=>{
   if(t.closest("#btn-ics")){ downloadICS(); return; }
   const pf=t.closest("[data-pfeed]"); if(pf){ petAction("feed",pf.dataset.pfeed); return; }
   if(t.closest("[data-ppet]")){ petAction("pet"); return; }
+  if(t.closest("[data-plvok]")){ PET.lvlUp=0; savePet(); render(); return; }
   if(t.closest("[data-pname]")){ const v=(document.getElementById("petname")||{}).value||""; const nm=v.trim().slice(0,16); if(!nm){ toast("Napiš jméno morčete."); return; } PET.name=nm; PET.last=Date.now(); savePet(); render(); toast("Ahoj, "+nm+"!"); return; }
   const lo=t.closest("[data-lopen]"); if(lo){ learnId=lo.dataset.lopen; learnMode="study"; quiz=null; view="learn"; resetScroll=true; render(); return; }
   const lt=t.closest("[data-ltest]"); if(lt){ if(lessonById(lt.dataset.ltest)){ startQuiz(lt.dataset.lwrong?"wrong":"lesson", lt.dataset.ltest); view="learn"; resetScroll=true; render(); } return; }
@@ -1933,7 +1981,7 @@ document.addEventListener("click", async e=>{
   const lp=t.closest("[data-lpick]"); if(lp && quiz && quiz.picked==null){
     const [a,qi]=quiz.refs[quiz.i], q=lessonById(a).quiz[qi], k=+lp.dataset.lpick; quiz.picked=k;
     if(k===q.c) quiz.ok++; else quiz.wrong.push([a,qi]);
-    recordAnswer(a,qi,k===q.c); if(k===q.c) petEarn("hay",1);
+    recordAnswer(a,qi,k===q.c); if(k===q.c){ petEarn("hay",1); petXP(1); }
     render(); return; }
   if(t.closest("[data-lnext]") && quiz){
     try{ speechSynthesis.cancel(); }catch(e){}
