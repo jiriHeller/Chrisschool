@@ -754,6 +754,151 @@ table.bwt{width:100%;border-collapse:collapse;table-layout:fixed;font-size:11px;
 .bw-tw>table{height:100%}
 .bw-foot{flex:none;display:flex;justify-content:space-between;gap:14px;margin-top:6px;font-size:9.5px;line-height:1.4}
 .bw-foot b{font-family:var(--f-mono)}
+/* ===== herní vzhled (v40) ===== */
+@media screen{
+:root{--gtitle:#2A1570;--gbg1:#2A1570;--gbg2:#3B1D96;--gbg3:#1D3A9E;--gink:#120634}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--gtitle:#FFE14D}}
+:root[data-theme="dark"]{--gtitle:#FFE14D}
+body{background:#1E1250}
+.app{background:linear-gradient(160deg,var(--gbg1) 0%,var(--gbg2) 45%,var(--gbg3) 100%);position:relative;isolation:isolate}
+.app::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:repeating-linear-gradient(115deg,rgba(255,255,255,.035) 0 22px,transparent 22px 56px),radial-gradient(50% 40% at 85% 0%,rgba(255,225,77,.16),transparent)}
+body::before{background:#140A3C}
+.head{background:rgba(16,6,48,.82);border-bottom:3px solid var(--gink);color:#fff}
+.logo b{font-family:var(--f-game);font-weight:400;letter-spacing:.02em;color:#FFE14D;text-shadow:0 2px 0 #C2410C}
+.logo span{color:#BFB3F5}
+.days{background:rgba(255,255,255,.07);border:2px solid rgba(255,255,255,.12)}
+.day{color:#E3DCFF;font-family:var(--f-game);font-weight:400;text-transform:uppercase;letter-spacing:.03em}
+.day small{color:#A99EE0;font-family:var(--f-mono)}
+.day.hol{opacity:.8;background:repeating-linear-gradient(45deg,rgba(255,255,255,.04) 0 .35rem,rgba(255,255,255,.12) .35rem .7rem);color:#C8BFF5}
+.day.hol small{color:#A99EE0}
+.pet-earn svg{display:inline-block;vertical-align:-.2rem}
+.gamecard .pet-love:not(:disabled){background:linear-gradient(#FF8FB1,#FF4F8B);color:#fff}
+.scenebox{max-width:34rem;margin:0 auto}
+@media (min-width:901px) and (orientation:landscape){.scenebox{max-width:none}}
+.day[aria-pressed="true"]{background:#FFE14D;color:#2A1300;box-shadow:0 3px 0 #C77C0E}
+.day[aria-pressed="true"] small{color:#5A3A00}
+.prog{background:rgba(255,255,255,.07);border:2px solid rgba(255,255,255,.14);color:#fff}
+.prog span{color:#C8BFF5}
+.ring-bg{stroke:rgba(255,255,255,.18)} .ring-fg{stroke:#FFE14D}
+.ibtn{background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.16);color:#fff}
+.side{background:rgba(16,6,48,.55);border-right:3px solid var(--gink)}
+.side .eyebrow{color:#9D90D8}
+.nav{color:#E3DCFF;font-family:var(--f-game);font-weight:400;text-transform:uppercase;letter-spacing:.025em;font-size:.98rem}
+.nav[aria-current="page"]{background:#FFE14D;color:#2A1300;box-shadow:0 3px 0 #C77C0E;font-weight:400}
+.nav .dotc{color:#FFE14D}
+.nav[aria-current="page"] .dotc{color:#2A1300}
+.side-foot{color:#A99EE0;border-top-color:rgba(255,255,255,.12)}
+.tabs{background:rgba(16,6,48,.92);border-top:3px solid var(--gink)}
+.tab{color:#C8BFF5;font-family:var(--f-game);font-weight:400;text-transform:uppercase;font-size:.78rem;letter-spacing:.02em}
+.tab[aria-current="page"]{color:#FFE14D}
+.card{border:3px solid var(--gink);border-radius:1.1rem;box-shadow:0 5px 0 var(--gink),0 12px 22px rgba(8,2,30,.28)}
+.card-h h2{font-family:var(--f-game);font-weight:400;text-transform:uppercase;letter-spacing:.02em;font-size:1.1rem;color:var(--gtitle)}
+.card-h>svg{color:#7C4DFF}
+.btn.primary{background:linear-gradient(#FFE867,#FFC21A);color:#2A1300;border:none;box-shadow:inset 0 -3px 0 #D98A00,0 2px 0 rgba(0,0,0,.2);font-family:var(--f-game);font-weight:400;letter-spacing:.02em}
+.btn.primary:disabled{filter:grayscale(1)}
+.c-detail .back{font-family:var(--f-game);font-weight:400;text-transform:uppercase;letter-spacing:.02em}
+/* hodiny */
+.clockbox{display:flex;align-items:center;gap:.55rem;text-align:left;color:#fff;border-radius:.8rem;padding:.15rem .4rem .15rem .15rem}
+.clockbox .aclock{width:3.6rem;height:3.6rem;flex:none;filter:drop-shadow(0 3px 0 rgba(0,0,0,.35))}
+.clockbox .cbt{display:flex;flex-direction:column;line-height:1.05}
+.clockbox .clk{display:none;font-family:var(--f-game);font-weight:400;font-size:1.7rem;color:#FFE14D;letter-spacing:.02em;text-shadow:0 2px 0 #C2410C}
+.clockbox.dig .clk{display:block;animation:pop .3s ease-out}
+.clockbox .dt{color:#BFB3F5}
+/* morče – herní karta */
+.gamecard{background:linear-gradient(165deg,#25105E 0%,#3B1A8F 48%,#16348F 100%);color:#fff;position:relative;isolation:isolate}
+.gamecard::before{content:"";position:absolute;inset:0;z-index:-1;background:repeating-linear-gradient(115deg,rgba(255,255,255,.04) 0 16px,transparent 16px 42px)}
+.gamecard .card-h h2{color:#FFE14D;font-size:1.5rem;text-shadow:0 2px 0 #C2410C}
+.gamecard .card-h>svg{color:#FFE14D}
+.gamecard .count{color:#C8BFF5;font-family:var(--f-game);font-weight:400;text-transform:uppercase}
+.gamecard .back{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);color:#fff}
+.gamecard .pet-msg{color:#fff;font-family:var(--f-game);font-weight:400;letter-spacing:.01em;text-shadow:0 2px 0 rgba(0,0,0,.4)}
+.gamecard .ptabs{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14)}
+.gamecard .ptabs button{color:#D9D0FF}
+.gamecard .ptabs button.on{color:#2A1300}
+.gamecard .pstat .ps-h{font-family:var(--f-game);text-transform:uppercase;letter-spacing:.02em;font-size:.95rem}
+.gamecard .pstat .ps-h b{font-family:var(--f-game);font-weight:400;color:#FFE14D}
+.gamecard .pstat .ps-b{height:1rem;border-radius:.5rem;background:rgba(0,0,0,.35);border:2px solid rgba(255,255,255,.18)}
+.gamecard .pstat .ps-b i{border-radius:.35rem;box-shadow:inset 0 -4px 0 rgba(0,0,0,.18),inset 0 3px 0 rgba(255,255,255,.35)}
+.gamecard .pstat.low .ps-h{color:#FF8FA8}
+.gamecard .plv-top b{font-family:var(--f-game);font-weight:400;color:#FFE14D;text-transform:uppercase}
+.gamecard .plv-top span,.gamecard .plv2 .nx{color:#C8BFF5}
+.gamecard .plv2 .ps-b{height:.9rem;border-radius:.45rem;background:rgba(0,0,0,.35)}
+.gamecard .pet-right h4{color:#C8BFF5;font-family:var(--f-game);font-weight:400}
+.gamecard .pitem{background:radial-gradient(120% 90% at 50% 30%,#5CC2FF,#1554C4 80%);border:3px solid #AEE0FF;color:#fff;box-shadow:0 4px 0 rgba(8,3,30,.5)}
+.gamecard .pitem span{font-family:var(--f-game);text-transform:uppercase;font-size:.85rem}
+.gamecard .pitem b{font-family:var(--f-game);font-weight:400;color:#FFE14D;font-size:1.05rem}
+.gamecard .pitem .it{filter:drop-shadow(0 3px 2px rgba(0,0,0,.35))}
+.gamecard .pet-love{font-family:var(--f-game);font-weight:400;text-transform:uppercase;letter-spacing:.02em;box-shadow:inset 0 -4px 0 #C2185B}
+.gamecard .pet-love:disabled{background:rgba(255,255,255,.1);color:#B7AEDB;box-shadow:none}
+.gamecard .pet-earn{background:rgba(0,0,0,.22);border:2px solid rgba(255,255,255,.12);color:#EDE8FF}
+.gamecard .pst i{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.25);color:#C8BFF5}
+.gamecard .pst span{color:#C8BFF5}
+.gamecard .pst.done i{background:#FFE14D;border-color:#FFE14D;color:#2A1300}
+.gamecard .pst.cur i{background:#fff;border-color:#FFE14D;color:#2A1300;box-shadow:0 0 0 4px rgba(255,225,77,.35)}
+.gamecard .pst.cur span{color:#fff}
+.gamecard .ppath:before{background:rgba(255,255,255,.18)}
+.gamecard .wallet span{background:rgba(0,0,0,.3)}
+@media (max-width:900px){.gamecard .petwrap.shopping .pet-left{background:#2A1570}}
+.gamecard .petscene{box-shadow:0 0 0 3px var(--gink),0 6px 0 3px var(--gink),0 14px 26px rgba(0,0,0,.4)}
+}
+/* scéna – interakce */
+.scenebox{position:relative}
+.scenebox .ci{cursor:pointer}
+.tap-hint{display:block;text-align:center;font-size:.78rem;color:#C8BFF5;margin-top:.35rem}
+.pbubble{position:absolute;left:8%;top:6%;max-width:60%;background:#fff;color:#2A1300;font-family:var(--f-game);font-size:1.1rem;line-height:1.15;padding:.5rem .8rem;border-radius:1rem;border:3px solid #2D1B3D;box-shadow:0 4px 0 #2D1B3D;animation:pop .25s ease-out;z-index:3}
+.pbubble::after{content:"";position:absolute;left:2.2rem;bottom:-.9rem;border:.55rem solid transparent;border-top-color:#2D1B3D}
+.emotes{display:flex;flex-wrap:wrap;gap:.35rem;align-items:center;margin-top:.6rem}
+.em-t{font-family:var(--f-game);text-transform:uppercase;color:#FFE14D;margin-right:.2rem;font-size:1rem}
+.em{font-family:var(--f-game);font-size:.92rem;text-transform:uppercase;letter-spacing:.02em;color:#2A1300;background:linear-gradient(#C9F7A6,#7BD86A);border:2px solid #2D1B3D;border-radius:.6rem;padding:.3rem .65rem;min-height:2.4rem;box-shadow:0 3px 0 #2D1B3D;display:inline-flex;align-items:center;gap:.25rem}
+.em:active{transform:translateY(2px);box-shadow:0 1px 0 #2D1B3D}
+.em.lock{background:rgba(255,255,255,.1);color:#B7AEDB;border-color:rgba(255,255,255,.2);box-shadow:none;font-size:.78rem}
+.em.lock svg{width:.9rem;height:.9rem}
+.em:disabled:not(.lock){filter:grayscale(.8);opacity:.6}
+.ci-pig .pig{transform-box:fill-box;transform-origin:50% 100%}
+.pig.a-jump{animation:eJump .7s ease-out 2}
+@keyframes eJump{0%,100%{transform:translateY(0) scale(1,1)}15%{transform:translateY(0) scale(1.08,.9)}50%{transform:translateY(-46px) scale(.95,1.06)}85%{transform:translateY(0) scale(1.06,.94)}}
+.pig.a-wave{animation:eWave .45s ease-in-out 4 alternate}
+@keyframes eWave{from{transform:rotate(-5deg)}to{transform:rotate(5deg)}}
+.pig.a-wave .ear.e2{animation:earWave .2s ease-in-out infinite alternate}
+@keyframes earWave{from{transform:rotate(-25deg)}to{transform:rotate(20deg)}}
+.pig.a-spin{animation:eSpin .9s ease-in-out 2;transform-origin:50% 60%}
+@keyframes eSpin{0%{transform:scaleX(1)}25%{transform:scaleX(0) translateY(-10px)}50%{transform:scaleX(-1) translateY(-16px)}75%{transform:scaleX(0) translateY(-10px)}100%{transform:scaleX(1)}}
+.pig.a-dance,.pig.a-disco{animation:eDance .5s ease-in-out 4}
+@keyframes eDance{0%,100%{transform:rotate(0) translateX(0)}25%{transform:rotate(-9deg) translateX(-12px) translateY(-8px)}75%{transform:rotate(9deg) translateX(12px) translateY(-8px)}}
+.pig.a-popcorn{animation:ePop .38s ease-out 6}
+@keyframes ePop{0%,100%{transform:translateY(0) rotate(0)}45%{transform:translateY(-30px) rotate(-8deg)}}
+.pig.a-robot{animation:eRobot 2s steps(8) 1}
+@keyframes eRobot{0%{transform:translateX(0) rotate(0)}25%{transform:translateX(-20px) rotate(-4deg)}50%{transform:translateX(0) rotate(4deg)}75%{transform:translateX(20px) rotate(-4deg)}100%{transform:translateX(0)}}
+.pig.a-star{animation:eStar 1.1s ease-in-out 2}
+@keyframes eStar{0%,100%{transform:translateY(0) scale(1)}40%{transform:translateY(-50px) scale(1.12) rotate(-6deg)}60%{transform:translateY(-50px) scale(1.12) rotate(6deg)}}
+.pig.a-game,.pig.a-ball,.pig.a-house,.pig.a-bed{animation:ePop .45s ease-out 3}
+.pig.a-sad0{animation:eWave .3s ease-in-out 4 alternate}
+.an-ball .ci-ball{animation:ballRoll 1.9s cubic-bezier(.2,.7,.3,1)}
+.an-ball .ci-ball .spin{transform-box:fill-box;transform-origin:center;animation:ballSpin 1.9s linear}
+@keyframes ballRoll{0%{transform:translateX(0)}35%{transform:translate(-140px,-30px)}55%{transform:translate(-210px,0)}80%{transform:translate(-160px,-10px)}100%{transform:translate(0,0)}}
+@keyframes ballSpin{to{transform:rotate(-1080deg)}}
+.scr-ship{opacity:0}
+.an-game .scr-ship{opacity:1;animation:ship 2.4s ease-in-out}
+@keyframes ship{0%{transform:translate(0,0)}25%{transform:translate(20px,-14px)}50%{transform:translate(44px,4px)}75%{transform:translate(60px,-10px)}100%{transform:translate(70px,0)}}
+.an-game .ci-console rect:nth-of-type(2){animation:scr .25s steps(2) infinite}
+@keyframes scr{50%{fill:#81D4FA}}
+.an-house .ci-house,.an-bed .ci-bed{transform-box:fill-box;transform-origin:50% 100%;animation:eJump .6s ease-out}
+.ci-water:active,.ci-bowl:active{opacity:.8}
+.disco .dl{transform-box:fill-box;transform-origin:center;animation:dl 1s ease-in-out infinite alternate;mix-blend-mode:screen}
+.disco .d2{animation-delay:.33s}.disco .d3{animation-delay:.66s}
+@keyframes dl{from{transform:translate(-30px,-10px) scale(.8)}to{transform:translate(30px,10px) scale(1.15)}}
+.sparks path{transform-box:fill-box;transform-origin:center;animation:spark .6s ease-in-out infinite alternate}
+@keyframes spark{from{transform:scale(.5) rotate(0)}to{transform:scale(1.2) rotate(40deg)}}
+.smoke circle{animation:smoke 3s ease-in-out infinite}
+.smoke circle:nth-child(2){animation-delay:1s}.smoke circle:nth-child(3){animation-delay:2s}
+@keyframes smoke{0%{transform:translateY(6px);opacity:0}40%{opacity:.7}100%{transform:translateY(-10px);opacity:0}}
+.blink{animation:blinkL 1.2s steps(2) infinite}
+@keyframes blinkL{50%{fill:#FFE14D}}
+.tw{animation:tw 2s ease-in-out infinite}
+@keyframes tw{50%{opacity:.2}}
+.cloud{animation:cloud 12s linear infinite}
+@keyframes cloud{from{transform:translateX(-20px)}to{transform:translateX(30px)}}
+@media (prefers-reduced-motion:reduce){.pig,.ci-ball,.ci-ball .spin,.disco .dl,.smoke circle,.cloud,.tw{animation:none!important}}
 @media print{
   @page{size:A4 landscape;margin:8mm}
   /* rezerva pro tiskárny / Safari s vlastními okraji (až ~13 mm) i pro tisk bez okrajů */
@@ -820,7 +965,7 @@ table.bwt{width:100%;border-collapse:collapse;table-layout:fixed;font-size:11px;
 const COLOR_HEX={pink:"#E0566F",blue:"#2F7FE0",green:"#2EA650",yellow:"#E3AE00",purple:"#8B5CF6",orange:"#F08A24",gray:"#8A96A8"};
 const COLOR_NAMES={pink:"růžová",blue:"modrá",green:"zelená",yellow:"žlutá",purple:"fialová",orange:"oranžová",gray:"šedá"};
 const ICON_NAMES={cj:"kniha",ma:"kalkulačka",pu:"list",aj:"vlajka",hv:"nota",tv:"běžec",pv:"nůžky",vv:"paleta",book:"sešit",q:"otazník"};
-const APP_VERSION="39"; window.APP_VERSION=APP_VERSION;
+const APP_VERSION="40"; window.APP_VERSION=APP_VERSION;
 const KIND={sdel:{icon:"i-msg",short:null},druz:{icon:"i-users",short:null},ukol:{icon:"i-flag",short:null},food:{icon:"i-food",short:"Svačina"},drink:{icon:"i-drop",short:"Pití"},other:{icon:"i-dot",short:null}};
 
 const DEFAULTS = {
@@ -1208,7 +1353,7 @@ function headHtml(p){
   return '<header class="head">'+
     '<div class="logo">'+ic("logo")+'<div><b>Školní parťák</b><span>3. třída · ZŠ Brdičkova</span></div></div>'+
     '<div class="days" role="group" aria-label="Vyber den">'+days+'</div>'+
-    '<div class="clockbox"><span class="clk">'+fmtMin(nowMin())+'</span><span class="dt">'+fmtLong(today)+'</span></div>'+
+    '<button type="button" class="clockbox'+(digitalShown()?" dig":"")+'" data-clock aria-label="Hodiny">'+aclockSvg("hd",true)+'<span class="cbt"><span class="clk">'+fmtMin(nowMin())+'</span><span class="dt">'+fmtLong(today)+'</span></span></button>'+
     '<div class="prog" role="status" aria-live="polite">'+ring(done,tot)+'<div><b>'+done+'/'+tot+'</b><span>'+st+'</span></div></div>'+
     '<div class="head-tools"><button type="button" class="ibtn" data-view="week" aria-label="Týdenní rozvrh">'+ic("i-cal")+'</button>'+
       '<button type="button" class="ibtn" data-view="settings" aria-label="Nastavení pro rodiče">'+ic("i-sliders")+'</button></div>'+
@@ -1540,11 +1685,22 @@ let PET=(function(){ try{ return JSON.parse(localStorage.getItem(K_PET)||"null")
 if(!PET||typeof PET!=="object") PET={name:"",stats:{food:80,water:80,joy:80},inv:{hay:5,carrot:1,water:3,treat:1},last:Date.now(),xp:0,petAt:0,born:Date.now()};
 let petAnim=null, petTimer=null;
 function savePet(){ try{ localStorage.setItem(K_PET,JSON.stringify(PET)); }catch(e){} }
-function petAsleepAt(ts){ const d=new Date(ts), h=Number(new Intl.DateTimeFormat("en-GB",{hour:"2-digit",hour12:false,timeZone:"Europe/Prague"}).format(d))%24, m=Number(new Intl.DateTimeFormat("en-GB",{minute:"2-digit",timeZone:"Europe/Prague"}).format(d)); const t=h*60+m; return t>=20*60+30||t<6*60+30; }
+function pragueHM(ts){ const d=new Date(ts), h=Number(new Intl.DateTimeFormat("en-GB",{hour:"2-digit",hour12:false,timeZone:"Europe/Prague"}).format(d))%24, m=Number(new Intl.DateTimeFormat("en-GB",{minute:"2-digit",timeZone:"Europe/Prague"}).format(d)); return h*60+m; }
+// klidnější noc (dítě spí) – statistiky klesají pomaleji; morče ale v noci nespí, je čilé a jí
+function petCalmAt(ts){ const t=pragueHM(ts); return t>=21*60||t<6*60+30; }
+// tma za oknem podle ročního období (Praha, přibližně)
+const DARK_FROM=[16.5,17.3,18.2,19.8,20.6,21.2,21.1,20.4,19.4,18.4,16.9,16.2], LIGHT_FROM=[7.8,7.3,6.5,6.4,5.4,4.9,5.1,5.7,6.4,7.1,7.0,7.7];
+function isDarkAt(ts){ const t=pragueHM(ts)/60, mo=Number(new Intl.DateTimeFormat("en-GB",{month:"numeric",timeZone:"Europe/Prague"}).format(new Date(ts)))-1; return t>=DARK_FROM[mo]||t<LIGHT_FROM[mo]; }
+// šlofíky: zhruba každé 2 hodiny na 15 minut (morčata spí krátce, ve dne i v noci)
+const NAP_LEN=15;
+function napInfo(ts){ const t=pragueHM(ts), day=new Intl.DateTimeFormat("en-CA",{timeZone:"Europe/Prague"}).format(new Date(ts)), b=Math.floor(t/120);
+  let h=7; for(const c of day+"#"+b) h=(h*131+c.charCodeAt(0))%100003; const off=b*120+15+(h%(120-NAP_LEN-30));
+  return t>=off&&t<off+NAP_LEN?{asleep:true,wakeIn:off+NAP_LEN-t}:{asleep:false}; }
+function petAsleepAt(ts){ return napInfo(ts).asleep; }
 function petTick(){
   const now=Date.now(); let t=PET.last||now; if(now<=t){ PET.last=now; return; }
   const step=15*60*1000, R={food:4,water:5,joy:3};
-  while(t<now){ const dt=Math.min(step,now-t), f=(petAsleepAt(t)?0.5:1)*dt/3600000;
+  while(t<now){ const dt=Math.min(step,now-t), f=(petCalmAt(t)?0.5:1)*dt/3600000;
     for(const k in R) PET.stats[k]=Math.max(0,PET.stats[k]-R[k]*f); t+=dt; }
   PET.last=now; savePet();
 }
@@ -1555,7 +1711,8 @@ function petNeeds(){ const s=PET.stats; return s.food<30||s.water<30||s.joy<25; 
 function petEarn(k,n){ PET.inv[k]=(PET.inv[k]||0)+n; savePet(); if(quiz){ quiz.earn=quiz.earn||{}; quiz.earn[k]=(quiz.earn[k]||0)+n; } }
 function petMsg(){
   const s=PET.stats, n=PET.name||"Morče", m=petMood();
-  if(m==="sleep") return n+" spinká. Zzz…"+(s.food<30||s.water<30?" Má ale hlad nebo žízeň – můžeš mu potichu dát jídlo a vodu.":" Ráno bude mít zase hlad.");
+  if(isDarkAt(Date.now())&&m!=="sad"&&m!=="sleep") return n+" je i v noci čilý – morčata v noci rádi chroupou seno a hrají si.";
+  if(m==="sleep"){ const w=napInfo(Date.now()).wakeIn||1; return n+" si dává šlofíka. Zzz… Probudí se asi za "+w+" min."+(s.food<30||s.water<30?" Má hlad nebo žízeň – můžeš mu potichu dát jídlo a vodu.":""); }
   if(s.water<30) return n+" má žízeň. Dej mu vodu!";
   if(s.food<30) return n+" má hlad. Dej mu seno nebo mrkev.";
   if(s.joy<25) return n+" se nudí. Pohlaď ho nebo mu dej jahodu.";
@@ -1612,28 +1769,100 @@ function pigSvg(mood,lvl,anim){
     (anim==="love"||anim==="treat"?'<g class="hearts" fill="#FF5C8A"><path d="M150 120c-6-10-20-4-14 6l14 12 14-12c6-10-8-16-14-6z"/><path d="M190 100c-4-7-14-3-10 4l10 9 10-9c4-7-6-11-10-4z"/><path d="M120 96c-4-7-14-3-10 4l10 9 10-9c4-7-6-11-10-4z"/></g>':"")+
   '</g>';
 }
-function petScene(){
-  const s=PET.stats, lvl=petLevel(), mood=petMood(), a=petAnim&&petAnim.until>Date.now()?petAnim.type:null;
-  const waterH=Math.round(56*s.water/100), hay=Math.max(0,Math.round(s.food/20));
-  return '<svg class="petscene" viewBox="0 0 420 300" role="img" aria-label="Morče v kleci">'+
-    '<defs><linearGradient id="pwall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF6E6"/><stop offset="1" stop-color="#FDE8CC"/></linearGradient>'+
-    '<linearGradient id="pfloor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F3D9A8"/><stop offset="1" stop-color="#E8C487"/></linearGradient></defs>'+
-    '<rect x="0" y="0" width="420" height="300" rx="22" fill="url(#pwall)"/>'+
-    (mood==="sleep"?'<rect x="0" y="0" width="420" height="300" rx="22" fill="#1E2550" opacity=".35"/><circle cx="360" cy="46" r="18" fill="#FFF3C4"/><circle cx="352" cy="40" r="18" fill="#3A4170" opacity=".55"/>':'<circle cx="360" cy="46" r="20" fill="#FFD66B" opacity=".9"/>')+
-    '<path d="M0 220h420v58a22 22 0 0 1-22 22H22A22 22 0 0 1 0 278z" fill="url(#pfloor)"/>'+
-    '<g fill="#D7AF6A" opacity=".7">'+[...Array(26)].map((_,i)=>'<rect x="'+(12+i*16)%410+'" y="'+(232+(i*37)%56)+'" width="9" height="3" rx="1.5" transform="rotate('+((i*47)%60-30)+' '+((12+i*16)%410)+' '+(232+(i*37)%56)+')"/>').join("")+'</g>'+
-    cageLayer()+
-    houseSvg()+wearSvg("bed")+
-    // napáječka
-    '<g transform="translate(26 40)"><rect x="0" y="0" width="34" height="70" rx="12" fill="#E8F4FF" stroke="#9CC9EE" stroke-width="2.5"/><rect x="3" y="'+(67-waterH)+'" width="28" height="'+waterH+'" rx="9" fill="#5BB8F5" opacity=".85"/><rect x="13" y="70" width="8" height="22" rx="3" fill="#B0BEC5"/><circle cx="17" cy="95" r="4.5" fill="#90A4AE"/></g>'+
-    (false?'<ellipse cx="210" cy="268" rx="160" ry="22" fill="#B23A48" opacity=".55"/><ellipse cx="210" cy="268" rx="146" ry="17" fill="none" stroke="#F7C531" stroke-width="3" opacity=".8"/>':"")+
-    (false?'<g><path d="M250 92q50 40 120 0" fill="#7FB3FF" stroke="#4A7BD0" stroke-width="3"/><path d="M250 92l-8-30M370 92l8-30" stroke="#8D6E63" stroke-width="3"/><path d="M262 100q48 26 96 0" stroke="#fff" stroke-width="2" fill="none" opacity=".6"/></g>':"")+
-    // miska se senem
-    '<g transform="translate(40 226)"><g stroke="#C9A04A" stroke-width="2.2" stroke-linecap="round">'+[...Array(hay*3)].map((_,i)=>'<path d="M'+(10+i*4)%60+' 8l'+((i%3)-1)*6+' -'+(8+(i*7)%10)+'"/>').join("")+'</g><path d="M0 8h70l-8 20H8z" fill="'+(cageOn("bowl_gold")?"#E0B21E":"#5E8DEB")+'" '+S(2)+'/><ellipse cx="35" cy="8" rx="35" ry="5" fill="'+(cageOn("bowl_gold")?"#F7D64A":"#86A9F2")+'" '+S(2)+'/></g>'+
-    '<g transform="translate(18 0) translate(200 262) scale('+PET_STAGES[lvl-1].k+') translate(-200 -262)">'+pigSvg(mood,lvl,a)+'</g>'+
-    (a==="eat"&&petAnim.item?'<g class="feeditem" transform="translate(150 196) scale(.9)">'+itemSvg(petAnim.item).replace('class="it"','width="48" height="48"')+'</g>':"")+
-  '</svg>';
+/* ---------- ručičkové hodiny ---------- */
+function aclockSvg(cls,big){
+  const ticks=[...Array(60)].map((_,i)=>{const a=i*6*Math.PI/180, r1=i%5?44:40; return '<line x1="'+(50+r1*Math.sin(a)).toFixed(1)+'" y1="'+(50-r1*Math.cos(a)).toFixed(1)+'" x2="'+(50+47*Math.sin(a)).toFixed(1)+'" y2="'+(50-47*Math.cos(a)).toFixed(1)+'" stroke="#2D1B3D" stroke-width="'+(i%5?1:2.6)+'"/>';}).join("");
+  const nums=[...Array(12)].map((_,i)=>{const n=i+1,a=n*30*Math.PI/180; return '<text x="'+(50+32*Math.sin(a)).toFixed(1)+'" y="'+(50-32*Math.cos(a)+4.6).toFixed(1)+'" text-anchor="middle" font-size="'+(n%3?10:13)+'" font-family="Titan One,Arial Rounded MT Bold,sans-serif" fill="'+(n%3?"#5B4A7A":"#2D1B3D")+'">'+n+'</text>';}).join("");
+  return '<svg viewBox="0 0 100 100" class="aclock '+(cls||"")+'" aria-hidden="true"><circle cx="50" cy="50" r="49" fill="#FFE14D" stroke="#2D1B3D" stroke-width="2"/><circle cx="50" cy="50" r="45" fill="#fff"/>'+ticks+nums+
+    '<g class="hh"><line x1="50" y1="56" x2="50" y2="27" stroke="#2D1B3D" stroke-width="6" stroke-linecap="round"/></g>'+
+    '<g class="mh"><line x1="50" y1="58" x2="50" y2="12" stroke="#3B5BDB" stroke-width="4" stroke-linecap="round"/></g>'+
+    (big?'<g class="sh"><line x1="50" y1="60" x2="50" y2="10" stroke="#E53935" stroke-width="1.6" stroke-linecap="round"/></g>':"")+
+    '<circle cx="50" cy="50" r="4" fill="#2D1B3D"/></svg>';
 }
+let clockPeek=0;
+function digitalShown(){ const m=nowMin()%60; return Date.now()<clockPeek || m%15<2; }
+function tickClocks(){
+  const t=nowMin(), h=Math.floor(t/60)%12, m=t%60, s=new Date().getSeconds();
+  document.querySelectorAll(".aclock").forEach(el=>{
+    const hh=el.querySelector(".hh"), mh=el.querySelector(".mh"), sh=el.querySelector(".sh");
+    if(hh) hh.setAttribute("transform","rotate("+((h+m/60)*30)+" 50 50)");
+    if(mh) mh.setAttribute("transform","rotate("+((m+s/60)*6)+" 50 50)");
+    if(sh) sh.setAttribute("transform","rotate("+(s*6)+" 50 50)");
+  });
+  const cb=document.querySelector(".clockbox"); if(cb){ const on=digitalShown(); cb.classList.toggle("dig",on); const k=cb.querySelector(".clk"); if(k&&k.textContent!==fmtMin(t)) k.textContent=fmtMin(t); }
+}
+setInterval(tickClocks,1000);
+
+/* ---------- tanečky (emoty) ---------- */
+const EMOTES=[{id:"jump",name:"Skok",lv:1},{id:"wave",name:"Mávání",lv:2},{id:"spin",name:"Piruetka",lv:3},{id:"dance",name:"Tanec",lv:4},
+  {id:"popcorn",name:"Popcorn",lv:5},{id:"disco",name:"Disko",lv:6},{id:"robot",name:"Robot",lv:7},{id:"star",name:"Hvězda",lv:8}];
+const EMOTE_SAY={jump:"Hop!",wave:"Ahoj, "+"kamaráde!",spin:"Wíí!",dance:"Tancujeme!",popcorn:"Popcorn! Jsem šťastný!",disco:"Disko párty!",robot:"Bip bup, jsem robot.",star:"Jsem hvězda!"};
+function emoteBar(){
+  const lvl=petLevel(), asleep=petAsleepAt(Date.now());
+  return '<div class="emotes"><span class="em-t">Tanečky</span>'+EMOTES.map(e=>{const ok=lvl>=e.lv; return '<button type="button" class="em'+(ok?"":" lock")+'" data-pemote="'+e.id+'"'+(ok&&!asleep?"":" disabled")+' title="'+(ok?e.name:"Odemkne se na úrovni "+e.lv)+'">'+(ok?e.name:ic("i-star")+'Úr. '+e.lv)+'</button>';}).join("")+'</div>';
+}
+function petPlay(type,say,ms){
+  petAnim={type,say:say||"",until:Date.now()+(ms||2300)}; render();
+  clearTimeout(petTimer); petTimer=setTimeout(()=>{ petAnim=null; if(view==="pet") render(); },(ms||2300)+50);
+}
+function petObj(id){
+  petTick(); const asleep=petAsleepAt(Date.now()), inv=PET.inv;
+  if(id==="pig"){ if(asleep) return petPlay("snooze","Psst… dává si šlofíka. Za chvilku si zase pohraje."); const em=EMOTES.filter(e=>petLevel()>=e.lv); const e=em[Math.floor(Math.random()*em.length)]; return petPlay(e.id,EMOTE_SAY[e.id]); }
+  if(id==="bowl"){ if(inv.hay>0) return petAction("feed","hay"); return petPlay("sad0","Seno došlo. Získej ho ve Výuce!"); }
+  if(id==="water"){ if(inv.water>0) return petAction("feed","water"); return petPlay("sad0","Voda došla. Hotový test = voda!"); }
+  if(asleep) return petPlay("snooze","Psst… spinká.");
+  if(id==="ball") return petPlay("ball","Gól!",2000);
+  if(id==="console") return petPlay("game","Hraju hru!",2600);
+  if(id==="house") return petPlay("house","Tohle je můj domeček!",1800);
+  if(id==="bed") return petPlay("bed","Na posteli je to nejlepší.",1800);
+  if(id==="rainbow"||id==="hammock"||id==="flower"||id==="tunnel"||id==="rug") return petPlay("jump",{rainbow:"Duha je krásná!",hammock:"Houpy hou!",flower:"Voní to!",tunnel:"Schovávaná!",rug:"Měkoučký koberec!"}[id]);
+}
+
+/* ---------- scéna (pokojíček) ---------- */
+function petScene(){
+  const s=PET.stats, lvl=petLevel(), mood=petMood(), a=petAnim&&petAnim.until>Date.now()?petAnim.type:null, night=isDarkAt(Date.now());
+  const waterH=Math.round(56*s.water/100), hay=Math.max(0,Math.round(s.food/20));
+  const wall=night?["#3E3A7A","#2B275C"]:["#FFE7BF","#FFC98C"];
+  const stars=night?'<g fill="#FFF7C2">'+[[338,30],[356,52],[378,26],[388,60],[346,66]].map(([x,y],i)=>'<circle class="tw" style="animation-delay:'+i*.4+'s" cx="'+x+'" cy="'+y+'" r="1.6"/>').join("")+'</g><circle cx="372" cy="40" r="11" fill="#FFF3C4"/><circle cx="366" cy="36" r="11" fill="#202657"/>':
+    '<circle cx="372" cy="38" r="12" fill="#FFD54F"/><g class="cloud" fill="#fff"><ellipse cx="344" cy="58" rx="14" ry="7"/><ellipse cx="354" cy="53" rx="10" ry="7"/></g>';
+  const pigId=a==="snooze"?null:a;
+  return '<svg class="petscene'+(night?" night":"")+(a?" an-"+a:"")+'" viewBox="0 0 420 300" role="img" aria-label="Pokojíček morčete">'+
+    '<defs><linearGradient id="pwall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="'+wall[0]+'"/><stop offset="1" stop-color="'+wall[1]+'"/></linearGradient>'+
+    '<linearGradient id="psky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="'+(night?"#141A45":"#6EC6FF")+'"/><stop offset="1" stop-color="'+(night?"#33407E":"#C8EDFF")+'"/></linearGradient>'+
+    '<linearGradient id="pfloor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="'+(night?"#8A6A55":"#E0A86A")+'"/><stop offset="1" stop-color="'+(night?"#6B4F3E":"#C98B4E")+'"/></linearGradient>'+
+    '<radialGradient id="pvig" cx=".5" cy=".45" r=".75"><stop offset=".6" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#1A0A3A" stop-opacity="'+(night?.45:.22)+'"/></radialGradient>'+
+    '<clipPath id="pround"><rect width="420" height="300" rx="22"/></clipPath></defs>'+
+    '<g clip-path="url(#pround)">'+
+    '<rect width="420" height="300" fill="url(#pwall)"/>'+
+    '<g opacity="'+(night?.12:.18)+'" fill="#fff">'+[...Array(9)].map((_,i)=>'<rect x="'+(i*48-6)+'" y="0" width="16" height="214"/>').join("")+'</g>'+
+    // okno
+    '<g><rect x="322" y="14" width="80" height="66" rx="8" fill="url(#psky)" '+S(3)+'/>'+stars+'<path d="M362 14v66M322 47h80" stroke="'+OL+'" stroke-width="3"/><rect x="322" y="14" width="80" height="66" rx="8" fill="none" '+S(3)+'/>'+
+      '<path d="M316 10q12 40 4 76h-8V10z" fill="#FF7AA2" '+S(2)+'/><path d="M408 10q-12 40-4 76h8V10z" fill="#FF7AA2" '+S(2)+'/><rect x="306" y="6" width="112" height="7" rx="3.5" fill="#8D5A2B" '+S(2)+'/></g>'+
+    // podlaha
+    '<rect x="0" y="214" width="420" height="8" fill="'+(night?"#5A3E30":"#A8683A")+'" '+S(2)+'/>'+
+    '<rect x="0" y="222" width="420" height="80" fill="url(#pfloor)"/>'+
+    '<g stroke="'+(night?"#5A4232":"#B77840")+'" stroke-width="2" opacity=".8"><path d="M0 240h420M0 262h420M0 286h420"/>'+[[60,222,240],[180,222,240],[300,222,240],[20,240,262],[140,240,262],[260,240,262],[380,240,262],[90,262,286],[210,262,286],[330,262,286]].map(([x,y1,y2])=>'<path d="M'+x+' '+y1+'V'+y2+'"/>').join("")+'</g>'+
+    '<g data-pobj="house" class="ci ci-house">'+houseSvg()+'</g>'+
+    cageLayer()+
+    '<g data-pobj="bed" class="ci ci-bed">'+wearSvg("bed")+'</g>'+
+    // napáječka
+    '<g data-pobj="water" class="ci ci-water" transform="translate(26 40)"><rect x="0" y="0" width="34" height="70" rx="12" fill="#E8F4FF" '+S(2.5)+'/><rect x="3" y="'+(67-waterH)+'" width="28" height="'+waterH+'" rx="9" fill="#5BB8F5" opacity=".9"/><path d="M8 10v40" stroke="#fff" stroke-width="3" opacity=".7" stroke-linecap="round"/><rect x="13" y="70" width="8" height="22" rx="3" fill="#B0BEC5" '+S(1.6)+'/><circle cx="17" cy="95" r="4.5" fill="#90A4AE" '+S(1.6)+'/></g>'+
+    // miska se senem
+    '<g data-pobj="bowl" class="ci ci-bowl" transform="translate(40 230)"><g stroke="#C9A04A" stroke-width="2.4" stroke-linecap="round">'+[...Array(hay*3)].map((_,i)=>'<path d="M'+(10+i*4)%60+' 8l'+((i%3)-1)*6+' -'+(8+(i*7)%10)+'"/>').join("")+'</g><path d="M0 8h70l-8 20H8z" fill="'+(cageOn("bowl_gold")?"#E0B21E":"#5E8DEB")+'" '+S(2)+'/><ellipse cx="35" cy="8" rx="35" ry="5" fill="'+(cageOn("bowl_gold")?"#F7D64A":"#86A9F2")+'" '+S(2)+'/></g>'+
+    '<g data-pobj="pig" class="ci ci-pig"><g transform="translate(18 0) translate(200 262) scale('+PET_STAGES[lvl-1].k+') translate(-200 -262)">'+pigSvg(mood,lvl,pigId)+'</g></g>'+
+    (a==="eat"&&petAnim.item?'<g class="feeditem" transform="translate(150 196) scale(.9)">'+itemSvg(petAnim.item).replace('class="it"','width="48" height="48"')+'</g>':"")+
+    (a==="disco"?'<g class="disco"><circle cx="210" cy="24" r="14" fill="#C0C7D6" '+S(2)+'/><g opacity=".35"><circle class="dl d1" cx="110" cy="160" r="70" fill="#FF4F8B"/><circle class="dl d2" cx="300" cy="150" r="70" fill="#40C4FF"/><circle class="dl d3" cx="210" cy="230" r="70" fill="#FFE14D"/></g></g>':"")+
+    (a==="star"?'<g class="sparks" fill="#FFE14D" '+S(1.4)+'>'+[[150,120],[280,110],[230,80],[120,200],[320,200]].map(([x,y])=>'<path transform="translate('+x+' '+y+')" d="M0-10l3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/>').join("")+'</g>':"")+
+    (night?'<g pointer-events="none"><ellipse cx="200" cy="250" rx="190" ry="70" fill="#FFD180" opacity=".14"/><g transform="translate(240 0)"><path d="M0 0v34" stroke="'+OL+'" stroke-width="2"/><path d="M-16 50l6-16h20l6 16z" fill="#FFB74D" '+S(2)+'/><ellipse cx="0" cy="52" rx="10" ry="4" fill="#FFF3C4"/></g><path d="M224 52L170 230h140L256 52z" fill="#FFE9A8" opacity=".12"/></g>':"")+
+    '<rect width="420" height="300" fill="url(#pvig)" pointer-events="none"/>'+
+    (night?'<rect width="420" height="300" fill="#10123A" opacity=".12" pointer-events="none"/>':"")+
+    '</g></svg>';
+}
+function sceneBox(){
+  const say=petAnim&&petAnim.until>Date.now()&&petAnim.say;
+  return '<div class="scenebox">'+petScene()+(say?'<div class="pbubble">'+esc(say)+'</div>':"")+'<span class="tap-hint">Klepni na morče nebo na věci v pokojíčku</span></div>';
+}
+
 function statBar(k,label,color,val){ const v=Math.round(val); return '<div class="pstat'+(v<30?" low":"")+'"><div class="ps-h"><span>'+label+'</span><b>'+v+' %</b></div><div class="ps-b"><i style="width:'+v+'%;background:'+color+'"></i></div></div>'; }
 function petHtml(){
   petTick(); shopInit();
@@ -1650,12 +1879,12 @@ function petHtml(){
   const path='<div class="ppath">'+PET_STAGES.map((x,i)=>'<div class="pst'+(i+1<lvl?" done":i+1===lvl?" cur":"")+'" title="'+esc(x.name)+(x.gift?" – "+esc(x.gift):"")+'"><i>'+(i+1<=lvl?(i+1):ic("i-star"))+'</i><span>'+esc(x.name)+'</span></div>').join("")+'</div>';
   const celeb=PET.lvlUp?'<div class="pcele"><div class="pc-box"><div class="confetti">'+[...Array(24)].map((_,i)=>'<i style="left:'+((i*37)%100)+'%;animation-delay:'+((i%8)*.12)+'s;background:'+["#FF5C8A","#FFD54F","#4FC3F7","#81C784","#9B7BF7"][i%5]+'"></i>').join("")+'</div><h3>Úroveň '+PET.lvlUp+'!</h3><p>'+esc(PET.name)+' je teď <b>'+esc(PET_STAGES[PET.lvlUp-1].name)+'</b>!</p><p class="gift">Dárek: <b>'+esc(PET_STAGES[PET.lvlUp-1].gift)+'</b></p><button type="button" class="btn primary big" data-plvok>Hurá!</button></div></div>':"";
 
-  return detailCard(esc(PET.name),"i-pig",'<span class="count">'+lvl+'. '+esc(st.name)+'</span>',
-    celeb+'<div class="petwrap'+(petTab!=="care"?" shopping":"")+'"><div class="pet-left">'+petScene()+tryBar()+'<p class="pet-msg">'+esc(petMsg())+'</p>'+path+'</div>'+
+  return gameCard(esc(PET.name),"i-pig",'<span class="count">'+lvl+'. '+esc(st.name)+'</span>',
+    celeb+'<div class="petwrap'+(petTab!=="care"?" shopping":"")+'"><div class="pet-left">'+sceneBox()+tryBar()+(petTab==="care"?emoteBar():"")+'<p class="pet-msg">'+esc(petMsg())+'</p>'+path+'</div>'+
     '<div class="pet-right">'+(petTab==="care"?walletHtml():"")+'<div class="ptabs">'+[["care","Péče"],["shop","Obchod"],["ward","Šatník"]].map(x=>'<button type="button" class="'+(petTab===x[0]?"on":"")+'" data-ptab="'+x[0]+'">'+x[1]+'</button>').join("")+'</div>'+
     (petTab==="shop"?shopHtml():petTab==="ward"?wardrobeHtml():(statBar("food","Sytost","#F0A030",s.food)+statBar("water","Pití","#3FA9F5",s.water)+statBar("joy","Radost","#FF5C8A",s.joy)+lvlBar+
     '<h4>Zásoby</h4><div class="pitems">'+items+'</div>'+
-    '<button type="button" class="btn big pet-love" data-ppet'+(canPet?"":" disabled")+'>'+ic("i-heart")+(asleep?'Spinká – nebuď ho':canPet?'Pohladit':'Pohladit můžeš za chvilku')+'</button>'+
+    '<button type="button" class="btn big pet-love" data-ppet'+(canPet?"":" disabled")+'>'+ic("i-heart")+(asleep?'Spinká – za '+(napInfo(Date.now()).wakeIn||1)+' min se probudí':canPet?'Pohladit':'Pohladit můžeš za chvilku')+'</button>'+
     '<div class="pet-earn"><b>Jak získat jídlo a mince:</b><ul><li>správná odpověď = '+itemSvg("hay")+' seno + 2 '+coinSvg(false)+'</li><li>dokončený test = 2× '+itemSvg("water")+' voda + 5 '+coinSvg(false)+'</li><li>test na 90 % a víc = '+itemSvg("treat")+' jahoda</li><li>test na 100 % = 1 '+coinSvg(true)+' zlatá hvězda (za každé téma jednou denně)</li><li>Test dne = '+itemSvg("carrot")+' mrkev + 2× voda + 10 '+coinSvg(false)+'</li><li><b>Velký test</b> = 3 '+coinSvg(false)+' za odpověď, +30 '+coinSvg(false)+' a za 90 % 2 '+coinSvg(true)+'</li></ul>'+
     '<button type="button" class="btn small primary" data-view="learn">'+ic("i-learn")+'Jít do Výuky</button></div>'))+'</div></div>');
 }
@@ -1772,7 +2001,7 @@ const SHOP=[
  {id:"hammock", name:"Houpací síť", slot:"cage", r:"epic", price:60, vb:"236 54 148 58", at:"",
   svg:'<path d="M250 92q50 40 120 0" fill="#7FB3FF" '+S(2.4)+'/><path d="M250 92l-8-30M370 92l8-30" stroke="#8D6E63" stroke-width="3.5" stroke-linecap="round"/><path d="M262 100q48 26 96 0" stroke="#fff" stroke-width="2" fill="none" opacity=".6"/>'},
  {id:"console", name:"Herní konzole", slot:"cage", r:"epic", price:100, vb:"78 26 110 96", at:"translate(0 -18)",
-  svg:'<g '+S(2.4)+'><rect x="84" y="32" width="98" height="60" rx="6" fill="#263238"/><rect x="90" y="38" width="86" height="48" rx="3" fill="#4FC3F7"/></g><rect x="90" y="70" width="86" height="16" fill="#7CB342"/><path d="M104 70v-10h10v10M140 62h12" stroke="#8D6E63" stroke-width="4"/><circle cx="160" cy="50" r="6" fill="#FFE14D"/><path d="M120 56l6-6 6 6z" fill="#E53935"/><path d="M133 92v8" stroke="'+OL+'" stroke-width="3"/><g '+S(2)+'><rect x="104" y="100" width="58" height="12" rx="4" fill="#ECEFF1"/><path d="M118 116c-10 0-12 6-8 10 4 3 8 0 10-2h26c2 2 6 5 10 2 4-4 2-10-8-10z" fill="#37474F"/></g><circle cx="152" cy="119" r="2" fill="#E53935"/><path d="M114 119h6M117 116v6" stroke="#fff" stroke-width="1.8"/><circle cx="150" cy="106" r="2" fill="#4FC3F7"/>'},
+  svg:'<g '+S(2.4)+'><rect x="84" y="32" width="98" height="60" rx="6" fill="#263238"/><rect x="90" y="38" width="86" height="48" rx="3" fill="#4FC3F7"/></g><rect x="90" y="70" width="86" height="16" fill="#7CB342"/><path d="M104 70v-10h10v10M140 62h12" stroke="#8D6E63" stroke-width="4"/><circle cx="160" cy="50" r="6" fill="#FFE14D"/><path d="M120 56l6-6 6 6z" fill="#E53935"/><g class="scr-ship"><path d="M96 56l12-5v10z" fill="#fff" stroke="#2D1B3D" stroke-width="1.4"/><circle cx="114" cy="56" r="1.6" fill="#FFE14D"/></g><path d="M133 92v8" stroke="'+OL+'" stroke-width="3"/><g '+S(2)+'><rect x="104" y="100" width="58" height="12" rx="4" fill="#ECEFF1"/><path d="M118 116c-10 0-12 6-8 10 4 3 8 0 10-2h26c2 2 6 5 10 2 4-4 2-10-8-10z" fill="#37474F"/></g><circle cx="152" cy="119" r="2" fill="#E53935"/><path d="M114 119h6M117 116v6" stroke="#fff" stroke-width="1.8"/><circle cx="150" cy="106" r="2" fill="#4FC3F7"/>'},
  // ---- legendární za zlaté hvězdy ----
  {id:"crown", name:"Královská koruna", slot:"head", r:"legend", gold:10, at:"translate(136 142)", vb:"-30 -18 60 36",
   svg:'<g transform="translate(-24 -12)"><path d="M0 22l6-18 9 12 9-14 9 14 9-12 6 18z" fill="#F7C531" '+S(2.2)+'/><rect x="0" y="20" width="48" height="6" rx="2" fill="#E0A800" '+S(2)+'/><circle cx="24" cy="6" r="3" fill="#E8344E"/><circle cx="6" cy="5" r="2.2" fill="#4FC3F7"/><circle cx="42" cy="5" r="2.2" fill="#4FC3F7"/></g>'},
@@ -1792,11 +2021,92 @@ const SHOP=[
  {id:"bed_royal", name:"Královská postel", slot:"bed", r:"legend", gold:10, bedLv:4, req:"bed_wood", at:"", vb:"70 150 292 142",
   svg:'<g '+S(2.4)+'><path d="M76 286V178c0-10 8-18 14-18s14 8 14 18v108z" fill="#F7C531"/><rect x="86" y="250" width="270" height="34" rx="10" fill="#E0A800"/><rect x="98" y="240" width="250" height="18" rx="9" fill="#C2185B"/><ellipse cx="130" cy="242" rx="30" ry="13" fill="#F8BBD0"/></g><path d="M82 178l8-12 8 12" fill="none" stroke="#C99700" stroke-width="3"/><circle cx="90" cy="192" r="5" fill="#E53935" '+S(1.4)+'/><path d="M98 268h244" stroke="#C99700" stroke-width="2.4"/><g fill="#FFE14D"><circle cx="160" cy="249" r="2.5"/><circle cx="220" cy="249" r="2.5"/><circle cx="280" cy="249" r="2.5"/></g>'}
 ];
+// ---- propracované domečky + nové věci (v40) ----
+const scal=(y,x1,x2,c)=>{let d="M"+x1+" "+y; for(let x=x1;x<x2-1;x+=8) d+="q4 6 8 0"; return '<path d="'+d+'" fill="none" stroke="'+c+'" stroke-width="2"/>';};
+function houseWood(){
+  const nm=(PET&&PET.name)||"";
+  return '<g class="smoke" fill="#fff"><circle cx="74" cy="-14" r="5" opacity=".75"/><circle cx="80" cy="-26" r="7" opacity=".55"/><circle cx="74" cy="-40" r="8" opacity=".35"/></g>'+
+   '<rect x="66" y="-6" width="15" height="28" fill="#8D4E2A" '+S(2.2)+'/><rect x="63" y="-9" width="21" height="6" rx="2" fill="#6D3A1F" '+S(2)+'/>'+
+   '<path d="M-8 46L50-6l58 52z" fill="#D2603A" '+S(2.6)+'/>'+scal(30,11,90,"#A8442A")+scal(16,26,76,"#A8442A")+scal(3,40,60,"#A8442A")+
+   '<rect x="6" y="42" width="88" height="62" rx="4" fill="#E6AC6C" '+S(2.6)+'/><g stroke="#C4874A" stroke-width="2"><path d="M8 56h84M8 70h84M8 84h84M8 98h84"/></g>'+
+   '<circle cx="26" cy="64" r="12" fill="#FFE9A8" '+S(2.4)+'/><path d="M26 52v24M14 64h24" stroke="'+OL+'" stroke-width="2"/><path d="M15 58q11-8 22 0" fill="#FF8FB1" opacity=".8"/>'+
+   '<rect x="12" y="78" width="28" height="7" rx="2" fill="#8D4E2A" '+S(1.6)+'/><g '+S(1.2)+'><circle cx="17" cy="76" r="3.4" fill="#FF5252"/><circle cx="26" cy="75" r="3.4" fill="#FFD740"/><circle cx="35" cy="76" r="3.4" fill="#FF80AB"/></g>'+
+   '<path d="M52 104V74a15 15 0 0 1 30 0v30z" fill="#7A4424" '+S(2.4)+'/><path d="M62 62v42M72 62v42" stroke="#5E331A" stroke-width="1.6"/><circle cx="77" cy="88" r="2.4" fill="#FFD54F" '+S(1)+'/>'+
+   '<rect x="48" y="45" width="38" height="12" rx="3" fill="#FFF3D6" '+S(1.6)+'/><text x="67" y="54.2" text-anchor="middle" font-size="8" font-family="Titan One,Arial Rounded MT Bold,sans-serif" fill="#5A3A12">'+esc(nm.slice(0,9))+'</text>';
+}
+const HOUSES={
+ house_igloo:{vb:"-22 -24 140 132", svg:
+  '<path d="M50 6V-18" stroke="'+OL+'" stroke-width="2.4"/><path d="M50-18l16 5-16 5z" fill="#FF5252" '+S(1.8)+'/>'+
+  '<path d="M-2 104C-2 40 26 6 50 6s52 34 52 98z" fill="#EAF6FF" '+S(2.6)+'/><path d="M10 104C10 52 30 18 50 14" stroke="#fff" stroke-width="6" fill="none" opacity=".8" stroke-linecap="round"/>'+
+  '<g stroke="#9CCBEF" stroke-width="2" fill="none"><path d="M4 82h92M12 60h76M26 38h48M40 20h20M30 38v22M64 38v22M18 60v22M48 60v22M80 60v22M50 20v18M34 82v22M68 82v22"/></g>'+
+  '<path d="M22 104V84a28 24 0 0 1 56 0v20z" fill="#EAF6FF" '+S(2.6)+'/><path d="M32 104V88a18 15 0 0 1 36 0v16z" fill="#FFB74D" '+S(2.2)+'/><path d="M36 104V92a14 11 0 0 1 28 0v12z" fill="#FFE082" opacity=".8"/>'+
+  '<g transform="translate(-10 0)"><circle cx="0" cy="94" r="10" fill="#fff" '+S(2)+'/><circle cx="0" cy="77" r="7.5" fill="#fff" '+S(2)+'/><path d="M2 77l8 2-8 2z" fill="#FF8F00"/><circle cx="-3" cy="75" r="1.3" fill="'+OL+'"/><rect x="-7" y="64" width="14" height="6" fill="#263238" '+S(1.4)+'/><path d="M-8 82h16" stroke="#E53935" stroke-width="3"/></g>'},
+ house_pumpkin:{vb:"-16 -26 132 134", svg:
+  '<path d="M52 8c-4-12 2-22 12-24" stroke="#558B2F" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M60-4c10-8 26-6 30 6-12 4-22 2-30-6z" fill="#7CB342" '+S(1.8)+'/><path d="M64-14q14-10 10 4" stroke="#7CB342" stroke-width="2.4" fill="none"/>'+
+  '<ellipse cx="50" cy="60" rx="56" ry="46" fill="#FB8C00" '+S(2.6)+'/><ellipse cx="50" cy="60" rx="36" ry="46" fill="#FFA726" '+S(2)+'/><ellipse cx="50" cy="60" rx="14" ry="46" fill="#FFB74D" '+S(2)+'/>'+
+  '<path d="M14 48l14-12 14 12z" fill="#FFE082" '+S(2)+'/><path d="M58 48l14-12 14 12z" fill="#FFE082" '+S(2)+'/>'+
+  '<path d="M34 104V84a16 16 0 0 1 32 0v20z" fill="#5D2E0B" '+S(2.4)+'/><path d="M30 104V84a20 20 0 0 1 40 0" fill="none" stroke="#8D5A2B" stroke-width="3"/><circle cx="60" cy="92" r="2.4" fill="#FFD54F"/>'+
+  '<g transform="translate(96 64)"><path d="M0-14v6" stroke="'+OL+'" stroke-width="2"/><rect x="-6" y="-8" width="12" height="16" rx="3" fill="#FFE082" '+S(1.8)+'/></g>'},
+ house_castle:{vb:"-20 -52 140 160", svg:
+  '<g '+S(2.4)+'><rect x="-12" y="4" width="30" height="100" fill="#AEB8C2"/><rect x="82" y="4" width="30" height="100" fill="#AEB8C2"/><rect x="14" y="30" width="72" height="74" fill="#CBD4DC"/>'+
+  '<path d="M14 30v-10h9v6h9v-6h9v6h9v-6h9v6h9v-6h9v10z" fill="#CBD4DC"/><path d="M-14 6L3-30 20 6zM80 6l17-36 17 36z" fill="#7E57C2"/></g>'+
+  '<g stroke="#98A3AE" stroke-width="1.6"><path d="M16 46h68M16 62h68M16 78h68M16 94h68M30 30v16M56 46v16M30 62v16M70 62v16M44 78v16M-10 30h26M-10 56h26M-10 82h26M84 30h26M84 56h26M84 82h26"/></g>'+
+  '<path d="M3-30v-16l14 5-14 5M97-30v-16l14 5-14 5" fill="#FF5252" stroke="'+OL+'" stroke-width="1.8"/>'+
+  '<g fill="#FFE082" '+S(1.8)+'><path d="M-2 40v-6a5 5 0 0 1 10 0v6z"/><path d="M92 40v-6a5 5 0 0 1 10 0v6z"/><path d="M24 56v-7a5 5 0 0 1 10 0v7z"/><path d="M66 56v-7a5 5 0 0 1 10 0v7z"/></g>'+
+  '<path d="M34 104V76a16 16 0 0 1 32 0v28z" fill="#6D4C41" '+S(2.4)+'/><g stroke="#3E2723" stroke-width="2"><path d="M40 70v34M50 66v38M60 70v34M34 82h32M34 94h32"/></g>'+
+  '<path d="M44 30v20l6-4 6 4V30z" fill="#7E57C2" '+S(1.6)+'/><path d="M50 36l1.4 3 3 .3-2.3 2 .7 3-2.8-1.6-2.8 1.6.7-3-2.3-2 3-.3z" fill="#FFE14D"/>'},
+ house_rocket:{vb:"-22 -64 144 172", svg:
+  '<path d="M50-46V-60" stroke="'+OL+'" stroke-width="2.4"/><circle class="blink" cx="50" cy="-62" r="4" fill="#FF5252" '+S(1.4)+'/>'+
+  '<g '+S(2.6)+'><path d="M20 66L-12 100h32zM80 66l32 34H80z" fill="#E53935"/><path d="M50-46C82-20 84 30 80 104H20c-4-74-2-124 30-150z" fill="#F1F4F7"/></g>'+
+  '<path d="M50-46C64-34 72-20 76-6H24c4-14 12-28 26-40z" fill="#E53935" '+S(2.4)+'/><path d="M28 104c-3-50-1-88 14-116" stroke="#fff" stroke-width="5" fill="none" opacity=".9" stroke-linecap="round"/>'+
+  '<path d="M21 60h58M21 64h58" stroke="#3B5BDB" stroke-width="3"/>'+
+  '<g '+S(2.4)+'><circle cx="50" cy="16" r="13" fill="#4FC3F7"/><circle cx="50" cy="42" r="8" fill="#4FC3F7"/></g><path d="M43 10l5-5" stroke="#fff" stroke-width="3" stroke-linecap="round"/>'+
+  '<g fill="#90A4AE">'+[[26,0],[74,0],[24,30],[76,30],[24,80],[76,80]].map(([x,y])=>'<circle cx="'+x+'" cy="'+y+'" r="1.6"/>').join("")+'</g>'+
+  '<path d="M36 104V80a14 14 0 0 1 28 0v24z" fill="#455A64" '+S(2.4)+'/><path d="M30 104h40" stroke="'+OL+'" stroke-width="3"/><path d="M-4 104l10-14M104 104l-10-14" stroke="#78909C" stroke-width="4" stroke-linecap="round"/>'},
+ house_gold:{vb:"-22 -54 144 162", svg:
+  '<g '+S(2.4)+'><rect x="-14" y="20" width="26" height="84" fill="#F7D64A"/><rect x="88" y="20" width="26" height="84" fill="#F7D64A"/><path d="M-16 22c0-16 14-22 14-36 0 14 14 20 14 36zM86 22c0-16 14-22 14-36 0 14 14 20 14 36z" fill="#E0A800"/>'+
+  '<rect x="10" y="36" width="80" height="68" rx="4" fill="#FFE57F"/><path d="M8 38c4-30 24-50 42-58 18 8 38 28 42 58z" fill="#F7C531"/></g>'+
+  '<path d="M50-20v-14" stroke="'+OL+'" stroke-width="2.4"/><path d="M44-40l6-12 6 12z" fill="#E8344E" '+S(1.6)+'/>'+
+  '<g fill="#E0A800" '+S(1.8)+'><rect x="16" y="50" width="7" height="54"/><rect x="77" y="50" width="7" height="54"/></g>'+
+  '<path d="M34 104V74a16 16 0 0 1 32 0v30z" fill="#8A6A10" '+S(2.4)+'/><path d="M26 104h48l4 4H22z" fill="#FFE57F" '+S(1.8)+'/>'+
+  '<g '+S(1.4)+'><circle cx="50" cy="14" r="6" fill="#E8344E"/><circle cx="-1" cy="40" r="4" fill="#4FC3F7"/><circle cx="101" cy="40" r="4" fill="#4FC3F7"/><circle cx="50" cy="60" r="4" fill="#7CFF9B"/></g>'+
+  '<g fill="#fff" opacity=".9"><path d="M26 0l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/><path d="M80 10l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z"/></g>'}
+};
+Object.entries(HOUSES).forEach(([id,h])=>{ const it=SHOP.find(x=>x.id===id); if(it) Object.assign(it,h); });
+SHOP.push(
+ {id:"house_hobbit", name:"Hobití nora", slot:"house", r:"rare", price:65, at:HOUSE_AT, vb:"-26 -40 152 148", svg:
+  '<g class="smoke" fill="#fff"><circle cx="86" cy="-10" r="5" opacity=".7"/><circle cx="92" cy="-22" r="7" opacity=".5"/></g><rect x="80" y="-2" width="10" height="26" fill="#78909C" '+S(2)+'/>'+
+  '<path d="M-22 104C-22 40 14 12 50 12s72 28 72 92z" fill="#7CB342" '+S(2.6)+'/><path d="M-10 90C-6 50 20 26 50 22" stroke="#9CCC65" stroke-width="7" fill="none" opacity=".8" stroke-linecap="round"/>'+
+  '<g stroke="#558B2F" stroke-width="2" stroke-linecap="round">'+[[0,60],[20,40],[90,48],[104,70],[60,30]].map(([x,y])=>'<path d="M'+x+' '+y+'l-3-6M'+x+' '+y+'l0-7M'+x+' '+y+'l3-6"/>').join("")+'</g>'+
+  '<circle cx="50" cy="84" r="24" fill="#8D6E63" '+S(2.4)+'/><circle cx="50" cy="84" r="19" fill="#26A69A" '+S(2)+'/><g stroke="#00796B" stroke-width="1.6">'+[...Array(8)].map((_,i)=>{const a=i*Math.PI/4;return '<path d="M50 84L'+(50+19*Math.cos(a)).toFixed(1)+' '+(84+19*Math.sin(a)).toFixed(1)+'"/>';}).join("")+'</g><circle cx="50" cy="84" r="3.4" fill="#FFD54F" '+S(1.2)+'/>'+
+  '<g '+S(2)+'><circle cx="8" cy="76" r="9" fill="#FFE082"/><circle cx="94" cy="76" r="9" fill="#FFE082"/></g><path d="M8 67v18M-1 76h18M94 67v18M85 76h18" stroke="'+OL+'" stroke-width="1.6"/>'+
+  '<g '+S(1.2)+'><circle cx="-12" cy="100" r="3.4" fill="#FF5252"/><circle cx="-4" cy="102" r="3.4" fill="#FFD740"/><circle cx="108" cy="101" r="3.4" fill="#FF80AB"/></g>'},
+ {id:"house_tree", name:"Dům na stromě", slot:"house", r:"epic", price:120, at:HOUSE_AT, vb:"-30 -96 160 204", svg:
+  '<path d="M38 104c4-30 4-60 2-90h20c-2 30-2 60 2 90z" fill="#8D5A2B" '+S(2.6)+'/><path d="M46 100c1-24 1-52 0-80" stroke="#6D4C41" stroke-width="2" fill="none"/>'+
+  '<g '+S(2.6)+'><circle cx="10" cy="-50" r="30" fill="#43A047"/><circle cx="90" cy="-50" r="30" fill="#43A047"/><circle cx="50" cy="-70" r="34" fill="#4CAF50"/></g><g fill="#E53935" '+S(1.2)+'><circle cx="16" cy="-60" r="4"/><circle cx="82" cy="-40" r="4"/><circle cx="60" cy="-84" r="4"/></g>'+
+  '<rect x="-14" y="12" width="128" height="9" rx="3" fill="#A1683A" '+S(2.2)+'/><path d="M-10 21l14 14M110 21l-14 14" stroke="#8D5A2B" stroke-width="4"/>'+
+  '<path d="M6-16L50-44l44 28z" fill="#D2603A" '+S(2.4)+'/><rect x="12" y="-18" width="76" height="31" fill="#E6AC6C" '+S(2.4)+'/><rect x="20" y="-12" width="16" height="14" fill="#FFE082" '+S(1.8)+'/><path d="M28-12v14M20-5h16" stroke="'+OL+'" stroke-width="1.4"/><path d="M56 13v-20a8 8 0 0 1 16 0v20z" fill="#7A4424" '+S(2)+'/>'+
+  '<g stroke="#8D5A2B" stroke-width="3" stroke-linecap="round"><path d="M86 21l8 83M100 21l8 83M88 40h14M90 58h14M92 76h14M94 94h14"/></g>'+
+  '<path d="M-14 12l-2-12M114 12l2-12M-16 0h132" stroke="#A1683A" stroke-width="3" stroke-linecap="round"/>'},
+ Object.assign({id:"pyjama", name:"Pyžamo s měsíčky", slot:"body", r:"rare", price:40, at:""}, cloth("#9FA8DA",
+  [[196,150],[244,176],[206,226],[256,250],[300,190],[300,250]].map(([x,y])=>'<path transform="translate('+x+' '+y+')" d="M4-9a10 10 0 1 0 6 16 8 8 0 0 1-6-16z" fill="#FFF59D" '+S(1.4)+'/>').join("")+
+  [[226,150],[180,200],[236,206],[280,160],[230,268]].map(([x,y])=>'<circle cx="'+x+'" cy="'+y+'" r="2.6" fill="#fff"/>').join("")+
+  '<path d="M182 120q4 90-6 180" stroke="#7986CB" stroke-width="4" fill="none" stroke-dasharray="2 14" stroke-linecap="round"/>')),
+ {id:"nightcap", name:"Noční čepička", slot:"head", r:"common", price:20, at:"translate(136 150)", vb:"-32 -30 90 48", svg:
+  '<g '+S()+'><path d="M-26 6C-24-14-6-26 14-24c18 2 30 18 34 36-10-6-20-8-24-6z" fill="#5C6BC0"/><rect x="-28" y="0" width="54" height="10" rx="5" fill="#E8EAF6"/><circle cx="48" cy="14" r="7" fill="#fff"/></g><g fill="#FFF59D"><circle cx="-8" cy="-10" r="2.4"/><circle cx="12" cy="-14" r="2"/><circle cx="26" cy="-4" r="2.4"/></g>'},
+ Object.assign({id:"cowboy", name:"Kovbojský oblek", slot:"body", r:"epic", price:70, at:""}, cloth("#F3E1BE",
+  '<path d="M172 100C182 160 180 230 172 300H214V100z" fill="#8D5A2B" '+S(2)+'/><path d="M246 100V300H340V100z" fill="#8D5A2B" '+S(2)+'/>'+
+  '<g stroke="#5D3A1A" stroke-width="2.4" stroke-linecap="round">'+[...Array(7)].map((_,i)=>'<path d="M'+(176+i*5)+' 286v12"/>').join("")+[...Array(9)].map((_,i)=>'<path d="M'+(250+i*10)+' 286v12"/>').join("")+'</g>'+
+  '<path d="M228 140l-36 0 18 34z" fill="#E53935" '+S(2)+'/><g fill="#fff"><circle cx="206" cy="148" r="2"/><circle cx="216" cy="148" r="2"/><circle cx="211" cy="158" r="2"/></g>'+
+  '<g transform="translate(270 188)"><path d="M0-14l4 8 9 0-7 6 3 9-9-5-9 5 3-9-7-6 9 0z" fill="#FFD54F" '+S(1.8)+'/><circle r="3" fill="#E0A800"/></g>'+
+  '<g fill="#FFD54F" '+S(1.2)+'><circle cx="230" cy="200" r="3"/><circle cx="230" cy="226" r="3"/><circle cx="230" cy="252" r="3"/></g>'))
+);
 const SHOP_BY=Object.fromEntries(SHOP.map(x=>[x.id,x]));
 window.__shop={SHOP,priceOf:x=>priceOf(SHOP_BY[x]),dealIds:()=>dealIds()};
 const RAR={common:"Běžné",rare:"Vzácné",epic:"Epické",legend:"Legendární"}, RORD={common:0,rare:1,epic:2,legend:3};
 const SLOT_NAME={head:"Na hlavu",face:"Na oči",neck:"Na krk",body:"Oblečení",back:"Na záda",paws:"Manikúra",house:"Domeček",bed:"Postel",cage:"Do klece"};
 const NEW_IDS=["headphones","wizard","unicorn","pirate","chef","party","heartglasses","necklace","tee","hoodie","sweater","jersey","hero","wings","backpack","nails_pink","nails_rainbow","house_igloo","house_pumpkin","house_castle","house_rocket","bed_hay","bed_soft","bed_wood","console","armor_gold","wings_rainbow","nails_gold","bed_royal"];
+NEW_IDS.push("house_hobbit","house_tree","pyjama","nightcap","cowboy");
 const SHOP_CATS=[["today","Dnes"],["head","Hlava"],["body","Oblečení"],["acc","Doplňky"],["house","Domečky"],["bed","Postel"],["cage","Klec"],["legend","Legendární"]];
 const catOf=it=>it.gold?"legend":it.slot==="head"?"head":it.slot==="body"?"body":["face","neck","back","paws"].includes(it.slot)?"acc":it.slot;
 const LEVEL_GIFTS={2:["bow_pink"],3:["tunnel","bed_hay"],4:["hat"],5:["glasses","flower"],6:["hammock"],7:["medal"],8:["crown","cape","bowl_gold","rug"]};
@@ -1812,9 +2122,9 @@ function isOn(id){ const it=SHOP_BY[id]; return it.slot==="cage"?!!PET.cage[id]:
 function slotItem(slot){ let id=PET.eq[slot]; if(petTry&&SHOP_BY[petTry]&&SHOP_BY[petTry].slot===slot) id=petTry; return id&&SHOP_BY[id]; }
 function placed(it){ return it.at?'<g transform="'+it.at+'">'+it.svg+'</g>':it.svg; }
 function wearSvg(slot){ const it=slotItem(slot); return it?placed(it):""; }
-function houseSvg(){ const it=slotItem("house"); return it?placed(it):'<g transform="'+HOUSE_AT+'">'+HOUSE_WOOD+'</g>'; }
+function houseSvg(){ const it=slotItem("house"); return it?placed(it):'<g transform="'+HOUSE_AT+'">'+houseWood()+'</g>'; }
 function cageOn(id){ return PET.cage[id] || petTry===id; }
-function cageSvg(id){ const it=SHOP_BY[id]; return cageOn(id)?placed(it):""; }
+function cageSvg(id){ const it=SHOP_BY[id]; if(!cageOn(id)) return ""; return '<g class="ci ci-'+id+'" data-pobj="'+id+'">'+(id==="ball"?'<g transform="'+it.at+'"><g class="spin">'+it.svg+'</g></g>':placed(it))+'</g>'; }
 function cageLayer(){ return ["rainbow","console","rug","hammock","tunnel","flower","ball"].map(cageSvg).join(""); }
 function thumb(it){ return '<svg viewBox="'+(it.tvb||it.vb)+'" class="th" preserveAspectRatio="xMidYMid meet">'+(it.th||it.svg)+'</svg>'; }
 function dealIds(){ const d=pragueToday(); let h=0; for(const c of d) h=(h*31+c.charCodeAt(0))>>>0;
@@ -1869,6 +2179,7 @@ function tryBar(){
   return '<div class="trybar"><span>Zkoušíš: <b>'+esc(it.name)+'</b></span>'+(own?"":'<button type="button" class="btn small primary" data-pbuy="'+it.id+'"'+(canBuy(it)?"":" disabled")+'>Koupit '+coinSvg(!!it.gold)+pr+'</button>')+'<button type="button" class="btn small" data-ptry="">Sundat</button></div>';
 }
 
+function gameCard(){ return detailCard.apply(null,arguments).replace('class="card c-detail"','class="card c-detail gamecard"'); }
 function detailCard(title,icon,count,inner){
   return '<section class="card c-detail" id="c-detail"><div class="card-h"><button type="button" class="back" data-view="home">'+ic("i-chev")+'Přehled</button>'+ic(icon)+'<h2>'+title+'</h2>'+(count||"")+'</div>'+
     '<div class="body" data-scroll="detail">'+inner+'</div></section>';
@@ -2230,6 +2541,7 @@ function renderNow(){
   if(view==="print"){ fitPreview(); requestAnimationFrame(fitPreview); }
   document.querySelectorAll("[data-scroll]").forEach(el=>{ if(pos[el.dataset.scroll]) el.scrollTop=pos[el.dataset.scroll]; });
   renderModal();
+  tickClocks();
 }
 
 /* ---------- události ---------- */
@@ -2253,6 +2565,9 @@ document.addEventListener("click", async e=>{
   if(t.closest("[data-ppet]")){ petAction("pet"); return; }
   const ptab=t.closest("[data-ptab]"); if(ptab){ petTab=ptab.dataset.ptab; petTry=null; render(); return; }
   const ptry=t.closest("[data-ptry]"); if(ptry){ petTry=ptry.dataset.ptry&&petTry!==ptry.dataset.ptry?ptry.dataset.ptry:null; render(); return; }
+  const pclk=t.closest("[data-clock]"); if(pclk){ clockPeek=Date.now()+8000; tickClocks(); return; }
+  const pem=t.closest("[data-pemote]"); if(pem){ const e=pem.dataset.pemote; petPlay(e,EMOTE_SAY[e]); return; }
+  const pob=t.closest("[data-pobj]"); if(pob&&petTab==="care"){ petObj(pob.dataset.pobj); return; }
   const pcat=t.closest("[data-pcat]"); if(pcat){ shopCat=pcat.dataset.pcat; petTry=null; render(); return; }
   const pbuy=t.closest("[data-pbuy]"); if(pbuy){ const it=SHOP_BY[pbuy.dataset.pbuy]; if(it&&canBuy(it)){ const g=!!it.gold, pr=priceOf(it); { if(g) PET.gold-=pr; else PET.coins-=pr; PET.owned.push(it.id); equip(it.id,true); petTry=null; savePet(); petAnim={type:"love",until:Date.now()+1800}; render(); toast("Koupeno: "+it.name+"!"); clearTimeout(petTimer); petTimer=setTimeout(()=>{ petAnim=null; if(view==="pet") render(); },1850); } } return; }
   const pwr=t.closest("[data-pwear]"); if(pwr){ const id=pwr.dataset.pwear; equip(id,!isOn(id)); savePet(); render(); return; }
