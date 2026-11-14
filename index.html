@@ -264,7 +264,7 @@ svg{display:block}
 .c-stat .clear{font-size:.85rem;font-weight:600;color:var(--ink-3);padding:.2rem 0;min-height:2rem;text-decoration:underline;text-underline-offset:.15rem}
 
 /* spodní lišta (jen na výšku) */
-.tabs{grid-area:tabs;display:none;grid-template-columns:repeat(6,minmax(0,1fr));background:var(--surface);border-top:1px solid var(--line);
+.tabs{grid-area:tabs;display:none;grid-template-columns:repeat(7,minmax(0,1fr));background:var(--surface);border-top:1px solid var(--line);
   padding-block:.15rem;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .tab{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15rem;min-height:3.6rem;font-weight:500;font-size:.85rem;color:var(--ink-3);text-align:center;white-space:nowrap}
 .tab svg{width:1.5rem;height:1.5rem}
@@ -280,6 +280,60 @@ svg{display:block}
 .dgroup .chk{background:var(--surface);border:1px solid var(--line);min-height:3.1rem;margin-top:.35rem;padding:.35rem .6rem;font-size:1.12rem}
 .dgroup .chk .box{width:1.7rem;height:1.7rem}
 .dgroup .chk .box svg{width:1.2rem;height:1.2rem}
+.lgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(20rem,1fr));gap:.8rem}
+.lcard{background:var(--surface-2);border:1px solid var(--line);border-radius:.8rem;padding:.9rem;display:flex;flex-direction:column;gap:.45rem}
+.lcard h3{font-size:1.3rem}
+.lcard p{color:var(--ink-2);font-size:1rem;line-height:1.4}
+.lc-top,.lc-foot,.lhead{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+.lc-foot{margin-top:auto;padding-top:.3rem}
+.lc-foot .sp{flex:1}
+.lc-src{color:var(--ink-3);font-size:.88rem;font-family:var(--f-mono)}
+.lc-best{color:var(--ink-3);font-size:.9rem}
+.stars{display:inline-flex;gap:.1rem}
+.stars svg{width:1.25rem;height:1.25rem;color:var(--line)}
+.stars svg.on{color:#F2B705}
+.lintro{font-size:1.1rem;color:var(--ink-2);margin:.6rem 0 .8rem;line-height:1.45}
+.lsecs{display:grid;grid-template-columns:repeat(auto-fill,minmax(21rem,1fr));gap:.75rem;align-items:start}
+.lsec{background:var(--surface-2);border:1px solid var(--line);border-radius:.8rem;padding:.8rem .9rem}
+.lsec h3{display:flex;align-items:center;gap:.5rem;font-size:1.12rem;margin-bottom:.45rem}
+.lsec h3 svg{width:1.3rem;height:1.3rem;color:var(--accent);flex:none}
+.lsec ul{margin:.3rem 0 0 1.1rem;display:grid;gap:.35rem;font-size:1.05rem;line-height:1.4}
+.lsec.watch{background:var(--warn-soft);border-color:transparent}
+.lsec.watch h3 svg{color:var(--warn)}
+.lsec.watch{grid-column:1/-1}
+.ltab{width:100%;border-collapse:collapse;font-size:1.05rem;margin:.2rem 0 .3rem}
+.ltab th{text-align:left;font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);padding:.25rem .4rem;border-bottom:1px solid var(--line)}
+.ltab td{padding:.35rem .4rem;border-bottom:1px solid var(--line-2)}
+.ltab td:first-child{font-weight:600}
+.lcta{display:flex;justify-content:center;margin:1.1rem 0 .4rem}
+.btn.big{min-height:3.4rem;font-size:1.15rem;padding:.4rem 1.4rem}
+.btn svg{width:1.2rem;height:1.2rem}
+svg.flip{transform:rotate(180deg)}
+.lprog{height:.55rem;border-radius:1rem;background:var(--line-2);overflow:hidden;margin:.7rem 0 1rem}
+.lprog i{display:block;height:100%;background:var(--accent);border-radius:1rem;transition:width .3s}
+.lq{max-width:46rem;margin:0 auto}
+.lq h3{font-size:1.55rem;line-height:1.25;margin-bottom:.9rem}
+.lopts{display:grid;gap:.6rem}
+.lopt{display:flex;align-items:center;gap:.8rem;text-align:left;min-height:3.8rem;padding:.5rem .9rem;border-radius:.8rem;border:2px solid var(--line);background:var(--surface);font-size:1.2rem;font-weight:500;color:var(--ink)}
+.lopt .lk{display:grid;place-items:center;width:2.1rem;height:2.1rem;border-radius:.5rem;background:var(--surface-2);font-family:var(--f-mono);font-weight:600;flex:none}
+.lopt>span:nth-child(2){flex:1}
+.lopt svg{width:1.5rem;height:1.5rem}
+.lopt.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 12%,var(--surface))}
+.lopt.ok .lk{background:var(--ok);color:#fff}
+.lopt.bad{border-color:#D23B5A;background:color-mix(in srgb,#D23B5A 10%,var(--surface))}
+.lopt.bad .lk{background:#D23B5A;color:#fff}
+.lopt.dim{opacity:.55}
+.lfb{margin:1rem 0 .9rem;padding:.7rem .9rem;border-radius:.7rem;font-size:1.08rem;line-height:1.4}
+.lfb.ok{background:color-mix(in srgb,var(--ok) 12%,var(--surface));color:var(--ink)}
+.lfb.bad{background:color-mix(in srgb,#D23B5A 10%,var(--surface));color:var(--ink)}
+.lq>.btn.big{width:100%;justify-content:center}
+.lresult{text-align:center;padding:1rem 0 .6rem}
+.lresult .stars svg{width:3rem;height:3rem}
+.lr-score{font-family:var(--f-mono);font-size:3rem;font-weight:600;margin-top:.3rem}
+.lr-pct{color:var(--ink-3);font-family:var(--f-mono)}
+.lresult p{font-size:1.2rem;margin:.6rem 0 1rem}
+.lr-btns{display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap}
+.lresult+.lsec{max-width:46rem;margin:0 auto}
 .tip{color:var(--ink-3);margin:.6rem 0 0;font-size:.95rem}
 .bigmsg{font-size:1.25rem;font-weight:500;padding:1rem 0;color:var(--ink-2)}
 .week{overflow-x:auto}
@@ -549,6 +603,8 @@ table.bwt{width:100%;border-collapse:collapse;table-layout:fixed;font-size:11px;
   <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></symbol>
   <symbol id="i-printer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 9V3.5h10V9"/><path d="M7 17H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2"/><rect x="7" y="14" width="10" height="7" rx="1"/></symbol>
   <symbol id="i-year" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4" width="17" height="16.5" rx="2"/><path d="M8 7.5h.01M12 7.5h.01M16 7.5h.01M8 11.5h.01M12 11.5h.01M16 11.5h.01M8 15.5h.01M12 15.5h.01M16 15.5h.01" stroke-width="2.6"/></symbol>
+  <symbol id="i-learn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 9L12 4.5 21.5 9 12 13.5z"/><path d="M6.5 11v4.5c0 1.5 2.5 3 5.5 3s5.5-1.5 5.5-3V11"/><path d="M21.5 9v5"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 3.2l2.6 5.5 6 .8-4.4 4.1 1.1 5.9L12 16.6l-5.3 2.9 1.1-5.9L3.4 9.5l6-.8z"/></symbol>
   <symbol id="i-dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4"/></symbol>
   </g>
 </defs>
@@ -564,7 +620,7 @@ table.bwt{width:100%;border-collapse:collapse;table-layout:fixed;font-size:11px;
 const COLOR_HEX={pink:"#E0566F",blue:"#2F7FE0",green:"#2EA650",yellow:"#E3AE00",purple:"#8B5CF6",orange:"#F08A24",gray:"#8A96A8"};
 const COLOR_NAMES={pink:"růžová",blue:"modrá",green:"zelená",yellow:"žlutá",purple:"fialová",orange:"oranžová",gray:"šedá"};
 const ICON_NAMES={cj:"kniha",ma:"kalkulačka",pu:"list",aj:"vlajka",hv:"nota",tv:"běžec",pv:"nůžky",vv:"paleta",book:"sešit",q:"otazník"};
-const APP_VERSION="27"; window.APP_VERSION=APP_VERSION;
+const APP_VERSION="28"; window.APP_VERSION=APP_VERSION;
 const KIND={sdel:{icon:"i-msg",short:null},druz:{icon:"i-users",short:null},ukol:{icon:"i-flag",short:null},food:{icon:"i-food",short:"Svačina"},drink:{icon:"i-drop",short:"Pití"},other:{icon:"i-dot",short:null}};
 
 const DEFAULTS = {
@@ -954,7 +1010,7 @@ function headHtml(p){
   '</header>';
 }
 const NAV=[["home","Přehled","i-grid"],["tasks","Úkoly a akce","i-flag"],["books","Učebnice a sešity","i-book"],["supplies","Pomůcky","i-pencil"],["food","Svačina a pití","i-food"],
-  ["pe","Tělocvik","i-shirt"],["sdel","Sdělníček","i-msg"],["check","Kontrola","i-clip"]];
+  ["pe","Tělocvik","i-shirt"],["sdel","Sdělníček","i-msg"],["check","Kontrola","i-clip"],["learn","Výuka","i-learn"]];
 function sideHtml(){
   return '<nav class="side" aria-label="Menu"><div class="eyebrow">Menu</div>'+
     NAV.map(n=>'<button type="button" class="nav" data-view="'+n[0]+'"'+(view===n[0]?' aria-current="page"':"")+'>'+ic(n[2])+n[1]+(n[0]==="tasks"&&upcomingTasks()?'<span class="dotc">'+upcomingTasks()+'</span>':"")+'</button>').join("")+
@@ -966,7 +1022,7 @@ function sideHtml(){
     '<button type="button" class="nav" data-view="about"'+(view==="about"?' aria-current="page"':"")+'>'+ic("i-info")+'Jak to funguje</button>'+
     '<div class="side-foot">Malé věci dělají velké úspěchy.<span class="ver mono">verze '+APP_VERSION+'</span></div></nav>';
 }
-const TABS=[["home","Přehled","i-grid"],["week","Rozvrh","i-cal"],["books","Učebnice","i-book"],["supplies","Pomůcky","i-pencil"],["check","Kontrola","i-clip"],["tasks","Úkoly","i-flag"]];
+const TABS=[["home","Přehled","i-grid"],["week","Rozvrh","i-cal"],["books","Učebnice","i-book"],["supplies","Pomůcky","i-pencil"],["check","Kontrola","i-clip"],["tasks","Úkoly","i-flag"],["learn","Výuka","i-learn"]];
 function tabsHtml(){
   return '<nav class="tabs" aria-label="Spodní lišta">'+TABS.map(t=>'<button type="button" class="tab" data-view="'+t[0]+'"'+(view===t[0]?' aria-current="page"':"")+'>'+ic(t[2])+'<span>'+t[1]+'</span></button>').join("")+'</nav>';
 }
@@ -1031,6 +1087,75 @@ function bottomRow(p){
 }
 
 /* ---------- detailní pohledy ---------- */
+/* ---------- výuka ---------- */
+const LESSONS=/*@LESSONS*/[{"id":"pu-lide-kolem-nas","subject":"pu","title":"Lidé kolem nás","source":"Prvouka 3 – pracovní sešit str. 17–20 (učebnice str. 20–25)","added":"2026-11-14","intro":"Každý člověk je jiný. Naučíš se, jaké máme vlastnosti, jak pomáhat lidem, kteří to mají těžší, jak se chovat k cizím lidem a jaká povolání lidé dělají.","sections":[{"title":"Lidé se od sebe liší","icon":"i-users","points":["Lidé se liší <b>vzhledem, chováním a vlastnostmi<\/b>.","Jsme různí, ale je důležité se <b>vzájemně respektovat<\/b>.","Lidé žijící spolu si vytvořili <b>společná pravidla<\/b>, která musíme dodržovat.","<b>Všichni lidé mají stejná práva<\/b> – a také povinnosti."]},{"title":"Povahové vlastnosti a jejich opak","icon":"i-okc","table":{"cols":["Vlastnost","Opak"],"rows":[["veselý","smutný"],["pracovitý","líný"],["usměvavý","zamračený"],["rychlý","pomalý"],["hodný","zlý"],["smělý (odvážný)","bojácný"],["ochotný","neochotný"]]},"points":["<b>Kladné<\/b> (dobré) vlastnosti: vytrvalý, vtipný, ochotný, chytrý, hodný, smělý, milý.","<b>Záporné<\/b> (špatné) vlastnosti: hrubý, zlý, drzý, krutý."]},{"title":"Zvířata a jejich vlastnosti","icon":"i-sun","table":{"cols":["Zvíře","Říkáme, že je…"],"rows":[["lev","silný"],["liška","chytrá (mazaná)"],["sova","moudrá"],["pes","věrný"],["páv","pyšný"],["včela","pracovitá"]]}},{"title":"Lidé se zdravotním postižením","icon":"i-info","points":["Lidem se zdravotním postižením <b>pomáháme<\/b> – nevyhýbáme se jim. Nejdřív se zeptáme, jestli pomoc chtějí.","<b>Nevidomí<\/b> (nevidí) chodí s bílou holí a pomáhá jim <b>vodicí pes<\/b>.","Vodicí pes v postroji je v práci – nehladíme ho a nevoláme na něj.","<b>Neslyšící<\/b> (neslyší) se domlouvají znakovou řečí.","Modrá <b>značka s vozíčkem<\/b> označuje místa pro lidi na vozíku (vozíčkáře)."]},{"title":"Senioři","icon":"i-users","points":["<b>Senioři jsou starší lidé<\/b>, většinou už jsou v důchodu.","Starším lidem <b>pomáháme<\/b> a vážíme si jich – třeba je pustíme sednout v tramvaji."]},{"title":"Cizí lidé – pozor!","icon":"i-alert","points":["S cizím člověkem <b>NIKDY nikam neodcházíme<\/b>.","Cizí lidé, kteří nám něco nabízejí (bonbony, hru, svezení), <b>nemusí být hodní<\/b>. Nic si od nich nebereme.","Když se nám něco nelíbí, řekneme to <b>dospělému, kterému věříme<\/b>."]},{"title":"Šikana","icon":"i-alert","points":["<b>Šikana<\/b> je chování, kdy někdo někomu <b>schválně a opakovaně ubližuje<\/b>.","Když vidíme šikanu, <b>řekneme to dospělému, kterému věříme<\/b> (paní učitelce, rodičům). To není žalování – tím pomáháme."]},{"title":"Povolání","icon":"i-clip","table":{"cols":["Povolání","Co potřebuje"],"rows":[["kuchař","nůž, hrnec, struhadlo"],["dřevorubec","sekera, motorová pila, polena"],["policistka","píšťalka, zastavovací terčík, pouta"],["zedník","cihly, zednická lžíce, metr"],["pekař","peče chleba a rohlíky"],["lékař","stará se o naše zdraví"],["kadeřník","stříhá a češe vlasy (nůžky, hřeben)"],["učitelka","vyučuje žáky – stará se o naše vzdělání"]]},"points":["<b>Všechna povolání jsou důležitá.<\/b>","Za práci dostávají lidé <b>PLAT<\/b> (říká se také mzda nebo výplata).","<b>Penězi platíme za práci druhých lidí.<\/b>"]},{"title":"Lidé z jiných zemí – Jadwiga z Polska","icon":"i-flag","points":["<b>Polsko<\/b> leží na <b>severu<\/b> od České republiky. Hlavní město je <b>Varšava<\/b>.","Polština je podobná češtině – trochu bychom si rozuměli.","<b>Boršč<\/b> je polévka z červené řepy."]}],"watch":["Lidem s postižením <b>pomáháme<\/b> (ne: vyhýbáme se jim).","Senioři jsou <b>starší lidé<\/b> (ne: mladí).","Penězi platíme <b>za práci druhých lidí<\/b>.","Za práci dostávají lidé <b>PLAT<\/b> – P-L-A-T, ne „plán“.","S cizím člověkem <b>NIKDY<\/b> nikam neodcházíme.","Opak slova <b>veselý<\/b> je <b>smutný<\/b>."],"quiz":[{"q":"Čím se lidé od sebe liší?","a":["vzhledem, chováním a vlastnostmi","jenom vzhledem","jenom oblečením"],"c":0,"e":"Lidé se liší vzhledem, chováním i vlastnostmi."},{"q":"Lidem se zdravotním postižením…","a":["pomáháme","se vyhýbáme","se smějeme"],"c":0,"e":"Lidem s postižením pomáháme. Nejdřív se zeptáme, jestli pomoc chtějí."},{"q":"Senioři jsou…","a":["starší lidé","mladí lidé","malé děti"],"c":0,"e":"Senioři jsou starší lidé, většinou už v důchodu."},{"q":"Co uděláš, když tě cizí člověk zve, ať jdeš s ním?","a":["Nikam nejdu a řeknu to dospělému, kterému věřím.","Půjdu, když je hodný.","Půjdu, když mi dá bonbon."],"c":0,"e":"S cizím člověkem NIKDY nikam neodcházíme."},{"q":"Cizí lidé, kteří nám něco nabízejí…","a":["nemusí být hodní – nic si nebereme","jsou vždycky hodní","jsou naši kamarádi"],"c":0,"e":"Ten, kdo nabízí bonbony nebo svezení, nemusí mít dobré úmysly."},{"q":"Co je šikana?","a":["Když někdo někomu schválně a opakovaně ubližuje.","Když se dva kamarádi jednou pohádají.","Když hrajeme na honěnou."],"c":0,"e":"Šikana je, když někdo někomu schválně a opakovaně ubližuje."},{"q":"Když vidíš šikanu, co uděláš?","a":["Řeknu to dospělému, kterému věřím.","Budu dělat, že nic nevidím.","Přidám se."],"c":0,"e":"Řekneme to paní učitelce nebo rodičům. Tím pomáháme."},{"q":"K základním lidským právům patří…","a":["vzdělávat se","ubližovat druhým","nedodržovat pravidla"],"c":0,"e":"Každý má právo se vzdělávat. Ubližovat druhým není právo."},{"q":"Lidé žijící společně…","a":["si vytvořili společná pravidla","si mohou dělat, co chtějí","nemají žádná pravidla"],"c":0,"e":"Lidé si vytvořili společná pravidla, která musíme dodržovat."},{"q":"Penězi platíme za…","a":["práci druhých lidí","to, že můžeme pracovat","nic"],"c":0,"e":"Když něco kupujeme, platíme za práci lidí, kteří to vyrobili nebo udělali."},{"q":"Za práci dostávají lidé…","a":["plat","plán","pokutu"],"c":0,"e":"Za práci dostávají lidé PLAT (mzdu, výplatu)."},{"q":"Které povolání peče chleba a rohlíky?","a":["pekař","lékař","kadeřník"],"c":0,"e":"Pekař peče chleba a rohlíky."},{"q":"Kdo se stará o naše vzdělání?","a":["učitelé","lékaři","kuchaři"],"c":0,"e":"O vzdělání se starají učitelé, o zdraví lékaři."},{"q":"Co potřebuje dřevorubec?","a":["sekeru a motorovou pilu","hrnec a struhadlo","píšťalku a pouta"],"c":0,"e":"Dřevorubec kácí stromy – potřebuje sekeru a motorovou pilu."},{"q":"Komu patří píšťalka a pouta?","a":["policistce","kuchaři","zedníkovi"],"c":0,"e":"Píšťalka, zastavovací terčík a pouta patří policii."},{"q":"Jaký je opak slova VESELÝ?","a":["smutný","rychlý","pracovitý"],"c":0,"e":"Veselý × smutný."},{"q":"Jaký je opak slova PRACOVITÝ?","a":["líný","pomalý","smutný"],"c":0,"e":"Pracovitý × líný."},{"q":"Která vlastnost je KLADNÁ (dobrá)?","a":["ochotný","drzý","krutý"],"c":0,"e":"Ochotný je dobrá vlastnost. Drzý a krutý jsou špatné."},{"q":"Které zvíře je podle přísloví VĚRNÉ?","a":["pes","páv","liška"],"c":0,"e":"Pes je věrný, páv pyšný, liška chytrá."},{"q":"Které zvíře je PRACOVITÉ?","a":["včela","lev","sova"],"c":0,"e":"Včela je pracovitá, lev silný, sova moudrá."},{"q":"Komu nejčastěji pomáhají vodicí psi?","a":["nevidomým lidem","neslyšícím lidem","malým dětem"],"c":0,"e":"Vodicí pes pomáhá nevidomým – lidem, kteří nevidí."},{"q":"Na jaké světové straně od nás leží Polsko?","a":["na severu","na jihu","na západě"],"c":0,"e":"Polsko je na severu od České republiky. Hlavní město je Varšava."},{"q":"Jak se jmenuje hlavní město Polska?","a":["Varšava","Vídeň","Bratislava"],"c":0,"e":"Varšava. Vídeň je v Rakousku, Bratislava na Slovensku."},{"q":"Všechna povolání jsou…","a":["důležitá","nudná","zbytečná"],"c":0,"e":"Každé povolání je důležité – potřebujeme pekaře, lékaře i zedníky."}]}]/*@END*/;
+const K_LEARN="skolni-partak.learn.v1";
+let LEARN=(function(){ try{ return JSON.parse(localStorage.getItem(K_LEARN)||"{}")||{}; }catch(e){ return {}; } })();
+function saveLearn(){ try{ localStorage.setItem(K_LEARN,JSON.stringify(LEARN)); }catch(e){} }
+let learnId=null, learnMode="list", quiz=null;
+function lessonById(id){ return LESSONS.find(l=>l.id===id); }
+function shuf(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function starsFor(pct){ return pct>=90?3:pct>=70?2:pct>=50?1:0; }
+function starsHtml(n){ return '<span class="stars">'+[0,1,2].map(i=>ic("i-star",i<n?"on":"")).join("")+'</span>'; }
+function lessonChip(l){ const s=subj(l.subject); return s?stag(s):'<span class="stag c-gray">'+esc(l.subject||"")+'</span>'; }
+function startQuiz(l,onlyWrong){
+  const r=LEARN[l.id]||{}; let idx=l.quiz.map((_,i)=>i);
+  if(onlyWrong && r.wrong && r.wrong.length) idx=r.wrong.filter(i=>i<l.quiz.length);
+  quiz={id:l.id, order:shuf(idx), opts:{}, i:0, picked:null, ok:0, wrong:[], partial:!!onlyWrong};
+  quiz.order.forEach(qi=>{ quiz.opts[qi]=shuf(l.quiz[qi].a.map((_,k)=>k)); });
+  learnId=l.id; learnMode="test";
+}
+function learnHtml(){
+  if(learnMode!=="list" && !lessonById(learnId)) learnMode="list";
+  if(learnMode==="list"){
+    const list=LESSONS.length?'<div class="lgrid">'+LESSONS.map(l=>{
+      const r=LEARN[l.id]; const best=r&&r.best!=null?r.best:null;
+      return '<article class="lcard"><div class="lc-top">'+lessonChip(l)+'<span class="lc-src">'+esc(l.source||"")+'</span></div>'+
+        '<h3>'+esc(l.title)+'</h3><p>'+esc(l.intro||"")+'</p>'+
+        '<div class="lc-foot">'+(best!=null?starsHtml(starsFor(best))+'<span class="lc-best">nejlépe '+best+' %</span>':'<span class="lc-best">zatím bez testu</span>')+
+        '<span class="sp"></span><button type="button" class="btn small" data-lopen="'+esc(l.id)+'">'+ic("i-book")+'Učit se</button>'+
+        '<button type="button" class="btn small primary" data-ltest="'+esc(l.id)+'">'+ic("i-okc")+'Test</button></div></article>';
+    }).join("")+'</div>':'<p class="empty">Zatím tu není žádné učivo.</p>';
+    return detailCard("Výuka","i-learn",'<span class="count">'+LESSONS.length+' '+(LESSONS.length===1?"téma":LESSONS.length<5?"témata":"témat")+'</span>',
+      list+'<p class="tip">Nové učivo přidá táta: stačí poslat fotky stránek ze sešitu.</p>');
+  }
+  const l=lessonById(learnId);
+  const back='<button type="button" class="btn small" data-llist>'+ic("i-chev","flip")+'Všechna témata</button>';
+  if(learnMode==="study"){
+    const secs=l.sections.map(sc=>'<section class="lsec"><h3>'+ic(sc.icon||"i-dot")+esc(sc.title)+'</h3>'+
+      (sc.table?'<table class="ltab"><thead><tr>'+sc.table.cols.map(c=>'<th>'+esc(c)+'</th>').join("")+'</tr></thead><tbody>'+
+        sc.table.rows.map(r=>'<tr>'+r.map(c=>'<td>'+esc(c)+'</td>').join("")+'</tr>').join("")+'</tbody></table>':"")+
+      (sc.points?'<ul>'+sc.points.map(pt=>'<li>'+pt+'</li>').join("")+'</ul>':"")+'</section>').join("");
+    const watch=(l.watch&&l.watch.length)?'<section class="lsec watch"><h3>'+ic("i-alert")+'Na tohle si dej pozor</h3><ul>'+l.watch.map(w=>'<li>'+w+'</li>').join("")+'</ul></section>':"";
+    return detailCard(esc(l.title),"i-learn",lessonChip(l),
+      '<div class="lhead">'+back+'<span class="lc-src">'+esc(l.source||"")+'</span></div><p class="lintro">'+esc(l.intro||"")+'</p>'+
+      '<div class="lsecs">'+secs+watch+'</div>'+
+      '<div class="lcta"><button type="button" class="btn primary big" data-ltest="'+esc(l.id)+'">'+ic("i-okc")+'Spustit test ('+l.quiz.length+' otázek)</button></div>');
+  }
+  // test
+  if(!quiz || quiz.id!==l.id) startQuiz(l,false);
+  const n=quiz.order.length;
+  if(quiz.i>=n){
+    const pct=Math.round(quiz.ok/n*100), st=starsFor(pct);
+    const msg=pct===100?"Výborně! Všechno správně!":pct>=70?"Moc dobře!":pct>=50?"Dobrý začátek – ještě si to zopakuj.":"Nevadí, projdi si učivo a zkus to znovu.";
+    const wrongList=quiz.wrong.length?'<div class="lsec watch"><h3>'+ic("i-alert")+'Tohle si zopakuj</h3><ul>'+quiz.wrong.map(qi=>{ const q=l.quiz[qi]; return '<li><b>'+esc(q.q)+'</b> – '+esc(q.a[q.c])+'</li>'; }).join("")+'</ul></div>':"";
+    return detailCard("Test · "+esc(l.title),"i-learn",lessonChip(l),
+      '<div class="lhead">'+back+'</div><div class="lresult">'+starsHtml(st)+'<div class="lr-score">'+quiz.ok+' / '+n+'</div><div class="lr-pct">'+pct+' %</div><p>'+msg+'</p>'+
+      '<div class="lr-btns">'+(quiz.wrong.length?'<button type="button" class="btn primary" data-ltest="'+esc(l.id)+'" data-lwrong="1">'+ic("i-pulse")+'Opravit chyby ('+quiz.wrong.length+')</button>':"")+
+      '<button type="button" class="btn" data-ltest="'+esc(l.id)+'">Celý test znovu</button><button type="button" class="btn" data-lopen="'+esc(l.id)+'">'+ic("i-book")+'Zpět k učivu</button></div></div>'+wrongList);
+  }
+  const qi=quiz.order[quiz.i], q=l.quiz[qi], picked=quiz.picked;
+  const opts=quiz.opts[qi].map((k,pos)=>{
+    let cls="lopt"; if(picked!=null){ if(k===q.c) cls+=" ok"; else if(k===picked) cls+=" bad"; else cls+=" dim"; }
+    return '<button type="button" class="'+cls+'" data-lpick="'+k+'"'+(picked!=null?' disabled':"")+'><span class="lk">'+"ABCD"[pos]+'</span><span>'+esc(q.a[k])+'</span>'+(picked!=null&&k===q.c?ic("i-check"):"")+'</button>';
+  }).join("");
+  const fb=picked==null?"":'<div class="lfb '+(picked===q.c?"ok":"bad")+'"><b>'+(picked===q.c?"Správně!":"Tohle není ono.")+'</b> '+esc(q.e||"")+'</div>'+
+    '<button type="button" class="btn primary big" data-lnext>'+(quiz.i+1<n?"Další otázka":"Výsledek")+ic("i-arrow")+'</button>';
+  return detailCard("Test · "+esc(l.title),"i-learn",'<span class="count">'+(quiz.i+1)+' / '+n+'</span>',
+    '<div class="lhead">'+back+(quiz.partial?'<span class="lc-src">jen otázky, které minule nevyšly</span>':"")+'</div>'+
+    '<div class="lprog"><i style="width:'+Math.round(quiz.i/n*100)+'%"></i></div>'+
+    '<div class="lq"><h3>'+esc(q.q)+'</h3><div class="lopts">'+opts+'</div>'+fb+'</div>');
+}
 function detailCard(title,icon,count,inner){
   return '<section class="card c-detail" id="c-detail"><div class="card-h"><button type="button" class="back" data-view="home">'+ic("i-chev")+'Přehled</button>'+ic(icon)+'<h2>'+title+'</h2>'+(count||"")+'</div>'+
     '<div class="body" data-scroll="detail">'+inner+'</div></section>';
@@ -1384,6 +1509,7 @@ function renderNow(){
   if(view==="home") main=homeCards(p)+bottomRow(p);
   else if(view==="settings"){ cls+=" settings"; main=settingsHtml(); }
   else if(view==="print"){ cls+=" settings"; main=printView(); }
+  else if(view==="learn"){ cls+=" settings"; main=learnHtml(); }
   else { cls+=" single"; main=detailHtml(view,p)+bottomRow(p); }
   $app.innerHTML='<div class="app">'+headHtml(p)+sideHtml()+'<main class="'+cls+'">'+main+'</main>'+tabsHtml()+'</div>';
   if(view==="print"){ fitPreview(); requestAnimationFrame(fitPreview); }
@@ -1408,7 +1534,25 @@ document.addEventListener("click", async e=>{
   const pw=t.closest("[data-pweek]"); if(pw){ printMon = pw.dataset.pweek==="next" ? defaultPrintMon() : addDays(printMon||defaultPrintMon(), +pw.dataset.pweek); render(); return; }
   if(t.closest("#btn-print")){ try{ window.print(); }catch(err){ toast("Tisk se nepodařilo otevřít."); } return; }
   if(t.closest("#btn-ics")){ downloadICS(); return; }
-  const v=t.closest("[data-view]"); if(v){ if(v.dataset.pm) printMode=v.dataset.pm; view=v.dataset.view; resetScroll=true; window.scrollTo(0,0); render(); return; }
+  const lo=t.closest("[data-lopen]"); if(lo){ learnId=lo.dataset.lopen; learnMode="study"; quiz=null; view="learn"; resetScroll=true; render(); return; }
+  const lt=t.closest("[data-ltest]"); if(lt){ const l=lessonById(lt.dataset.ltest); if(l){ startQuiz(l,!!lt.dataset.lwrong); view="learn"; resetScroll=true; render(); } return; }
+  if(t.closest("[data-llist]")){ learnMode="list"; quiz=null; resetScroll=true; render(); return; }
+  const lp=t.closest("[data-lpick]"); if(lp && quiz && quiz.picked==null){
+    const l=lessonById(quiz.id), qi=quiz.order[quiz.i], k=+lp.dataset.lpick; quiz.picked=k;
+    if(k===l.quiz[qi].c) quiz.ok++; else quiz.wrong.push(qi);
+    render(); return; }
+  if(t.closest("[data-lnext]") && quiz){
+    quiz.i++; quiz.picked=null;
+    if(quiz.i>=quiz.order.length){
+      const l=lessonById(quiz.id), n=quiz.order.length, pct=Math.round(quiz.ok/n*100), r=LEARN[l.id]||{attempts:0};
+      r.attempts=(r.attempts||0)+1; r.last=pct; r.lastDate=pragueToday();
+      if(!quiz.partial){ r.best=Math.max(r.best||0,pct); r.wrong=quiz.wrong.slice(); }
+      else { r.wrong=(r.wrong||[]).filter(i=>quiz.wrong.includes(i)); }
+      LEARN[l.id]=r; saveLearn();
+      if(pct===100) toast("Super! Všechno správně!");
+    }
+    resetScroll=true; render(); return; }
+  const v=t.closest("[data-view]"); if(v){ if(v.dataset.view==="learn"){ learnMode="list"; quiz=null; } if(v.dataset.pm) printMode=v.dataset.pm; view=v.dataset.view; resetScroll=true; window.scrollTo(0,0); render(); return; }
   if(t.closest("#btn-zitra") || t.closest('[data-modal="next"]')){ modalIso=nextSchoolDay(pragueToday()); renderModal(); return; }
   const md=t.closest("[data-mday]"); if(md){ modalIso=md.dataset.mday; renderModal(); return; }
   if(t.closest("[data-close]") || t.id==="zitra"){ if(modalIso && modalIso!==selected){ selected=modalIso; resetScroll=true; } modalIso=null; render(); return; }
