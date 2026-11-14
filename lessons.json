@@ -528,7 +528,7 @@
      "e": "Vyjmenovaná slova po Z: brzy, jazyk, nazývat (se), Ruzyně."
     },
     {
-     "q": "Doplň: br_ ráno",
+     "q": "Doplň: brz_ ráno",
      "a": [
       "brzy",
       "brzi"
@@ -537,7 +537,7 @@
      "e": "Brzy je vyjmenované slovo → y."
     },
     {
-     "q": "Doplň: ja_yk",
+     "q": "Doplň: jaz_k",
      "a": [
       "jazyk",
       "jazik"
@@ -546,7 +546,7 @@
      "e": "Jazyk je vyjmenované slovo → y."
     },
     {
-     "q": "Doplň: ja_ýček",
+     "q": "Doplň: jaz_ček",
      "a": [
       "jazýček",
       "jazíček"
@@ -555,7 +555,7 @@
      "e": "Jazýček je příbuzné s jazyk → ý."
     },
     {
-     "q": "Doplň: na_ývat se",
+     "q": "Doplň: naz_vat se",
      "a": [
       "nazývat se",
       "nazívat se"
@@ -564,7 +564,7 @@
      "e": "Nazývat (se) je vyjmenované slovo → ý."
     },
     {
-     "q": "Doplň: letiště v Ru_yni",
+     "q": "Doplň: letiště v Ruz_ni",
      "a": [
       "Ruzyni",
       "Ruzini"
@@ -600,7 +600,7 @@
      "e": "Zítra není vyjmenované slovo → í."
     },
     {
-     "q": "Doplň: učitelka nás vy_ývá k tabuli",
+     "q": "Doplň: učitelka nás vyz_vá k tabuli",
      "a": [
       "vyzývá",
       "vyzívá"
@@ -609,7 +609,7 @@
      "e": "Vyzývat je příbuzné s nazývat → ý."
     },
     {
-     "q": "Doplň: z lesa se o_ývá kukačka",
+     "q": "Doplň: z lesa se oz_vá kukačka",
      "a": [
       "ozývá",
       "ozívá"
@@ -618,7 +618,7 @@
      "e": "Ozývat se je příbuzné s nazývat → ý."
     },
     {
-     "q": "Doplň: jeho pře_ývka je Kuba",
+     "q": "Doplň: jeho přez_vka je Kuba",
      "a": [
       "přezývka",
       "přezivka"
@@ -627,22 +627,13 @@
      "e": "Přezývka je příbuzná s nazývat → ý."
     },
     {
-     "q": "Doplň: ja_ykový koutek",
+     "q": "Doplň: jaz_kový koutek",
      "a": [
       "jazykový",
       "jazikový"
      ],
      "c": 0,
      "e": "Jazykový je příbuzné s jazyk → y."
-    },
-    {
-     "q": "Doplň: br_ký příchod",
-     "a": [
-      "brzký",
-      "brzkí"
-     ],
-     "c": 0,
-     "e": "Brzký je příbuzné s brzy → ý."
     },
     {
      "q": "Doplň: zapni si z_p",
@@ -1253,13 +1244,13 @@
      "e": "List není vyjmenované slovo → i."
     },
     {
-     "q": "Doplň: Mlynář m_le mouku.",
+     "q": "Doplň: Mlynář pracuje ve ml_ně.",
      "a": [
-      "mele",
-      "myle"
+      "mlýně",
+      "mlíně"
      ],
      "c": 0,
-     "e": "Mlít/mele – tady žádné y není: mele."
+     "e": "Mlýn je vyjmenované slovo → ý (ve mlýně)."
     },
     {
      "q": "Které slovo je vyjmenované po L?",
