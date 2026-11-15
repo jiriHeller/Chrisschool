@@ -1105,7 +1105,7 @@ body::before{background:#140A3C}
 const COLOR_HEX={pink:"#E0566F",blue:"#2F7FE0",green:"#2EA650",yellow:"#E3AE00",purple:"#8B5CF6",orange:"#F08A24",gray:"#8A96A8"};
 const COLOR_NAMES={pink:"růžová",blue:"modrá",green:"zelená",yellow:"žlutá",purple:"fialová",orange:"oranžová",gray:"šedá"};
 const ICON_NAMES={cj:"kniha",ma:"kalkulačka",pu:"list",aj:"vlajka",hv:"nota",tv:"běžec",pv:"nůžky",vv:"paleta",book:"sešit",q:"otazník"};
-const APP_VERSION="56"; window.APP_VERSION=APP_VERSION;
+const APP_VERSION="57"; window.APP_VERSION=APP_VERSION;
 const KIND={sdel:{icon:"i-msg",short:null},druz:{icon:"i-users",short:null},ukol:{icon:"i-flag",short:null},food:{icon:"i-food",short:"Svačina"},drink:{icon:"i-drop",short:"Pití"},other:{icon:"i-dot",short:null}};
 
 const DEFAULTS = {
@@ -2813,9 +2813,48 @@ function achieveHtml(){
     '<div class="streak" data-tip="'+esc("Série = kolik školních dní za sebou jsi něco udělal: dokončil test nebo Test dne, sbalil batoh krok za krokem nebo dodělal domácí úkol. Víkend a prázdniny sérii nepřeruší.\nOdměny:\n• "+STREAK_REW.map(([m,r])=>m+" dní – "+[r.coins?r.coins+" mincí":"",r.gold?r.gold+"× zlatá hvězda":"",r.item&&SHOP_BY[r.item]?SHOP_BY[r.item].name:""].filter(Boolean).join(" + ")).join("\n• "))+'"><span class="fl">🔥</span><div><b>'+s.n+'</b> '+(s.n===1?"den":s.n>=2&&s.n<=4?"dny":"dní")+' v řadě<small>'+(s.today?"Dnes splněno.":"Dnes ještě udělej test, sbal batoh nebo domácí úkol.")+(next?" Za "+(next[0]-s.n)+" "+((next[0]-s.n)===1?"den":"dny")+" odměna"+(next[1].item?" a výjimečná věc!":"!"):"")+' Víkend sérii nepřeruší.</small></div></div>'+
     '<div class="ish-sec"><h4>Můj cíl</h4>'+goalCard()+'</div>'+
     '<div class="ish-sec"><h4>Dnešní úkoly</h4>'+qs+chest+'</div>'+
-    '<div class="ish-sec"><h4>Odznaky <span>'+Object.keys(P.badges).length+' / '+BADGES.length+'</span></h4><div class="badges">'+BADGES.map(b=>'<div class="badge'+(P.badges[b.id]?" on":"")+'" data-tip="'+esc(b.n+": "+b.d+". "+(P.badges[b.id]?"Tenhle odznak už máš!":"Tenhle odznak tě ještě čeká."))+'"><span class="be">'+b.e+'</span><b>'+esc(b.n)+'</b><small>'+esc(b.d)+'</small></div>').join("")+'</div></div>'+friend+'</div>';
+    '<div class="ish-sec"><h4>Odznaky <span>'+Object.keys(P.badges).length+' / '+BADGES.length+'</span></h4><div class="badges">'+BADGES.map(b=>'<div class="badge'+(P.badges[b.id]?" on":"")+'" role="button" tabindex="0" data-badge="'+b.id+'"><span class="be">'+b.e+'</span><b>'+esc(b.n)+'</b><small>'+esc(b.d)+'</small></div>').join("")+'</div></div>'+friend+'</div>';
 }
 
+
+/* ---------- náhled odznaku (zvětšená karta úspěchu) ---------- */
+let badgeView=null;
+function badgeRender(){
+  let ov=document.getElementById("badgeov"); if(!badgeView){ if(ov) ov.remove(); return; }
+  if(!ov){ ov=document.createElement("div"); ov.className="overlay badge-ov"; ov.id="badgeov"; document.body.appendChild(ov); }
+  const P=progInit(), i=BADGES.findIndex(b=>b.id===badgeView), b=BADGES[i], got=P.badges[b.id], have=Object.keys(P.badges).length;
+  const conf=got?'<div class="bv-conf">'+[...Array(22)].map((_,k)=>'<i style="left:'+((k*41)%100)+'%;animation-delay:'+((k%7)*.15)+'s;background:'+["#FF5C8A","#FFD54F","#4FC3F7","#81C784","#9B7BF7"][k%5]+'"></i>').join("")+'</div>':"";
+  ov.innerHTML='<div class="sheet bv'+(got?" got":" locked")+'" role="dialog" aria-modal="true" aria-label="'+esc(b.n)+'">'+conf+
+    '<button type="button" class="bv-nav l" data-bnav="-1" aria-label="Předchozí">‹</button><button type="button" class="bv-nav r" data-bnav="1" aria-label="Další">›</button>'+
+    '<div class="bv-medal"><div class="bv-rays"></div><div class="bv-disc"><span>'+b.e+'</span></div>'+(got?"":'<div class="bv-lock">🔒</div>')+'</div>'+
+    '<div class="eyebrow">Odznak '+(i+1)+' / '+BADGES.length+'</div><h2>'+esc(b.n)+'</h2>'+
+    (got?'<p class="bv-say">Skvělá práce'+(cfg.child?", "+esc(cfg.child):"")+'! Tenhle odznak sis vybojoval.</p>'+
+         '<div class="bv-facts"><div><small>Za co</small><b>'+esc(b.d)+'</b></div><div><small>Získáno</small><b>'+esc(fmtLong(got))+'</b></div><div><small>Odměna</small><b>+10 '+coinSvg(false)+'</b></div></div>'
+        :'<p class="bv-say">Tenhle odznak tě ještě čeká. Zvládneš to!</p><div class="bv-facts"><div><small>Jak ho získat</small><b>'+esc(b.d)+'</b></div><div><small>Odměna</small><b>+10 '+coinSvg(false)+'</b></div></div>')+
+    '<div class="bv-prog"><div class="eyebrow">Moje sbírka: '+have+' z '+BADGES.length+'</div><div class="bv-bar"><i style="width:'+Math.round(have/BADGES.length*100)+'%"></i></div></div>'+
+    '<div class="sheet-foot"><span></span><button type="button" class="btn primary" data-bclose>Zavřít</button></div></div>';
+}
+document.addEventListener("click",e=>{ const t=e.target.closest("[data-badge],[data-bnav],[data-bclose],#badgeov"); if(!t) return;
+  if(t.dataset.badge){ e.preventDefault(); e.stopPropagation(); badgeView=t.dataset.badge; badgeRender(); return; }
+  if(!badgeView) return;
+  if(t.dataset.bnav){ e.preventDefault(); e.stopPropagation(); const i=BADGES.findIndex(b=>b.id===badgeView); badgeView=BADGES[(i+ +t.dataset.bnav+BADGES.length)%BADGES.length].id; badgeRender(); return; }
+  if(t.hasAttribute("data-bclose")||(t.id==="badgeov"&&e.target===t)){ e.preventDefault(); e.stopPropagation(); badgeView=null; badgeRender(); } },true);
+document.addEventListener("keydown",e=>{ if(!badgeView) return; if(e.key==="Escape"){ badgeView=null; badgeRender(); } });
+(function(){ const st=document.createElement("style"); st.textContent=
+ ".badge[data-badge]{cursor:pointer;transition:transform .15s}.badge[data-badge]:hover{transform:translateY(-3px) scale(1.03)}"+
+ ".badge-ov .sheet{max-width:30rem;text-align:center;position:relative;overflow:hidden;animation:bvin .35s cubic-bezier(.2,1.4,.4,1)}@keyframes bvin{from{transform:scale(.6);opacity:0}}"+
+ ".bv h2{margin:.15rem 0 .3rem;font-size:1.7rem}.bv-medal{position:relative;width:11rem;height:11rem;margin:.4rem auto 1rem}"+
+ ".bv-rays{position:absolute;inset:-1.6rem;border-radius:50%;background:repeating-conic-gradient(rgba(255,213,79,.55) 0 10deg,transparent 10deg 20deg);animation:bvspin 14s linear infinite;mask:radial-gradient(circle,#000 35%,transparent 70%);-webkit-mask:radial-gradient(circle,#000 35%,transparent 70%)}"+
+ "@keyframes bvspin{to{transform:rotate(360deg)}}"+
+ ".bv-disc{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FFF6C8,#FFD54F 45%,#E8A317);border:6px solid #C98A0B;box-shadow:0 .6rem 1.6rem rgba(201,138,11,.45),inset 0 -.5rem 1rem rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center}"+
+ ".bv-disc span{font-size:5.4rem;line-height:1;filter:drop-shadow(0 .2rem .2rem rgba(0,0,0,.25));animation:bvbob 2.6s ease-in-out infinite}@keyframes bvbob{50%{transform:translateY(-6px) rotate(-4deg)}}"+
+ ".bv.locked .bv-rays{display:none}.bv.locked .bv-disc{background:radial-gradient(circle at 35% 30%,#F2F2F5,#C9CAD3);border-color:#9EA0AE;box-shadow:none}.bv.locked .bv-disc span{filter:grayscale(1) opacity(.45);animation:none}"+
+ ".bv-lock{position:absolute;right:.2rem;bottom:.2rem;font-size:2.2rem}.bv-say{font-size:1.1rem;margin:.2rem 0 .9rem}"+
+ ".bv-facts{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap}.bv-facts>div{flex:1 1 8rem;padding:.6rem;border-radius:.8rem;background:rgba(127,127,140,.1);display:flex;flex-direction:column;gap:.15rem}.bv-facts small{opacity:.7;font-size:.75rem;text-transform:uppercase;letter-spacing:.04em}.bv-facts b{display:inline-flex;gap:.25rem;align-items:center;justify-content:center}.bv-facts svg{width:1.1rem;height:1.1rem}"+
+ ".bv-prog{margin:1rem 0 .2rem;text-align:left}.bv-bar{height:.7rem;border-radius:1rem;background:rgba(127,127,140,.18);overflow:hidden;margin-top:.35rem}.bv-bar i{display:block;height:100%;background:linear-gradient(90deg,#FFD54F,#FF9F43);border-radius:1rem}"+
+ ".bv-nav{position:absolute;top:6.5rem;width:2.6rem;height:2.6rem;border-radius:50%;border:1px solid var(--line);background:var(--surface);font-size:1.6rem;line-height:1;cursor:pointer;color:inherit;z-index:2}.bv-nav.l{left:.8rem}.bv-nav.r{right:.8rem}"+
+ ".bv-conf{position:absolute;inset:0;pointer-events:none;overflow:hidden}.bv-conf i{position:absolute;top:-1rem;width:.5rem;height:.9rem;border-radius:.15rem;animation:bvfall 2.4s ease-in forwards}@keyframes bvfall{to{transform:translateY(34rem) rotate(540deg);opacity:0}}";
+ document.head.appendChild(st); })();
 /* ---------- obchod a šatník morčete (v2) ---------- */
 const OL="#2D1B3D";
 const S=(a)=>'stroke="'+OL+'" stroke-width="'+(a||2)+'" stroke-linejoin="round" stroke-linecap="round"';
@@ -3568,7 +3607,7 @@ document.addEventListener("click", async e=>{
   const pob=t.closest("[data-pobj]"); if(pob&&petTab==="care"){ petObj(pob.dataset.pobj); return; }
   const pcat=t.closest("[data-pcat]"); if(pcat){ shopCat=pcat.dataset.pcat; petTry=null; render(); return; }
   const pbuy=t.closest("[data-pbuy]"); if(pbuy){ const it=SHOP_BY[pbuy.dataset.pbuy]; if(it&&canBuy(it)){ const g=!!it.gold, pr=priceOf(it); { if(g) PET.gold-=pr; else PET.coins-=pr; PET.owned.push(it.id); equip(it.id,true); petTry=null; savePet(); petAnim={type:"love",until:Date.now()+1800}; render(); toast("Koupeno: "+it.name+"!"); clearTimeout(petTimer); petTimer=setTimeout(()=>{ petAnim=null; if(view==="pet") render(); },1850); } } return; }
-  const pwr=t.closest("[data-pwear]"); if(pwr){ const id=pwr.dataset.pwear; equip(id,!isOn(id)); savePet(); render(); return; }
+  const pwr=t.closest("[data-pwear]"); if(pwr){ const id=pwr.dataset.pwear; equip(id,!isOn(id)); if(petTry===id||(SHOP_BY[petTry]&&SHOP_BY[id]&&SHOP_BY[petTry].slot===SHOP_BY[id].slot)) petTry=null; savePet(); render(); return; }
   if(t.closest("[data-plvok]")){ PET.lvlUp=0; savePet(); render(); return; }
   if(t.closest("[data-pname]")){ const v=(document.getElementById("petname")||{}).value||""; const nm=v.trim().slice(0,16); if(!nm){ toast("Napiš jméno "+an("g")+"."); return; } PET.name=nm; PET.last=Date.now(); savePet(); render(); toast("Ahoj, "+nm+"!"); return; }
   const lo=t.closest("[data-lopen]"); if(lo){ learnId=lo.dataset.lopen; learnMode="study"; quiz=null; view="learn"; resetScroll=true; render(); return; }
