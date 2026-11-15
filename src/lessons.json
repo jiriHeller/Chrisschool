@@ -3251,6 +3251,56 @@
      "e": "Obyvatel je vyjmenované slovo po B."
     }
    ]
+  },
+  {
+   "id": "pu-hodiny",
+   "subject": "pu",
+   "title": "Kolik je hodin?",
+   "gen": "hodiny",
+   "n": 15,
+   "genw": {
+    "clk_h": 2,
+    "clk_half": 3,
+    "clk_q": 3,
+    "clk_tq": 3,
+    "clk_5": 3
+   },
+   "source": "Prvouka/Matematika 3 – čas a hodiny (RVP: orientace v čase)",
+   "added": "2026-11-15",
+   "intro": "Učíme se číst čas z ručičkových hodin. Každý test má jiné hodiny: celé hodiny, půl, čtvrt, tři čtvrtě a nakonec po 5 minutách.",
+   "sections": [
+    {
+     "title": "Dvě ručičky",
+     "icon": "i-okc",
+     "points": [
+      "<b>Malá ručička</b> ukazuje <b>hodiny</b>.",
+      "<b>Velká ručička</b> ukazuje <b>minuty</b>. Jedno číslo na ciferníku = <b>5 minut</b>.",
+      "Velká ručička na <b>12</b> = celá hodina, např. <b>sedm hodin (7:00)</b>."
+     ]
+    },
+    {
+     "title": "Půl, čtvrt a tři čtvrtě",
+     "icon": "i-okc",
+     "points": [
+      "Velká ručička na <b>6</b> = <b>půl</b>. 7:30 je <b>půl osmé</b> – říkáme už tu <b>další</b> hodinu!",
+      "Velká ručička na <b>3</b> = <b>čtvrt</b>. 7:15 je <b>čtvrt na osm</b>.",
+      "Velká ručička na <b>9</b> = <b>tři čtvrtě</b>. 7:45 je <b>tři čtvrtě na osm</b>."
+     ]
+    },
+    {
+     "title": "Po 5 minutách",
+     "icon": "i-okc",
+     "points": [
+      "Počítej po pěti: 1 → 5, 2 → 10, 3 → 15, 4 → 20, 5 → 25 …",
+      "Velká ručička na <b>5</b> = <b>25 minut</b>. Malá ručička je kousek za 7 → <b>7:25</b>."
+     ]
+    }
+   ],
+   "watch": [
+    "U <b>půl</b> a <b>čtvrt</b> říkáme <b>další</b> hodinu: 7:30 = půl <b>osmé</b>, ne půl sedmé.",
+    "Nepleť si ručičky: <b>malá = hodiny</b>, <b>velká = minuty</b>."
+   ],
+   "quiz": []
   }
  ]
 }
