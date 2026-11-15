@@ -3251,6 +3251,73 @@
      "e": "Obyvatel je vyjmenované slovo po B."
     }
    ]
+  },
+  {
+   "id": "ma-logika",
+   "subject": "ma",
+   "title": "Logika a přemýšlení",
+   "gen": "logika",
+   "n": 15,
+   "genw": {
+    "lg_seq": 4,
+    "lg_pat": 3,
+    "lg_odd": 3,
+    "lg_ord": 3,
+    "lg_legs": 2,
+    "lg_days": 2,
+    "lg_sym": 3
+   },
+   "source": "Rozvoj logického myšlení – úlohy pro 3. ročník",
+   "added": "2026-11-15",
+   "intro": "Hádanky pro chytrou hlavu: číselné řady, obrázkové vzory, co nepatří, kdo je nejstarší, počítání nohou, dny v týdnu a obrázkové rovnice. Každý test je jiný.",
+   "sections": [
+    {
+     "title": "Číselné řady",
+     "icon": "i-okc",
+     "points": [
+      "Podívej se, o kolik se čísla <b>mění</b>: 3, 7, 11, 15 → pokaždé <b>+4</b> → další je <b>19</b>.",
+      "Čísla můžou i <b>ubývat</b> (−3), <b>zdvojovat se</b> (2, 4, 8, 16) nebo se <b>střídat</b> (+2, +5, +2, +5)."
+     ]
+    },
+    {
+     "title": "Vzory a co nepatří",
+     "icon": "i-okc",
+     "points": [
+      "Najdi skupinu, která se <b>opakuje</b>: 🔴🔵🔴🔵 → další je 🔴.",
+      "U „co nepatří“ hledej, <b>co mají ostatní společné</b>: jablko, hruška, banán jsou ovoce – kladivo ne."
+     ]
+    },
+    {
+     "title": "Kdo je nej…",
+     "icon": "i-users",
+     "points": [
+      "Seřaď si všechny do řady, klidně si je nakresli.",
+      "<b>Anička je starší než Tom. Tom je starší než Ema.</b> → Anička → Tom → Ema. Nejstarší je Anička, nejmladší Ema."
+     ]
+    },
+    {
+     "title": "Obrázkové rovnice",
+     "icon": "i-info",
+     "points": [
+      "🍎 + 🍎 = 10 → jedno 🍎 je <b>5</b>.",
+      "🍎 + 🍌 = 8 → 🍌 = 8 − 5 = <b>3</b>.",
+      "Vždycky začni řádkem, kde je jen jeden druh obrázku."
+     ]
+    },
+    {
+     "title": "Nohy a dny",
+     "icon": "i-cal",
+     "points": [
+      "Slepice, kachna a husa mají <b>2 nohy</b>, pes, kočka, kůň <b>4</b>, brouk <b>6</b>, pavouk <b>8</b>.",
+      "Dny počítej po jednom: středa → čtvrtek → pátek. Po neděli je zase pondělí."
+     ]
+    }
+   ],
+   "watch": [
+    "Nespěchej – u logiky vyhrává ten, kdo si to v klidu rozmyslí.",
+    "Když si nevíš rady, nakresli si to na papír."
+   ],
+   "quiz": []
   }
  ]
 }
