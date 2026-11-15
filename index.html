@@ -128,6 +128,20 @@ svg{display:block}
 .ring-bg{stroke:var(--line)} .ring-fg{stroke:var(--accent);transition:stroke-dashoffset .3s}
 .ring-fg.done{stroke:var(--ok)}
 .head-tools{display:flex;gap:.4rem;flex:none}
+.kidbox{flex:1 0 330px;max-width:100%;display:flex;align-items:center;justify-content:flex-end;gap:.7rem;flex-wrap:wrap;padding:.35rem .6rem;border-radius:1rem;background:rgba(127,127,140,.13);border:1px solid rgba(127,127,140,.25)}
+.kb-name{display:flex;flex-direction:column;line-height:1.15;margin-right:auto;min-width:0}
+.kb-name b{font-size:1rem;white-space:nowrap}
+.kb-name span{font-size:.74rem;opacity:.75;white-space:nowrap}
+.kb-name i{font-style:normal;text-decoration:underline dotted}
+.kb-chips{display:flex;gap:.35rem;flex-wrap:wrap;justify-content:flex-end}
+.kb-chip{white-space:nowrap;font-size:.78rem;padding:.22rem .55rem;border-radius:999px;background:rgba(127,127,140,.16);border:1px solid rgba(127,127,140,.28)}
+.kb-chip b{font-size:.9rem}
+.kb-chip.hot{background:#FFD54F;color:#2D1B3D;border-color:#E3A800}
+.kidrow{flex-wrap:wrap;gap:.6rem}
+.kidrow label{display:flex;flex-direction:column;gap:.2rem;font-size:.82rem;flex:1 1 160px}
+@media print{.kidbox{display:none}}
+.head{flex-wrap:wrap;row-gap:.5rem}
+@media (max-width:1250px){.kidbox{flex-basis:100%}}
 .ibtn{width:3.3rem;height:3.3rem;border-radius:.7rem;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;color:var(--ink-2)}
 .ibtn svg{width:1.6rem;height:1.6rem}
 
@@ -1091,7 +1105,7 @@ body::before{background:#140A3C}
 const COLOR_HEX={pink:"#E0566F",blue:"#2F7FE0",green:"#2EA650",yellow:"#E3AE00",purple:"#8B5CF6",orange:"#F08A24",gray:"#8A96A8"};
 const COLOR_NAMES={pink:"růžová",blue:"modrá",green:"zelená",yellow:"žlutá",purple:"fialová",orange:"oranžová",gray:"šedá"};
 const ICON_NAMES={cj:"kniha",ma:"kalkulačka",pu:"list",aj:"vlajka",hv:"nota",tv:"běžec",pv:"nůžky",vv:"paleta",book:"sešit",q:"otazník"};
-const APP_VERSION="49"; window.APP_VERSION=APP_VERSION;
+const APP_VERSION="50"; window.APP_VERSION=APP_VERSION;
 const KIND={sdel:{icon:"i-msg",short:null},druz:{icon:"i-users",short:null},ukol:{icon:"i-flag",short:null},food:{icon:"i-food",short:"Svačina"},drink:{icon:"i-drop",short:"Pití"},other:{icon:"i-dot",short:null}};
 
 const DEFAULTS = {
@@ -1106,7 +1120,7 @@ const DEFAULTS = {
     {id:"poh", name:"Pohádka / film", time:"19:00"},
     {id:"spa", name:"Večerka", time:"20:30"}
   ],
-  child: "Chris",
+  child: "Chris", childLast: "Heller", birth: "2018-05-10", nameday: "",
   times: ["8:00 – 8:45","8:55 – 9:40","10:00 – 10:45","10:55 – 11:40","12:00 – 12:45","12:55 – 13:40"],
   subjects: [
     {id:"cj", name:"Český jazyk", short:"ČJ", color:"pink", icon:"cj", items:["Čítanka pro 3. ročník","Český jazyk 3","Sešit češtiny A","Sešit češtiny B","Sešit češtiny D","Velký sešit psaní","Pracovní sešit češtiny"]},
@@ -1177,6 +1191,7 @@ function migrate(c){
     if(!Object.values(c.schedule).some(d=>(d||[]).includes("x4"))) c.subjects=c.subjects.filter(x=>x.id!=="x4");
   }
   if(!Array.isArray(c.holidays)) c.holidays=d.holidays;
+  if(c.childLast===undefined) c.childLast="Heller"; if(c.birth===undefined) c.birth="2018-05-10"; if(c.nameday===undefined) c.nameday="";
   if(!c.overrides || typeof c.overrides!=="object") c.overrides={};
   if(!Array.isArray(c.tasks)) c.tasks=[];
   (c.pencil||[]).forEach(it=>{ if(/^IQ karta$/i.test((it.name||"").trim())) it.name="ISIC karta"; });
@@ -1496,6 +1511,46 @@ function barHtml(d,n){ const pc=n?Math.round(d/n*100):0; return '<div class="bar
 function ring(d,n,size){ const r=15.5, c=2*Math.PI*r, pc=n?d/n:0;
   return '<svg class="ring" viewBox="0 0 36 36"'+(size?' style="width:'+size+';height:'+size+'"':"")+' aria-hidden="true"><circle cx="18" cy="18" r="'+r+'" fill="none" stroke-width="3.5" class="ring-bg"/>'+
     '<circle cx="18" cy="18" r="'+r+'" fill="none" stroke-width="3.5" stroke-linecap="round" class="ring-fg'+(n&&d===n?" done":"")+'" stroke-dasharray="'+c.toFixed(2)+'" stroke-dashoffset="'+(c*(1-pc)).toFixed(2)+'"/></svg>'; }
+
+/* ---------- kartička dítěte v hlavičce: jméno, narozeniny, svátek, odpočty ---------- */
+function kdDays(iso){ return Math.round((Date.parse(iso)-Date.parse(pragueToday()))/864e5); }
+function kdNext(mmdd){ const t=pragueToday(), y=+t.slice(0,4); return (y+"-"+mmdd)>=t?y+"-"+mmdd:(y+1)+"-"+mmdd; }
+function kdNameday(){ const m=/^\s*(\d{1,2})\s*\.\s*(\d{1,2})\s*\.?\s*$/.exec(cfg.nameday||""); if(!m) return null; const d=+m[1], mo=+m[2]; if(d<1||d>31||mo<1||mo>12) return null; return String(mo).padStart(2,"0")+"-"+String(d).padStart(2,"0"); }
+function kdFmt(iso){ return (+iso.slice(8,10))+". "+(+iso.slice(5,7))+"."; }
+function kdStart(y){ let d=y+"-09-01"; while(dow(d)===0||dow(d)===6) d=addDays(d,1); return d; }
+function kdHol(re,y,fb){ const h=(cfg.holidays||[]).find(x=>re.test(x.name||"")&&x.from&&+x.from.slice(0,4)>=y&&x.from<=(y+1)+"-08-31"); return h?{from:h.from,to:h.to}:(fb?{from:fb[0],to:fb[1]}:null); }
+function kdMilestones(){
+  const y=schoolYearStart(), out=[];
+  [y,y+1].forEach(Y=>{
+    out.push({ic:"🏫",n:"Škola",full:"Začátek školního roku",from:kdStart(Y),to:kdStart(Y),one:true});
+    const pz=kdHol(/podzim/i,Y,[Y+"-10-29",Y+"-10-30"]); if(pz) out.push({ic:"🍂",n:"Podzim. pr.",full:"Podzimní prázdniny",from:pz.from,to:pz.to});
+    out.push({ic:"🎄",n:"Vánoce",full:"Štědrý den",from:Y+"-12-24",to:Y+"-12-24",one:true});
+    const ja=kdHol(/jarn/i,Y,null); if(ja) out.push({ic:"🌷",n:"Jarní pr.",full:"Jarní prázdniny",from:ja.from,to:ja.to});
+    const le=kdHol(/hlavn|^letn/i,Y,[(Y+1)+"-07-01",(Y+1)+"-08-31"]); if(le) out.push({ic:"☀️",n:"Léto",full:"Letní prázdniny",from:le.from,to:le.to,summer:true});
+  });
+  return out.sort((a,b)=>a.from<b.from?-1:a.from>b.from?1:0);
+}
+function kdChip(ic,label,n,tip,hot){ return '<span class="kb-chip'+(hot?" hot":"")+'" data-tip="'+esc(tip)+'">'+ic+' '+label+(n===0?' <b>dnes!</b>':' <b>'+n+'</b> d.')+'</span>'; }
+function kidHtml(){
+  const t=pragueToday(), name=((cfg.child||"")+" "+(cfg.childLast||"")).trim();
+  if(!name&&!cfg.birth) return "";
+  const chips=[]; let sub=[];
+  if(cfg.birth&&/^\d{4}-\d{2}-\d{2}$/.test(cfg.birth)){
+    const nb=kdNext(cfg.birth.slice(5)), n=kdDays(nb), age=+nb.slice(0,4)-+cfg.birth.slice(0,4);
+    sub.push("🎂 "+kdFmt(cfg.birth)+" "+cfg.birth.slice(0,4));
+    chips.push(kdChip("🎂","Nar.",n,(n===0?"Dnes má narozeniny! Je mu "+age+" let.":"Narozeniny "+kdFmt(nb)+" – bude mu "+age+" let. Zbývá "+n+" dní."),n<=7));
+  }
+  const nd=kdNameday();
+  if(nd){ const nn=kdNext(nd), n=kdDays(nn); sub.push("🌸 svátek "+kdFmt(nn)); chips.push(kdChip("🌸","Svátek",n,n===0?"Dnes má svátek!":"Svátek "+kdFmt(nn)+". Zbývá "+n+" dní.",n<=7)); }
+  const ms=kdMilestones(), cur=ms.find(m=>m.to>=t);
+  if(cur){
+    const inside=!cur.one&&cur.from<=t, n=inside?kdDays(cur.to)+1:kdDays(cur.from);
+    const tip=cur.full+(cur.one?" – "+kdFmt(cur.from):" "+kdFmt(cur.from)+"–"+kdFmt(cur.to))+(inside?". Prázdniny ještě "+n+" "+(n===1?"den":n<5?"dny":"dní")+".":". Zbývá "+n+" dní.");
+    chips.push(inside?'<span class="kb-chip hot" data-tip="'+esc(tip)+'">'+cur.ic+' '+cur.n+' ještě <b>'+n+'</b> d.</span>':kdChip(cur.ic,cur.n,n,tip,n<=7));
+    if(!cur.summer){ const su=ms.find(m=>m.summer&&m.from>t); if(su) chips.push(kdChip("☀️","Léto",kdDays(su.from),"Velké prázdniny "+kdFmt(su.from)+"–"+kdFmt(su.to)+". Zbývá "+kdDays(su.from)+" dní.",false)); }
+  }
+  return '<div class="kidbox"><div class="kb-name"><b>'+esc(name)+'</b><span>'+esc(sub.join(" · "))+(nd?"":' · <i data-tip="Datum svátku doplní rodič v Nastavení.">svátek ?</i>')+'</span></div><div class="kb-chips">'+chips.join("")+'</div></div>';
+}
 function headHtml(p){
   const today=pragueToday();
   const days=weekDates(today).map(iso=>'<button type="button" class="day'+(iso===today?" is-today":"")+(holidayOf(iso)?" hol":"")+'" aria-pressed="'+(iso===selected)+'" data-day="'+iso+'"'+(holidayOf(iso)?' title="'+esc(holidayOf(iso))+'"':"")+'>'+
@@ -1508,7 +1563,7 @@ function headHtml(p){
     '<button type="button" class="clockbox'+(digitalShown()?" dig":"")+'" data-clock aria-label="Hodiny">'+aclockSvg("hd",true)+'<span class="cbt"><span class="clk">'+fmtMin(nowMin())+'</span><span class="dt">'+fmtLong(today)+'</span></span></button>'+
     '<div class="prog" role="status" aria-live="polite" data-tip="Kolik věcí už máš připravených do batohu na vybraný den. Až odškrtáš všechny, kruh se zaplní.">'+ring(done,tot)+'<div><b>'+done+'/'+tot+'</b><span>'+st+'</span></div></div>'+
     '<div class="head-tools"><button type="button" class="ibtn" data-view="week" aria-label="Týdenní rozvrh">'+ic("i-cal")+'</button>'+
-      '<button type="button" class="ibtn" data-view="settings" aria-label="Nastavení pro rodiče">'+ic("i-sliders")+'</button></div>'+
+      '<button type="button" class="ibtn" data-view="settings" aria-label="Nastavení pro rodiče">'+ic("i-sliders")+'</button></div>'+kidHtml()+
   '</header>';
 }
 const NAV=[["home","Přehled","i-grid"],["tasks","Úkoly a akce","i-flag"],["books","Učebnice a sešity","i-book"],["supplies","Pomůcky","i-pencil"],["food","Svačina a pití","i-food"],
@@ -3112,8 +3167,11 @@ function settingsHtml(){
         '<button type="button" class="btn icon danger" data-delitem="'+si+'" data-i="'+ii+'" aria-label="Odebrat pomůcku">✕</button></div>').join(""):'<p class="muted">Zatím žádné pomůcky.</p>')+
       '<form class="addrow" data-additem="'+si+'"><input type="text" id="ai-'+esc(s.id)+'" placeholder="Přidat pomůcku…" aria-label="Nová pomůcka"><button class="btn primary">Přidat</button></form></div>').join("")+
     '<form class="addrow" id="add-subj" style="margin-top:1rem"><input type="text" id="add-subj-name" placeholder="Název nového předmětu…" aria-label="Nový předmět"><button class="btn primary">Přidat předmět</button></form></section>'+
-   '<section class="s-sec"><h3>Tisk a kalendář</h3><p>Jméno se tiskne v hlavičce týdenního plánu a ročního přehledu.</p>'+
-    '<div class="addrow"><input type="text" id="child-name" value="'+esc(cfg.child||"")+'" placeholder="Jméno dítěte" aria-label="Jméno dítěte"></div>'+
+   '<section class="s-sec"><h3>Dítě, tisk a kalendář</h3><p>Jméno, narozeniny a svátek se ukazují v hlavičce s odpočtem dní. Jméno se tiskne i v hlavičce týdenního plánu a ročního přehledu.</p>'+
+    '<div class="addrow kidrow"><label>Jméno<input type="text" id="child-name" value="'+esc(cfg.child||"")+'" placeholder="Jméno" aria-label="Jméno dítěte"></label>'+
+    '<label>Příjmení<input type="text" id="child-last" value="'+esc(cfg.childLast||"")+'" placeholder="Příjmení" aria-label="Příjmení dítěte"></label>'+
+    '<label>Narozeniny<input type="date" id="child-birth" value="'+esc(cfg.birth||"")+'" aria-label="Datum narození"></label>'+
+    '<label>Svátek (den. měsíc.)<input type="text" id="child-nameday" value="'+esc(cfg.nameday||"")+'" placeholder="např. 25. 7." inputmode="decimal" aria-label="Svátek"></label></div>'+
     '<p style="margin:.9rem 0 .5rem">Export do kalendáře (Google, Apple): jedna událost na každý školní den do konce školního roku s hodinami a učebnicemi v popisu, k tomu prázdniny, úkoly a akce.</p>'+
     '<button type="button" class="btn primary" id="btn-ics">Stáhnout kalendář (.ics)</button>'+
     '<p class="muted" style="margin-top:.5rem">Google Kalendář: na počítači otevři calendar.google.com → Nastavení → Import a export → vyber soubor. Opakovaný import stejné události aktualizuje, nezdvojí.</p></section>'+
@@ -3287,6 +3345,9 @@ document.addEventListener("change", e=>{
   if(d.les!==undefined){ const a=curSched(); if(a) a[+d.les]=t.value; }
   else if(t.id==="ov-date"){ if(t.value){ editDate=t.value; } render(); return; }
   else if(t.id==="child-name"){ cfg.child=val; }
+  else if(t.id==="child-last"){ cfg.childLast=val; }
+  else if(t.id==="child-birth"){ cfg.birth=t.value||""; }
+  else if(t.id==="child-nameday"){ cfg.nameday=val; }
   else if(t.id==="ov-note"){ const o=overrideOf(editDate); if(o) o.note=val; }
   else if(d.hfrom!==undefined){ if(t.value){ cfg.holidays[+d.hfrom].from=t.value; if(cfg.holidays[+d.hfrom].to<t.value) cfg.holidays[+d.hfrom].to=t.value; sortHolidays(); } resetSelected(); }
   else if(d.hto!==undefined){ if(t.value) cfg.holidays[+d.hto].to=t.value; resetSelected(); }
