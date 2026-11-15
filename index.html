@@ -1006,6 +1006,15 @@ body::before{background:#140A3C}
 .gtypes button.on{background:#FFE14D;border-color:#C77C0E;color:#2A1300}
 .goalwin .gw-ic{font-size:4rem}.gw-t{font-weight:700;font-size:1.15rem}.gw-rew{font-size:1.1rem}
 .goalwin{position:relative;overflow:hidden}
+.pinpad{max-width:20rem;text-align:center}
+.pin-dots{display:flex;justify-content:center;gap:.8rem;margin:1rem 0}
+.pin-dots i{width:1rem;height:1rem;border-radius:50%;border:2px solid var(--ink-3)}.pin-dots i.on{background:var(--ink);border-color:var(--ink)}
+.pin-dots.err{animation:shake .4s}
+.pin-keys{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-bottom:1rem}
+.pin-keys button{min-height:3.6rem;font-size:1.5rem;font-family:var(--f-game);border-radius:.8rem;border:2px solid var(--line);background:var(--surface-2);color:var(--ink)}
+.pinsec{border:2px solid var(--line);border-radius:.8rem;padding:.7rem .9rem;margin-bottom:1rem}
+.pinsec h3{display:flex;gap:.5rem;align-items:center;margin:0 0 .3rem}
+.wsum .kv{display:grid;grid-template-columns:repeat(auto-fill,minmax(6.5rem,1fr))}
 @media print{
   @page{size:A4 landscape;margin:8mm}
   /* rezerva pro tiskárny / Safari s vlastními okraji (až ~13 mm) i pro tisk bez okrajů */
@@ -1038,6 +1047,7 @@ body::before{background:#140A3C}
   <symbol id="i-msg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="3" width="15" height="18" rx="2"/><path d="M8.5 8h7M8.5 12h7M8.5 16h4"/></symbol>
   <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20a6 6 0 0 1 12 0"/><circle cx="17" cy="9" r="2.5"/><path d="M15.8 14.2A5 5 0 0 1 21 19"/></symbol>
   <symbol id="i-clip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4.5" width="14" height="16.5" rx="2"/><path d="M9 4.5V3.5h6v1"/><path d="M8.5 12.5l2.2 2.2 4.8-4.7"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
   <symbol id="i-sliders" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h11M19 18h1"/><circle cx="15" cy="6" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="17" cy="18" r="2"/></symbol>
   <symbol id="i-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path d="M7.5 14h2M11 14h2M14.5 14h2M7.5 17h2M11 17h2"/></symbol>
   <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
@@ -1072,7 +1082,7 @@ body::before{background:#140A3C}
 const COLOR_HEX={pink:"#E0566F",blue:"#2F7FE0",green:"#2EA650",yellow:"#E3AE00",purple:"#8B5CF6",orange:"#F08A24",gray:"#8A96A8"};
 const COLOR_NAMES={pink:"růžová",blue:"modrá",green:"zelená",yellow:"žlutá",purple:"fialová",orange:"oranžová",gray:"šedá"};
 const ICON_NAMES={cj:"kniha",ma:"kalkulačka",pu:"list",aj:"vlajka",hv:"nota",tv:"běžec",pv:"nůžky",vv:"paleta",book:"sešit",q:"otazník"};
-const APP_VERSION="46"; window.APP_VERSION=APP_VERSION;
+const APP_VERSION="47"; window.APP_VERSION=APP_VERSION;
 const KIND={sdel:{icon:"i-msg",short:null},druz:{icon:"i-users",short:null},ukol:{icon:"i-flag",short:null},food:{icon:"i-food",short:"Svačina"},drink:{icon:"i-drop",short:"Pití"},other:{icon:"i-dot",short:null}};
 
 const DEFAULTS = {
@@ -1838,6 +1848,54 @@ function openSprint(){
   });
   document.body.appendChild(ov); draw();
 }
+/* ---------- rodičovský zámek (PIN) ---------- */
+let pinOkUntil=0;
+function pinLocked(){ return !!cfg.pin && Date.now()>pinOkUntil; }
+function askPin(onOk){
+  const ov=document.createElement("div"); ov.className="overlay pin-ov"; let v="";
+  const draw=(err)=>{ ov.innerHTML='<div class="sheet pinpad"><span class="eyebrow">Jen pro rodiče</span><h2>Zadej PIN</h2><div class="pin-dots'+(err?" err":"")+'">'+[0,1,2,3].map(i=>'<i class="'+(i<v.length?"on":"")+'"></i>').join("")+'</div>'+
+    '<div class="pin-keys">'+[1,2,3,4,5,6,7,8,9,"",0,"⌫"].map(k=>k===""?'<span></span>':'<button type="button" data-pk="'+k+'">'+k+'</button>').join("")+'</div><button type="button" class="btn" data-pinx>Zrušit</button></div>'; };
+  ov.addEventListener("click",e=>{ e.stopPropagation(); const b=e.target.closest("[data-pk]");
+    if(e.target.closest("[data-pinx]")||e.target===ov){ ov.remove(); return; }
+    if(!b) return; const k=b.dataset.pk; if(k==="⌫") v=v.slice(0,-1); else if(v.length<4) v+=k;
+    if(v.length===4){ if(v===String(cfg.pin)){ pinOkUntil=Date.now()+10*60*1000; ov.remove(); onOk(); return; } v=""; draw(true); return; } draw(); });
+  document.body.appendChild(ov); draw();
+}
+function pinSection(){
+  return '<section class="setsec pinsec"><h3>'+ic("i-lock")+'Rodičovský zámek</h3>'+(cfg.pin?'<p class="muted">Nastavení a Přehled pro rodiče jsou zamčené PINem. Po zadání zůstanou 10 minut odemčené.</p><div class="addrow"><button type="button" class="btn" data-pinset>Změnit PIN</button><button type="button" class="btn danger" data-pinoff>Zrušit zámek</button></div>':
+    '<p class="muted">Nastav čtyřmístný PIN, aby Chris nemohl měnit rozvrh, pomůcky ani cíle.</p><div class="addrow"><input type="password" inputmode="numeric" maxlength="4" id="pin-new" placeholder="4 číslice" style="max-width:9rem"><button type="button" class="btn primary" data-pinset>Nastavit PIN</button></div>')+'</section>';
+}
+/* ---------- týdenní souhrn ---------- */
+function weekSummary(){
+  const mon=weekMonday(pragueToday()), sun=addDays(mon,6), inW=d=>d>=mon&&d<=sun, out={mon,sun,tests:0,sum:0,days:new Set(),lessons:{},daily:0};
+  LESSONS.forEach(l=>{ const r=LEARN[l.id]; (r&&r.hist||[]).filter(h=>inW(h.d)).forEach(h=>{ out.tests++; out.sum+=h.pct; out.days.add(h.d); const x=out.lessons[l.id]=out.lessons[l.id]||{n:0,best:0,t:l.title}; x.n++; x.best=Math.max(x.best,h.pct); }); });
+  Object.entries(LEARN._daily||{}).filter(([d,x])=>inW(d)&&x.done).forEach(([d,x])=>{ out.daily++; out.tests++; out.sum+=Math.round(100*x.ok/Math.max(1,x.n)); out.days.add(d); });
+  (LEARN._big||[]).filter(b=>inW(b.d)).forEach(b=>{ out.tests++; out.sum+=b.pct; out.days.add(b.d); });
+  out.avg=out.tests?Math.round(out.sum/out.tests):null;
+  out.sprint=((LEARN._sprint||{}).hist||[]).filter(h=>inW(h.d)).reduce((m,h)=>Math.max(m,h.ok),0);
+  out.wrong=((LEARN._wk||{})[mon]||[]).map(x=>{ const l=lessonById(x.l); return l?(l.gen?(GEN_TYPES[x.t]||x.t)+" ("+l.title+")":l.title):null; }).filter(Boolean);
+  out.wrongCount={}; out.wrong.forEach(w=>out.wrongCount[w]=(out.wrongCount[w]||0)+1);
+  out.hw=(cfg.tasks||[]).filter(t=>t.kind==="ukol"&&t.done&&inW(t.date)).length;
+  out.streak=PET.name?streakInfo().n:0; out.badges=PET.prog?Object.values(PET.prog.badges||{}).filter(inW).length:0;
+  const G=PET.name&&goal(); out.goal=G?goalText(G)+(G.won?" – splněno!":""):null;
+  return out;
+}
+function weekText(w){
+  return "Školní parťák – týden "+fmtShort(w.mon)+"–"+fmtShort(w.sun)+"\n"+
+    "Aktivní dny: "+w.days.size+" z 7\nTestů: "+w.tests+(w.avg!=null?" (průměr "+w.avg+" %)":"")+"\nTest dne: "+w.daily+"×\n"+
+    (w.sprint?"Násobilkový sprint: nejlépe "+w.sprint+"\n":"")+(w.hw?"Domácí úkoly hotové: "+w.hw+"\n":"")+(w.streak?"Série: "+w.streak+" dní\n":"")+
+    (Object.keys(w.lessons).length?"Procvičoval: "+Object.values(w.lessons).map(x=>x.t+" ("+x.best+" %)").join(", ")+"\n":"")+
+    (w.wrong.length?"Ještě nejde: "+Object.keys(w.wrongCount).join(", ")+"\n":"Tento týden žádné neopravené chyby.\n")+(w.goal?"Cíl: "+w.goal+"\n":"");
+}
+function weekSummaryHtml(){
+  const w=weekSummary();
+  return '<section class="lsec wsum"><h3>'+ic("i-cal")+'<span>Tento týden ('+fmtShort(w.mon)+'–'+fmtShort(w.sun)+')</span></h3>'+
+    '<div class="kv"><div><b>'+w.days.size+'/7</b><span>aktivních dní</span></div><div><b>'+w.tests+'</b><span>testů</span></div><div><b>'+(w.avg!=null?w.avg+" %":"–")+'</b><span>průměr</span></div><div><b>'+w.daily+'×</b><span>Test dne</span></div><div><b>'+(w.sprint||"–")+'</b><span>sprint</span></div><div><b>'+w.hw+'</b><span>dom. úkolů</span></div></div>'+
+    (Object.keys(w.lessons).length?'<h4>Procvičoval</h4><ul class="hard">'+Object.values(w.lessons).map(x=>'<li><span>'+esc(x.t)+' <em>'+x.n+'× test</em></span><b>'+x.best+' %</b></li>').join("")+'</ul>':"")+
+    '<h4>Ještě nejde</h4>'+(w.wrong.length?'<ul class="hard">'+Object.entries(w.wrongCount).map(([k,n])=>'<li><span>'+esc(k)+'</span><b>'+n+'×</b></li>').join("")+'</ul>':'<p class="lc-best">Žádné neopravené chyby. Skvělé!</p>')+
+    (w.goal?'<p><b>Cíl:</b> '+esc(w.goal)+'</p>':"")+
+    '<div class="lc-foot"><span class="sp"></span><button type="button" class="btn small primary" data-wshare>'+ic("i-arrow")+'Poslat souhrn</button></div></section>';
+}
 function weekCard(){
   const wd=dow(pragueToday()), W=weekWrongs(), done=(LEARN._wkdone||{})[wkKey()];
   if(!(wd===5||wd===6||wd===0)) return W.length?'<article class="lcard wkfix soon"><div class="lc-top">'+ic("i-alert")+'<b>Opravný test týdne</b><span class="lc-src">v pátek</span></div><p>Zatím se nasbíralo <b>'+W.length+'</b> '+(W.length===1?"věc":W.length<5?"věci":"věcí")+', které nešly. V pátek z nich bude opravný test.</p></article>':"";
@@ -1889,7 +1947,7 @@ function learnHtml(){
         (hard.length?'<h4>Co zatím nejde</h4><ul class="hard">'+hard.map(x=>{ if(l.gen){ return '<li><span>'+esc(GEN_TYPES[x.key]||x.key)+' <em>'+x.ok+'× dobře</em></span><b>'+x.bad+'× špatně</b></li>'; } const q=l.quiz[x.qi]; return q?'<li><span>'+esc(q.q)+' <em>'+esc(q.a[q.c])+'</em></span><b>'+x.bad+'× špatně</b></li>':""; }).join("")+'</ul>':'<p class="lc-best">Zatím žádné chyby.</p>')+
         '<div class="lc-foot"><span class="sp"></span><button type="button" class="btn small" data-lprint="'+esc(l.id)+'">'+ic("i-printer")+'Vytisknout test</button></div></section>';
     }).join("");
-    return detailCard("Přehled pro rodiče","i-users","",'<div class="lhead">'+back+'</div><h3 class="sub">Test dne – posledních 14 dní</h3>'+strip+'<div class="lsecs" style="margin-top:.8rem">'+rows+'</div>');
+    return detailCard("Přehled pro rodiče","i-users","",'<div class="lhead">'+back+'</div>'+weekSummaryHtml()+'<h3 class="sub">Test dne – posledních 14 dní</h3>'+strip+'<div class="lsecs" style="margin-top:.8rem">'+rows+'</div>');
   }
   if(learnMode==="study"){
     const l=lessonById(learnId);
@@ -2979,7 +3037,7 @@ function settingsHtml(){
    '<section class="s-sec"><h3>Obnovit výchozí nastavení</h3><p>Vrátí původní rozvrh, časy a seznamy pomůcek. Odškrtnuté věci zůstanou.</p>'+
     '<button type="button" class="btn danger" id="btn-reset">Obnovit výchozí</button></section>';
   return '<section class="card c-detail" id="c-detail"><div class="card-h"><button type="button" class="back" data-view="home" id="btn-back">'+ic("i-chev")+'Přehled</button>'+ic("i-sliders")+'<h2>Nastavení pro rodiče</h2></div>'+
-    '<div class="body" data-scroll="set">'+inner+'</div></section>';
+    '<div class="body" data-scroll="set">'+pinSection()+inner+'</div></section>';
 }
 
 /* ---------- vykreslení ---------- */
@@ -3038,6 +3096,7 @@ document.addEventListener("click", async e=>{
   const pem=t.closest("[data-pemote]"); if(pem){ const e=pem.dataset.pemote; prog("dance"); petPlay(e,EMOTE_SAY[e]); return; }
   if(t.closest("[data-chest]")){ openChest(); return; }
   if(t.closest("[data-goalnew]")){ openGoalSheet(); return; }
+  if(t.closest("[data-goaldone]")&&pinLocked()){ askPin(()=>{ const G=goal(); if(G){ G.done=true; savePet(); goalCheck(); render(); } }); return; }
   if(t.closest("[data-goaldone]")){ const G=goal(); if(G&&await askConfirm("Potvrzuješ jako rodič, že cíl „"+G.text+"“ je splněný?","Ano, splněno")){ G.done=true; savePet(); goalCheck(); render(); } return; }
   if(t.closest("[data-friend]")){ const nm=(document.getElementById("friendname")||{}).value||""; if(!nm.trim()){ toast("Napiš jméno kamaráda."); return; } if((PET.gold||0)<8) return; PET.gold-=8; PET.friend={name:nm.trim().slice(0,14)}; badgeCheck(); savePet(); render(); toast(PET.name+" má kamaráda "+PET.friend.name+"!"); return; }
   const pob=t.closest("[data-pobj]"); if(pob&&petTab==="care"){ petObj(pob.dataset.pobj); return; }
@@ -3051,6 +3110,7 @@ document.addEventListener("click", async e=>{
   const lb=t.closest("[data-lbig]"); if(lb){ startQuiz(lb.dataset.lbig==="big"?"big":"subj", lb.dataset.lbig==="big"?null:lb.dataset.lbig); view="learn"; resetScroll=true; render(); return; }
   if(t.closest("[data-lweek]")){ startQuiz("week"); if(!quiz.refs.length){ quiz=null; toast("Tento týden není co opravovat."); render(); return; } view="learn"; resetScroll=true; render(); return; }
   if(t.closest("[data-ldaily]")){ startQuiz("daily"); view="learn"; resetScroll=true; render(); return; }
+  if(t.closest("[data-lstats]")&&pinLocked()){ askPin(()=>{ learnMode="stats"; quiz=null; view="learn"; resetScroll=true; render(); }); return; }
   if(t.closest("[data-lstats]")){ learnMode="stats"; quiz=null; view="learn"; resetScroll=true; render(); return; }
   if(t.closest("[data-llist]")){ learnMode="list"; quiz=null; try{ speechSynthesis.cancel(); }catch(e){} resetScroll=true; render(); return; }
   const lpr=t.closest("[data-lprint]"); if(lpr){ printLesson=lpr.dataset.lprint; printMode="quiz"; view="print"; resetScroll=true; render(); return; }
@@ -3065,6 +3125,12 @@ document.addEventListener("click", async e=>{
     quiz.i++; quiz.picked=null;
     if(quiz.i>=quiz.refs.length) finishQuiz();
     resetScroll=true; render(); return; }
+  { const v0=t.closest("[data-view]"); if(v0&&v0.dataset.view==="settings"&&view!=="settings"&&pinLocked()){ askPin(()=>{ view="settings"; resetScroll=true; render(); }); return; } }
+  if(t.closest("[data-wshare]")){ const txt=weekText(weekSummary()); try{ if(navigator.share){ await navigator.share({title:"Školní parťák – týden",text:txt}); } else { await navigator.clipboard.writeText(txt); toast("Souhrn zkopírován – vlož ho do zprávy."); } }catch(e){ try{ await navigator.clipboard.writeText(txt); toast("Souhrn zkopírován."); }catch(e2){} } return; }
+  if(t.closest("[data-pinset]")){ const inp=document.getElementById("pin-new");
+    if(cfg.pin&&!inp){ const nv=prompt("Nový čtyřmístný PIN:"); if(nv&&/^\d{4}$/.test(nv)){ cfg.pin=nv; saveCfg(); toast("PIN změněn."); render(); } else if(nv!=null) toast("PIN musí mít 4 číslice."); return; }
+    const nv=inp&&inp.value; if(!/^\d{4}$/.test(nv||"")){ toast("PIN musí mít 4 číslice."); return; } cfg.pin=nv; pinOkUntil=Date.now()+10*60*1000; saveCfg(); render(); toast("Zámek zapnutý. PIN si zapamatuj!"); return; }
+  if(t.closest("[data-pinoff]")){ if(await askConfirm("Opravdu zrušit rodičovský zámek?","Zrušit zámek")){ delete cfg.pin; saveCfg(); render(); toast("Zámek vypnutý."); } return; }
   const v=t.closest("[data-view]"); if(v){ if(v.dataset.view==="learn"){ learnMode="list"; quiz=null; } if(v.dataset.pm) printMode=v.dataset.pm; view=v.dataset.view; resetScroll=true; window.scrollTo(0,0); render(); return; }
   if(t.closest("#btn-zitra") || t.closest('[data-modal="next"]')){ modalIso=nextSchoolDay(pragueToday()); renderModal(); return; }
   const md=t.closest("[data-mday]"); if(md){ modalIso=md.dataset.mday; renderModal(); return; }
