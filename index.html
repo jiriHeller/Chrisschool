@@ -1091,7 +1091,7 @@ body::before{background:#140A3C}
 const COLOR_HEX={pink:"#E0566F",blue:"#2F7FE0",green:"#2EA650",yellow:"#E3AE00",purple:"#8B5CF6",orange:"#F08A24",gray:"#8A96A8"};
 const COLOR_NAMES={pink:"růžová",blue:"modrá",green:"zelená",yellow:"žlutá",purple:"fialová",orange:"oranžová",gray:"šedá"};
 const ICON_NAMES={cj:"kniha",ma:"kalkulačka",pu:"list",aj:"vlajka",hv:"nota",tv:"běžec",pv:"nůžky",vv:"paleta",book:"sešit",q:"otazník"};
-const APP_VERSION="48"; window.APP_VERSION=APP_VERSION;
+const APP_VERSION="49"; window.APP_VERSION=APP_VERSION;
 const KIND={sdel:{icon:"i-msg",short:null},druz:{icon:"i-users",short:null},ukol:{icon:"i-flag",short:null},food:{icon:"i-food",short:"Svačina"},drink:{icon:"i-drop",short:"Pití"},other:{icon:"i-dot",short:null}};
 
 const DEFAULTS = {
@@ -2282,7 +2282,7 @@ function petHtml(){
     (petTab==="shop"?shopHtml():petTab==="ward"?wardrobeHtml():petTab==="ach"?achieveHtml():(statBar("food","Sytost","#F0A030",s.food)+statBar("water","Pití","#3FA9F5",s.water)+statBar("joy","Radost","#FF5C8A",s.joy)+lvlBar+
     '<h4>Zásoby</h4><div class="pitems">'+items+'</div>'+
     '<button type="button" class="btn big pet-love" data-tip="Pohlazení: +6 radosti a +1 zkušenost. Jde to jednou za 3 minuty a ne, když morče spí." data-ppet'+(canPet?"":" disabled")+'>'+ic("i-heart")+(asleep?'Spinká – za '+(napInfo(Date.now()).wakeIn||1)+' min se probudí':canPet?'Pohladit':'Pohladit můžeš za chvilku')+'</button>'+
-    '<button type="button" class="btn pet-share" data-pshare data-tip="Udělá obrázek morčete s tvými úspěchy, který můžeš poslat kamarádům.">📤 Ukázat morče kamarádům</button>'+
+    '<button type="button" class="btn pet-share" data-pshare data-tip="Udělá sběratelskou kartu tvého morčete s úspěchy. Můžeš ji poslat kamarádům. Čím vyšší úroveň, tím vzácnější karta: Běžná → Vzácná → Epická → Legendární.">🃏 Sběratelská karta morčete</button>'+
     '<div class="pet-earn"><b>Jak získat jídlo a mince:</b><ul><li>správná odpověď = '+itemSvg("hay")+' seno + 2 '+coinSvg(false)+'</li><li>dokončený test = 2× '+itemSvg("water")+' voda + 5 '+coinSvg(false)+'</li><li>test na 90 % a víc = '+itemSvg("treat")+' jahoda</li><li>test na 100 % = 1 '+coinSvg(true)+' zlatá hvězda (za každé téma jednou denně)</li><li>Test dne = '+itemSvg("carrot")+' mrkev + 2× voda + 10 '+coinSvg(false)+'</li><li><b>Velký test</b> = 3 '+coinSvg(false)+' za odpověď, +30 '+coinSvg(false)+' a za 90 % 2 '+coinSvg(true)+'</li></ul>'+
     '<button type="button" class="btn small primary" data-view="learn">'+ic("i-learn")+'Jít do Výuky</button></div>'))+'</div></div>');
 }
@@ -2455,7 +2455,7 @@ function achieveHtml(){
   const friend=PET.friend?'<div class="ish-sec"><h4>Kamarád</h4><p class="ish-hint">'+esc(PET.name)+' má kamaráda <b>'+esc(PET.friend.name)+'</b>. Bydlí spolu v pokojíčku.</p></div>':
     '<div class="ish-sec"><h4>Kamarád pro '+esc(PET.name)+'</h4><p class="ish-hint">Morčata nechtějí být sama. Od úrovně 4 můžeš '+esc(PET.name)+' pořídit kamaráda za <b>8 zlatých hvězd</b>.</p>'+
       (petLevel()>=4?'<div class="friendbuy"><input id="friendname" placeholder="Jméno kamaráda" maxlength="14"><button type="button" class="btn primary" data-friend'+((PET.gold||0)>=8?"":" disabled")+'>Pořídit za 8 '+coinSvg(true)+'</button></div>':'<p class="ish-hint">Teď je '+esc(PET.name)+' na úrovni '+petLevel()+'.</p>')+'</div>';
-  return '<div class="ishop ach"><div class="ish-h"><h3>Úspěchy</h3><button type="button" class="btn small primary" data-pshare data-tip="Udělá obrázek morčete s tvými úspěchy, který můžeš poslat kamarádům.">📤 Poslat kamarádům</button></div>'+
+  return '<div class="ishop ach"><div class="ish-h"><h3>Úspěchy</h3><button type="button" class="btn small primary" data-pshare data-tip="Udělá sběratelskou kartu tvého morčete s úspěchy. Můžeš ji poslat kamarádům. Čím vyšší úroveň, tím vzácnější karta: Běžná → Vzácná → Epická → Legendární.">🃏 Sběratelská karta</button></div>'+
     '<div class="streak" data-tip="'+esc("Série = kolik školních dní za sebou jsi něco udělal: dokončil test nebo Test dne, sbalil batoh krok za krokem nebo dodělal domácí úkol. Víkend a prázdniny sérii nepřeruší.\nOdměny:\n• "+STREAK_REW.map(([m,r])=>m+" dní – "+[r.coins?r.coins+" mincí":"",r.gold?r.gold+"× zlatá hvězda":"",r.item&&SHOP_BY[r.item]?SHOP_BY[r.item].name:""].filter(Boolean).join(" + ")).join("\n• "))+'"><span class="fl">🔥</span><div><b>'+s.n+'</b> '+(s.n===1?"den":s.n>=2&&s.n<=4?"dny":"dní")+' v řadě<small>'+(s.today?"Dnes splněno.":"Dnes ještě udělej test, sbal batoh nebo domácí úkol.")+(next?" Za "+(next[0]-s.n)+" "+((next[0]-s.n)===1?"den":"dny")+" odměna"+(next[1].item?" a výjimečná věc!":"!"):"")+' Víkend sérii nepřeruší.</small></div></div>'+
     '<div class="ish-sec"><h4>Můj cíl</h4>'+goalCard()+'</div>'+
     '<div class="ish-sec"><h4>Dnešní úkoly</h4>'+qs+chest+'</div>'+
@@ -3328,27 +3328,63 @@ document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==
 function shareCardBlob(){
   return new Promise(function(resolve,reject){
     try{ petTick(); }catch(e){}
-    var W=1080,H=1350,c=document.createElement("canvas"); c.width=W; c.height=H; var g=c.getContext("2d");
-    var font='-apple-system,"SF Pro Rounded","Segoe UI",Roboto,sans-serif';
-    var P=progInit(), lvl=petLevel(), stg=PET_STAGES[lvl-1], s=streakInfo(), nb=Object.keys(P.badges||{}).length;
+    var W=1080,H=1512,c=document.createElement("canvas"); c.width=W; c.height=H; var g=c.getContext("2d");
+    var F='-apple-system,"SF Pro Rounded","Segoe UI",Roboto,sans-serif';
+    var P=progInit(), lvl=petLevel(), stg=PET_STAGES[lvl-1], s=streakInfo(), cnt=P.cnt||{};
+    var badges=BADGES.filter(function(b){ return P.badges&&P.badges[b.id]; });
+    var TIERS=[["Běžná","#C9D1DC","#7D8796","#F4F6F9"],["Vzácná","#7CC4FF","#2F6FE0","#EEF6FF"],["Epická","#C59BFF","#6A3FD1","#F5EEFF"],["Legendární","#FFE07A","#E39A00","#FFF8E1"]];
+    var ti=lvl<=2?0:lvl<=4?1:lvl<=6?2:3, T=TIERS[ti];
     function rr(x,y,w,h,r){ g.beginPath(); g.moveTo(x+r,y); g.arcTo(x+w,y,x+w,y+h,r); g.arcTo(x+w,y+h,x,y+h,r); g.arcTo(x,y+h,x,y,r); g.arcTo(x,y,x+w,y,r); g.closePath(); }
-    var bg=g.createLinearGradient(0,0,W,H); bg.addColorStop(0,"#FFF1D6"); bg.addColorStop(.55,"#FFE0EC"); bg.addColorStop(1,"#E3E4FF"); g.fillStyle=bg; g.fillRect(0,0,W,H);
-    g.fillStyle="#2D1B3D"; g.textAlign="center";
-    g.font="800 70px "+font; g.fillText("Moje morče "+(PET.name||""),W/2,118);
-    g.font="600 40px "+font; g.fillStyle="#6B4E8C"; g.fillText("Úroveň "+lvl+" · "+stg.name,W/2,178);
+    function txt(t,x,y,size,weight,color,align){ g.font=(weight||"700")+" "+size+"px "+F; g.fillStyle=color||"#2D1B3D"; g.textAlign=align||"left"; g.fillText(t,x,y); }
+    function fit(t,max,size,weight){ g.font=(weight||"700")+" "+size+"px "+F; while(g.measureText(t).width>max&&t.length>3) t=t.slice(0,-2)+"…"; return t; }
+    function star(cx,cy,r,col){ g.save(); g.translate(cx,cy); g.beginPath(); for(var i=0;i<8;i++){ var a=i*Math.PI/4, rad=i%2?r*.28:r; g.lineTo(Math.cos(a)*rad,Math.sin(a)*rad); } g.closePath(); g.fillStyle=col; g.fill(); g.restore(); }
+    // rám karty + holografický lesk
+    g.save(); rr(0,0,W,H,60); g.clip();
+    var fr=g.createLinearGradient(0,0,W,H); fr.addColorStop(0,T[1]); fr.addColorStop(.5,T[2]); fr.addColorStop(1,T[1]); g.fillStyle=fr; g.fillRect(0,0,W,H);
+    var holo=["#FF8AD8","#FFE47A","#7CF5C4","#7CC4FF","#C59BFF"];
+    g.globalAlpha=ti===0?.12:.28; for(var k=-H;k<W+H;k+=70){ g.fillStyle=holo[(k/70+40)%5|0]; g.beginPath(); g.moveTo(k,0); g.lineTo(k+34,0); g.lineTo(k+34-H*.6,H); g.lineTo(k-H*.6,H); g.closePath(); g.fill(); }
+    g.globalAlpha=1;
+    // vnitřní plocha
+    var ip=g.createLinearGradient(0,40,0,H-40); ip.addColorStop(0,"#FFFFFF"); ip.addColorStop(1,T[3]); g.fillStyle=ip; rr(34,34,W-68,H-68,40); g.fill();
+    g.lineWidth=4; g.strokeStyle="rgba(255,255,255,.9)"; rr(34,34,W-68,H-68,40); g.stroke();
+    // hlavička: jméno + úroveň
+    txt(fit(PET.name||"Morče",700,76,"800"),76,138,76,"800");
+    txt(stg.name+" · "+(PET.xp||0)+" XP",78,186,34,"600","#6B5A80");
+    g.fillStyle=T[2]; g.beginPath(); g.arc(W-138,114,66,0,7); g.fill(); g.lineWidth=6; g.strokeStyle="#fff"; g.stroke();
+    txt("ÚROVEŇ",W-138,92,20,"800","#fff","center"); txt(String(lvl),W-138,150,60,"900","#fff","center");
+    // obrázek
+    var px=72,py=214,pw=936,ph=669;
+    g.fillStyle=T[2]; rr(px-10,py-10,pw+20,ph+20,30); g.fill();
     var svg=petScene().replace("<svg ",'<svg xmlns="http://www.w3.org/2000/svg" width="1260" height="900" ');
     var img=new Image();
     img.onload=function(){
-      g.save(); rr(60,220,960,686,44); g.clip(); g.drawImage(img,60,220,960,686); g.restore();
-      g.lineWidth=8; g.strokeStyle="#fff"; rr(60,220,960,686,44); g.stroke();
-      var chips=[["🔥",s.n+" "+(s.n===1?"den":s.n>=2&&s.n<=4?"dny":"dní")+" v řadě"],["🏅",nb+" / "+BADGES.length+" odznaků"],["⭐",(PET.gold||0)+" zlatých hvězd"],["✨",(PET.xp||0)+" zkušeností"]];
-      chips.forEach(function(ch,i){ var x=60+(i%2)*490, y=946+Math.floor(i/2)*110; g.fillStyle="rgba(255,255,255,.85)"; rr(x,y,470,92,28); g.fill();
-        g.textAlign="left"; g.font="52px "+font; g.fillStyle="#2D1B3D"; g.fillText(ch[0],x+26,y+64); g.font="700 38px "+font; g.fillText(ch[1],x+100,y+60); });
-      var got=BADGES.filter(function(b){ return P.badges&&P.badges[b.id]; });
-      g.textAlign="center";
-      if(got.length){ g.font="56px "+font; var step=Math.min(84,900/got.length), x0=W/2-step*(got.length-1)/2; got.forEach(function(b,i){ g.fillText(b.e,x0+i*step,1250); }); }
-      else { g.font="600 34px "+font; g.fillStyle="#6B4E8C"; g.fillText("Sbírám první odznaky!",W/2,1245); }
-      g.font="600 30px "+font; g.fillStyle="#8E7AA8"; g.fillText("Školní parťák",W/2,1318);
+      g.save(); rr(px,py,pw,ph,22); g.clip(); g.drawImage(img,px,py,pw,ph);
+      // lesk přes obrázek
+      var sh=g.createLinearGradient(px,py,px+pw,py+ph); sh.addColorStop(0,"rgba(255,255,255,0)"); sh.addColorStop(.45,"rgba(255,255,255,0)"); sh.addColorStop(.5,"rgba(255,255,255,.28)"); sh.addColorStop(.55,"rgba(255,255,255,0)"); g.fillStyle=sh; g.fillRect(px,py,pw,ph);
+      g.restore();
+      if(ti>0){ star(px+pw-40,py+44,26,"#fff"); star(px+pw-84,py+84,14,"rgba(255,255,255,.85)"); }
+      // typový proužek
+      var born=PET.born?new Date(PET.born):null, bs=born?born.getDate()+". "+(born.getMonth()+1)+". "+born.getFullYear():"";
+      g.fillStyle="rgba(45,27,61,.06)"; rr(72,910,936,66,33); g.fill();
+      txt("🐹  Morče"+(bs?" · narozen "+bs:""),100,955,30,"700","#4A3A60");
+      txt("⭐ "+(PET.gold||0)+"  ·  🪙 "+(PET.coins||0),W-100,955,30,"700","#4A3A60","right");
+      // statistiky jako na sportovní kartě
+      var st=[["🔥",String(s.n),"dní v řadě"],["🏅",badges.length+"/"+BADGES.length,"odznaků"],["✅",String(cnt.answers||0),"správně"],["👕",String((PET.owned||[]).length),"věcí v šatníku"]];
+      var bw=(936-3*18)/4;
+      st.forEach(function(x,i){ var bx=72+i*(bw+18), by=1000; g.fillStyle="#fff"; rr(bx,by,bw,176,24); g.fill(); g.lineWidth=3; g.strokeStyle=T[1]; rr(bx,by,bw,176,24); g.stroke();
+        txt(x[0],bx+bw/2,by+58,44,"400","#000","center"); txt(fit(x[1],bw-20,50,"900"),bx+bw/2,by+118,50,"900",T[2],"center"); txt(fit(x[2],bw-16,21,"700"),bx+bw/2,by+154,21,"700","#7A6A8E","center"); });
+      // schopnosti
+      var em=EMOTES.filter(function(e){ return lvl>=e.lv; }).map(function(e){ return e.name; });
+      function row(y,ic,label,val){ g.fillStyle="rgba(45,27,61,.05)"; rr(72,y,936,82,22); g.fill(); txt(ic,100,y+56,40,"400"); txt(label,160,y+54,32,"800","#2D1B3D"); txt(fit(val,560,28,"600"),W-100,y+54,28,"600","#5A4A70","right"); }
+      row(1198,"💃","Tanečky",em.length?em.join(", "):"zatím se učí");
+      row(1292,"🎓","Testy",(cnt.tests||0)+" hotových · "+(cnt.daily||0)+"× Test dne");
+      // patička: vzácnost, odznaky, číslo karty
+      var gems=""; for(var j=0;j<=ti;j++) gems+="◆"; txt(gems,78,1428,34,"900",T[2]); g.font="900 34px "+F; var gwd=g.measureText(gems).width;
+      txt(T[0],86+gwd,1428,30,"800",T[2]);
+      txt("č. "+String(lvl).padStart(3,"0")+" / "+String(PET_STAGES.length).padStart(3,"0"),W-78,1428,28,"800","#7A6A8E","right");
+      if(badges.length){ g.font="34px "+F; g.textAlign="center"; var bstep=Math.min(46,330/badges.length), bx0=W/2-bstep*(badges.length-1)/2; badges.forEach(function(b,i){ g.fillText(b.e,bx0+i*bstep,1430); }); }
+      txt("Školní parťák · sběratelská karta · "+(function(d){return d.getDate()+". "+(d.getMonth()+1)+". "+d.getFullYear();})(new Date()),W/2,1468,20,"700","#A090B4","center");
+      g.restore();
       c.toBlob(function(b){ b?resolve(b):reject(new Error("blob")); },"image/png");
     };
     img.onerror=function(){ reject(new Error("svg")); };
@@ -3357,17 +3393,17 @@ function shareCardBlob(){
 }
 function openShare(){
   var ov=document.createElement("div"); ov.className="overlay share-ov";
-  ov.innerHTML='<div class="sheet"><h2>Ukaž morče kamarádům</h2><p>Chystám obrázek…</p></div>';
+  ov.innerHTML='<div class="sheet"><h2>Tvoje sběratelská karta</h2><p>Chystám obrázek…</p></div>';
   document.body.appendChild(ov);
   ov.addEventListener("click",function(e){ e.stopPropagation(); if(e.target===ov||e.target.closest("[data-shclose]")) ov.remove(); });
   shareCardBlob().then(function(blob){
-    var url=URL.createObjectURL(blob), name="morce-"+(PET.name||"").toLowerCase().normalize("NFD").replace(/[^a-z0-9]+/g,"")+".png";
+    var url=URL.createObjectURL(blob), name="karta-"+(PET.name||"").toLowerCase().normalize("NFD").replace(/[^a-z0-9]+/g,"")+".png";
     var file=null; try{ file=new File([blob],name,{type:"image/png"}); }catch(e){}
     var canShare=!!(file&&navigator.canShare&&navigator.canShare({files:[file]}));
     var text="Podívej se na moje morče "+PET.name+"! Je na úrovni "+petLevel()+" a mám sérii "+streakInfo().n+" dní v řadě 🔥";
-    ov.querySelector(".sheet").innerHTML='<h2>Ukaž morče kamarádům</h2><img alt="Obrázek morčete" src="'+url+'">'+
+    ov.querySelector(".sheet").innerHTML='<h2>Tvoje sběratelská karta</h2><div class="cardwrap"><img alt="Sběratelská karta morčete" src="'+url+'"></div>'+
       '<div class="row">'+(canShare?'<button type="button" class="btn primary big" data-shgo>📤 Poslat</button>':'<a class="btn primary big" download="'+name+'" href="'+url+'">⬇️ Uložit obrázek</a>')+'<button type="button" class="btn big" data-shclose>Zavřít</button></div>'+
-      '<p class="hint">Na obrázku je jen morče a tvoje úspěchy. '+(canShare?'Vyber, komu ho pošleš.':'Můžeš taky podržet prst na obrázku a vybrat Uložit nebo Sdílet.')+'</p>';
+      '<p class="hint">Na kartě je jen morče a tvoje úspěchy. Čím vyšší úroveň, tím vzácnější karta. '+(canShare?'Vyber, komu ho pošleš.':'Můžeš taky podržet prst na obrázku a vybrat Uložit nebo Sdílet.')+'</p>';
     var go=ov.querySelector("[data-shgo]");
     if(go) go.addEventListener("click",function(e){ e.stopPropagation(); navigator.share({files:[file],title:"Moje morče "+PET.name,text:text}).catch(function(){}); });
   }).catch(function(){ ov.querySelector(".sheet").innerHTML='<h2>Obrázek se nepovedl</h2><p>Zkus to prosím znovu.</p><div class="row"><button type="button" class="btn" data-shclose>Zavřít</button></div>'; });
@@ -3414,7 +3450,12 @@ button[data-tip]{-webkit-touch-callout:none}
 .pet-share{margin:.6rem 0 .2rem;width:100%}
 .ach .ish-h{display:flex;align-items:center;justify-content:space-between;gap:.6rem;flex-wrap:wrap}
 .share-ov .sheet{max-width:560px;text-align:center}
-.share-ov img{width:100%;max-height:62vh;object-fit:contain;border-radius:1rem;box-shadow:0 6px 24px rgba(0,0,0,.15);-webkit-touch-callout:default}
+.share-ov .sheet{max-width:440px}
+.share-ov .cardwrap{position:relative;display:inline-block;border-radius:5.5% / 4%;overflow:hidden;box-shadow:0 14px 40px rgba(20,10,40,.35);animation:cardIn .5s ease-out}
+.share-ov img{display:block;width:100%;max-height:64vh;object-fit:contain;-webkit-touch-callout:default}
+.share-ov .cardwrap::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.55) 48%,transparent 60%);background-size:250% 100%;animation:cardShine 3s ease-in-out infinite;pointer-events:none}
+@keyframes cardShine{0%{background-position:120% 0}60%,100%{background-position:-60% 0}}
+@keyframes cardIn{from{transform:rotateY(80deg) scale(.8);opacity:0}to{transform:none;opacity:1}}
 .share-ov .row{display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap;margin-top:.9rem}
 .share-ov .hint{font-size:.88rem;opacity:.75;margin:.6rem 0 0}
 </style>
