@@ -990,6 +990,22 @@ body::before{background:#140A3C}
 .badge.on .be{filter:none;opacity:1}.badge.on b{opacity:1}.badge.on small{color:#fff}
 .friendbuy{display:flex;gap:.5rem;flex-wrap:wrap}.friendbuy input{flex:1;min-width:10rem;border-radius:.6rem;border:2px solid rgba(255,255,255,.25);background:rgba(255,255,255,.1);color:#fff;padding:.5rem .7rem;font-size:1rem}
 .friendbuy .cn{width:1.1rem;height:1.1rem}
+.quote{margin:.2rem 0 .8rem;padding:.55rem .8rem;border-radius:.8rem;background:linear-gradient(90deg,#FFF3C4,#FFE0EC);color:#4A2A6A;font-weight:600;font-style:italic;border:2px solid #FFD54F}
+.quote.sm{margin:.5rem 0 0;font-size:.82rem;padding:.4rem .6rem;border-width:1px}
+.goalbox{display:flex;gap:.8rem;align-items:flex-start;background:rgba(0,0,0,.25);border:2px solid rgba(255,255,255,.15);border-radius:1rem;padding:.7rem .8rem}
+.goalbox.won{border-color:#FFE14D;background:rgba(255,225,77,.15)}
+.gb-ic{font-size:2.4rem;line-height:1}.gb-main{flex:1}.goalbox p{margin:.2rem 0 .5rem;color:#C8BFF5;font-size:.88rem}
+.gb-t{display:flex;flex-direction:column;gap:.15rem}.gb-t b{font-family:var(--f-game);font-weight:400;font-size:1.15rem;text-transform:uppercase;letter-spacing:.02em}
+.gb-t span{font-size:.85rem;opacity:.85}.gb-b{margin:.45rem 0}.gb-rew{font-size:.85rem;margin-top:.2rem}
+.gb-btns{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.5rem}
+.goalmini{display:block;margin:0 0 .8rem;padding:.55rem .8rem;border-radius:.8rem;border:2px solid #7C4DFF;background:var(--surface)}
+.goalmini .gb-t{display:inline-flex;flex-direction:row;flex-wrap:wrap;gap:.2rem .6rem;align-items:baseline}.goalmini .gb-t b{color:var(--gtitle,#2A1570);font-size:1rem}
+.goalmini .qb{background:var(--line)}.goalmini.won{border-color:#22A85A}
+.gtypes{display:flex;flex-wrap:wrap;gap:.35rem;margin:.4rem 0 .6rem}
+.gtypes button{border:2px solid var(--line);background:var(--surface-2);border-radius:.6rem;padding:.35rem .7rem;font-weight:600;min-height:2.4rem;color:var(--ink)}
+.gtypes button.on{background:#FFE14D;border-color:#C77C0E;color:#2A1300}
+.goalwin .gw-ic{font-size:4rem}.gw-t{font-weight:700;font-size:1.15rem}.gw-rew{font-size:1.1rem}
+.goalwin{position:relative;overflow:hidden}
 @media print{
   @page{size:A4 landscape;margin:8mm}
   /* rezerva pro tiskárny / Safari s vlastními okraji (až ~13 mm) i pro tisk bez okrajů */
@@ -1056,7 +1072,7 @@ body::before{background:#140A3C}
 const COLOR_HEX={pink:"#E0566F",blue:"#2F7FE0",green:"#2EA650",yellow:"#E3AE00",purple:"#8B5CF6",orange:"#F08A24",gray:"#8A96A8"};
 const COLOR_NAMES={pink:"růžová",blue:"modrá",green:"zelená",yellow:"žlutá",purple:"fialová",orange:"oranžová",gray:"šedá"};
 const ICON_NAMES={cj:"kniha",ma:"kalkulačka",pu:"list",aj:"vlajka",hv:"nota",tv:"běžec",pv:"nůžky",vv:"paleta",book:"sešit",q:"otazník"};
-const APP_VERSION="45"; window.APP_VERSION=APP_VERSION;
+const APP_VERSION="46"; window.APP_VERSION=APP_VERSION;
 const KIND={sdel:{icon:"i-msg",short:null},druz:{icon:"i-users",short:null},ukol:{icon:"i-flag",short:null},food:{icon:"i-food",short:"Svačina"},drink:{icon:"i-drop",short:"Pití"},other:{icon:"i-dot",short:null}};
 
 const DEFAULTS = {
@@ -1508,7 +1524,9 @@ function reminders(p){
   const unv=p.lessons.map((s,i)=>s.unverified?(i+1)+".":null).filter(Boolean);
   if(unv.length) out.push(unv.join(" a ")+" hodina není ověřená – zeptej se rodičů.");
   p.groups.filter(g=>!g.items.length && !g.unverified).forEach(g=>out.push(g.title+": pomůcky doplní rodič."));
-  return out.slice(0,2).join(" ") || "Odškrtej, co už máš v batohu.";
+  { const G=PET.name&&goal(); if(G&&!G.won&&!(G.until&&G.until<pragueToday())&&out.length<2){ const tgt=G.type==="lesson"?100:G.type==="custom"?1:G.target; out.push("🎯 Cíl: "+goalText(G)+(G.type==="custom"?"":" ("+Math.min(goalCur(G),tgt)+" / "+tgt+")")+"."); } }
+  if(out.length<2) out.push("💬 "+quoteOfDay());
+  return out.slice(0,2).join(" ");
 }
 function homeCards(p){
   const iso=p.iso, c=cats(p);
@@ -1855,6 +1873,7 @@ function learnHtml(){
         '<button type="button" class="btn small primary" data-ltest="'+esc(l.id)+'">'+ic("i-okc")+'Test</button></div></article>';
     })(); }).join("");
     return detailCard("Výuka","i-learn",'<button type="button" class="btn small" data-lstats>'+ic("i-users")+'Přehled pro rodiče</button>',
+      '<div class="quote">💬 '+esc(quoteOfDay())+'</div>'+(goal()?goalCard(true):"")+
       (LESSONS.length?'<div class="lgrid">'+weekCard()+daily+bigCard+list+'</div>':'<p class="empty">Zatím tu není žádné učivo.</p>')+'<p class="tip">Nové učivo přidá táta: stačí poslat fotky stránek ze sešitu.</p>');
   }
   if(learnMode==="stats"){
@@ -1888,7 +1907,7 @@ function learnHtml(){
   const n=quiz.refs.length, head=quiz.mode==="daily"?"Test dne":(quiz.mode==="big"||quiz.mode==="subj")?esc(quiz.title):"Test · "+esc(quiz.title), chip=quiz.lid?lessonChip(lessonById(quiz.lid)):(quiz.mode==="big"||quiz.mode==="subj")?'<span class="stag c-yellow">velký</span>':"";
   if(quiz.i>=n){
     const pct=n?Math.round(quiz.ok/n*100):0, st=starsFor(pct);
-    const msg=pct===100?"Výborně! Všechno správně!":pct>=70?"Moc dobře!":pct>=50?"Dobrý začátek – ještě si to zopakuj.":"Nevadí, projdi si učivo a zkus to znovu.";
+    const msg=quiz.praise||(quiz.praise=praiseFor(pct));
     const wrongList=quiz.wrong.length?'<div class="lsec watch"><h3>'+ic("i-alert")+'<span>Tohle si zopakuj</span></h3><ul>'+quiz.wrong.map(([a,qi])=>{ const q=lessonById(a).quiz[qi]; return '<li>'+(q.clk?qclockSvg(q.clk[0],q.clk[1],true):"")+'<b>'+esc(q.q)+'</b> – '+esc(q.a[q.c])+'</li>'; }).join("")+'</ul></div>':"";
     const btns=(quiz.mode==="daily"||quiz.mode==="big"||quiz.mode==="subj")?'<button type="button" class="btn primary" data-llist>Hotovo</button>':
       (quiz.wrong.length?'<button type="button" class="btn primary" data-ltest="'+esc(quiz.lid)+'" data-lwrong="1">'+ic("i-pulse")+'Opravit chyby ('+quiz.wrong.length+')</button>':"")+
@@ -2041,7 +2060,7 @@ function petPlay(type,say,ms){
 }
 function petObj(id){
   petTick(); const asleep=petAsleepAt(Date.now()), inv=PET.inv;
-  if(id==="pig"){ if(asleep) return petPlay("snooze","Psst… dává si šlofíka. Za chvilku si zase pohraje."); const em=EMOTES.filter(e=>petLevel()>=e.lv); const e=em[Math.floor(Math.random()*em.length)]; return petPlay(e.id,EMOTE_SAY[e.id]); }
+  if(id==="pig"){ if(asleep) return petPlay("snooze","Psst… dává si šlofíka. Za chvilku si zase pohraje."); const em=EMOTES.filter(e=>petLevel()>=e.lv); const e=em[Math.floor(Math.random()*em.length)]; return petPlay(e.id,Math.random()<.5?EMOTE_SAY[e.id]:PIG_SAY[Math.floor(Math.random()*PIG_SAY.length)]); }
   if(id==="bowl"){ if(inv.hay>0) return petAction("feed","hay"); return petPlay("sad0","Seno došlo. Získej ho ve Výuce!"); }
   if(id==="water"){ if(inv.water>0) return petAction("feed","water"); return petPlay("sad0","Voda došla. Hotový test = voda!"); }
   if(asleep) return petPlay("snooze","Psst… spinká.");
@@ -2134,6 +2153,78 @@ function petAction(type,item){
   clearTimeout(petTimer); petTimer=setTimeout(()=>{ petAnim=null; if(view==="pet") render(); },1850);
 }
 
+/* ---------- motivační hlášky ---------- */
+const QUOTES=["Každý den trochu – a za měsíc toho umíš hromadu.","Chyba není prohra. Chyba je nápověda, co se ještě naučit.","Šampioni taky začínali úplně od nuly.","Když to nejde, zkus to znovu. A pak ještě jednou.","Tvůj mozek je jako sval – čím víc trénuješ, tím je silnější.","Nemusíš být nejlepší. Stačí být lepší než včera.","Malé kroky vedou k velkým cílům.","Odvaha je zkusit to, i když to ještě neumíš.","Kdo se ptá, ten se nejvíc naučí.","Dneska je skvělý den naučit se něco nového.","Opakování je matka moudrosti.","Bez práce nejsou koláče.","Všechno jde, když se chce.","Jsi chytřejší, než si myslíš.","Učení je dobrodružství – a ty jsi jeho hrdina.","I ten nejdelší výlet začíná prvním krokem.","Kdo vytrvá, ten vyhraje.","Úsměv a pustíme se do toho!","Hotový úkol = volná hlava na hraní.","Sbalený batoh večer = klidné ráno.","Každá správná odpověď je malá výhra.","Nevzdávej to – nejtěžší je začít.","Dnes se zase o kousek zlepšíš.","Pomalu, ale jistě – tak vyhrává želva.","Kdo čte, ten ví víc.","Tvoje morče je na tebe pyšné!","Zkus dnes porazit svůj rekord.","Soustředění je supersíla.","Když se něco nepovede, je to jen trénink.","Hvězdy sbírá ten, kdo se nevzdává.","Hlava vzhůru, jdeme na to!","Za každým úspěchem je spousta pokusů.","Umět něco nového je ten nejlepší pocit.","Klidně se spleť. Hlavně to zkus.","Jeden test denně a jsi o krok dál.","Velké věci se dělají po malých kouscích.","Kdo se učí, ten roste.","Ty to zvládneš!"];
+const PRAISE={100:["Bezchybné! Jsi hvězda!","Wow, všechno správně! Šampion!","Dokonalé! Tohle umíš na jedničku!"],80:["Super výkon! Skoro všechno!","Paráda, tohle ti jde!","Moc dobře – ještě kousek a bude to bez chyby!"],50:["Dobrá práce! S opakováním to bude ještě lepší.","Půlka je za tebou – zkus opravit chyby!","Jde to! Ještě trochu trénovat."],0:["Nevadí! Každý pokus tě něco naučí.","Zkus si projít učivo a dej to znovu – zvládneš to!","Chyby jsou kamarádi – ukazují, co se naučit."]};
+const PIG_SAY=["Jsi můj nejlepší kamarád!","Uííí, to lechtá!","Pojď se něco naučit, ať mám dobroty!","Mňam, mám rád mrkev!","Dneska to dáš!","Popcorn! Jsem šťastný!","Víš, že morčata skáčou radostí?","Až dostaneš 100 %, uděláme párty!","Pískám radostí: uííí uííí!","Ty jsi fakt chytrý!"];
+function dayPick(arr,salt){ let h=0; for(const c of pragueToday()+(salt||"")) h=(h*31+c.charCodeAt(0))>>>0; return arr[h%arr.length]; }
+function quoteOfDay(){ return dayPick(QUOTES,"q"); }
+function praiseFor(pct){ const k=pct===100?100:pct>=80?80:pct>=50?50:0; const a=PRAISE[k]; return a[Math.floor(Math.random()*a.length)]; }
+
+/* ---------- cíle ---------- */
+const GOAL_TYPES={
+  tests:{n:"Udělat testy",unit:"testů",def:5,cur:G=>(progInit().cnt.tests||0)-(G.base||0)},
+  daily:{n:"Test dne",unit:"× Test dne",def:5,cur:G=>(progInit().cnt.daily||0)-(G.base||0)},
+  streak:{n:"Série dní",unit:"dní v řadě",def:5,cur:()=>streakInfo().n},
+  sprint:{n:"Rekord ve sprintu",unit:"příkladů ve sprintu",def:20,cur:()=>((LEARN._sprint||{}).best||0)},
+  answers:{n:"Správné odpovědi",unit:"správných odpovědí",def:100,cur:G=>(progInit().cnt.answers||0)-(G.base||0)},
+  coins:{n:"Našetřit mince",unit:"mincí",def:100,cur:()=>PET.coins||0},
+  lesson:{n:"Téma na 100 %",unit:"%",def:100,cur:G=>((LEARN[G.lesson]||{}).best||0)},
+  custom:{n:"Vlastní cíl",unit:"",def:1,cur:G=>G.done?1:0}
+};
+function goal(){ const P=progInit(); return P.goal||null; }
+function goalCur(G){ const t=GOAL_TYPES[G.type]; return Math.max(0,t.cur(G)); }
+function goalText(G){ const t=GOAL_TYPES[G.type];
+  if(G.type==="custom") return G.text; if(G.type==="lesson"){ const l=lessonById(G.lesson); return "Mít "+(l?"„"+l.title+"“":"téma")+" na 100 %"; }
+  if(G.type==="coins") return "Našetřit "+G.target+" mincí"+(G.item&&SHOP_BY[G.item]?" na „"+SHOP_BY[G.item].name+"“":"");
+  if(G.type==="streak") return "Série "+G.target+" dní v řadě"; if(G.type==="sprint") return "Ve sprintu dát "+G.target+" příkladů";
+  return G.target+" "+t.unit.replace(/^×\s*/,"× "); }
+function goalCheck(){
+  const G=goal(); if(!G||G.won||(G.until&&G.until<pragueToday())) return; const cur=goalCur(G), tgt=G.type==="lesson"?100:G.type==="custom"?1:G.target;
+  if(cur>=tgt){ G.won=pragueToday(); PET.gold=(PET.gold||0)+2; PET.coins=(PET.coins||0)+30; const P=progInit(); P.goals=(P.goals||[]).concat([{t:goalText(G),d:G.won,rew:G.reward||""}]).slice(-20); savePet(); setTimeout(()=>goalWin(G),500); }
+}
+function goalWin(G){
+  const ov=document.createElement("div"); ov.className="overlay chest-ov";
+  ov.innerHTML='<div class="sheet chest-sh goalwin"><div class="pk-confetti">'+[...Array(22)].map((_,i)=>'<i style="left:'+(i*4.6)+'%;animation-delay:'+(i%6)*.1+'s;background:'+["#FFE14D","#FF4F8B","#40C4FF","#7CFF9B"][i%4]+'"></i>').join("")+'</div><div class="gw-ic">🏆</div><h2>Cíl splněn!</h2><p class="gw-t">'+esc(goalText(G))+'</p>'+
+    '<div class="chest-rw"><span>'+coinSvg(false)+'<b>+30</b></span><span>'+coinSvg(true)+'<b>+2</b></span></div>'+(G.reward?'<p class="gw-rew">A od rodičů: <b>'+esc(G.reward)+'</b> 🎁</p>':"")+'<button type="button" class="btn primary big" data-chclose>Hurá!</button></div>';
+  ov.addEventListener("click",e=>{ e.stopPropagation(); if(e.target.closest("[data-chclose]")||e.target===ov){ ov.remove(); render(); } });
+  document.body.appendChild(ov);
+}
+function goalCard(compact){
+  const G=goal();
+  if(!G) return compact?"":'<div class="goalbox empty"><div class="gb-ic">🎯</div><div><b>Nastav si cíl!</b><p>Co chceš tento týden dokázat? Třeba 5× Test dne, rekord ve sprintu nebo našetřit na Dům na stromě.</p><button type="button" class="btn primary" data-goalnew>Nastavit cíl</button></div></div>';
+  const tgt=G.type==="lesson"?100:G.type==="custom"?1:G.target, cur=Math.min(goalCur(G),tgt), pct=Math.round(100*cur/tgt), left=G.until?Math.max(0,Math.round((Date.parse(G.until)-Date.parse(pragueToday()))/864e5)):null;
+  const expired=!G.won&&G.until&&G.until<pragueToday();
+  const body='<div class="gb-t"><b>'+esc(goalText(G))+'</b><span>'+(G.won?"Splněno "+fmtShort(G.won)+"!":expired?"Čas vypršel – nevadí, nastav si nový cíl!":G.type==="custom"?"Až to splníš, ať to rodič potvrdí.":cur+" / "+tgt+(G.type==="lesson"?" %":""))+(left!=null&&!G.won&&!expired?" · "+(left===0?"dnes je poslední den":"zbývá "+left+" "+(left===1?"den":left<5?"dny":"dní")):"")+'</span></div><div class="qb gb-b"><i style="width:'+pct+'%"></i></div>'+(G.reward&&!G.won?'<div class="gb-rew">🎁 Odměna od rodičů: '+esc(G.reward)+'</div>':"");
+  if(compact) return '<div class="goalmini'+(G.won?" won":"")+'">🎯 '+body+'</div>';
+  return '<div class="goalbox'+(G.won?" won":"")+'"><div class="gb-ic">'+(G.won?"🏆":"🎯")+'</div><div class="gb-main">'+body+'<div class="gb-btns">'+(G.type==="custom"&&!G.won?'<button type="button" class="btn small primary" data-goaldone>Rodič potvrzuje: splněno</button>':"")+'<button type="button" class="btn small" data-goalnew>'+(G.won?"Nový cíl":"Změnit cíl")+'</button></div></div></div>';
+}
+function openGoalSheet(){
+  const ov=document.createElement("div"); ov.className="overlay"; let type="daily";
+  const untilDef=(()=>{ let d=pragueToday(); while(dow(d)!==0) d=addDays(d,1); return d; })();
+  const lessons=LESSONS.filter(l=>(l.quiz||[]).length||l.gen);
+  const draw=()=>{ const T=GOAL_TYPES[type];
+    ov.innerHTML='<form class="sheet tform goalform" style="max-width:36rem"><span class="eyebrow">Můj cíl</span><h2>Co chceš dokázat?</h2>'+
+      '<div class="gtypes">'+Object.keys(GOAL_TYPES).map(k=>'<button type="button" class="'+(k===type?"on":"")+'" data-gt="'+k+'">'+GOAL_TYPES[k].n+'</button>').join("")+'</div>'+
+      (type==="custom"?'<label class="fl">Můj cíl<input id="g-text" placeholder="např. Přečíst knížku, naučit se básničku"></label>':
+       type==="lesson"?'<label class="fl">Téma<select id="g-lesson">'+lessons.map(l=>'<option value="'+esc(l.id)+'">'+esc(l.title)+'</option>').join("")+'</select></label>':
+       type==="coins"?'<label class="fl">Na co šetřím (nepovinné)<select id="g-item"><option value="">— jen mince —</option>'+SHOP.filter(x=>x.price&&!PET.owned.includes(x.id)).sort((a,b)=>a.price-b.price).map(x=>'<option value="'+x.id+'" data-p="'+x.price+'">'+esc(x.name)+' ('+x.price+')</option>').join("")+'</select></label><label class="fl">Kolik mincí<input type="number" id="g-n" min="1" value="'+Math.max(T.def,(PET.coins||0)+20)+'"></label>':
+       '<label class="fl">Kolik ('+esc(T.unit)+')<input type="number" id="g-n" min="1" value="'+T.def+'"></label>')+
+      '<label class="fl">Do kdy<input type="date" id="g-until" value="'+untilDef+'"></label>'+
+      '<label class="fl">Odměna od rodičů (nepovinné)<input id="g-rew" placeholder="např. kino, výlet, oblíbená večeře"></label>'+
+      '<p class="tip">Za splněný cíl dostane '+esc(PET.name||"morče")+' 30 mincí a 2 zlaté hvězdy.</p>'+
+      '<div class="sheet-foot"><button type="button" class="btn" data-gcancel>Zrušit</button><button class="btn primary">Uložit cíl</button></div></form>'; };
+  ov.addEventListener("click",e=>{ e.stopPropagation(); const b=e.target.closest("[data-gt]"); if(b){ type=b.dataset.gt; draw(); return; } if(e.target.closest("[data-gcancel]")||e.target===ov) ov.remove(); });
+  ov.addEventListener("change",e=>{ e.stopPropagation(); if(e.target.id==="g-item"){ const o=e.target.selectedOptions[0]; if(o&&o.dataset.p) ov.querySelector("#g-n").value=o.dataset.p; } });
+  ov.addEventListener("submit",e=>{ e.preventDefault(); e.stopPropagation(); const $=q=>ov.querySelector(q), P=progInit();
+    const G={type,created:pragueToday(),until:$("#g-until").value||null,reward:($("#g-rew").value||"").trim().slice(0,60)};
+    if(type==="custom"){ G.text=($("#g-text").value||"").trim(); if(!G.text){ $("#g-text").focus(); return; } G.target=1; }
+    else if(type==="lesson"){ G.lesson=$("#g-lesson").value; G.target=100; }
+    else { G.target=Math.max(1,parseInt($("#g-n").value,10)||GOAL_TYPES[type].def); if(type==="coins"&&$("#g-item").value) G.item=$("#g-item").value; }
+    if(["tests","daily","answers"].includes(type)) G.base=P.cnt[type]||0;
+    P.goal=G; savePet(); ov.remove(); render(); toast("Cíl nastaven. Jdeme na to!"); goalCheck(); });
+  document.body.appendChild(ov); draw();
+}
 /* ---------- motivace: série, denní úkoly s truhlou, odznaky, kamarád ---------- */
 function progInit(){ const P=PET.prog=PET.prog||{}; P.days=P.days||{}; P.cnt=P.cnt||{}; P.q=P.q||{}; P.chest=P.chest||{}; P.srew=P.srew||{}; P.badges=P.badges||{}; return P; }
 const QUESTS={daily:{t:"Udělej Test dne",need:1,g:"learn"},answers:{t:"Odpověz správně 20×",need:20,g:"learn"},tests:{t:"Dokonči 2 testy",need:2,g:"learn"},sprint:{t:"Ve sprintu dej aspoň 10 příkladů",need:10,g:"learn",max:true},
@@ -2157,7 +2248,7 @@ function prog(ev,n){
   if(["tests","daily","pack","hw"].includes(ev)) P.days[d]=true;
   Object.keys(P.days).filter(x=>x<addDays(d,-120)).forEach(x=>delete P.days[x]);
   const wasReady=P.chest[d]; if(!wasReady&&questsDone(d)){ P.chest[d]="ready"; setTimeout(()=>toast("Splnil jsi všechny dnešní úkoly! Otevři truhlu v Úspěších."),400); }
-  streakCheck(); badgeCheck(); savePet();
+  streakCheck(); badgeCheck(); savePet(); goalCheck();
 }
 function streakInfo(){
   const P=progInit(), t=pragueToday(); let n=0, d=t, start=t, guard=0;
@@ -2221,6 +2312,7 @@ function achieveHtml(){
       (petLevel()>=4?'<div class="friendbuy"><input id="friendname" placeholder="Jméno kamaráda" maxlength="14"><button type="button" class="btn primary" data-friend'+((PET.gold||0)>=8?"":" disabled")+'>Pořídit za 8 '+coinSvg(true)+'</button></div>':'<p class="ish-hint">Teď je '+esc(PET.name)+' na úrovni '+petLevel()+'.</p>')+'</div>';
   return '<div class="ishop ach"><div class="ish-h"><h3>Úspěchy</h3></div>'+
     '<div class="streak"><span class="fl">🔥</span><div><b>'+s.n+'</b> '+(s.n===1?"den":s.n>=2&&s.n<=4?"dny":"dní")+' v řadě<small>'+(s.today?"Dnes splněno.":"Dnes ještě udělej test, sbal batoh nebo domácí úkol.")+(next?" Za "+(next[0]-s.n)+" "+((next[0]-s.n)===1?"den":"dny")+" odměna"+(next[1].item?" a výjimečná věc!":"!"):"")+' Víkend sérii nepřeruší.</small></div></div>'+
+    '<div class="ish-sec"><h4>Můj cíl</h4>'+goalCard()+'</div>'+
     '<div class="ish-sec"><h4>Dnešní úkoly</h4>'+qs+chest+'</div>'+
     '<div class="ish-sec"><h4>Odznaky <span>'+Object.keys(P.badges).length+' / '+BADGES.length+'</span></h4><div class="badges">'+BADGES.map(b=>'<div class="badge'+(P.badges[b.id]?" on":"")+'"><span class="be">'+b.e+'</span><b>'+esc(b.n)+'</b><small>'+esc(b.d)+'</small></div>').join("")+'</div></div>'+friend+'</div>';
 }
@@ -2465,7 +2557,7 @@ function canBuy(it){ if(PET.owned.includes(it.id)||it.excl) return false; if(it.
 function coinSvg(gold){ return gold?'<svg viewBox="0 0 24 24" class="cn"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z" fill="#F7C531" stroke="#C99700" stroke-width="1.2" stroke-linejoin="round"/></svg>'
   :'<svg viewBox="0 0 24 24" class="cn"><circle cx="12" cy="12" r="9.5" fill="#FFC93C" stroke="#D69E00" stroke-width="1.6"/><circle cx="12" cy="12" r="6" fill="none" stroke="#E8AE12" stroke-width="1.4"/><path d="M12 8.5v7" stroke="#B8860B" stroke-width="2" stroke-linecap="round"/></svg>'; }
 function walletHtml(){ return '<div class="wallet"><span>'+coinSvg(false)+'<b>'+(PET.coins||0)+'</b> mincí</span><span class="g">'+coinSvg(true)+'<b>'+(PET.gold||0)+'</b> zlatých hvězd</span></div>'; }
-function earnCoins(n,why){ PET.coins=(PET.coins||0)+n; savePet(); if(quiz){ quiz.coins=(quiz.coins||0)+n; } }
+function earnCoins(n,why){ PET.coins=(PET.coins||0)+n; savePet(); if(PET.prog&&PET.prog.goal&&PET.prog.goal.type==="coins") goalCheck(); if(quiz){ quiz.coins=(quiz.coins||0)+n; } }
 function earnGold(lessonKey){ const d=pragueToday(); if(PET.goldDay[lessonKey]===d) return false; PET.goldDay[lessonKey]=d; PET.gold=(PET.gold||0)+1; savePet(); if(quiz) quiz.gold=(quiz.gold||0)+1; return true; }
 function icard(it,o){
   o=o||{}; const own=PET.owned.includes(it.id), gold=!!it.gold, pr=priceOf(it), deal=!gold&&pr<it.price, locked=it.req&&!PET.owned.includes(it.req)&&!own;
@@ -2945,6 +3037,8 @@ document.addEventListener("click", async e=>{
   const pclk=t.closest("[data-clock]"); if(pclk){ clockPeek=Date.now()+8000; tickClocks(); return; }
   const pem=t.closest("[data-pemote]"); if(pem){ const e=pem.dataset.pemote; prog("dance"); petPlay(e,EMOTE_SAY[e]); return; }
   if(t.closest("[data-chest]")){ openChest(); return; }
+  if(t.closest("[data-goalnew]")){ openGoalSheet(); return; }
+  if(t.closest("[data-goaldone]")){ const G=goal(); if(G&&await askConfirm("Potvrzuješ jako rodič, že cíl „"+G.text+"“ je splněný?","Ano, splněno")){ G.done=true; savePet(); goalCheck(); render(); } return; }
   if(t.closest("[data-friend]")){ const nm=(document.getElementById("friendname")||{}).value||""; if(!nm.trim()){ toast("Napiš jméno kamaráda."); return; } if((PET.gold||0)<8) return; PET.gold-=8; PET.friend={name:nm.trim().slice(0,14)}; badgeCheck(); savePet(); render(); toast(PET.name+" má kamaráda "+PET.friend.name+"!"); return; }
   const pob=t.closest("[data-pobj]"); if(pob&&petTab==="care"){ petObj(pob.dataset.pobj); return; }
   const pcat=t.closest("[data-pcat]"); if(pcat){ shopCat=pcat.dataset.pcat; petTry=null; render(); return; }
