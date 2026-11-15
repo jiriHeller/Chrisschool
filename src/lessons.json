@@ -3301,6 +3301,168 @@
     "Nepleť si ručičky: <b>malá = hodiny</b>, <b>velká = minuty</b>."
    ],
    "quiz": []
+  },
+  {
+   "id": "ma-penize",
+   "subject": "ma",
+   "title": "Peníze",
+   "gen": "penize",
+   "n": 15,
+   "genw": {
+    "pen_sum": 4,
+    "pen_change": 4,
+    "pen_enough": 3
+   },
+   "source": "Matematika 3 – počítání s penězi (RVP)",
+   "added": "2026-11-15",
+   "intro": "Počítáme s korunami: sčítáme mince a bankovky, zjišťujeme, kolik nám vrátí, a jestli peníze stačí.",
+   "sections": [
+    {
+     "title": "Mince a bankovky",
+     "icon": "i-okc",
+     "points": [
+      "Mince: <b>1, 2, 5, 10, 20, 50 Kč</b>. Bankovky: <b>100, 200 Kč</b> a víc.",
+      "Sčítej <b>od největší</b>: nejdřív bankovky, pak velké mince, nakonec malé."
+     ]
+    },
+    {
+     "title": "Kolik vrátí?",
+     "icon": "i-okc",
+     "points": [
+      "Zaplatíš víc, než věc stojí – prodavač ti vrátí <b>rozdíl</b>.",
+      "Sešit za <b>25 Kč</b>, platíš <b>50 Kč</b> → 50 − 25 = <b>25 Kč</b> zpět.",
+      "Tip: <b>dopočítej</b> od ceny nahoru: 25 → 30 (5) → 50 (20) = 25."
+     ]
+    }
+   ],
+   "watch": [
+    "Nezapomeň připočítat i ty nejmenší mince.",
+    "Kolik vrátí = co dáš <b>minus</b> co to stojí."
+   ],
+   "quiz": []
+  },
+  {
+   "id": "ma-jednotky",
+   "subject": "ma",
+   "title": "Jednotky – délka, hmotnost, čas",
+   "gen": "jednotky",
+   "n": 15,
+   "genw": {
+    "unit_conv": 5,
+    "unit_pick": 3,
+    "unit_cmp": 3
+   },
+   "source": "Matematika 3 – jednotky (RVP)",
+   "added": "2026-11-15",
+   "intro": "Délku měříme v mm, cm, m a km, hmotnost v g a kg, objem v dl a l a čas v s, min a h.",
+   "sections": [
+    {
+     "title": "Délka",
+     "icon": "i-okc",
+     "points": [
+      "<b>1 cm = 10 mm</b>",
+      "<b>1 m = 100 cm</b>",
+      "<b>1 km = 1000 m</b>"
+     ]
+    },
+    {
+     "title": "Hmotnost a objem",
+     "icon": "i-okc",
+     "points": [
+      "<b>1 kg = 1000 g</b>",
+      "<b>1 l = 10 dl</b>"
+     ]
+    },
+    {
+     "title": "Čas",
+     "icon": "i-okc",
+     "points": [
+      "<b>1 min = 60 s</b>, <b>1 h = 60 min</b>",
+      "<b>1 den = 24 h</b>, <b>1 týden = 7 dní</b>, <b>1 rok = 12 měsíců</b>"
+     ]
+    }
+   ],
+   "watch": [
+    "Než porovnáš, převeď obojí na <b>stejnou jednotku</b>.",
+    "1 m není 10 cm – je to <b>100 cm</b>."
+   ],
+   "quiz": []
+  },
+  {
+   "id": "cj-diktat-vyjmenovana",
+   "subject": "cj",
+   "title": "Diktát – vyjmenovaná slova",
+   "gen": "diktat",
+   "n": 15,
+   "genw": {
+    "dik": 1
+   },
+   "source": "Český jazyk 3 – vyjmenovaná slova (B, L, M, P, S, V, Z)",
+   "added": "2026-11-15",
+   "intro": "Appka slovo nahlas přečte a ty vybereš, jak se správně píše. Slovo si můžeš pustit znovu.",
+   "sections": [
+    {
+     "title": "Jak na to",
+     "icon": "i-okc",
+     "points": [
+      "Poslechni si slovo – klidně i víckrát.",
+      "Je to <b>vyjmenované slovo</b> nebo <b>slovo příbuzné</b>? → píšeme <b>y/ý</b>.",
+      "Jinak po obojetných souhláskách píšeme <b>i/í</b>."
+     ]
+    }
+   ],
+   "watch": [
+    "Pozor i na <b>délku</b>: mlýn, sýr, výr – dlouhé ý.",
+    "Obojetné souhlásky: <b>B, F, L, M, P, S, V, Z</b>."
+   ],
+   "quiz": []
+  },
+  {
+   "id": "aj-slovicka",
+   "subject": "aj",
+   "title": "Anglická slovíčka",
+   "gen": "anglictina",
+   "n": 15,
+   "genw": {
+    "aj_pic": 4,
+    "aj_listen": 4,
+    "aj_cz": 3
+   },
+   "source": "Angličtina 3 – první slovíčka (zvířata, jídlo, škola, hračky, barvy)",
+   "added": "2026-11-15",
+   "intro": "Slovíčka s obrázky a výslovností: zvířata, jídlo, věci do školy, hračky a barvy. U poslechu ti appka slovo řekne anglicky.",
+   "sections": [
+    {
+     "title": "Zvířata",
+     "icon": "i-okc",
+     "points": [
+      "cat 🐱 kočka · dog 🐶 pes · mouse 🐭 myš · rabbit 🐰 králík",
+      "fish 🐟 ryba · bird 🐦 pták · horse 🐴 kůň · cow 🐮 kráva · pig 🐷 prase · duck 🦆 kachna"
+     ]
+    },
+    {
+     "title": "Jídlo a škola",
+     "icon": "i-okc",
+     "points": [
+      "apple 🍎 · banana 🍌 · cake 🍰 · milk 🥛 · egg 🥚 · bread 🍞 · ice cream 🍦",
+      "book 📖 · pencil ✏️ · school bag 🎒 · ruler 📏 · scissors ✂️"
+     ]
+    },
+    {
+     "title": "Hračky, barvy a další",
+     "icon": "i-okc",
+     "points": [
+      "ball ⚽ · car 🚗 · kite 🪁 · teddy bear 🧸",
+      "red · blue · green · yellow · orange · black · brown · purple",
+      "sun ☀️ · tree 🌳 · house 🏠 · flower 🌸"
+     ]
+    }
+   ],
+   "watch": [
+    "„Pencil“ je tužka, „pen“ by bylo pero.",
+    "Ve slově „scissors“ se c nevyslovuje: [sizəz]."
+   ],
+   "quiz": []
   }
  ]
 }
