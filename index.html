@@ -1105,7 +1105,7 @@ body::before{background:#140A3C}
 const COLOR_HEX={pink:"#E0566F",blue:"#2F7FE0",green:"#2EA650",yellow:"#E3AE00",purple:"#8B5CF6",orange:"#F08A24",gray:"#8A96A8"};
 const COLOR_NAMES={pink:"růžová",blue:"modrá",green:"zelená",yellow:"žlutá",purple:"fialová",orange:"oranžová",gray:"šedá"};
 const ICON_NAMES={cj:"kniha",ma:"kalkulačka",pu:"list",aj:"vlajka",hv:"nota",tv:"běžec",pv:"nůžky",vv:"paleta",book:"sešit",q:"otazník"};
-const APP_VERSION="55"; window.APP_VERSION=APP_VERSION;
+const APP_VERSION="56"; window.APP_VERSION=APP_VERSION;
 const KIND={sdel:{icon:"i-msg",short:null},druz:{icon:"i-users",short:null},ukol:{icon:"i-flag",short:null},food:{icon:"i-food",short:"Svačina"},drink:{icon:"i-drop",short:"Pití"},other:{icon:"i-dot",short:null}};
 
 const DEFAULTS = {
@@ -1641,6 +1641,9 @@ setTimeout(moodAutoAsk,2500); setInterval(moodAutoAsk,10*60*1000);
  ".breath{position:relative;height:16rem;display:flex;align-items:center;justify-content:center}.b-ring{width:6rem;height:6rem;border-radius:50%;background:radial-gradient(circle,#BFE3FF,#7DB3F0);box-shadow:0 0 0 1rem rgba(125,179,240,.18);animation:bre 8s ease-in-out 3}"+
  "@keyframes bre{0%,100%{transform:scale(1)}50%{transform:scale(2.1)}}.b-txt{position:absolute;font-weight:700;font-size:1.2rem;color:#1F4E86}.b-txt span{position:absolute;left:50%;transform:translateX(-50%);white-space:nowrap}"+
  ".b-txt .in{animation:bin 8s 3}.b-txt .out{opacity:0;animation:bout 8s 3}@keyframes bin{0%,45%{opacity:1}50%,100%{opacity:0}}@keyframes bout{0%,45%{opacity:0}50%,95%{opacity:1}100%{opacity:0}}"+
+ ".mp-grid{display:grid;grid-template-columns:repeat(15,1fr);gap:.25rem;margin:.6rem 0 1rem}.mp-d{display:flex;flex-direction:column;align-items:center;gap:.1rem;padding:.2rem 0;border-radius:.5rem}.mp-d.today{background:rgba(124,92,246,.12)}.mp-d small{font-size:.65rem;opacity:.7}"+
+ ".mp-cols{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}.mp-bar{display:grid;grid-template-columns:24px 5.5rem 1fr 2rem;align-items:center;gap:.5rem;margin:.3rem 0}.mp-bar .mbar{height:.6rem;border-radius:1rem;background:rgba(127,127,140,.15);overflow:hidden}.mp-bar .mbar i{display:block;height:100%;border-radius:1rem}.mp-bar b{text-align:right}"+
+ "@media (max-width:800px){.mp-grid{grid-template-columns:repeat(10,1fr)}.mp-cols{grid-template-columns:1fr}}"+
  "@media (max-width:600px){.mh-row{grid-template-columns:repeat(7,1fr)}}";
  document.head.appendChild(st); })();
 
@@ -3424,6 +3427,26 @@ function listEditor(key,title,desc){
       '<button type="button" class="btn icon danger" data-dellist="'+key+'" data-i="'+i+'" aria-label="Odebrat">✕</button></div>').join("")+
     '<form class="addrow" data-addlist="'+key+'"><input type="text" id="add-'+key+'" placeholder="Nová položka…" aria-label="Nová položka"><button class="btn primary">Přidat</button></form></section>';
 }
+
+function moodParentHtml(){
+  const t=pragueToday(), days=[]; for(let i=29;i>=0;i--) days.push(addDays(t,-i));
+  const rec=days.filter(d=>MOOD[d]), cnt=[0,0,0,0,0,0], fe={}, to={}, toHard={};
+  rec.forEach(d=>{ const m=MOOD[d]; cnt[m.v]++; (m.f||[]).forEach(f=>fe[f]=(fe[f]||0)+1); (m.t||[]).forEach(x=>{ to[x]=(to[x]||0)+1; if(m.v<=2) toHard[x]=(toHard[x]||0)+1; }); });
+  const top=(o,n)=>Object.entries(o).sort((a,b)=>b[1]-a[1]).slice(0,n);
+  const emo=(L,w)=>(L.find(x=>x[0]===w)||[,""])[1];
+  const hard7=days.slice(-7).filter(d=>MOOD[d]&&MOOD[d].v<=2).length;
+  const grid=days.map(d=>{ const m=MOOD[d]; return '<div class="mp-d'+(d===t?" today":"")+'" data-tip="'+esc(cap(fmtLong(d))+(m?": "+MOODS[m.v].n+(m.f&&m.f.length?" · "+m.f.join(", "):"")+(m.t&&m.t.length?" · "+m.t.join(", "):""):": nevyplněno"))+'">'+(m?moodFace(m.v,28):'<span class="mh-empty" style="width:28px;height:28px"></span>')+'<small>'+(+d.slice(8))+'.'+(+d.slice(5,7))+'.</small></div>'; }).join("");
+  const bars=[5,4,3,2,1].map(v=>'<div class="mp-bar">'+moodFace(v,22)+'<span>'+MOODS[v].n+'</span><div class="mbar"><i style="width:'+(rec.length?Math.round(cnt[v]/rec.length*100):0)+'%;background:'+MOODS[v].c+'"></i></div><b>'+cnt[v]+'</b></div>').join("");
+  return '<section class="s-sec"><h3>Nálada – jak se '+(cfg.child?esc(cfg.child)+" měl":"dítě mělo")+'</h3><p>Dítě si každý den může zapsat, jaký byl jeho den. Zde je posledních 30 dní. Klepněte na den pro detail. Záznamy zůstávají jen v tomto zařízení.</p>'+
+    (!rec.length?'<p class="muted">Zatím žádný záznam. Tlačítko „Jaký byl den?“ je v horní liště a od 15:00 se aplikace jednou denně sama zeptá.</p>':
+    (hard7>=3?'<div class="mhelp" style="margin:.6rem 0">💙 Za poslední týden zapsal <b>'+hard7+'</b> těžké nebo „nic moc“ dny. Možná stojí za to si v klidu popovídat – bez vyptávání, třeba při společné činnosti.</div>':"")+
+    '<div class="mp-grid">'+grid+'</div>'+
+    '<div class="mp-cols"><div><div class="eyebrow">Jaké byly dny ('+rec.length+' záznamů)</div>'+bars+'</div>'+
+    '<div><div class="eyebrow">Nejčastější pocity</div><div class="mchips">'+(top(fe,8).map(([w,n])=>'<span class="mchip">'+emo(FEELS,w)+' '+w+' <b>'+n+'×</b></span>').join("")||'<span class="muted">—</span>')+'</div>'+
+    '<div class="eyebrow" style="margin-top:.8rem">O čem byly dny</div><div class="mchips">'+(top(to,8).map(([w,n])=>'<span class="mchip">'+emo(TOPICS,w)+' '+w+' <b>'+n+'×</b></span>').join("")||'<span class="muted">—</span>')+'</div>'+
+    (Object.keys(toHard).length?'<div class="eyebrow" style="margin-top:.8rem">U těžkých dnů se objevilo</div><div class="mchips">'+top(toHard,5).map(([w,n])=>'<span class="mchip">'+emo(TOPICS,w)+' '+w+' <b>'+n+'×</b></span>').join("")+'</div>':"")+
+    '</div></div>')+'</section>';
+}
 function settingsHtml(){
   const isDate=setTab==="date", day=+setTab, o=isDate?overrideOf(editDate):null, sched=isDate?(o?o.lessons:null):(cfg.schedule[day]||[]);
   const upOv=Object.keys(cfg.overrides||{}).filter(d=>d>=pragueToday()).sort();
@@ -3433,7 +3456,7 @@ function settingsHtml(){
       (o?'<div class="addrow"><input type="text" id="ov-note" value="'+esc(o.note||"")+'" placeholder="Poznámka, např. výlet, suplování, kratší den" aria-label="Poznámka ke změně"></div>':"")+
       (upOv.length?'<div class="ovlist"><span class="muted">Naplánované změny:</span>'+upOv.map(d=>'<button type="button" class="btn small" data-ovpick="'+d+'" aria-pressed="'+(d===editDate)+'">'+DAY_SHORT[dow(d)]+' '+fmtShort(d)+'</button>').join("")+'</div>':""):"";
   const inner='<p class="s-intro">Změny se ukládají hned do tohoto zařízení. Položky označené „neověřeno“ opravte podle papírového rozvrhu.</p>'+
-   '<section class="s-sec"><h3>Rozvrh hodin</h3><p>Vyberte den v týdnu, nebo „Konkrétní datum“ pro jednorázovou změnu (suplování, výlet, kratší den).</p>'+
+   moodParentHtml()+'<section class="s-sec"><h3>Rozvrh hodin</h3><p>Vyberte den v týdnu, nebo „Konkrétní datum“ pro jednorázovou změnu (suplování, výlet, kratší den).</p>'+
     '<div class="tabsx">'+[1,2,3,4,5].map(d=>'<button type="button" class="btn small" data-tab="'+d+'" aria-pressed="'+(!isDate&&d===day)+'">'+DAY_NAMES[d]+'</button>').join("")+
     '<button type="button" class="btn small" data-tab="date" aria-pressed="'+isDate+'">Konkrétní datum</button></div>'+dateHead+
     (sched===null?"":sched.length?sched.map((sid,i)=>'<div class="erow"><span class="n">'+(i+1)+'.</span><select id="les-'+day+'-'+i+'" data-les="'+i+'" aria-label="Předmět '+(i+1)+'. hodiny">'+subjOptions(sid)+'</select>'+
