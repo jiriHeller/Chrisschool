@@ -1105,7 +1105,7 @@ body::before{background:#140A3C}
 const COLOR_HEX={pink:"#E0566F",blue:"#2F7FE0",green:"#2EA650",yellow:"#E3AE00",purple:"#8B5CF6",orange:"#F08A24",gray:"#8A96A8"};
 const COLOR_NAMES={pink:"růžová",blue:"modrá",green:"zelená",yellow:"žlutá",purple:"fialová",orange:"oranžová",gray:"šedá"};
 const ICON_NAMES={cj:"kniha",ma:"kalkulačka",pu:"list",aj:"vlajka",hv:"nota",tv:"běžec",pv:"nůžky",vv:"paleta",book:"sešit",q:"otazník"};
-const APP_VERSION="57"; window.APP_VERSION=APP_VERSION;
+const APP_VERSION="58"; window.APP_VERSION=APP_VERSION;
 const KIND={sdel:{icon:"i-msg",short:null},druz:{icon:"i-users",short:null},ukol:{icon:"i-flag",short:null},food:{icon:"i-food",short:"Svačina"},drink:{icon:"i-drop",short:"Pití"},other:{icon:"i-dot",short:null}};
 
 const DEFAULTS = {
@@ -3139,7 +3139,7 @@ function wardrobeHtml(){
 function tryBar(){
   if(!petTry||!SHOP_BY[petTry]) return "";
   const it=SHOP_BY[petTry], own=PET.owned.includes(it.id), pr=priceOf(it);
-  return '<div class="trybar"><span>Zkoušíš: <b>'+esc(it.name)+'</b></span>'+(own?"":'<button type="button" class="btn small primary" data-pbuy="'+it.id+'"'+(canBuy(it)?"":" disabled")+'>Koupit '+coinSvg(!!it.gold)+pr+'</button>')+'<button type="button" class="btn small" data-ptry="">Sundat</button></div>';
+  return '<div class="trybar"><span>Zkoušíš: <b>'+esc(it.name)+'</b></span>'+(own?"":'<button type="button" class="btn small primary" data-pbuy="'+it.id+'"'+(canBuy(it)?"":" disabled")+'>Koupit '+coinSvg(!!it.gold)+pr+'</button>')+(own?(isOn(it.id)?'<button type="button" class="btn small" data-pwear="'+it.id+'">Sundat</button>':'<button type="button" class="btn small primary" data-pwear="'+it.id+'">Obléct</button><button type="button" class="btn small" data-ptry="">Zrušit</button>'):'<button type="button" class="btn small" data-ptry="">Sundat</button>')+'</div>';
 }
 
 function gameCard(){ return detailCard.apply(null,arguments).replace('class="card c-detail"','class="card c-detail gamecard"'); }
