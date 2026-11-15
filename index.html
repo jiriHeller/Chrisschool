@@ -324,7 +324,7 @@ svg{display:block}
 .wallet span{display:inline-flex;align-items:center;gap:.3rem;background:#2A1670;color:#E9E3FF;border:2px solid #5B3FD1;border-radius:2rem;padding:.2rem .7rem .2rem .3rem;box-shadow:0 3px 0 #170B45}
 .wallet b{font-family:var(--f-game);font-weight:400;font-size:1.2rem;color:#FFE14D;letter-spacing:.02em}
 .wallet .cn{width:1.3rem;height:1.3rem}
-.ptabs{display:grid;grid-template-columns:repeat(3,1fr);gap:.3rem;background:var(--surface-2);border:1px solid var(--line);border-radius:.8rem;padding:.25rem}
+.ptabs{display:grid;grid-template-columns:repeat(4,1fr);gap:.3rem;background:var(--surface-2);border:1px solid var(--line);border-radius:.8rem;padding:.25rem}
 .ptabs button{width:100%;justify-content:center;text-align:center;display:flex;align-items:center;min-height:2.6rem;border-radius:.6rem;border:none;background:transparent;font-family:var(--f-game);font-size:1.12rem;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-2)}
 .ptabs button.on{background:#FFE14D;color:#2A1300;box-shadow:0 3px 0 #C77C0E}
 .trybar{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;font-size:.95rem;background:#2A1670;color:#fff;border-radius:.8rem;padding:.45rem .6rem;margin-top:.5rem}
@@ -960,6 +960,36 @@ body::before{background:#140A3C}
 .sp-score{font-family:var(--f-game);font-size:5rem;color:#22A85A;line-height:1}
 .lcard.wkfix{border-color:#FF8F00;background:linear-gradient(#FFF3E0,var(--surface))}
 .lcard.wkfix.soon{opacity:.85}.lcard.wkfix.done{border-color:#22A85A;background:var(--green-bg)}
+.ptabs button{position:relative}.tdot{position:absolute;top:.3rem;right:.4rem;width:.6rem;height:.6rem;border-radius:50%;background:#FF3D6E;box-shadow:0 0 0 2px #fff}
+.ishop.ach .streak{display:flex;align-items:center;gap:.8rem;margin-top:.6rem;background:rgba(0,0,0,.25);border:2px solid rgba(255,255,255,.15);border-radius:1rem;padding:.6rem .8rem}
+.streak .fl{font-size:2.6rem;line-height:1;filter:drop-shadow(0 3px 0 rgba(0,0,0,.3))}
+.streak b{font-family:var(--f-game);font-weight:400;font-size:2rem;color:#FFE14D}
+.streak small{display:block;color:#C8BFF5;font-size:.8rem;margin-top:.15rem}
+.qrow{display:grid;grid-template-columns:1.7rem 1fr auto;align-items:center;gap:.2rem .5rem;background:rgba(255,255,255,.07);border:2px solid rgba(255,255,255,.12);border-radius:.7rem;padding:.45rem .6rem;margin-bottom:.4rem}
+.qck{width:1.5rem;height:1.5rem;border-radius:.4rem;border:2px solid rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center}
+.qrow.ok .qck{background:#22A85A;border-color:#22A85A}.qck svg{width:1rem;height:1rem;color:#fff}
+.qt{font-weight:600}.qn{font-family:var(--f-game);color:#FFE14D}
+.qb{grid-column:2/4;height:.45rem;border-radius:.3rem;background:rgba(0,0,0,.35);overflow:hidden}.qb i{display:block;height:100%;background:linear-gradient(90deg,#7BD86A,#FFE14D)}
+.chestbox{display:flex;align-items:center;gap:.8rem;margin-top:.5rem;background:rgba(0,0,0,.2);border-radius:1rem;padding:.5rem .8rem}
+.chestbox p{margin:0;color:#C8BFF5;font-size:.9rem}
+.chest{width:5rem;height:auto;flex:none}
+.chestbox.ready .chest{animation:shake 1s ease-in-out infinite}
+@keyframes shake{0%,100%{transform:rotate(0)}20%{transform:rotate(-6deg)}40%{transform:rotate(6deg)}60%{transform:rotate(-3deg)}}
+.chest.open .lid{transform:translate(-6px,-14px) rotate(-14deg);transform-origin:14px 46px}
+.chest-sh{max-width:28rem;text-align:center}.chest-sh h2{font-family:var(--f-game);font-weight:400;text-transform:uppercase}
+.chest-anim .chest{width:9rem;animation:pop .5s ease-out}
+.chest-rw{display:flex;justify-content:center;gap:1rem;margin:.6rem 0;font-family:var(--f-game);font-size:1.5rem}
+.chest-rw span{display:inline-flex;align-items:center;gap:.3rem}.chest-rw .cn,.chest-rw .it{width:2rem;height:2rem}
+.chest-item{max-width:11rem;margin:.4rem auto 1rem}
+.badges{display:grid;grid-template-columns:repeat(auto-fill,minmax(7.4rem,1fr));gap:.5rem}
+.badge{display:flex;flex-direction:column;align-items:center;text-align:center;gap:.15rem;padding:.6rem .4rem;border-radius:.9rem;background:rgba(255,255,255,.06);border:2px dashed rgba(255,255,255,.2)}
+.badge .be{font-size:2rem;filter:grayscale(1);opacity:.45}
+.badge b{font-family:var(--f-game);font-weight:400;font-size:.9rem;text-transform:uppercase;opacity:.6}
+.badge small{font-size:.7rem;color:#C8BFF5}
+.badge.on{background:radial-gradient(120% 90% at 50% 25%,#FFE07A,#E2620E 80%);border:3px solid #FFF2B0;box-shadow:0 4px 0 rgba(8,3,30,.5)}
+.badge.on .be{filter:none;opacity:1}.badge.on b{opacity:1}.badge.on small{color:#fff}
+.friendbuy{display:flex;gap:.5rem;flex-wrap:wrap}.friendbuy input{flex:1;min-width:10rem;border-radius:.6rem;border:2px solid rgba(255,255,255,.25);background:rgba(255,255,255,.1);color:#fff;padding:.5rem .7rem;font-size:1rem}
+.friendbuy .cn{width:1.1rem;height:1.1rem}
 @media print{
   @page{size:A4 landscape;margin:8mm}
   /* rezerva pro tiskárny / Safari s vlastními okraji (až ~13 mm) i pro tisk bez okrajů */
@@ -1026,7 +1056,7 @@ body::before{background:#140A3C}
 const COLOR_HEX={pink:"#E0566F",blue:"#2F7FE0",green:"#2EA650",yellow:"#E3AE00",purple:"#8B5CF6",orange:"#F08A24",gray:"#8A96A8"};
 const COLOR_NAMES={pink:"růžová",blue:"modrá",green:"zelená",yellow:"žlutá",purple:"fialová",orange:"oranžová",gray:"šedá"};
 const ICON_NAMES={cj:"kniha",ma:"kalkulačka",pu:"list",aj:"vlajka",hv:"nota",tv:"běžec",pv:"nůžky",vv:"paleta",book:"sešit",q:"otazník"};
-const APP_VERSION="43"; window.APP_VERSION=APP_VERSION;
+const APP_VERSION="44"; window.APP_VERSION=APP_VERSION;
 const KIND={sdel:{icon:"i-msg",short:null},druz:{icon:"i-users",short:null},ukol:{icon:"i-flag",short:null},food:{icon:"i-food",short:"Svačina"},drink:{icon:"i-drop",short:"Pití"},other:{icon:"i-dot",short:null}};
 
 const DEFAULTS = {
@@ -1450,7 +1480,7 @@ const NAV=[["home","Přehled","i-grid"],["tasks","Úkoly a akce","i-flag"],["boo
   ["pe","Tělocvik","i-shirt"],["sdel","Sdělníček","i-msg"],["check","Kontrola","i-clip"],["learn","Výuka","i-learn"],["pet","Morče","i-pig"]];
 function sideHtml(){
   return '<nav class="side" aria-label="Menu"><div class="eyebrow">Menu</div>'+
-    NAV.map(n=>'<button type="button" class="nav" data-view="'+n[0]+'"'+(view===n[0]?' aria-current="page"':"")+'>'+ic(n[2])+n[1]+(n[0]==="tasks"&&upcomingTasks()?'<span class="dotc">'+upcomingTasks()+'</span>':"")+(n[0]==="learn"&&dailyPending()?'<span class="dotc">1</span>':"")+(n[0]==="pet"&&PET.name&&(petTick(),petNeeds())&&!petAsleepAt(Date.now())?'<span class="dotc">!</span>':"")+'</button>').join("")+
+    NAV.map(n=>'<button type="button" class="nav" data-view="'+n[0]+'"'+(view===n[0]?' aria-current="page"':"")+'>'+ic(n[2])+n[1]+(n[0]==="tasks"&&upcomingTasks()?'<span class="dotc">'+upcomingTasks()+'</span>':"")+(n[0]==="learn"&&dailyPending()?'<span class="dotc">1</span>':"")+(n[0]==="pet"&&PET.name&&(((petTick(),petNeeds())&&!petAsleepAt(Date.now()))||(PET.prog&&PET.prog.chest&&PET.prog.chest[pragueToday()]==="ready"))?'<span class="dotc">!</span>':"")+'</button>').join("")+
     '<div class="eyebrow" style="margin-top:.6rem">Ostatní</div>'+
     '<button type="button" class="nav" data-view="week"'+(view==="week"?' aria-current="page"':"")+'>'+ic("i-cal")+'Týdenní rozvrh</button>'+
     '<button type="button" class="nav" data-view="year"'+(view==="year"?' aria-current="page"':"")+'>'+ic("i-year")+'Celý rok</button>'+
@@ -1732,11 +1762,13 @@ function finishQuiz(){
     else if(pct===100) earnGold(quiz.mode==="daily"?"daily":"l-"+quiz.lid);
     if(pct===100 && !big) earnCoins(10);
   }
+  prog("tests"); if(quiz.mode==="daily") prog("daily");
   petXP(quiz.mode==="big"?BIG.big.xp:quiz.mode==="subj"?BIG.subj.xp:quiz.mode==="daily"?10:5);
   if(pct===100) toast("Super! Všechno správně!");
 }
 function wkKey(d){ return weekMonday(d||pragueToday()); }
 function recordAnswer(lid,qi,good){ const l=lessonById(lid), r=lrec(lid), k=qkey(l,qi); r.qs=r.qs||{}; const s=r.qs[k]||[0,0]; s[good?0:1]++; r.qs[k]=s;
+  if(good) prog("answers");
   if(!good&&quiz&&quiz.mode!=="week"){ const W=LEARN._wk=LEARN._wk||{}, wk=wkKey(); Object.keys(W).filter(x=>x<addDays(wk,-21)).forEach(x=>delete W[x]); const arr=W[wk]=W[wk]||[]; const e=l.gen?{l:lid,t:l.quiz[qi].t}:{l:lid,i:qi}; if(!arr.some(x=>x.l===e.l&&x.t===e.t&&x.i===e.i)) arr.push(e); }
   if(good&&quiz&&quiz.mode==="week"){ const arr=(LEARN._wk||{})[wkKey()]||[]; const l2=lessonById(lid); const ix=arr.findIndex(x=>x.l===lid&&(l2.gen?x.t===l2.quiz[qi].t:x.i===qi)); if(ix>=0) arr.splice(ix,1); }
   saveLearn(); }
@@ -1774,7 +1806,7 @@ function openSprint(){
   const S=LEARN._sprint||(LEARN._sprint={best:0,hist:[]});
   const next=()=>{ q=genQ(r,r()<0.7?"mul":"div"); ord=shuf([0,1,2],r); };
   const finish=()=>{ clearInterval(timer); const rec=ok>S.best; if(rec) S.best=ok; S.hist.push({d:pragueToday(),ok,bad}); S.hist=S.hist.slice(-50); saveLearn();
-    let rew=""; if(PET.name&&ok>0){ const c=Math.min(ok,30); earnCoins(c); if(ok>=15) PET.inv.treat=(PET.inv.treat||0)+1; PET.inv.hay=(PET.inv.hay||0)+Math.min(ok,10); petXP(Math.min(15,ok)); savePet(); rew='<p class="pk-rew">'+esc(PET.name)+' dostal <b>'+c+' mincí</b>, '+Math.min(ok,10)+'× seno'+(ok>=15?' a <b>jahodu</b>':"")+'.</p>'; }
+    let rew=""; if(PET.name&&ok>0){ const c=Math.min(ok,30); earnCoins(c); if(ok>=15) PET.inv.treat=(PET.inv.treat||0)+1; PET.inv.hay=(PET.inv.hay||0)+Math.min(ok,10); petXP(Math.min(15,ok)); savePet(); prog("sprint",ok); rew='<p class="pk-rew">'+esc(PET.name)+' dostal <b>'+c+' mincí</b>, '+Math.min(ok,10)+'× seno'+(ok>=15?' a <b>jahodu</b>':"")+'.</p>'; }
     ov.innerHTML='<div class="sheet sprint"><div class="pk-win"><h2>'+(rec?"Nový rekord!":"Čas vypršel!")+'</h2><div class="sp-score">'+ok+'</div><p>správně za 60 sekund'+(bad?' · '+bad+'× chyba':"")+'</p><p>Tvůj rekord: <b>'+S.best+'</b></p>'+rew+
       '<div class="pk-foot" style="justify-content:center"><button type="button" class="btn" data-spclose>Zavřít</button><button type="button" class="btn primary big" data-spgo>Znovu</button></div></div></div>'; };
   const draw=()=>{ if(!end){ ov.innerHTML='<div class="sheet sprint"><span class="eyebrow">Násobilkový sprint</span><h2>Kolik toho stihneš za 60 sekund?</h2><p>Násobilka a dělení. Odpovídej co nejrychleji – chyba nevadí, jede se dál.</p><p>Tvůj rekord: <b>'+S.best+'</b></p><div class="pk-foot" style="justify-content:center"><button type="button" class="btn" data-spclose>Zpět</button><button type="button" class="btn primary big" data-spgo>Start!</button></div></div>'; return; }
@@ -2073,6 +2105,7 @@ function petScene(){
     '<g data-pobj="water" class="ci ci-water" transform="translate(26 40)"><rect x="0" y="0" width="34" height="70" rx="12" fill="#E8F4FF" '+S(2.5)+'/><rect x="3" y="'+(67-waterH)+'" width="28" height="'+waterH+'" rx="9" fill="#5BB8F5" opacity=".9"/><path d="M8 10v40" stroke="#fff" stroke-width="3" opacity=".7" stroke-linecap="round"/><rect x="13" y="70" width="8" height="22" rx="3" fill="#B0BEC5" '+S(1.6)+'/><circle cx="17" cy="95" r="4.5" fill="#90A4AE" '+S(1.6)+'/></g>'+
     // miska se senem
     '<g data-pobj="bowl" class="ci ci-bowl" transform="translate(40 230)"><g stroke="#C9A04A" stroke-width="2.4" stroke-linecap="round">'+[...Array(hay*3)].map((_,i)=>'<path d="M'+(10+i*4)%60+' 8l'+((i%3)-1)*6+' -'+(8+(i*7)%10)+'"/>').join("")+'</g><path d="M0 8h70l-8 20H8z" fill="'+(cageOn("bowl_gold")?"#E0B21E":"#5E8DEB")+'" '+S(2)+'/><ellipse cx="35" cy="8" rx="35" ry="5" fill="'+(cageOn("bowl_gold")?"#F7D64A":"#86A9F2")+'" '+S(2)+'/></g>'+
+    (PET.friend?'<g class="friend" transform="translate(150 16) translate(200 262) scale(.6) translate(-200 -262)">'+(()=>{ pigNoWear=true; try{ return pigSvg(mood==="sleep"?"ok":mood,3,a==="dance"||a==="disco"?a:null).replace(/#D08A45/g,"#4A4A52").replace(/#B9773D/g,"#36363D").replace(/#A66A33/g,"#2A2A30"); } finally{ pigNoWear=false; } })()+'</g>':"")+
     '<g data-pobj="pig" class="ci ci-pig"><g transform="translate(18 0) translate(200 262) scale('+PET_STAGES[lvl-1].k+') translate(-200 -262)">'+pigSvg(mood,lvl,pigId)+'</g></g>'+
     (a==="eat"&&petAnim.item?'<g class="feeditem" transform="translate(150 196) scale(.9)">'+itemSvg(petAnim.item).replace('class="it"','width="48" height="48"')+'</g>':"")+
     (a==="disco"?'<g class="disco"><circle cx="210" cy="24" r="14" fill="#C0C7D6" '+S(2)+'/><g opacity=".35"><circle class="dl d1" cx="110" cy="160" r="70" fill="#FF4F8B"/><circle class="dl d2" cx="300" cy="150" r="70" fill="#40C4FF"/><circle class="dl d3" cx="210" cy="230" r="70" fill="#FFE14D"/></g></g>':"")+
@@ -2105,8 +2138,8 @@ function petHtml(){
 
   return gameCard(esc(PET.name),"i-pig",'<span class="count">'+lvl+'. '+esc(st.name)+'</span>',
     celeb+'<div class="petwrap'+(petTab!=="care"?" shopping":"")+'"><div class="pet-left">'+sceneBox()+tryBar()+(petTab==="care"?emoteBar():"")+'<p class="pet-msg">'+esc(petMsg())+'</p>'+path+'</div>'+
-    '<div class="pet-right">'+(petTab==="care"?walletHtml():"")+'<div class="ptabs">'+[["care","Péče"],["shop","Obchod"],["ward","Šatník"]].map(x=>'<button type="button" class="'+(petTab===x[0]?"on":"")+'" data-ptab="'+x[0]+'">'+x[1]+'</button>').join("")+'</div>'+
-    (petTab==="shop"?shopHtml():petTab==="ward"?wardrobeHtml():(statBar("food","Sytost","#F0A030",s.food)+statBar("water","Pití","#3FA9F5",s.water)+statBar("joy","Radost","#FF5C8A",s.joy)+lvlBar+
+    '<div class="pet-right">'+(petTab==="care"?walletHtml():"")+'<div class="ptabs">'+[["care","Péče"],["shop","Obchod"],["ward","Šatník"],["ach","Úspěchy"]].map(x=>'<button type="button" class="'+(petTab===x[0]?"on":"")+'" data-ptab="'+x[0]+'">'+x[1]+(x[0]==="ach"&&PET.prog&&PET.prog.chest&&PET.prog.chest[pragueToday()]==="ready"?'<i class="tdot"></i>':"")+'</button>').join("")+'</div>'+
+    (petTab==="shop"?shopHtml():petTab==="ward"?wardrobeHtml():petTab==="ach"?achieveHtml():(statBar("food","Sytost","#F0A030",s.food)+statBar("water","Pití","#3FA9F5",s.water)+statBar("joy","Radost","#FF5C8A",s.joy)+lvlBar+
     '<h4>Zásoby</h4><div class="pitems">'+items+'</div>'+
     '<button type="button" class="btn big pet-love" data-ppet'+(canPet?"":" disabled")+'>'+ic("i-heart")+(asleep?'Spinká – za '+(napInfo(Date.now()).wakeIn||1)+' min se probudí':canPet?'Pohladit':'Pohladit můžeš za chvilku')+'</button>'+
     '<div class="pet-earn"><b>Jak získat jídlo a mince:</b><ul><li>správná odpověď = '+itemSvg("hay")+' seno + 2 '+coinSvg(false)+'</li><li>dokončený test = 2× '+itemSvg("water")+' voda + 5 '+coinSvg(false)+'</li><li>test na 90 % a víc = '+itemSvg("treat")+' jahoda</li><li>test na 100 % = 1 '+coinSvg(true)+' zlatá hvězda (za každé téma jednou denně)</li><li>Test dne = '+itemSvg("carrot")+' mrkev + 2× voda + 10 '+coinSvg(false)+'</li><li><b>Velký test</b> = 3 '+coinSvg(false)+' za odpověď, +30 '+coinSvg(false)+' a za 90 % 2 '+coinSvg(true)+'</li></ul>'+
@@ -2116,11 +2149,102 @@ function petAction(type,item){
   petTick(); const before=petLevel();
   if(type==="feed"){ if(!(PET.inv[item]>0)) return; const it=PET_ITEMS[item]; PET.inv[item]--;
     PET.stats.food=Math.min(100,PET.stats.food+it.food); PET.stats.water=Math.min(100,PET.stats.water+it.water); PET.stats.joy=Math.min(100,PET.stats.joy+it.joy);
-    PET.xp+=item==="treat"?3:item==="carrot"?2:1; petAnim={type:item==="treat"?"treat":"eat",item,until:Date.now()+1800}; }
-  else { PET.stats.joy=Math.min(100,PET.stats.joy+6); PET.petAt=Date.now(); PET.xp+=1; petAnim={type:"love",until:Date.now()+1800}; }
+    PET.xp+=item==="treat"?3:item==="carrot"?2:1; petAnim={type:item==="treat"?"treat":"eat",item,until:Date.now()+1800}; prog("feed"); }
+  else { PET.stats.joy=Math.min(100,PET.stats.joy+6); PET.petAt=Date.now(); PET.xp+=1; petAnim={type:"love",until:Date.now()+1800}; prog("pet"); }
   savePet(); render();
   if(petLevel()>before){ shopInit(); PET.lvlUp=petLevel(); savePet(); render(); }
   clearTimeout(petTimer); petTimer=setTimeout(()=>{ petAnim=null; if(view==="pet") render(); },1850);
+}
+
+/* ---------- motivace: série, denní úkoly s truhlou, odznaky, kamarád ---------- */
+function progInit(){ const P=PET.prog=PET.prog||{}; P.days=P.days||{}; P.cnt=P.cnt||{}; P.q=P.q||{}; P.chest=P.chest||{}; P.srew=P.srew||{}; P.badges=P.badges||{}; return P; }
+const QUESTS={daily:{t:"Udělej Test dne",need:1,g:"learn"},answers:{t:"Odpověz správně 20×",need:20,g:"learn"},tests:{t:"Dokonči 2 testy",need:2,g:"learn"},sprint:{t:"Ve sprintu dej aspoň 10 příkladů",need:10,g:"learn",max:true},
+  feed:{t:"Nakrm morče 3×",need:3,g:"pet"},pet:{t:"Pohlaď morče",need:1,g:"pet"},dance:{t:"Zatancuj s morčetem 2×",need:2,g:"pet"},
+  pack:{t:"Sbal batoh krok za krokem",need:1,g:"school"},hw:{t:"Dodělej domácí úkol",need:1,g:"school"}};
+function questsFor(d){
+  let h=0; for(const c of "q"+d) h=(h*33+c.charCodeAt(0))>>>0;
+  const L=["daily","answers","tests","sprint"], Pt=["feed","pet","dance"], third=[];
+  if(isSchool(nextSchoolDay(addDays(d,-1)))&&nextSchoolDay(d)===addDays(d,1)) third.push("pack");
+  if(homeworkOpen().length) third.push("hw");
+  const a=L[h%4], b=Pt[(h>>>3)%3], restL=L.filter(x=>x!==a); third.push(restL[(h>>>6)%3]);
+  return [a,b,third[(h>>>9)%third.length]];
+}
+function questProg(d,id){ const q=(PET.prog&&PET.prog.q[d])||{}; return q[id]||0; }
+function questsDone(d){ return questsFor(d).every(id=>questProg(d,id)>=QUESTS[id].need); }
+function prog(ev,n){
+  if(!PET||!PET.name) return; const P=progInit(), d=pragueToday(); n=n==null?1:n;
+  const q=P.q[d]=P.q[d]||{}; Object.keys(P.q).filter(x=>x<addDays(d,-14)).forEach(x=>delete P.q[x]);
+  if(QUESTS[ev]&&QUESTS[ev].max) q[ev]=Math.max(q[ev]||0,n); else q[ev]=(q[ev]||0)+n;
+  if(ev==="sprint") P.cnt.sprintBest=Math.max(P.cnt.sprintBest||0,n); else P.cnt[ev]=(P.cnt[ev]||0)+n;
+  if(["tests","daily","pack","hw"].includes(ev)) P.days[d]=true;
+  Object.keys(P.days).filter(x=>x<addDays(d,-120)).forEach(x=>delete P.days[x]);
+  const wasReady=P.chest[d]; if(!wasReady&&questsDone(d)){ P.chest[d]="ready"; setTimeout(()=>toast("Splnil jsi všechny dnešní úkoly! Otevři truhlu v Úspěších."),400); }
+  streakCheck(); badgeCheck(); savePet();
+}
+function streakInfo(){
+  const P=progInit(), t=pragueToday(); let n=0, d=t, start=t, guard=0;
+  if(!P.days[t]) d=addDays(t,-1);
+  while(guard++<400){ if(P.days[d]){ n++; start=d; d=addDays(d,-1); continue; } if(!isSchool(d)&&d<t){ d=addDays(d,-1); continue; } break; }
+  return {n,start,today:!!P.days[t]};
+}
+const STREAK_REW=[[3,{coins:20}],[5,{gold:1}],[7,{gold:2,item:"flame_cap"}],[10,{gold:3}],[14,{gold:3,item:"diamond_crown"}],[21,{gold:5}],[30,{gold:8}]];
+function streakCheck(){
+  const P=progInit(), s=streakInfo();
+  STREAK_REW.forEach(([m,r])=>{ const key=m+"@"+s.start; if(s.n>=m&&!P.srew[key]){ P.srew[key]=true;
+    if(r.coins) PET.coins=(PET.coins||0)+r.coins; if(r.gold) PET.gold=(PET.gold||0)+r.gold; if(r.item&&!PET.owned.includes(r.item)) PET.owned.push(r.item);
+    setTimeout(()=>toast("Série "+m+" dní! Odměna: "+(r.coins?r.coins+" mincí":"")+(r.gold?r.gold+" zlat"+(r.gold===1?"á hvězda":r.gold<5?"é hvězdy":"ých hvězd"):"")+(r.item?" + "+SHOP_BY[r.item].name:"")),900); } });
+}
+const BADGES=[
+ {id:"first",n:"První test",e:"🎯",d:"Dokonči první test",ok:P=>(P.cnt.tests||0)>=1},
+ {id:"daily7",n:"Týden testů",e:"📅",d:"Udělej Test dne 7×",ok:P=>(P.cnt.daily||0)>=7},
+ {id:"streak7",n:"Sedm v řadě",e:"🔥",d:"Série 7 dní",ok:P=>Object.keys(P.srew).some(k=>k.startsWith("7@"))},
+ {id:"clock",n:"Mistr hodin",e:"⏰",d:"Test Kolik je hodin? na 100 %",ok:()=>((LEARN["pu-hodiny"]||{}).best||0)>=100},
+ {id:"calc",n:"Počtář",e:"🧮",d:"Počítání zpaměti na 100 %",ok:()=>((LEARN["ma-pocitani-zpameti"]||{}).best||0)>=100},
+ {id:"sprint20",n:"Blesková násobilka",e:"⚡",d:"Ve sprintu 20 a víc",ok:P=>(P.cnt.sprintBest||0)>=20},
+ {id:"dikt",n:"Pravopisný mistr",e:"✏️",d:"Diktát na 100 %",ok:()=>((LEARN["cj-diktat-vyjmenovana"]||{}).best||0)>=100},
+ {id:"eng",n:"English star",e:"⭐",d:"Anglická slovíčka na 100 %",ok:()=>((LEARN["aj-slovicka"]||{}).best||0)>=100},
+ {id:"pack5",n:"Sbalený batoh",e:"🎒",d:"Sbal batoh krok za krokem 5×",ok:P=>(P.cnt.pack||0)>=5},
+ {id:"hw5",n:"Pilný žák",e:"📚",d:"Dodělej 5 domácích úkolů",ok:P=>(P.cnt.hw||0)>=5},
+ {id:"lvl5",n:"Velké morče",e:"🐹",d:"Morče na úrovni 5",ok:()=>petLevel()>=5},
+ {id:"ward10",n:"Módní ikona",e:"👑",d:"Měj 10 věcí v šatníku",ok:()=>(PET.owned||[]).length>=10},
+ {id:"chest5",n:"Lovec pokladů",e:"💎",d:"Otevři 5 truhel",ok:P=>(P.cnt.chest||0)>=5},
+ {id:"friend",n:"Nejlepší kamarádi",e:"💞",d:"Pořiď morčeti kamaráda",ok:()=>!!PET.friend}
+];
+function badgeCheck(){ const P=progInit(); BADGES.forEach(b=>{ if(!P.badges[b.id]&&b.ok(P)){ P.badges[b.id]=pragueToday(); PET.coins=(PET.coins||0)+10; setTimeout(()=>toast("Nový odznak: "+b.e+" "+b.n+" (+10 mincí)"),1400); } }); }
+function chestReward(d){
+  const r=rng("chest-"+d+"-"+PET.name), rew={coins:20+Math.floor(r()*21),hay:2};
+  if(r()<0.3) rew.gold=1;
+  if(r()<0.3){ const pool=SHOP.filter(x=>!x.gold&&!x.req&&!x.excl&&(x.r==="common"||x.r==="rare")&&!PET.owned.includes(x.id)); if(pool.length) rew.item=pool[Math.floor(r()*pool.length)].id; }
+  return rew;
+}
+function openChest(){
+  const P=progInit(), d=pragueToday(); if(P.chest[d]!=="ready") return;
+  const rw=chestReward(d); P.chest[d]="open"; P.cnt.chest=(P.cnt.chest||0)+1;
+  PET.coins=(PET.coins||0)+rw.coins; PET.inv.hay=(PET.inv.hay||0)+rw.hay; if(rw.gold) PET.gold=(PET.gold||0)+rw.gold; if(rw.item) PET.owned.push(rw.item);
+  badgeCheck(); savePet();
+  const ov=document.createElement("div"); ov.className="overlay chest-ov";
+  ov.innerHTML='<div class="sheet chest-sh"><div class="chest-anim">'+chestSvg(true)+'</div><h2>Truhla je otevřená!</h2><div class="chest-rw"><span>'+coinSvg(false)+'<b>+'+rw.coins+'</b></span><span>'+itemSvg("hay")+'<b>+'+rw.hay+'</b></span>'+(rw.gold?'<span>'+coinSvg(true)+'<b>+1</b></span>':"")+'</div>'+
+    (rw.item?'<div class="chest-item"><div class="icard r-'+SHOP_BY[rw.item].r+'"><div class="ic-art">'+thumb(SHOP_BY[rw.item])+'</div><div class="ic-nm">'+esc(SHOP_BY[rw.item].name)+'<span>nová věc do šatníku!</span></div></div></div>':"")+
+    '<button type="button" class="btn primary big" data-chclose>Super!</button></div>';
+  ov.addEventListener("click",e=>{ e.stopPropagation(); if(e.target.closest("[data-chclose]")||e.target===ov){ ov.remove(); render(); } });
+  document.body.appendChild(ov);
+}
+function chestSvg(open){
+  return '<svg viewBox="0 0 120 100" class="chest'+(open?" open":"")+'"><g '+S(3)+'><rect x="14" y="44" width="92" height="48" rx="6" fill="#B0703A"/><rect x="14" y="60" width="92" height="8" fill="#F7C531"/>'+
+    '<g class="lid"><path d="M14 46V34c0-14 20-22 46-22s46 8 46 22v12z" fill="#C98448"/><path d="M14 40h92" stroke="#F7C531" stroke-width="7"/></g><rect x="52" y="52" width="16" height="20" rx="3" fill="#F7C531"/></g>'+
+    (open?'<g class="glow"><circle cx="60" cy="36" r="26" fill="#FFE14D" opacity=".55"/><path d="M60 0v14M30 10l8 12M90 10l-8 12" stroke="#FFE14D" stroke-width="4" stroke-linecap="round"/></g>':"")+'</svg>';
+}
+function achieveHtml(){
+  const P=progInit(), d=pragueToday(), s=streakInfo(), next=STREAK_REW.find(([m])=>m>s.n);
+  const qs=questsFor(d).map(id=>{ const Q=QUESTS[id], v=Math.min(questProg(d,id),Q.need); return '<div class="qrow'+(v>=Q.need?" ok":"")+'"><span class="qck">'+(v>=Q.need?ic("i-check"):"")+'</span><span class="qt">'+esc(Q.t)+'</span><span class="qn">'+v+' / '+Q.need+'</span><div class="qb"><i style="width:'+Math.round(100*v/Q.need)+'%"></i></div></div>'; }).join("");
+  const st=P.chest[d], chest='<div class="chestbox'+(st==="ready"?" ready":"")+'">'+chestSvg(st==="open")+(st==="ready"?'<button type="button" class="btn primary big" data-chest>Otevřít truhlu!</button>':st==="open"?'<p>Dnešní truhla je otevřená. Zítra přijdou nové úkoly.</p>':'<p>Splň všechny 3 úkoly a otevři truhlu s pokladem.</p>')+'</div>';
+  const friend=PET.friend?'<div class="ish-sec"><h4>Kamarád</h4><p class="ish-hint">'+esc(PET.name)+' má kamaráda <b>'+esc(PET.friend.name)+'</b>. Bydlí spolu v pokojíčku.</p></div>':
+    '<div class="ish-sec"><h4>Kamarád pro '+esc(PET.name)+'</h4><p class="ish-hint">Morčata nechtějí být sama. Od úrovně 4 můžeš '+esc(PET.name)+' pořídit kamaráda za <b>8 zlatých hvězd</b>.</p>'+
+      (petLevel()>=4?'<div class="friendbuy"><input id="friendname" placeholder="Jméno kamaráda" maxlength="14"><button type="button" class="btn primary" data-friend'+((PET.gold||0)>=8?"":" disabled")+'>Pořídit za 8 '+coinSvg(true)+'</button></div>':'<p class="ish-hint">Teď je '+esc(PET.name)+' na úrovni '+petLevel()+'.</p>')+'</div>';
+  return '<div class="ishop ach"><div class="ish-h"><h3>Úspěchy</h3></div>'+
+    '<div class="streak"><span class="fl">🔥</span><div><b>'+s.n+'</b> '+(s.n===1?"den":s.n>=2&&s.n<=4?"dny":"dní")+' v řadě<small>'+(s.today?"Dnes splněno.":"Dnes ještě udělej test, sbal batoh nebo domácí úkol.")+(next?" Za "+(next[0]-s.n)+" "+((next[0]-s.n)===1?"den":"dny")+" odměna"+(next[1].item?" a výjimečná věc!":"!"):"")+' Víkend sérii nepřeruší.</small></div></div>'+
+    '<div class="ish-sec"><h4>Dnešní úkoly</h4>'+qs+chest+'</div>'+
+    '<div class="ish-sec"><h4>Odznaky <span>'+Object.keys(P.badges).length+' / '+BADGES.length+'</span></h4><div class="badges">'+BADGES.map(b=>'<div class="badge'+(P.badges[b.id]?" on":"")+'"><span class="be">'+b.e+'</span><b>'+esc(b.n)+'</b><small>'+esc(b.d)+'</small></div>').join("")+'</div></div>'+friend+'</div>';
 }
 
 /* ---------- obchod a šatník morčete (v2) ---------- */
@@ -2298,6 +2422,8 @@ const HOUSES={
 };
 Object.entries(HOUSES).forEach(([id,h])=>{ const it=SHOP.find(x=>x.id===id); if(it) Object.assign(it,h); });
 SHOP.push(
+ {id:"flame_cap", name:"Plamenná kšiltovka", slot:"head", r:"legend", excl:7, at:"translate(134 148)", vb:"-52 -40 82 54", svg:'<path d="M-14-20c-4-10 4-14 2-22 8 6 6 12 10 14 2-8 8-10 8-16 6 10 6 18 4 24z" fill="#FF7043" '+S(1.6)+'/><path d="M-6-20c0-6 4-8 4-12 4 6 6 10 4 14z" fill="#FFE14D"/><g '+S()+'><path d="M-48 5q12-9 28-7l2 8q-18 0-30 4z" fill="#212121"/><path d="M-22 6c0-19 10-29 24-29s24 10 24 29z" fill="#E53935"/></g><path d="M-16 0q8-12 18-8q-4 6 2 10q6-10 16-6" fill="none" stroke="#FFE14D" stroke-width="3" stroke-linecap="round"/>'},
+ {id:"diamond_crown", name:"Diamantová koruna", slot:"head", r:"legend", excl:14, at:"translate(136 142)", vb:"-30 -24 60 42", svg:'<g transform="translate(-24 -12)"><path d="M0 22l6-18 9 12 9-14 9 14 9-12 6 18z" fill="#B3E5FC" '+S(2.2)+'/><rect x="0" y="20" width="48" height="6" rx="2" fill="#4FC3F7" '+S(2)+'/><path d="M24-6l5 6-5 6-5-6z" fill="#E1F5FE" '+S(1.6)+'/><circle cx="6" cy="5" r="2.4" fill="#fff"/><circle cx="42" cy="5" r="2.4" fill="#fff"/><path d="M14 10l3-3M32 10l3-3" stroke="#fff" stroke-width="1.6"/></g>'},
  {id:"house_hobbit", name:"Hobití nora", slot:"house", r:"rare", price:65, at:HOUSE_AT, vb:"-26 -40 152 148", svg:
   '<g class="smoke" fill="#fff"><circle cx="86" cy="-10" r="5" opacity=".7"/><circle cx="92" cy="-22" r="7" opacity=".5"/></g><rect x="80" y="-2" width="10" height="26" fill="#78909C" '+S(2)+'/>'+
   '<path d="M-22 104C-22 40 14 12 50 12s72 28 72 92z" fill="#7CB342" '+S(2.6)+'/><path d="M-10 90C-6 50 20 26 50 22" stroke="#9CCC65" stroke-width="7" fill="none" opacity=".8" stroke-linecap="round"/>'+
@@ -2332,7 +2458,7 @@ const SLOT_NAME={head:"Na hlavu",face:"Na oči",neck:"Na krk",body:"Oblečení",
 const NEW_IDS=["headphones","wizard","unicorn","pirate","chef","party","heartglasses","necklace","tee","hoodie","sweater","jersey","hero","wings","backpack","nails_pink","nails_rainbow","house_igloo","house_pumpkin","house_castle","house_rocket","bed_hay","bed_soft","bed_wood","console","armor_gold","wings_rainbow","nails_gold","bed_royal"];
 NEW_IDS.push("house_hobbit","house_tree","pyjama","nightcap","cowboy");
 const SHOP_CATS=[["today","Dnes"],["head","Hlava"],["body","Oblečení"],["acc","Doplňky"],["house","Domečky"],["bed","Postel"],["cage","Klec"],["legend","Legendární"]];
-const catOf=it=>it.gold?"legend":it.slot==="head"?"head":it.slot==="body"?"body":["face","neck","back","paws"].includes(it.slot)?"acc":it.slot;
+const catOf=it=>it.gold||it.excl?"legend":it.slot==="head"?"head":it.slot==="body"?"body":["face","neck","back","paws"].includes(it.slot)?"acc":it.slot;
 const LEVEL_GIFTS={2:["bow_pink"],3:["tunnel","bed_hay"],4:["hat"],5:["glasses","flower"],6:["hammock"],7:["medal"],8:["crown","cape","bowl_gold","rug"]};
 let petTab="care", petTry=null, shopCat="today", wardCat="all";
 function shopInit(){
@@ -2345,17 +2471,18 @@ function equip(id,on){ const it=SHOP_BY[id]; if(!it) return; if(it.slot==="cage"
 function isOn(id){ const it=SHOP_BY[id]; return it.slot==="cage"?!!PET.cage[id]:PET.eq[it.slot]===id; }
 function slotItem(slot){ let id=PET.eq[slot]; if(petTry&&SHOP_BY[petTry]&&SHOP_BY[petTry].slot===slot) id=petTry; return id&&SHOP_BY[id]; }
 function placed(it){ return it.at?'<g transform="'+it.at+'">'+it.svg+'</g>':it.svg; }
-function wearSvg(slot){ const it=slotItem(slot); return it?placed(it):""; }
+let pigNoWear=false;
+function wearSvg(slot){ if(pigNoWear&&slot!=="bed") return ""; const it=slotItem(slot); return it?placed(it):""; }
 function houseSvg(){ const it=slotItem("house"); return it?placed(it):'<g transform="'+HOUSE_AT+'">'+houseWood()+'</g>'; }
 function cageOn(id){ return PET.cage[id] || petTry===id; }
 function cageSvg(id){ const it=SHOP_BY[id]; if(!cageOn(id)) return ""; return '<g class="ci ci-'+id+'" data-pobj="'+id+'">'+(id==="ball"?'<g transform="'+it.at+'"><g class="spin">'+it.svg+'</g></g>':placed(it))+'</g>'; }
 function cageLayer(){ return ["rainbow","console","rug","hammock","tunnel","flower","ball"].map(cageSvg).join(""); }
 function thumb(it){ return '<svg viewBox="'+(it.tvb||it.vb)+'" class="th" preserveAspectRatio="xMidYMid meet">'+(it.th||it.svg)+'</svg>'; }
 function dealIds(){ const d=pragueToday(); let h=0; for(const c of d) h=(h*31+c.charCodeAt(0))>>>0;
-  const pool=SHOP.filter(x=>!x.gold&&!x.req), w=pool.filter(x=>x.slot!=="cage"&&x.slot!=="house"&&x.slot!=="bed"), o=pool.filter(x=>!w.includes(x));
+  const pool=SHOP.filter(x=>!x.gold&&!x.req&&!x.excl), w=pool.filter(x=>x.slot!=="cage"&&x.slot!=="house"&&x.slot!=="bed"), o=pool.filter(x=>!w.includes(x));
   return [w[h%w.length].id, o[(h>>>5)%o.length].id]; }
-function priceOf(it){ if(it.gold) return it.gold; return dealIds().includes(it.id)?Math.round(it.price*.7):it.price; }
-function canBuy(it){ if(PET.owned.includes(it.id)) return false; if(it.req&&!PET.owned.includes(it.req)) return false; return (it.gold?PET.gold:PET.coins)>=priceOf(it); }
+function priceOf(it){ if(it.gold) return it.gold; if(it.excl) return 0; return dealIds().includes(it.id)?Math.round(it.price*.7):it.price; }
+function canBuy(it){ if(PET.owned.includes(it.id)||it.excl) return false; if(it.req&&!PET.owned.includes(it.req)) return false; return (it.gold?PET.gold:PET.coins)>=priceOf(it); }
 function coinSvg(gold){ return gold?'<svg viewBox="0 0 24 24" class="cn"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z" fill="#F7C531" stroke="#C99700" stroke-width="1.2" stroke-linejoin="round"/></svg>'
   :'<svg viewBox="0 0 24 24" class="cn"><circle cx="12" cy="12" r="9.5" fill="#FFC93C" stroke="#D69E00" stroke-width="1.6"/><circle cx="12" cy="12" r="6" fill="none" stroke="#E8AE12" stroke-width="1.4"/><path d="M12 8.5v7" stroke="#B8860B" stroke-width="2" stroke-linecap="round"/></svg>'; }
 function walletHtml(){ return '<div class="wallet"><span>'+coinSvg(false)+'<b>'+(PET.coins||0)+'</b> mincí</span><span class="g">'+coinSvg(true)+'<b>'+(PET.gold||0)+'</b> zlatých hvězd</span></div>'; }
@@ -2367,13 +2494,14 @@ function icard(it,o){
   if(o.ward) foot='<button type="button" class="ic-act'+(isOn(it.id)?" on":"")+'" data-pwear="'+it.id+'">'+(isOn(it.id)?ic("i-check")+(it.slot==="cage"||it.slot==="house"||it.slot==="bed"?"Je v kleci":"Má na sobě"):(it.slot==="cage"||it.slot==="house"||it.slot==="bed"?"Dát do klece":"Obléct"))+'</button>';
   else if(own) foot='<div class="ic-act own">'+ic("i-check")+'Vlastníš</div>';
   else if(locked) foot='<div class="ic-act lock">Nejdřív: '+esc(SHOP_BY[it.req].name)+'</div>';
+  else if(it.excl) foot='<div class="ic-act lock">🔥 Odměna za sérii '+it.excl+' dní</div>';
   else { const have=gold?PET.gold:PET.coins; foot='<button type="button" class="ic-act buy" data-pbuy="'+it.id+'"'+(have>=pr?"":" disabled")+'>'+coinSvg(gold)+(deal?'<s>'+it.price+'</s>':"")+pr+'</button>'; }
   const badge=deal?'<i class="ic-badge deal">−30 %</i>':(NEW_IDS.includes(it.id)&&!own&&!o.ward?'<i class="ic-badge">Nové</i>':"");
   return '<div class="icard r-'+it.r+(o.big?" big":"")+(own&&!o.ward?" own":"")+(petTry===it.id?" try":"")+(o.ward&&isOn(it.id)?" on":"")+(locked?" locked":"")+'">'+badge+
     '<button type="button" class="ic-art" data-ptry="'+it.id+'" aria-label="Vyzkoušet '+esc(it.name)+'">'+thumb(it)+'</button>'+
     '<div class="ic-nm">'+esc(it.name)+'<span>'+RAR[it.r]+' · '+SLOT_NAME[it.slot]+'</span></div>'+foot+'</div>';
 }
-function sortItems(a){ return a.slice().sort((x,y)=>(x.bedLv||0)-(y.bedLv||0)||RORD[x.r]-RORD[y.r]||(x.gold||x.price)-(y.gold||y.price)); }
+function sortItems(a){ return a.slice().sort((x,y)=>(x.bedLv||0)-(y.bedLv||0)||RORD[x.r]-RORD[y.r]||(x.excl?1:0)-(y.excl?1:0)||(x.gold||x.price||0)-(y.gold||y.price||0)); }
 function shopHtml(){
   const cats='<div class="ish-cats">'+SHOP_CATS.map(c=>'<button type="button" class="'+(shopCat===c[0]?"on":"")+'" data-pcat="'+c[0]+'">'+c[1]+'</button>').join("")+'</div>';
   let body;
@@ -2672,7 +2800,7 @@ function openPack(iso){
     const bar='<div class="pk-bar"><i style="width:'+Math.round(100*done/Math.max(1,tot))+'%"></i></div><div class="pk-steps">'+steps.map((s,i)=>'<span class="'+(i<k?"ok":i===k?"cur":"")+'"></span>').join("")+'</div>';
     if(k>=steps.length){
       const first=PET.name&&!(PET.packDay||{})[iso];
-      if(first){ PET.packDay=PET.packDay||{}; PET.packDay[iso]=true; Object.keys(PET.packDay).filter(d=>d<addDays(pragueToday(),-30)).forEach(d=>delete PET.packDay[d]); earnCoins(10); PET.inv.carrot=(PET.inv.carrot||0)+1; savePet(); }
+      if(first){ PET.packDay=PET.packDay||{}; PET.packDay[iso]=true; Object.keys(PET.packDay).filter(d=>d<addDays(pragueToday(),-30)).forEach(d=>delete PET.packDay[d]); earnCoins(10); PET.inv.carrot=(PET.inv.carrot||0)+1; savePet(); prog("pack"); }
       ov.innerHTML='<div class="sheet pack done">'+bar+'<div class="pk-win"><div class="pk-confetti">'+[...Array(18)].map((_,i)=>'<i style="left:'+(i*5.5)+'%;animation-delay:'+(i%6)*.12+'s;background:'+["#FFE14D","#FF4F8B","#40C4FF","#7CFF9B"][i%4]+'"></i>').join("")+'</div>'+
         '<h2>Batoh je sbalený!</h2><p>Na '+DAY_ACC[dow(iso)]+' '+fmtShort(iso)+' máš všechno.</p>'+(first?'<p class="pk-rew">'+esc(PET.name)+' dostal <b>10 mincí</b> a <b>mrkev</b>.</p>':PET.name?'<p class="pk-rew">Odměnu za tento den už '+esc(PET.name)+' dostal.</p>':"")+
         '<button type="button" class="btn primary big" data-pkclose>Hotovo</button></div></div>'; return;
@@ -2836,7 +2964,9 @@ document.addEventListener("click", async e=>{
   const ptab=t.closest("[data-ptab]"); if(ptab){ petTab=ptab.dataset.ptab; petTry=null; render(); return; }
   const ptry=t.closest("[data-ptry]"); if(ptry){ petTry=ptry.dataset.ptry&&petTry!==ptry.dataset.ptry?ptry.dataset.ptry:null; render(); return; }
   const pclk=t.closest("[data-clock]"); if(pclk){ clockPeek=Date.now()+8000; tickClocks(); return; }
-  const pem=t.closest("[data-pemote]"); if(pem){ const e=pem.dataset.pemote; petPlay(e,EMOTE_SAY[e]); return; }
+  const pem=t.closest("[data-pemote]"); if(pem){ const e=pem.dataset.pemote; prog("dance"); petPlay(e,EMOTE_SAY[e]); return; }
+  if(t.closest("[data-chest]")){ openChest(); return; }
+  if(t.closest("[data-friend]")){ const nm=(document.getElementById("friendname")||{}).value||""; if(!nm.trim()){ toast("Napiš jméno kamaráda."); return; } if((PET.gold||0)<8) return; PET.gold-=8; PET.friend={name:nm.trim().slice(0,14)}; badgeCheck(); savePet(); render(); toast(PET.name+" má kamaráda "+PET.friend.name+"!"); return; }
   const pob=t.closest("[data-pobj]"); if(pob&&petTab==="care"){ petObj(pob.dataset.pobj); return; }
   const pcat=t.closest("[data-pcat]"); if(pcat){ shopCat=pcat.dataset.pcat; petTry=null; render(); return; }
   const pbuy=t.closest("[data-pbuy]"); if(pbuy){ const it=SHOP_BY[pbuy.dataset.pbuy]; if(it&&canBuy(it)){ const g=!!it.gold, pr=priceOf(it); { if(g) PET.gold-=pr; else PET.coins-=pr; PET.owned.push(it.id); equip(it.id,true); petTry=null; savePet(); petAnim={type:"love",until:Date.now()+1800}; render(); toast("Koupeno: "+it.name+"!"); clearTimeout(petTimer); petTimer=setTimeout(()=>{ petAnim=null; if(view==="pet") render(); },1850); } } return; }
@@ -2874,7 +3004,7 @@ document.addEventListener("click", async e=>{
   if(t.closest("[data-sprint]")){ openSprint(); return; }
   const pg0=t.closest("[data-packgo]"); if(pg0){ const d=pg0.dataset.packgo; modalIso=null; renderModal(); openPack(d); return; }
   const po=t.closest("[data-photoopen]"); if(po){ openPhoto(po.dataset.photoopen); return; }
-  const hd=t.closest("[data-hwdone]"); if(hd){ const tk=cfg.tasks.find(x=>x.id===hd.dataset.hwdone); if(tk){ tk.done=!tk.done; if(tk.done&&!tk.rewarded){ tk.rewarded=true; if(PET.name){ earnCoins(5); PET.inv.hay=(PET.inv.hay||0)+2; savePet(); } toast(PET.name?"Hotovo! "+PET.name+" dostal 5 mincí a 2 sena.":"Hotovo!"); } saveCfg(); render(); } return; }
+  const hd=t.closest("[data-hwdone]"); if(hd){ const tk=cfg.tasks.find(x=>x.id===hd.dataset.hwdone); if(tk){ tk.done=!tk.done; if(tk.done&&!tk.rewarded){ tk.rewarded=true; if(PET.name){ earnCoins(5); PET.inv.hay=(PET.inv.hay||0)+2; savePet(); prog("hw"); } toast(PET.name?"Hotovo! "+PET.name+" dostal 5 mincí a 2 sena.":"Hotovo!"); } saveCfg(); render(); } return; }
   const dt=t.closest("[data-deltask]"); if(dt){
     const tk=cfg.tasks.find(x=>x.id===dt.dataset.deltask);
     if(tk && await askConfirm("Smazat „"+tk.text+"“?","Smazat")){ cfg.tasks=cfg.tasks.filter(x=>x!==tk); if(tk.photo) photoDel(tk.id); saveCfg(); render(); toast("Smazáno."); }
