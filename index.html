@@ -902,6 +902,47 @@ body::before{background:#140A3C}
 .qclock{display:block;width:min(13rem,46vw);height:auto;margin:.2rem auto .8rem;filter:drop-shadow(0 4px 0 rgba(45,27,61,.35))}
 .qclock.sm{display:inline-block;width:2.6rem;margin:0 .45rem 0 0;vertical-align:middle;filter:none}
 .qz .qq .qclock.sm{width:24mm;display:block;margin:0 0 1mm}
+.trow.shared{background:var(--green-bg);border-radius:.6rem}
+.trow .ttext small{display:block;color:var(--ink-3);font-size:.82rem;margin-top:.15rem}
+.ttag.ev{background:#22A85A;color:#fff;border-radius:.4rem;padding:.1rem .45rem;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.03em;white-space:nowrap}
+.okmini.src{background:transparent;color:var(--green-fg)}
+.hw-list{display:flex;flex-direction:column;gap:.5rem;margin:.4rem 0 .2rem}
+.hw{display:flex;align-items:center;gap:.7rem;padding:.55rem .6rem;border:2px solid var(--line);border-radius:.8rem;background:var(--surface)}
+.hw.done{opacity:.6}
+.hw-ph{width:4.2rem;height:3.2rem;flex:none;border-radius:.5rem;overflow:hidden;border:2px solid var(--line);background:var(--surface-2);padding:0;display:flex;align-items:center;justify-content:center;color:var(--ink-3)}
+.hw-ph img{width:100%;height:100%;object-fit:cover}
+.hw-t{flex:1;display:flex;flex-wrap:wrap;align-items:center;gap:.35rem}
+.hw-t b{flex-basis:100%;font-weight:600}
+.hw-empty{padding:.6rem .8rem;border:2px dashed var(--line);border-radius:.8rem;color:var(--ink-3);font-size:.92rem}
+.hw-mini{width:2.4rem;height:1.8rem;border-radius:.3rem;overflow:hidden;border:1px solid var(--line);padding:0;margin-right:.4rem;vertical-align:middle;display:inline-block}
+.hw-mini img{width:100%;height:100%;object-fit:cover}
+.ph-row{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+.ph-btn{cursor:pointer}
+.ph-prev{max-height:5rem;border-radius:.5rem;border:2px solid var(--line)}
+.photo-ov{display:flex;align-items:center;justify-content:center;padding:1rem}
+.photo-big{display:flex;flex-direction:column;gap:.7rem;align-items:center;max-width:96vw;max-height:94vh}
+.photo-big img{max-width:94vw;max-height:80vh;border-radius:.8rem;background:#fff;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.pk-go{margin:.6rem 0 .2rem;width:100%;justify-content:center}
+.pack-ov .sheet.pack{max-width:40rem;width:100%}
+.pk-bar{height:.8rem;border-radius:.4rem;background:var(--surface-2);border:2px solid var(--line);overflow:hidden;margin-bottom:.5rem}
+.pk-bar i{display:block;height:100%;background:linear-gradient(90deg,#7BD86A,#FFE14D);transition:width .3s}
+.pk-steps{display:flex;gap:.25rem;margin-bottom:.8rem}.pk-steps span{flex:1;height:.35rem;border-radius:.2rem;background:var(--line)}.pk-steps .ok{background:#22A85A}.pk-steps .cur{background:#FFC21A}
+.pk-h{display:flex;align-items:center;gap:.6rem;font-family:var(--f-game);font-weight:400;font-size:1.8rem;text-transform:uppercase;margin:.3rem 0}
+.pk-h svg{width:1.8rem;height:1.8rem}
+.pk-sub{color:var(--ink-3);margin:.2rem 0 .7rem}
+.pk-items{display:grid;grid-template-columns:repeat(auto-fill,minmax(14rem,1fr));gap:.5rem}
+.pk-it{display:flex;align-items:center;gap:.7rem;text-align:left;min-height:3.6rem;padding:.6rem .8rem;border-radius:.8rem;border:3px solid var(--line);background:var(--surface);font-size:1.12rem;font-weight:600;color:var(--ink)}
+.pk-box{width:1.8rem;height:1.8rem;flex:none;border-radius:.5rem;border:3px solid var(--line-2);display:flex;align-items:center;justify-content:center;color:transparent}
+.pk-box svg{width:1.2rem;height:1.2rem}
+.pk-it.on{border-color:#22A85A;background:var(--green-bg)}
+.pk-it.on .pk-box{background:#22A85A;border-color:#22A85A;color:#fff}
+.pk-foot{display:flex;gap:.5rem;margin-top:1rem;align-items:center}.pk-foot [data-pknext]{margin-left:auto}
+.pk-win{position:relative;text-align:center;padding:1.5rem 0 .5rem;overflow:hidden}
+.pk-win h2{font-family:var(--f-game);font-weight:400;font-size:2.2rem;color:#22A85A;text-transform:uppercase;margin:.4rem 0}
+.pk-rew{font-size:1.15rem}
+.pk-confetti{position:absolute;inset:0;pointer-events:none}
+.pk-confetti i{position:absolute;top:-10px;width:.6rem;height:1rem;border-radius:.15rem;animation:pkc 1.6s ease-in forwards}
+@keyframes pkc{to{transform:translateY(16rem) rotate(540deg);opacity:0}}
 @media print{
   @page{size:A4 landscape;margin:8mm}
   /* rezerva pro tiskárny / Safari s vlastními okraji (až ~13 mm) i pro tisk bez okrajů */
@@ -968,7 +1009,7 @@ body::before{background:#140A3C}
 const COLOR_HEX={pink:"#E0566F",blue:"#2F7FE0",green:"#2EA650",yellow:"#E3AE00",purple:"#8B5CF6",orange:"#F08A24",gray:"#8A96A8"};
 const COLOR_NAMES={pink:"růžová",blue:"modrá",green:"zelená",yellow:"žlutá",purple:"fialová",orange:"oranžová",gray:"šedá"};
 const ICON_NAMES={cj:"kniha",ma:"kalkulačka",pu:"list",aj:"vlajka",hv:"nota",tv:"běžec",pv:"nůžky",vv:"paleta",book:"sešit",q:"otazník"};
-const APP_VERSION="41"; window.APP_VERSION=APP_VERSION;
+const APP_VERSION="42"; window.APP_VERSION=APP_VERSION;
 const KIND={sdel:{icon:"i-msg",short:null},druz:{icon:"i-users",short:null},ukol:{icon:"i-flag",short:null},food:{icon:"i-food",short:"Svačina"},drink:{icon:"i-drop",short:"Pití"},other:{icon:"i-dot",short:null}};
 
 const DEFAULTS = {
@@ -1308,6 +1349,25 @@ function pruneData(){
 }
 
 /* ---------- přidání úkolu ---------- */
+/* ---------- fotky domácích úkolů (IndexedDB) ---------- */
+const PHOTO_URL={};
+function idb(){ return new Promise((res,rej)=>{ if(!window.indexedDB) return rej("no idb"); const r=indexedDB.open("skolni-partak",1); r.onupgradeneeded=()=>r.result.createObjectStore("photos"); r.onsuccess=()=>res(r.result); r.onerror=()=>rej(r.error); }); }
+async function photoPut(id,blob){ const db=await idb(); return new Promise((res,rej)=>{ const tx=db.transaction("photos","readwrite"); tx.objectStore("photos").put(blob,id); tx.oncomplete=()=>res(); tx.onerror=()=>rej(tx.error); }); }
+async function photoGet(id){ const db=await idb(); return new Promise(res=>{ const r=db.transaction("photos").objectStore("photos").get(id); r.onsuccess=()=>res(r.result||null); r.onerror=()=>res(null); }); }
+async function photoDel(id){ try{ const db=await idb(); db.transaction("photos","readwrite").objectStore("photos").delete(id); }catch(e){} delete PHOTO_URL[id]; }
+function shrinkPhoto(file){ return new Promise((res,rej)=>{ const img=new Image(), u=URL.createObjectURL(file); img.onload=()=>{ const k=Math.min(1,1400/Math.max(img.width,img.height)), c=document.createElement("canvas"); c.width=Math.round(img.width*k); c.height=Math.round(img.height*k); c.getContext("2d").drawImage(img,0,0,c.width,c.height); URL.revokeObjectURL(u); c.toBlob(b=>b?res(b):rej("blob"),"image/jpeg",.75); }; img.onerror=()=>{ URL.revokeObjectURL(u); rej("img"); }; img.src=u; }); }
+function hydratePhotos(){ document.querySelectorAll("img[data-photo]").forEach(async el=>{ const id=el.dataset.photo; if(!PHOTO_URL[id]){ const b=await photoGet(id); if(!b) return; PHOTO_URL[id]=URL.createObjectURL(b); } el.src=PHOTO_URL[id]; }); }
+function openPhoto(id){ const ov=document.createElement("div"); ov.className="overlay photo-ov"; ov.innerHTML='<div class="photo-big"><img data-photo="'+esc(id)+'" alt="Fotka zadání"><button type="button" class="btn primary" data-pclose>Zavřít</button></div>'; ov.addEventListener("click",e=>{ e.stopPropagation(); if(e.target===ov||e.target.closest("[data-pclose]")) ov.remove(); }); document.body.appendChild(ov); hydratePhotos(); }
+/* domácí úkoly = záznamy typu „Úkol“ */
+function homeworkOpen(){ const t=pragueToday(); return (cfg.tasks||[]).filter(x=>x.kind==="ukol"&&!x.done&&x.date>=t).sort((a,b)=>a.date<b.date?-1:1); }
+function homeworkHtml(){
+  const list=(cfg.tasks||[]).filter(x=>x.kind==="ukol"&&x.date>=addDays(pragueToday(),-1)).sort((a,b)=>(a.done?1:0)-(b.done?1:0)||(a.date<b.date?-1:1));
+  if(!list.length) return '<div class="hw-empty">Žádné domácí úkoly. Nový přidáš tlačítkem <b>Přidat</b> → <b>Úkol</b>, klidně jen vyfoť zadání.</div>';
+  return '<div class="hw-list">'+list.map(t=>{ const s=t.subj&&subj(t.subj);
+    return '<div class="hw'+(t.done?" done":"")+'">'+(t.photo?'<button type="button" class="hw-ph" data-photoopen="'+esc(t.id)+'" aria-label="Zobrazit fotku"><img data-photo="'+esc(t.id)+'" alt=""></button>':'<span class="hw-ph none">'+ic("i-pencil")+'</span>')+
+      '<div class="hw-t"><span class="mono">'+(t.date===addDays(pragueToday(),1)?"na zítra":DAY_SHORT[dow(t.date)]+" "+fmtShort(t.date))+'</span>'+(s?stag(s):"")+'<b>'+esc(t.text)+'</b></div>'+
+      '<button type="button" class="btn small'+(t.done?"":" primary")+'" data-hwdone="'+esc(t.id)+'">'+(t.done?ic("i-check")+"Hotovo":"Mám hotovo")+'</button></div>'; }).join("")+'</div>';
+}
 function openTaskSheet(preDate){
   const today=pragueToday(), nsd=nextSchoolDay(today);
   let kind="ukol", date=preDate||nsd;
@@ -1318,6 +1378,7 @@ function openTaskSheet(preDate){
     '<label class="fl">Co<input type="text" id="task-text" placeholder="např. Matematika str. 24 cv. 3, peníze na divadlo" autocomplete="off"></label>'+
     '<div class="fl">Na kdy<div class="qd">'+quick.map(d=>'<button type="button" class="btn small" data-qd="'+d+'" aria-pressed="'+(d===date)+'">'+(d===addDays(today,1)?"Zítra":cap(DAY_NAMES[dow(d)]))+' '+fmtShort(d)+'</button>').join("")+
       '<input type="date" id="task-date" value="'+date+'" aria-label="Datum"></div><span class="warnline" id="task-warn"></span></div>'+
+    '<div class="fl ph-row"><span>Fotka zadání (nepovinné)</span><label class="btn small ph-btn">'+ic("i-plus","","width:1rem;height:1rem")+'Vyfotit / vybrat<input type="file" id="task-photo" accept="image/*" capture="environment" hidden></label><img id="task-prev" class="ph-prev" alt="" hidden></div>'+
     '<label class="fl">Předmět (nepovinné)<select id="task-subj"><option value="">—</option>'+cfg.subjects.filter(x=>!x.unverified).map(x=>'<option value="'+esc(x.id)+'">'+esc(x.name)+'</option>').join("")+'</select></label>'+
     '<div class="sheet-foot"><button type="button" class="btn" data-tcancel>Zrušit</button><button class="btn primary" id="task-save">Uložit</button></div></form>';
   const $=sel=>ov.querySelector(sel);
@@ -1329,12 +1390,18 @@ function openTaskSheet(preDate){
     const q=e.target.closest("[data-qd]"); if(q){ date=q.dataset.qd; upd(); return; }
     if(e.target.closest("[data-tcancel]") || e.target===ov) ov.remove();
   });
-  ov.addEventListener("change",e=>{ e.stopPropagation(); if(e.target.id==="task-date"){ date=e.target.value; upd(); } });
-  ov.addEventListener("submit",e=>{
+  let photoBlob=null;
+  ov.addEventListener("change",async e=>{ e.stopPropagation(); if(e.target.id==="task-date"){ date=e.target.value; upd(); }
+    if(e.target.id==="task-photo"&&e.target.files[0]){ try{ photoBlob=await shrinkPhoto(e.target.files[0]); const im=$("#task-prev"); im.src=URL.createObjectURL(photoBlob); im.hidden=false; if(kind!=="ukol"){ kind="ukol"; ov.querySelectorAll("[data-kind]").forEach(b=>b.setAttribute("aria-checked",String(b.dataset.kind==="ukol"))); } }catch(err){ toast("Fotku se nepodařilo načíst."); } } });
+  ov.addEventListener("submit",async e=>{
     e.preventDefault(); e.stopPropagation();
-    const text=$("#task-text").value.trim(); date=$("#task-date").value||date;
-    if(!text){ $("#task-text").focus(); $("#task-warn").textContent="Napiš, co je potřeba."; return; }
-    cfg.tasks.push({id:uid(), date, kind, text, subj:$("#task-subj").value||null}); saveCfg();
+    let text=$("#task-text").value.trim(); date=$("#task-date").value||date;
+    const sj=$("#task-subj").value||null;
+    if(!text&&photoBlob) text="Domácí úkol"+(sj&&subj(sj)?" – "+subj(sj).name:"")+" (podle fotky)";
+    if(!text){ $("#task-text").focus(); $("#task-warn").textContent="Napiš, co je potřeba, nebo přidej fotku."; return; }
+    const nid=uid(); const rec={id:nid, date, kind, text, subj:sj};
+    if(photoBlob){ try{ await photoPut(nid,photoBlob); rec.photo=true; }catch(err){ toast("Fotku se nepodařilo uložit."); } }
+    cfg.tasks.push(rec); saveCfg();
     ov.remove(); render(); toast("Uloženo na "+DAY_ACC[dow(date)]+" "+fmtShort(date));
   });
   document.body.appendChild(ov); upd(); $("#task-text").focus();
@@ -1379,10 +1446,11 @@ const TABS=[["home","Přehled","i-grid"],["week","Rozvrh","i-cal"],["books","Uč
 function tabsHtml(){
   return '<nav class="tabs" aria-label="Spodní lišta">'+TABS.map(t=>'<button type="button" class="tab" data-view="'+t[0]+'"'+(view===t[0]?' aria-current="page"':"")+'>'+ic(t[2])+'<span>'+t[1]+'</span></button>').join("")+'</nav>';
 }
-function upcomingTasks(){ const t=pragueToday(); return (cfg.tasks||[]).filter(x=>x.date>=t).length; }
+function upcomingTasks(){ const t=pragueToday(); return homeworkOpen().length+ (cfg.tasks||[]).filter(x=>x.date>=t&&!(x.kind==="ukol")).length+SHARED.filter(x=>x.date>=t).length; }
 function reminders(p){
   const out=[], w=cap(dayWord(p.iso));
   if(p.holiday) return w+" je volno – "+p.holiday+"."+(dailyPending()?" Dnes ještě Test dne ve Výuce.":"");
+  { const hw=homeworkOpen().filter(x=>x.date<=addDays(pragueToday(),1)); if(hw.length) out.push("Domácí úkol"+(hw.length>1?"y":"")+": "+hw.map(x=>x.text).join(", ")+" – ještě není hotov"+(hw.length>1?"é":"ý")+"."); }
   if(dailyPending()) out.push("Dnes ještě: Test dne ve Výuce (10 otázek).");
   if(PET.name&&!petAsleepAt(Date.now())){ petTick(); if(petNeeds()) out.push(petMsg()); }
   if(p.ov) out.push("Změna rozvrhu"+(p.ov.note?": "+p.ov.note:"")+".");
@@ -2266,11 +2334,14 @@ function detailHtml(v,p){
       yearHtml(false)+yearLegend()+holidayStrip()+'<p class="tip">Klepni na školní den a uvidíš, co si ten den připravit.</p>');
   }
   if(v==="tasks"){
-    const today=pragueToday(), list=(cfg.tasks||[]).slice().sort((a,b)=>a.date<b.date?-1:a.date>b.date?1:0);
+    const today=pragueToday(), list=(cfg.tasks||[]).concat(SHARED.map(e=>Object.assign({shared:true},e))).slice().sort((a,b)=>a.date<b.date?-1:a.date>b.date?1:(a.from||"")<(b.from||"")?-1:1);
     const up=list.filter(t=>t.date>=today), past=list.filter(t=>t.date<today);
-    const row=t=>{ const s=t.subj&&subj(t.subj); return '<div class="trow"><span class="tdate mono">'+DAY_SHORT[dow(t.date)]+' '+fmtShort(t.date)+'</span>'+ttagHtml(t.kind)+(s?stag(s):"")+
-      '<span class="ttext">'+esc(t.text)+'</span>'+(isChecked(t.date,"t-"+t.id)?'<span class="okmini">hotovo</span>':"")+'<button type="button" class="btn icon danger" data-deltask="'+esc(t.id)+'" aria-label="Smazat">✕</button></div>'; };
+    const row=t=>{ if(t.shared) return '<div class="trow shared"><span class="tdate mono">'+DAY_SHORT[dow(t.date)]+' '+fmtShort(t.date)+'</span><span class="ttag ev">'+(t.offsite?"Mimo školu":"Akce")+'</span>'+
+        '<span class="ttext"><b>'+esc(t.title)+'</b>'+(t.from?' · '+esc(t.from)+(t.to?'–'+esc(t.to):""):"")+(t.place?' · '+esc(t.place):"")+(t.note?'<small>'+esc(t.note)+'</small>':"")+((t.items||[]).length?'<small>S sebou: '+t.items.map(esc).join(", ")+'</small>':"")+'</span><span class="okmini src">ze školy</span></div>';
+      const s=t.subj&&subj(t.subj); return '<div class="trow"><span class="tdate mono">'+DAY_SHORT[dow(t.date)]+' '+fmtShort(t.date)+'</span>'+ttagHtml(t.kind)+(s?stag(s):"")+
+      '<span class="ttext">'+(t.photo?'<button type="button" class="hw-mini" data-photoopen="'+esc(t.id)+'"><img data-photo="'+esc(t.id)+'" alt="Fotka"></button>':"")+esc(t.text)+'</span>'+(isChecked(t.date,"t-"+t.id)||t.done?'<span class="okmini">hotovo</span>':"")+'<button type="button" class="btn icon danger" data-deltask="'+esc(t.id)+'" aria-label="Smazat">✕</button></div>'; };
     return detailCard("Úkoly a akce","i-flag",'<button type="button" class="btn primary small" data-addtask="">'+ic("i-plus","","width:1rem;height:1rem")+'Přidat</button>',
+      '<p class="eyebrow">Domácí úkoly</p>'+homeworkHtml()+'<p class="eyebrow" style="margin-top:1.2rem">Všechny úkoly a akce</p>'+
       (up.length?'<div class="tlist">'+up.map(row).join("")+'</div>':'<p class="empty">Žádné naplánované úkoly ani akce. Přidej je tlačítkem Přidat nebo + v kartě „potřebuji“.</p>')+
       (past.length?'<p class="eyebrow" style="margin-top:1.2rem">Proběhlé</p><div class="tlist past">'+past.slice(-10).reverse().map(row).join("")+'</div>':"")+
       '<p class="tip">Úkol nebo věc se ukáže v daný den v kartě „potřebuji“ a večer předtím v přípravě na zítřek.</p>');
@@ -2278,7 +2349,7 @@ function detailHtml(v,p){
   if(v==="check"){
     const left=p.all.length-countDone(iso,p.all);
     return detailCard("Kontrola · "+dt,"i-clip",cnt(iso,p.all),
-      (left===0&&p.all.length?'<div class="okbanner">'+ic("i-okc")+'Batoh je připravený. Skvělá práce!</div>':"")+
+      (left===0&&p.all.length?'<div class="okbanner">'+ic("i-okc")+'Batoh je připravený. Skvělá práce!</div>':(p.all.length?'<button type="button" class="btn primary big pk-go" data-packgo="'+iso+'">'+ic("i-bag")+'Balit krok za krokem</button>':""))+
       (p.holiday?'<div class="holi">'+ic("i-sun")+'<span>Volno – '+esc(p.holiday)+'</span></div>':"")+
       '<div class="dgrid">'+tasksGroup(p)+p.groups.map(g=>dgroup(g.title,stag(g),iso,g.items,{note:g.note})).join("")+
       (p.pencil.length?dgroup("Penál",ic("i-pencil"),iso,p.pencil):"")+(p.hasPE?dgroup("Tělocvik",ic("i-shirt"),iso,p.pe):"")+
@@ -2459,6 +2530,46 @@ function downloadICS(){
 }
 
 /* ---------- okno „na zítra“ ---------- */
+/* ---------- průvodce balením batohu ---------- */
+function packSteps(iso){
+  const p=dayPlan(iso), st=[];
+  if(p.tasks.length) st.push({t:"Úkoly a věci navíc",ic:"i-flag",items:p.tasks});
+  p.groups.forEach(g=>{ if(g.items.length) st.push({t:g.title,tag:g,items:g.items}); });
+  if(p.hasPE&&p.pe.length) st.push({t:"Tělocvik",ic:"i-shirt",items:p.pe});
+  if(p.pencil.length) st.push({t:"Penál",ic:"i-pencil",items:p.pencil});
+  if(p.daily.length) st.push({t:"Každý den",ic:"i-bag",items:p.daily});
+  (p.acts||[]).filter(a=>a.items.length).forEach(a=>st.push({t:actLabel(a),ic:a.shared?"i-flag":"i-pulse",items:a.items}));
+  return st;
+}
+function openPack(iso){
+  const steps=packSteps(iso); if(!steps.length){ toast("Na tento den není co balit."); return; }
+  let k=steps.findIndex(s=>s.items.some(it=>!isChecked(iso,it.id))); if(k<0) k=steps.length;
+  const ov=document.createElement("div"); ov.className="overlay pack-ov"; ov.id="packwiz";
+  const draw=()=>{
+    const tot=steps.reduce((n,s)=>n+s.items.length,0), done=steps.reduce((n,s)=>n+s.items.filter(it=>isChecked(iso,it.id)).length,0);
+    const bar='<div class="pk-bar"><i style="width:'+Math.round(100*done/Math.max(1,tot))+'%"></i></div><div class="pk-steps">'+steps.map((s,i)=>'<span class="'+(i<k?"ok":i===k?"cur":"")+'"></span>').join("")+'</div>';
+    if(k>=steps.length){
+      const first=PET.name&&!(PET.packDay||{})[iso];
+      if(first){ PET.packDay=PET.packDay||{}; PET.packDay[iso]=true; Object.keys(PET.packDay).filter(d=>d<addDays(pragueToday(),-30)).forEach(d=>delete PET.packDay[d]); earnCoins(10); PET.inv.carrot=(PET.inv.carrot||0)+1; savePet(); }
+      ov.innerHTML='<div class="sheet pack done">'+bar+'<div class="pk-win"><div class="pk-confetti">'+[...Array(18)].map((_,i)=>'<i style="left:'+(i*5.5)+'%;animation-delay:'+(i%6)*.12+'s;background:'+["#FFE14D","#FF4F8B","#40C4FF","#7CFF9B"][i%4]+'"></i>').join("")+'</div>'+
+        '<h2>Batoh je sbalený!</h2><p>Na '+DAY_ACC[dow(iso)]+' '+fmtShort(iso)+' máš všechno.</p>'+(first?'<p class="pk-rew">'+esc(PET.name)+' dostal <b>10 mincí</b> a <b>mrkev</b>.</p>':PET.name?'<p class="pk-rew">Odměnu za tento den už '+esc(PET.name)+' dostal.</p>':"")+
+        '<button type="button" class="btn primary big" data-pkclose>Hotovo</button></div></div>'; return;
+    }
+    const s=steps[k], all=s.items.every(it=>isChecked(iso,it.id));
+    ov.innerHTML='<div class="sheet pack">'+bar+'<span class="eyebrow">Krok '+(k+1)+' z '+steps.length+' · '+DAY_ACC[dow(iso)]+' '+fmtShort(iso)+'</span>'+
+      '<h2 class="pk-h">'+(s.tag?stag(s.tag):ic(s.ic))+'<span>'+esc(s.t)+'</span></h2><p class="pk-sub">Dej do batohu a klepni na každou věc:</p>'+
+      '<div class="pk-items">'+s.items.map(it=>'<button type="button" class="pk-it'+(isChecked(iso,it.id)?" on":"")+'" data-pkit="'+esc(it.id)+'"><span class="pk-box">'+ic("i-check")+'</span>'+esc(it.name)+'</button>').join("")+'</div>'+
+      '<div class="pk-foot"><button type="button" class="btn" data-pkback'+(k===0?" disabled":"")+'>Zpět</button><button type="button" class="btn" data-pkclose>Později</button>'+
+      '<button type="button" class="btn primary big" data-pknext>'+(all?"Další":"Mám všechno")+' →</button></div></div>';
+  };
+  ov.addEventListener("click",e=>{ e.stopPropagation();
+    const it=e.target.closest("[data-pkit]"); if(it){ toggle(iso,it.dataset.pkit); draw(); return; }
+    if(e.target.closest("[data-pknext]")){ steps[k].items.forEach(x=>{ if(!isChecked(iso,x.id)) toggle(iso,x.id); }); k++; draw(); return; }
+    if(e.target.closest("[data-pkback]")){ k=Math.max(0,k-1); draw(); return; }
+    if(e.target.closest("[data-pkclose]")){ ov.remove(); render(); return; }
+  });
+  document.body.appendChild(ov); draw();
+}
 function renderModal(){
   let ov=document.getElementById("zitra");
   if(!modalIso){ if(ov) ov.remove(); return; }
@@ -2473,7 +2584,7 @@ function renderModal(){
   const others=weekDates(nsd).map(d=>'<button type="button" class="btn small" data-mday="'+d+'" aria-pressed="'+(d===iso)+'">'+DAY_SHORT[dow(d)]+' '+fmtShort(d)+'</button>').join("");
   ov.innerHTML='<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="zt"><span class="eyebrow">Příprava batohu</span><h2 id="zt">'+esc(title)+'</h2>'+
     '<p class="sub">'+cap(fmtLong(iso))+' · připraveno <b>'+done+'</b> · chybí <b>'+(p.all.length-done)+'</b></p>'+
-    (done===p.all.length&&p.all.length?'<div class="okbanner">'+ic("i-okc")+'Batoh je připravený. Skvělá práce!</div>':"")+
+    (done===p.all.length&&p.all.length?'<div class="okbanner">'+ic("i-okc")+'Batoh je připravený. Skvělá práce!</div>':(p.all.length?'<button type="button" class="btn primary big pk-go" data-packgo="'+iso+'">'+ic("i-bag")+'Balit krok za krokem</button>':""))+
     '<div class="chips">'+p.lessons.map(stag).join("")+'</div>'+
     (p.holiday?'<div class="holi">'+ic("i-sun")+'<span>Volno – '+esc(p.holiday)+'</span></div>':"")+(p.ov?'<div class="mini-note">'+ic("i-alert")+'<span>Změna rozvrhu'+(p.ov.note?': '+esc(p.ov.note):"")+'</span></div>':"")+evNotes(p)+
     '<div class="dgrid" style="margin-top:.7rem">'+tasksGroup(p)+p.groups.map(g=>dgroup(g.title,stag(g),iso,g.items,{note:g.note})).join("")+
@@ -2576,6 +2687,7 @@ function renderNow(){
   document.querySelectorAll("[data-scroll]").forEach(el=>{ if(pos[el.dataset.scroll]) el.scrollTop=pos[el.dataset.scroll]; });
   renderModal();
   tickClocks();
+  hydratePhotos();
 }
 
 /* ---------- události ---------- */
@@ -2634,9 +2746,12 @@ document.addEventListener("click", async e=>{
     return;
   }
   const at=t.closest("[data-addtask]"); if(at){ openTaskSheet(at.dataset.addtask||null); return; }
+  const pg0=t.closest("[data-packgo]"); if(pg0){ const d=pg0.dataset.packgo; modalIso=null; renderModal(); openPack(d); return; }
+  const po=t.closest("[data-photoopen]"); if(po){ openPhoto(po.dataset.photoopen); return; }
+  const hd=t.closest("[data-hwdone]"); if(hd){ const tk=cfg.tasks.find(x=>x.id===hd.dataset.hwdone); if(tk){ tk.done=!tk.done; if(tk.done&&!tk.rewarded){ tk.rewarded=true; if(PET.name){ earnCoins(5); PET.inv.hay=(PET.inv.hay||0)+2; savePet(); } toast(PET.name?"Hotovo! "+PET.name+" dostal 5 mincí a 2 sena.":"Hotovo!"); } saveCfg(); render(); } return; }
   const dt=t.closest("[data-deltask]"); if(dt){
     const tk=cfg.tasks.find(x=>x.id===dt.dataset.deltask);
-    if(tk && await askConfirm("Smazat „"+tk.text+"“?","Smazat")){ cfg.tasks=cfg.tasks.filter(x=>x!==tk); saveCfg(); render(); toast("Smazáno."); }
+    if(tk && await askConfirm("Smazat „"+tk.text+"“?","Smazat")){ cfg.tasks=cfg.tasks.filter(x=>x!==tk); if(tk.photo) photoDel(tk.id); saveCfg(); render(); toast("Smazáno."); }
     return;
   }
   const tab=t.closest("[data-tab]"); if(tab){ setTab=tab.dataset.tab; render(); return; }
