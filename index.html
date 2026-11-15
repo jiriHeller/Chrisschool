@@ -1105,7 +1105,7 @@ body::before{background:#140A3C}
 const COLOR_HEX={pink:"#E0566F",blue:"#2F7FE0",green:"#2EA650",yellow:"#E3AE00",purple:"#8B5CF6",orange:"#F08A24",gray:"#8A96A8"};
 const COLOR_NAMES={pink:"růžová",blue:"modrá",green:"zelená",yellow:"žlutá",purple:"fialová",orange:"oranžová",gray:"šedá"};
 const ICON_NAMES={cj:"kniha",ma:"kalkulačka",pu:"list",aj:"vlajka",hv:"nota",tv:"běžec",pv:"nůžky",vv:"paleta",book:"sešit",q:"otazník"};
-const APP_VERSION="52"; window.APP_VERSION=APP_VERSION;
+const APP_VERSION="53"; window.APP_VERSION=APP_VERSION;
 const KIND={sdel:{icon:"i-msg",short:null},druz:{icon:"i-users",short:null},ukol:{icon:"i-flag",short:null},food:{icon:"i-food",short:"Svačina"},drink:{icon:"i-drop",short:"Pití"},other:{icon:"i-dot",short:null}};
 
 const DEFAULTS = {
@@ -2203,6 +2203,7 @@ const PIG_BABY='<g stroke="#FFD29A" stroke-width="3" fill="none" stroke-linecap=
 const FRIEND_COLORS=[["#FFC27A","#B4B4BE"],["#EE9440","#7A7A86"],["#C46A22","#4E4E58"],["#8E4614","#2E2E36"],["#FFC883","#B8B8C2"],["#F09A46","#7E7E8A"],["#C66C24","#50505A"],["#94501A","#32323C"],["#B86A2A","#5A5A64"],["#E9A65E","#9696A2"],["#FFD29A","#D0D0DA"],["#FFE2BF","#E6E6EE"]];
 function pigSvg(mood,lvl,anim,pfx,force){
   if(!force){ const K=petKind(); if(K!=="pig") return animalSvg(K,mood,lvl,anim,pfx); }
+  if(PIGB&&!pigVector) return pigBmpSvg(mood,lvl,anim,pfx);
   pfx=pfx||"pg"; const P=k=>PIGP[k].replace(/§/g,pfx);
   const sleep=mood==="sleep", sad=mood==="sad";
   const acc=wearSvg("head")+wearSvg("face")+wearSvg("neck");
@@ -2215,6 +2216,48 @@ function pigSvg(mood,lvl,anim,pfx,force){
     '</g>'+
     (sleep?'<g class="zzz" font-family="var(--f-game)" fill="#7C8CF8"><text x="184" y="100" font-size="22">z</text><text x="202" y="80" font-size="28">z</text><text x="224" y="56" font-size="34">Z</text></g>':"")+
     (anim==="love"||anim==="treat"?'<g class="hearts" fill="#FF5C8A"><path d="M150 100c-6-10-20-4-14 6l14 12 14-12c6-10-8-16-14-6z"/><path d="M190 80c-4-7-14-3-10 4l10 9 10-9c4-7-6-11-10-4z"/><path d="M110 76c-4-7-14-3-10 4l10 9 10-9c4-7-6-11-10-4z"/></g>':"")+
+  '</g>';
+}
+
+/* ---------- morče z obrázků (Nano Banana, fáze 1–8): úchyty věcí podle každé fáze ---------- */
+const PIGB=[{"w":640,"h":631,"top":[0.36,0.04],"face":[0.33,0.33],"chin":[0.32,0.6],"back":[0.76,0.5],"hw":0.7,"paws":[[0.3,0.96],[0.48,0.98],[0.78,0.93]],"eyes":[[0.219,0.334,0.031,"#4a3b33"],[0.52,0.345,0.05,"#e8964e"]]},{"w":640,"h":544,"top":[0.36,0.05],"face":[0.33,0.315],"chin":[0.3,0.6],"back":[0.86,0.38],"hw":0.6,"paws":[[0.28,0.95],[0.47,0.97],[0.78,0.93]],"eyes":[[0.1998,0.2998,0.025,"#d3b59f"],[0.4553,0.3308,0.0461,"#e18a3e"]]},{"w":640,"h":552,"top":[0.33,0.04],"face":[0.33,0.316],"chin":[0.29,0.6],"back":[0.84,0.38],"hw":0.6,"paws":[[0.27,0.95],[0.45,0.97],[0.77,0.92]],"eyes":[[0.195,0.3,0.028,"#b98d78"],[0.444,0.3389,0.0336,"#e98f4e"]]},{"w":640,"h":603,"top":[0.34,0.04],"face":[0.338,0.322],"chin":[0.34,0.58],"back":[0.76,0.52],"hw":0.62,"paws":[[0.25,0.93],[0.45,0.95],[0.8,0.91]],"eyes":[[0.2089,0.3156,0.043,"#b87d5b"],[0.4667,0.3285,0.0344,"#dd9b5c"]]},{"w":640,"h":476,"top":[0.28,0.05],"face":[0.28,0.35],"chin":[0.23,0.6],"back":[0.74,0.42],"hw":0.46,"paws":[[0.2,0.93],[0.42,0.96],[0.8,0.92]],"eyes":[[0.156,0.294,0.02,"#e9d6c4"],[0.3714,0.3482,0.0273,"#cd8348"]]},{"w":640,"h":447,"top":[0.28,0.06],"face":[0.26,0.35],"chin":[0.22,0.58],"back":[0.72,0.4],"hw":0.44,"paws":[[0.2,0.93],[0.4,0.96],[0.78,0.92]],"eyes":[[0.3456,0.3543,0.0242,"#c88047"]]},{"w":640,"h":466,"top":[0.27,0.06],"face":[0.245,0.335],"chin":[0.21,0.56],"back":[0.74,0.42],"hw":0.44,"paws":[[0.2,0.93],[0.4,0.96],[0.78,0.92]],"eyes":[[0.3326,0.3322,0.0242,"#d2803d"]]},{"w":640,"h":594,"top":[0.36,0.1],"face":[0.356,0.326],"chin":[0.36,0.56],"back":[0.76,0.52],"hw":0.55,"paws":[[0.25,0.93],[0.45,0.95],[0.8,0.93]],"eyes":[[0.2405,0.3212,0.0266,"#926046"],[0.4722,0.3298,0.0273,"#dc9553"]]}];
+let pigInline=false; const PIG_DATA={};
+function pigSrc(l){ return pigInline&&PIG_DATA[l]?PIG_DATA[l]:"pet/pig/l"+l+".webp"; }
+function pigPreload(){ PIGB.forEach((_,i)=>{ const l=i+1; if(PIG_DATA[l]) return; try{ fetch(pigSrc(l)).then(r=>r.ok?r.blob():null).then(b=>{ if(!b) return; const fr=new FileReader(); fr.onload=()=>{ PIG_DATA[l]=fr.result; }; fr.readAsDataURL(b); }).catch(()=>{}); }catch(e){} }); }
+pigPreload();
+function pigBox(lvl){ const B=PIGB[Math.min(8,Math.max(1,lvl||1))-1], s=Math.min(290/B.w,215/B.h), iw=B.w*s, ih=B.h*s, ix=195-iw/2, iy=268-ih;
+  const P=f=>[ix+f[0]*iw, iy+f[1]*ih]; return {B,iw,ih,ix,iy,P,hw:B.hw*iw}; }
+function pigBmpSlots(lvl){ const X=pigBox(lvl), k=X.hw/144, f=n=>(+n).toFixed(1);
+  const T=(p,s,ox,oy)=>"translate("+f(p[0])+" "+f(p[1])+") scale("+(+s).toFixed(3)+") translate(-"+ox+" -"+oy+")";
+  const top=X.P(X.B.top); top[1]-=X.hw*.02;
+  const old=[[88,257],[130,260],[250,258]], nw=X.B.paws.map(X.P);
+  // tlapky: stejné měřítko v x i y, posun podle průměru
+  const ox=old.map(p=>p[0]), nx=nw.map(p=>p[0]), mo=[ox.reduce((a,b)=>a+b)/3, old.reduce((a,p)=>a+p[1],0)/3], mn=[nx.reduce((a,b)=>a+b)/3, nw.reduce((a,p)=>a+p[1],0)/3];
+  const ps=(Math.max(...nx)-Math.min(...nx))/(Math.max(...ox)-Math.min(...ox));
+  return {head:T(top,1.55*k,134,142), face:T(X.P(X.B.face),1.5*k,131,187), neck:T(X.P(X.B.chin),1.4*k,152,232), back:T(X.P(X.B.back),1.12*X.iw/240,240,180),
+    paws:"translate("+f(mn[0])+" "+f(mn[1])+") scale("+ps.toFixed(3)+") translate(-"+f(mo[0])+" -"+f(mo[1])+")",
+    body:"translate("+f(X.ix)+" "+f(X.iy+X.ih*.12)+") scale("+(X.iw/239).toFixed(3)+" "+(X.ih*.88/155).toFixed(3)+") translate(-80 -109)"}; }
+function pigBmpSvg(mood,lvl,anim,pfx){
+  pfx=pfx||"pb"; lvl=Math.min(8,Math.max(1,lvl||1)); const X=pigBox(lvl), B=X.B, ST=pigBmpSlots(lvl), f=n=>(+n).toFixed(1);
+  const sleep=mood==="sleep", sad=mood==="sad";
+  const img='<image href="'+pigSrc(lvl)+'" x="'+f(X.ix)+'" y="'+f(X.iy)+'" width="'+f(X.iw)+'" height="'+f(X.ih)+'" preserveAspectRatio="none"/>';
+  const top=X.P(B.top), chin=X.P(B.chin), fc=X.P(B.face);
+  const lids=sleep?B.eyes.map(([ex,ey,r,col])=>{ const [x,y]=X.P([ex,ey]), R=Math.max(5,r*X.iw*1.75); return '<ellipse cx="'+f(x)+'" cy="'+f(y)+'" rx="'+f(R)+'" ry="'+f(R*.9)+'" fill="'+col+'"/><path d="M'+f(x-R*.8)+' '+f(y)+'q'+f(R*.8)+' '+f(R*.7)+' '+f(R*1.6)+' 0" stroke="#3A1A08" stroke-width="2.6" fill="none" stroke-linecap="round"/>'; }).join(""):"";
+  const tear=sad&&!sleep&&B.eyes.length?(()=>{ const e=B.eyes[B.eyes.length-1], [x,y]=X.P([e[0],e[1]]), r=e[2]*X.iw; return '<path d="M'+f(x)+' '+f(y+r+3)+'q-5 10 0 14q6-4 0-14z" fill="#7CC3F5" stroke="#3B8FD0" stroke-width="1"/>'; })():"";
+  const W=s=>{ const it=slotItem(s); if(pigNoWear||!it) return ""; const out=placed(it); return it.noT?out:'<g transform="'+ST[s]+'">'+out+'</g>'; };
+  const body=(()=>{ const it=slotItem("body"); if(pigNoWear||!it) return "";
+    const hx=fc[0], hy=(top[1]+chin[1])/2, rx=X.hw*.56, ry=(chin[1]-top[1])*.56;
+    return '<defs><mask id="'+pfx+'bm" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="420" height="300">'+img+'</mask>'+
+      '<clipPath id="'+pfx+'bc"><path clip-rule="evenodd" d="M-50 -50H470V350H-50Z M'+f(hx-rx)+' '+f(hy)+'a'+f(rx)+' '+f(ry)+' 0 1 0 '+f(2*rx)+' 0a'+f(rx)+' '+f(ry)+' 0 1 0 '+f(-2*rx)+' 0z"/></clipPath></defs>'+
+      '<g clip-path="url(#'+pfx+'bc)"><g mask="url(#'+pfx+'bm)"><g transform="'+ST.body+'">'+placed(it)+'</g></g><g style="mix-blend-mode:multiply" opacity=".45">'+img+'</g></g>'; })();
+  return '<g class="pig pig-bmp'+(anim?" a-"+anim:"")+'">'+
+    '<g class="pig-body">'+
+      '<ellipse cx="'+f(X.ix+X.iw*.52)+'" cy="'+f(X.iy+X.ih*.97)+'" rx="'+f(X.iw*.46)+'" ry="'+f(Math.max(6,X.ih*.04))+'" fill="#3A1E0C" opacity=".22"/>'+
+      (sad?'<g style="filter:saturate(.75) brightness(.95)">'+img+'</g>':img)+body+W("back")+lids+tear+
+      W("paws")+W("head")+W("face")+W("neck")+
+    '</g>'+
+    (sleep?'<g class="zzz" font-family="var(--f-game)" fill="#7C8CF8"><text x="'+f(top[0]+40)+'" y="'+f(top[1]+10)+'" font-size="22">z</text><text x="'+f(top[0]+58)+'" y="'+f(top[1]-10)+'" font-size="28">z</text><text x="'+f(top[0]+80)+'" y="'+f(top[1]-34)+'" font-size="34">Z</text></g>':"")+
+    (anim==="love"||anim==="treat"?'<g class="hearts" fill="#FF5C8A" transform="translate('+f(fc[0]-140)+' '+f(top[1]-90)+')"><path d="M150 100c-6-10-20-4-14 6l14 12 14-12c6-10-8-16-14-6z"/><path d="M190 80c-4-7-14-3-10 4l10 9 10-9c4-7-6-11-10-4z"/><path d="M110 76c-4-7-14-3-10 4l10 9 10-9c4-7-6-11-10-4z"/></g>':"")+
   '</g>';
 }
 
@@ -2454,7 +2497,7 @@ function petScene(){
     '<g data-pobj="water" class="ci ci-water" transform="translate(26 40)"><rect x="0" y="0" width="34" height="70" rx="12" fill="#E8F4FF" '+S(2.5)+'/><rect x="3" y="'+(67-waterH)+'" width="28" height="'+waterH+'" rx="9" fill="#5BB8F5" opacity=".9"/><path d="M8 10v40" stroke="#fff" stroke-width="3" opacity=".7" stroke-linecap="round"/><rect x="13" y="70" width="8" height="22" rx="3" fill="#B0BEC5" '+S(1.6)+'/><circle cx="17" cy="95" r="4.5" fill="#90A4AE" '+S(1.6)+'/></g>'+
     // miska se senem
     '<g data-pobj="bowl" class="ci ci-bowl" transform="translate(40 230)"><g stroke="#C9A04A" stroke-width="2.4" stroke-linecap="round">'+[...Array(hay*3)].map((_,i)=>'<path d="M'+(10+i*4)%60+' 8l'+((i%3)-1)*6+' -'+(8+(i*7)%10)+'"/>').join("")+'</g><path d="M0 8h70l-8 20H8z" fill="'+(cageOn("bowl_gold")?"#E0B21E":"#5E8DEB")+'" '+S(2)+'/><ellipse cx="35" cy="8" rx="35" ry="5" fill="'+(cageOn("bowl_gold")?"#F7D64A":"#86A9F2")+'" '+S(2)+'/></g>'+
-    (PET.friend?'<g class="friend" transform="translate(150 16) translate(200 262) scale(.6) translate(-200 -262)">'+(()=>{ pigNoWear=true; try{ return petKind()!=="pig"?'<defs><filter id="frhue"><feColorMatrix type="hueRotate" values="150"/></filter></defs><g filter="url(#frhue)">'+pigSvg(mood==="sleep"?"ok":mood,3,a==="dance"||a==="disco"?a:null,"fr")+'</g>':FRIEND_COLORS.reduce((x,[f,t])=>x.split(f).join(t),pigSvg(mood==="sleep"?"ok":mood,3,a==="dance"||a==="disco"?a:null,"fr")); } finally{ pigNoWear=false; } })()+'</g>':"")+
+    (PET.friend?'<g class="friend" transform="translate(150 16) translate(200 262) scale(.6) translate(-200 -262)">'+(()=>{ pigNoWear=true; try{ return (petKind()!=="pig"||!pigVector)?'<defs><filter id="frhue">'+(petKind()==="pig"?'<feColorMatrix type="saturate" values=".12"/><feComponentTransfer><feFuncR type="linear" slope="1.05"/></feComponentTransfer>':'<feColorMatrix type="hueRotate" values="150"/>')+'</filter></defs><g filter="url(#frhue)">'+pigSvg(mood==="sleep"?"ok":mood,3,a==="dance"||a==="disco"?a:null,"fr")+'</g>':FRIEND_COLORS.reduce((x,[f,t])=>x.split(f).join(t),pigSvg(mood==="sleep"?"ok":mood,3,a==="dance"||a==="disco"?a:null,"fr")); } finally{ pigNoWear=false; } })()+'</g>':"")+
     '<g data-pobj="pig" class="ci ci-pig"><g transform="translate(18 0) translate(200 262) scale('+PET_STAGES[lvl-1].k+') translate(-200 -262)">'+pigSvg(mood,lvl,pigId)+'</g></g>'+
     (a==="eat"&&petAnim.item?'<g class="feeditem" transform="translate(150 196) scale(.9)">'+itemSvg(petAnim.item).replace('class="it"','width="48" height="48"')+'</g>':"")+
     (a==="disco"?'<g class="disco"><circle cx="210" cy="24" r="14" fill="#C0C7D6" '+S(2)+'/><g opacity=".35"><circle class="dl d1" cx="110" cy="160" r="70" fill="#FF4F8B"/><circle class="dl d2" cx="300" cy="150" r="70" fill="#40C4FF"/><circle class="dl d3" cx="210" cy="230" r="70" fill="#FFE14D"/></g></g>':"")+
@@ -2902,7 +2945,7 @@ function isOn(id){ const it=SHOP_BY[id]; return it.slot==="cage"?!!PET.cage[id]:
 function slotItem(slot){ let id=PET.eq[slot]; if(petTry&&SHOP_BY[petTry]&&SHOP_BY[petTry].slot===slot) id=petTry; return id&&SHOP_BY[id]; }
 function placed(it){ return it.at?'<g transform="'+it.at+'">'+it.svg+'</g>':it.svg; }
 const SLOT_T={head:"translate(128 112) scale(1.55) translate(-134 -142)",face:"translate(115.5 166) scale(1.5) translate(-131 -187)",neck:"translate(130 240) scale(1.4) translate(-152 -232)",back:"translate(240 165) scale(1.12) translate(-240 -180)"};
-let pigNoWear=false;
+let pigNoWear=false, pigVector=false;
 function wearSvg(slot){ if(pigNoWear&&slot!=="bed") return ""; const it=slotItem(slot); if(!it) return ""; const out=placed(it); return SLOT_T[slot]&&!it.noT?'<g transform="'+SLOT_T[slot]+'">'+out+'</g>':out; }
 function houseSvg(){ const it=slotItem("house"); return it?placed(it):'<g transform="'+HOUSE_AT+'">'+houseWood()+'</g>'; }
 function cageOn(id){ return PET.cage[id] || petTry===id; }
@@ -3615,7 +3658,7 @@ function cardBlob(c){
       txt("◆".repeat(R[4])+" "+R[0],78,1410,36,"900",R[2]); txt("č. "+String(c.no).padStart(2,"0")+" / "+CARDS.length,W-78,1410,30,"800","#7A6A8E","right");
       txt("Školní parťák · sběratelská karta",W/2,1462,22,"700","#A090B4","center");
       g.restore(); cv.toBlob(b=>b?resolve(b):reject(new Error("blob")),"image/png"); };
-    if(c.art.an){ const keep=PET.kind; PET.kind=c.art.an; let svg; const kw=pigNoWear; pigNoWear=true; try{ svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="25 12 370 262" width="1360" height="963">'+(c.art.an==="pig"?pigSvg("happy",3,null,"cb",true):animalSvg(c.art.an,"happy",3,null,"cb"))+'</svg>'; } finally{ PET.kind=keep; pigNoWear=kw; }
+    if(c.art.an){ const keep=PET.kind; PET.kind=c.art.an; let svg; const kw=pigNoWear; pigNoWear=true; pigInline=true; try{ svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="25 12 370 262" width="1360" height="963">'+(c.art.an==="pig"?pigSvg("happy",3,null,"cb",true):animalSvg(c.art.an,"happy",3,null,"cb"))+'</svg>'; } finally{ PET.kind=keep; pigNoWear=kw; pigInline=false; }
       const img=new Image(); img.onload=()=>{ g.drawImage(img,px+20,py+40,pw-40,(pw-40)*240/340); finish(); }; img.onerror=()=>reject(new Error("svg")); img.src="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(svg); }
     else { g.textAlign="center"; g.font="380px "+F; g.fillText(c.art.em,W/2,py+ph/2+130); if(c.art.num){ g.fillStyle="#fff"; g.strokeStyle=R[2]; g.lineWidth=14; g.font="900 170px "+F; g.strokeText(String(c.art.num),W/2+230,py+ph-70); g.fillText(String(c.art.num),W/2+230,py+ph-70); } finish(); }
   });
@@ -3675,7 +3718,7 @@ function shareCardBlob(){
     // obrázek
     var px=72,py=214,pw=936,ph=669;
     g.fillStyle=T[2]; rr(px-10,py-10,pw+20,ph+20,30); g.fill();
-    var svg=petScene().replace("<svg ",'<svg xmlns="http://www.w3.org/2000/svg" width="1260" height="900" ');
+    pigInline=true; var svg; try{ svg=petScene().replace("<svg ",'<svg xmlns="http://www.w3.org/2000/svg" width="1260" height="900" '); }finally{ pigInline=false; }
     var img=new Image();
     img.onload=function(){
       g.save(); rr(px,py,pw,ph,22); g.clip(); g.drawImage(img,px,py,pw,ph);
