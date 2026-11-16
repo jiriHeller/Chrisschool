@@ -1105,7 +1105,7 @@ body::before{background:#140A3C}
 const COLOR_HEX={pink:"#E0566F",blue:"#2F7FE0",green:"#2EA650",yellow:"#E3AE00",purple:"#8B5CF6",orange:"#F08A24",gray:"#8A96A8"};
 const COLOR_NAMES={pink:"růžová",blue:"modrá",green:"zelená",yellow:"žlutá",purple:"fialová",orange:"oranžová",gray:"šedá"};
 const ICON_NAMES={cj:"kniha",ma:"kalkulačka",pu:"list",aj:"vlajka",hv:"nota",tv:"běžec",pv:"nůžky",vv:"paleta",book:"sešit",q:"otazník"};
-const APP_VERSION="60"; window.APP_VERSION=APP_VERSION;
+const APP_VERSION="61"; window.APP_VERSION=APP_VERSION;
 const KIND={sdel:{icon:"i-msg",short:null},druz:{icon:"i-users",short:null},ukol:{icon:"i-flag",short:null},food:{icon:"i-food",short:"Svačina"},drink:{icon:"i-drop",short:"Pití"},other:{icon:"i-dot",short:null}};
 
 const DEFAULTS = {
@@ -1120,7 +1120,7 @@ const DEFAULTS = {
     {id:"poh", name:"Pohádka / film", time:"19:00"},
     {id:"spa", name:"Večerka", time:"20:30"}
   ],
-  child: "Chris", childLast: "Heller", birth: "2018-05-10", nameday: "19. 10.",
+  child: "", childLast: "", birth: "", nameday: "", voc: "", gender: "m", cls: "", school: "",
   times: ["8:00 – 8:45","8:55 – 9:40","10:00 – 10:45","10:55 – 11:40","12:00 – 12:45","12:55 – 13:40"],
   subjects: [
     {id:"cj", name:"Český jazyk", short:"ČJ", color:"pink", icon:"cj", items:["Čítanka pro 3. ročník","Český jazyk 3","Sešit češtiny A","Sešit češtiny B","Sešit češtiny D","Velký sešit psaní","Pracovní sešit češtiny"]},
@@ -1200,6 +1200,7 @@ function migrate(c){
     if(cj && !cj.items.some(it=>/pracovní sešit/i.test(it.name||""))) cj.items.push({id:"cj-6", name:"Pracovní sešit češtiny"});
   }
   if(c.child===undefined) c.child="Chris";
+  if(c.school===undefined){ c.school="ZŠ Brdičkova"; c.cls="3. třída"; c.gender="m"; if(c.child==="Chris"&&!c.voc) c.voc="Chrisi"; }
   if((c.version||0)<8){ (c.holidays||[]).forEach(h=>{ if(h.from==="2027-02-22"&&h.to==="2027-02-28"){ h.from="2027-03-01"; h.to="2027-03-07"; } }); }
   if(!Array.isArray(c.activities)) c.activities=d.activities;
   if(!Array.isArray(c.routine)) c.routine=d.routine;
@@ -1248,6 +1249,23 @@ let checks = load(K_CHK) || {};
 let testDate = load(K_TEST) || null;
 let testTime = load(K_TESTTIME) || null;
 function saveCfg(){ save(K_CFG,cfg); }
+/* ---------- profil dítěte: oslovení, rod, svátek podle jména ---------- */
+const NAMEDAYS={"01-02":"Karina","01-03":["Radmila","Radomil"],"01-04":"Diana","01-05":"Dalimil","01-06":["Kašpar","Melichar","Baltazar"],"01-07":"Vilma","01-08":"Čestmír","01-09":["Vladan","Valtr"],"01-10":"Břetislav","01-11":"Bohdana","01-12":"Pravoslav","01-13":"Edita","01-14":"Radovan","01-15":"Alice","01-16":"Ctirad","01-17":"Drahoslav","01-18":["Vladislav","Vladislava"],"01-19":"Doubravka","01-20":["Ilona","Sebastián"],"01-21":"Běla","01-22":["Slavomír","Slavomíra"],"01-23":"Zdeněk","01-24":"Milena","01-25":"Miloš","01-26":"Zora","01-27":"Ingrid","01-28":"Otýlie","01-29":"Zdislava","01-30":["Robin","Erna"],"01-31":["Marika","Spytihněv"],"02-01":"Hynek","02-02":["Nela","Hromnice"],"02-03":"Blažej","02-04":"Jarmila","02-05":"Dobromila","02-06":"Vanda","02-07":"Veronika","02-08":"Milada","02-09":"Apolena","02-10":"Mojmír","02-11":"Božena","02-12":["Slavěna","Slávka"],"02-13":["Věnceslav","Věnceslava"],"02-14":["Valentýn","Valentýna"],"02-15":"Jiřina","02-16":"Ljuba","02-17":"Miloslava","02-18":"Gizela","02-19":"Patrik","02-20":"Oldřich","02-21":["Lenka","Eleonora"],"02-22":"Petr","02-23":"Svatopluk","02-24":["Matěj","Matyáš"],"02-25":"Liliana","02-26":"Dorota","02-27":"Alexandr","02-28":"Lumír","02-29":"Horymír","03-01":["Bedřich","Bedřiška"],"03-02":"Anežka","03-03":["Kamil","Kunhuta"],"03-04":"Stela","03-05":"Kazimír","03-06":"Miroslav","03-07":"Tomáš","03-08":["Gabriela","Zoltán"],"03-09":"Františka","03-10":"Viktorie","03-11":"Anděla","03-12":"Řehoř","03-13":"Růžena","03-14":["Rút","Matylda"],"03-15":"Ida","03-16":["Elena","Herbert"],"03-17":["Vlastimil","Vlastimila"],"03-18":"Eduard","03-19":["Josef","Josefa"],"03-20":"Světlana","03-21":"Radek","03-22":["Leona","Leontina","Lea"],"03-23":"Ivona","03-24":"Gabriel","03-25":"Marián","03-26":"Emanuel","03-27":"Dita","03-28":"Soňa","03-29":"Taťána","03-30":["Arnošt","Ernest"],"03-31":"Kvido","04-01":"Hugo","04-02":"Erika","04-03":"Richard","04-04":"Ivana","04-05":["Miroslava","Mirka"],"04-06":["Vendula","Venuše"],"04-07":["Heřman","Hermína"],"04-08":"Ema","04-09":"Dušan","04-10":"Darja","04-11":"Izabela","04-12":"Julius","04-13":"Aleš","04-14":"Vincenc","04-15":"Anastázie","04-16":["Irena","Bernadeta"],"04-17":"Rudolf","04-18":"Valérie","04-19":"Rostislav","04-20":"Marcela","04-21":"Alexandra","04-22":"Evženie","04-23":"Vojtěch","04-24":"Jiří","04-25":"Marek","04-26":"Oto","04-27":"Jaroslav","04-28":"Vlastislav","04-29":"Robert","04-30":"Blahoslav","05-02":"Zikmund","05-03":["Alexej","Alex"],"05-04":"Květoslav","05-05":"Klaudie","05-06":"Radoslav","05-07":"Stanislav","05-09":"Ctibor","05-10":"Blažena","05-11":"Svatava","05-12":"Pankrác","05-13":"Servác","05-14":"Bonifác","05-15":["Žofie","Sofie"],"05-16":"Přemysl","05-17":"Aneta","05-18":"Nataša","05-19":"Ivo","05-20":"Zbyšek","05-21":"Monika","05-22":"Emil","05-23":["Vladimír","Vladimíra"],"05-24":["Jana","Vanesa"],"05-25":"Viola","05-26":"Filip","05-27":"Valdemar","05-28":"Vilém","05-29":["Maxmilián","Maxim"],"05-30":"Ferdinand","05-31":"Kamila","06-01":"Laura","06-02":"Jarmil","06-03":["Tamara","Kevin"],"06-04":"Dalibor","06-05":["Dobroslav","Dobroslava"],"06-06":"Norbert","06-07":["Iveta","Slavoj"],"06-08":"Medard","06-09":"Stanislava","06-10":["Gita","Margita"],"06-11":"Bruno","06-12":"Antonie","06-13":"Antonín","06-14":["Roland","Herta"],"06-15":"Vít","06-16":"Zbyněk","06-17":"Adolf","06-18":["Milan","Milana"],"06-19":["Leoš","Leo"],"06-20":["Květa","Květuše"],"06-21":["Alois","Aloisie"],"06-22":"Pavla","06-23":"Zdeňka","06-24":"Jan","06-25":"Ivan","06-26":["Adriana","Adrian"],"06-27":["Ladislav","Ladislava"],"06-28":"Lubomír","06-29":["Petr","Pavel"],"06-30":"Šárka","07-01":"Jaroslava","07-02":"Patricie","07-03":["Radomír","Radomíra"],"07-04":"Prokop","07-05":["Cyril","Metoděj"],"07-07":"Bohuslava","07-08":"Nora","07-09":["Drahoslava","Drahuše"],"07-10":["Libuše","Amálie"],"07-11":["Olga","Helga"],"07-12":"Bořek","07-13":"Markéta","07-14":"Karolína","07-15":"Jindřich","07-16":"Luboš","07-17":"Martina","07-18":["Drahomíra","Drahomír"],"07-19":"Čeněk","07-20":"Ilja","07-21":["Vítězslav","Vítězslava"],"07-22":["Magdaléna","Magda"],"07-23":"Libor","07-24":"Kristýna","07-25":"Jakub","07-26":["Anna","Anita"],"07-27":"Věroslav","07-28":["Viktor","Alina"],"07-29":"Marta","07-30":"Bořivoj","07-31":"Ignác","08-01":"Oskar","08-02":"Gustav","08-03":"Miluše","08-04":["Dominik","Dominika"],"08-05":"Kristián","08-06":"Oldřiška","08-07":"Lada","08-08":"Soběslav","08-09":"Roman","08-10":"Vavřinec","08-11":"Zuzana","08-12":"Klára","08-13":"Alena","08-14":"Alan","08-15":"Hana","08-16":"Jáchym","08-17":"Petra","08-18":["Helena","Jelena"],"08-19":"Ludvík","08-20":"Bernard","08-21":"Johana","08-22":"Bohuslav","08-23":"Sandra","08-24":"Bartoloměj","08-25":"Radim","08-26":"Luděk","08-27":"Otakar","08-28":"Augustýn","08-29":"Evelína","08-30":"Vladěna","08-31":"Pavlína","09-01":["Linda","Samuel"],"09-02":"Adéla","09-03":["Bronislav","Bronislava"],"09-04":["Jindřiška","Rozálie"],"09-05":"Boris","09-06":"Boleslav","09-07":"Regína","09-08":"Mariana","09-09":"Daniela","09-10":"Irma","09-11":["Denisa","Denis"],"09-12":"Marie","09-13":"Lubor","09-14":"Radka","09-15":"Jolana","09-16":["Ludmila","Lidmila"],"09-17":["Naděžda","Naďa"],"09-18":"Kryštof","09-19":"Zita","09-20":"Oleg","09-21":"Matouš","09-22":"Darina","09-23":"Berta","09-24":["Jaromír","Jaromíra"],"09-25":["Zlata","Zlatuše"],"09-26":"Andrea","09-27":"Jonáš","09-28":["Václav","Václava"],"09-29":["Michal","Michael"],"09-30":["Jeroným","Ráchel"],"10-01":"Igor","10-02":["Olívie","Oliver"],"10-03":"Bohumil","10-04":"František","10-05":"Eliška","10-06":"Hanuš","10-07":"Justýna","10-08":"Věra","10-09":["Štefan","Sára"],"10-10":"Marina","10-11":"Andrej","10-12":"Marcel","10-13":"Renáta","10-14":"Agáta","10-15":["Tereza","Terezie"],"10-16":["Havel","Galina"],"10-17":"Hedvika","10-18":"Lukáš","10-19":["Michaela","Michala"],"10-20":"Vendelín","10-21":"Brigita","10-22":"Sabina","10-23":"Teodor","10-24":"Nina","10-25":"Beáta","10-26":"Erik","10-27":["Šarlota","Zoe"],"10-28":["Jidáš","Alfréd"],"10-29":["Silvie","Sylva"],"10-30":"Tadeáš","10-31":"Štěpánka","11-01":"Felix","11-02":"Tobiáš","11-03":"Hubert","11-04":["Karel","Karla"],"11-05":"Miriam","11-06":["Liběna","Leonard"],"11-07":"Saskie","11-08":["Bohumír","Bohumíra"],"11-09":"Bohdan","11-10":"Evžen","11-11":"Martin","11-12":"Benedikt","11-13":"Tibor","11-14":"Sáva","11-15":"Leopold","11-16":"Otmar","11-17":["Mahulena","Gertruda"],"11-18":"Romana","11-19":"Alžběta","11-20":"Nikola","11-21":"Albert","11-22":"Cecílie","11-23":"Klement","11-24":"Emílie","11-25":"Kateřina","11-26":"Artur","11-27":"Xenie","11-28":"René","11-29":"Zina","11-30":"Ondřej","12-01":"Iva","12-02":"Blanka","12-03":"Svatoslav","12-04":"Barbora","12-05":"Jitka","12-06":"Mikuláš","12-07":["Ambrož","Benjamín"],"12-08":"Květoslava","12-09":"Vratislav","12-10":"Julie","12-11":["Dana","Danuše"],"12-12":"Simona","12-13":"Lucie","12-14":"Lýdie","12-15":["Radana","Radan"],"12-16":"Albína","12-17":"Daniel","12-18":"Miloslav","12-19":"Ester","12-20":"Dagmar","12-21":"Natálie","12-22":"Šimon","12-23":"Vlasta","12-24":["Adam","Eva"],"12-26":"Štěpán","12-27":"Žaneta","12-28":"Bohumila","12-29":"Judita","12-30":"David","12-31":"Silvestr"};
+function G(m,f){ return cfg.gender==="f"?f:m; }
+function vocAuto(n){ n=(n||"").trim().split(/\s+/)[0]||""; if(!n) return "";
+  const l=n.toLowerCase();
+  if(/a$/.test(l)) return n.slice(0,-1)+"o";
+  if(/[eiíyouéů]$/.test(l)) return n;
+  if(/ek$/.test(l)) return n.slice(0,-2)+"ku";
+  if(/(av|ar)el$/.test(l)) return n.slice(0,-2)+"le";
+  if(/iel$/.test(l)) return n+"i";
+  if(/[^aeiouáéíóúůyý]r$/.test(l)) return n.slice(0,-1)+"ře";
+  if(/(š|ž|č|ř|c|j|ď|ť|ň|s|x|z)$/.test(l)) return n+"i";
+  if(/(ch|h|k|g)$/.test(l)) return n+"u";
+  return n+"e"; }
+function namedayFor(n){ n=(n||"").trim().split(/\s+/)[0].toLowerCase(); if(!n) return "";
+  for(const [k,v] of Object.entries(NAMEDAYS)){ const L=Array.isArray(v)?v:[v]; if(L.some(x=>x.toLowerCase()===n)){ const [m,d]=k.split("-"); return (+d)+". "+(+m)+"."; } } return ""; }
+function schoolLine(){ return [cfg.cls,cfg.school].filter(Boolean).join(" · "); }
 function saveChecks(){ save(K_CHK,checks); }
 
 /* ---------- datum (místní čas ČR) ---------- */
@@ -1590,7 +1608,7 @@ function moodRender(){
   if(U.step==="pick"||U.step==="feel") body=
     '<h2 id="mt">Jaký byl tvůj den'+(nm?", "+nm:"")+'?</h2><p class="sub">Neexistuje špatná odpověď. Všechny pocity jsou v pořádku.</p>'+
     '<div class="mfaces">'+[5,4,3,2,1].map(v=>'<button type="button" class="mface'+(U.v===v?" on":"")+'" data-mv="'+v+'" aria-pressed="'+(U.v===v)+'">'+moodFace(v,64,U.v===v)+'<span>'+MOODS[v].n+'</span></button>').join("")+'</div>'+
-    (U.v?'<div class="mstep"><div class="eyebrow">Jak ses cítil? (můžeš vybrat víc)</div><div class="mchips">'+chips(U.v>=3?FEELS:[...FEELS].reverse(),U.f,"f")+'</div>'+
+    (U.v?'<div class="mstep"><div class="eyebrow">Jak ses '+G("cítil","cítila")+'? (můžeš vybrat víc)</div><div class="mchips">'+chips(U.v>=3?FEELS:[...FEELS].reverse(),U.f,"f")+'</div>'+
       '<div class="eyebrow" style="margin-top:.7rem">Co k tomu patřilo?</div><div class="mchips">'+chips(TOPICS,U.t,"t")+'</div></div>':"")+
     '<div class="sheet-foot"><button type="button" class="btn" data-mclose>Zavřít</button><button type="button" class="btn primary" data-msave'+(U.v?"":" disabled")+'>Hotovo</button></div>';
   else if(U.step==="breathe") body=
@@ -1654,7 +1672,7 @@ function headHtml(p){
   const done=countDone(p.iso,p.all), tot=p.all.length, r=tot?done/tot:0;
   const st = r>=1 ? "Batoh hotový!" : r>=.75 ? "Skoro hotovo" : r>0 ? "Jen tak dál" : "Jdeme na to";
   return '<header class="head">'+
-    '<div class="logo">'+ic("logo")+'<div><b>Školní parťák</b><span>3. třída · ZŠ Brdičkova</span></div></div>'+
+    '<div class="logo">'+ic("logo")+'<div><b>Školní parťák</b><span>'+esc(schoolLine())+'</span></div></div>'+
     '<div class="days" role="group" aria-label="Vyber den">'+days+'</div>'+
     '<button type="button" class="clockbox'+(digitalShown()?" dig":"")+'" data-clock aria-label="Hodiny">'+aclockSvg("hd",true)+'<span class="cbt"><span class="clk">'+fmtMin(nowMin())+'</span><span class="dt">'+fmtLong(today)+'</span></span></button>'+
     '<div class="prog" role="status" aria-live="polite" data-tip="Kolik věcí už máš připravených do batohu na vybraný den. Až odškrtáš všechny, kruh se zaplní.">'+ring(done,tot)+'<div><b>'+done+'/'+tot+'</b><span>'+st+'</span></div></div>'+
@@ -1962,7 +1980,7 @@ function genQ(r,t){
   else { const T=[
       ()=>{ const k=ri(r,3,9), p=ri(r,3,9); c=k*p; return ["V krabici je "+k+" řad po "+p+" bonbonech. Kolik je to bonbonů?", k+" · "+p+" = "+c+"."]; },
       ()=>{ const n=ri(r,3,9), p=ri(r,2,9); c=p; return [(n*p)+" jablek rozdělíme do "+n+" košíků stejně. Kolik jablek bude v jednom?", (n*p)+" : "+n+" = "+c+"."]; },
-      ()=>{ const a=ri(r,25,60), b=ri(r,8,30); c=a+b; return ["Chris měl "+a+" kartiček a dostal ještě "+b+". Kolik jich má teď?", a+" + "+b+" = "+c+"."]; },
+      ()=>{ const a=ri(r,25,60), b=ri(r,8,30); c=a+b; return [(cfg.child||"Honza")+G(" měl "," měla ")+a+" kartiček a "+G("dostal","dostala")+" ještě "+b+". Kolik jich má teď?", a+" + "+b+" = "+c+"."]; },
       ()=>{ const a=ri(r,40,95), b=ri(r,7,35); c=a-b; return ["Ve třídě je "+a+" pastelek. "+b+" se jich ztratilo. Kolik pastelek zbylo?", a+" − "+b+" = "+c+"."]; },
       ()=>{ const p=ri(r,3,9); c=p*4; return ["Jeden lístek na tramvaj stojí "+p+" Kč. Kolik zaplatí 4 děti?", "4 · "+p+" = "+c+" Kč."]; } ];
     const [qq,ee]=T[ri(r,0,T.length-1)](); q=qq; e=ee; cands=[c+1,c-1,c+10,c-10,c+2]; }
@@ -2095,7 +2113,7 @@ function askPin(onOk){
 }
 function pinSection(){
   return '<section class="setsec pinsec"><h3>'+ic("i-lock")+'Rodičovský zámek</h3>'+(cfg.pin?'<p class="muted">Nastavení a Přehled pro rodiče jsou zamčené PINem. Po zadání zůstanou 10 minut odemčené.</p><div class="addrow"><button type="button" class="btn" data-pinset>Změnit PIN</button><button type="button" class="btn danger" data-pinoff>Zrušit zámek</button></div>':
-    '<p class="muted">Nastav čtyřmístný PIN, aby Chris nemohl měnit rozvrh, pomůcky ani cíle.</p><div class="addrow"><input type="password" inputmode="numeric" maxlength="4" id="pin-new" placeholder="4 číslice" style="max-width:9rem"><button type="button" class="btn primary" data-pinset>Nastavit PIN</button></div>')+'</section>';
+    '<p class="muted">Nastav čtyřmístný PIN, aby '+esc(cfg.child||"dítě")+' '+G("nemohl","nemohla")+' měnit rozvrh, pomůcky ani cíle.</p><div class="addrow"><input type="password" inputmode="numeric" maxlength="4" id="pin-new" placeholder="4 číslice" style="max-width:9rem"><button type="button" class="btn primary" data-pinset>Nastavit PIN</button></div>')+'</section>';
 }
 /* ---------- týdenní souhrn ---------- */
 function weekSummary(){
@@ -2204,7 +2222,7 @@ function learnHtml(){
       '<button type="button" class="btn" data-ltest="'+esc(quiz.lid)+'">Celý test znovu</button><button type="button" class="btn" data-lopen="'+esc(quiz.lid)+'">'+ic("i-book")+'Zpět k učivu</button>';
     const earn=quiz.earn||{}, ek=["hay","carrot","water","treat"].filter(k=>earn[k]);
     const money=(quiz.coins?'<b>'+coinSvg(false)+quiz.coins+'</b>':"")+(quiz.gold?'<b class="g">'+coinSvg(true)+quiz.gold+'</b>':"");
-    const earnHtml=ek.length?'<div class="lr-earn"><span>Pro '+an("a")+(PET.name?" "+esc(PET.name):"")+' jsi získal:</span>'+ek.map(k=>'<b>'+itemSvg(k)+earn[k]+'×</b>').join("")+money+(PET.lvlUp?'<b class="lvlhint">'+ic("i-star")+'Nová úroveň!</b>':(quiz&&quiz.xp?(()=>{ const X=xpToNext(); return '<b class="lvlhint">⭐ +'+quiz.xp+' XP'+(X.need?' · do úrovně '+(X.l+1)+' chybí '+X.need:'')+'</b>'; })():""))+'<button type="button" class="btn small primary" data-view="pet">'+ic("i-pig")+(PET.lvlUp?'Podívat se na '+an("a"):'Nakrmit '+an("a"))+'</button></div>':"";
+    const earnHtml=ek.length?'<div class="lr-earn"><span>Pro '+an("a")+(PET.name?" "+esc(PET.name):"")+' jsi '+G("získal","získala")+':</span>'+ek.map(k=>'<b>'+itemSvg(k)+earn[k]+'×</b>').join("")+money+(PET.lvlUp?'<b class="lvlhint">'+ic("i-star")+'Nová úroveň!</b>':(quiz&&quiz.xp?(()=>{ const X=xpToNext(); return '<b class="lvlhint">⭐ +'+quiz.xp+' XP'+(X.need?' · do úrovně '+(X.l+1)+' chybí '+X.need:'')+'</b>'; })():""))+'<button type="button" class="btn small primary" data-view="pet">'+ic("i-pig")+(PET.lvlUp?'Podívat se na '+an("a"):'Nakrmit '+an("a"))+'</button></div>':"";
     return detailCard(head,"i-learn",chip,'<div class="lhead">'+back+'</div><div class="lresult">'+starsHtml(st)+'<div class="lr-score">'+quiz.ok+' / '+n+'</div><div class="lr-pct">'+pct+' %</div><p>'+msg+'</p>'+earnHtml+'<div class="lr-btns">'+btns+'</div></div>'+wrongList);
   }
   const [a,qi]=quiz.refs[quiz.i], l=lessonById(a), q=l.quiz[qi], picked=quiz.picked, ord=quiz.opts[a+":"+qi];
@@ -2756,7 +2774,7 @@ function prog(ev,n){
   if(ev==="sprint") P.cnt.sprintBest=Math.max(P.cnt.sprintBest||0,n); else P.cnt[ev]=(P.cnt[ev]||0)+n;
   if(["tests","daily","pack","hw"].includes(ev)) P.days[d]=true;
   Object.keys(P.days).filter(x=>x<addDays(d,-120)).forEach(x=>delete P.days[x]);
-  const wasReady=P.chest[d]; if(!wasReady&&questsDone(d)){ P.chest[d]="ready"; setTimeout(()=>toast("Splnil jsi všechny dnešní úkoly! Otevři truhlu v Úspěších."),400); }
+  const wasReady=P.chest[d]; if(!wasReady&&questsDone(d)){ P.chest[d]="ready"; setTimeout(()=>toast(G("Splnil","Splnila")+" jsi všechny dnešní úkoly! Otevři truhlu v Úspěších."),400); }
   streakCheck(); badgeCheck(); savePet(); goalCheck();
 }
 function streakInfo(){
@@ -2821,7 +2839,7 @@ function achieveHtml(){
     '<div class="ish-sec"><h4>Kamarád pro '+esc(PET.name)+'</h4><p class="ish-hint">Nikdo nechce být sám. Od úrovně 4 můžeš '+esc(PET.name)+' pořídit kamaráda za <b>8 zlatých hvězd</b>.</p>'+
       (petLevel()>=4?'<div class="friendbuy"><input id="friendname" placeholder="Jméno kamaráda" maxlength="14"><button type="button" class="btn primary" data-friend'+((PET.gold||0)>=8?"":" disabled")+'>Pořídit za 8 '+coinSvg(true)+'</button></div>':'<p class="ish-hint">Teď je '+esc(PET.name)+' na úrovni '+petLevel()+'.</p>')+'</div>';
   return '<div class="ishop ach"><div class="ish-h"><h3>Úspěchy</h3><button type="button" class="btn small primary" data-pshare data-tip="Udělá sběratelskou kartu tvého zvířátka s úspěchy. Můžeš ji poslat kamarádům. Čím vyšší úroveň, tím vzácnější karta: Běžná → Vzácná → Epická → Legendární.">🃏 Sběratelská karta</button></div>'+
-    '<div class="streak" data-tip="'+esc("Série = kolik školních dní za sebou jsi něco udělal: dokončil test nebo Test dne, sbalil batoh krok za krokem nebo dodělal domácí úkol. Víkend a prázdniny sérii nepřeruší.\nOdměny:\n• "+STREAK_REW.map(([m,r])=>m+" dní – "+[r.coins?r.coins+" mincí":"",r.gold?r.gold+"× zlatá hvězda":"",r.item&&SHOP_BY[r.item]?SHOP_BY[r.item].name:""].filter(Boolean).join(" + ")).join("\n• "))+'"><span class="fl">🔥</span><div><b>'+s.n+'</b> '+(s.n===1?"den":s.n>=2&&s.n<=4?"dny":"dní")+' v řadě<small>'+(s.today?"Dnes splněno.":"Dnes ještě udělej test, sbal batoh nebo domácí úkol.")+(next?" Za "+(next[0]-s.n)+" "+((next[0]-s.n)===1?"den":"dny")+" odměna"+(next[1].item?" a výjimečná věc!":"!"):"")+' Víkend sérii nepřeruší.</small></div></div>'+
+    '<div class="streak" data-tip="'+esc("Série = kolik školních dní za sebou jsi něco "+G("udělal: dokončil","udělala: dokončila")+" test nebo Test dne, "+G("sbalil","sbalila")+" batoh krok za krokem nebo "+G("dodělal","dodělala")+" domácí úkol. Víkend a prázdniny sérii nepřeruší.\nOdměny:\n• "+STREAK_REW.map(([m,r])=>m+" dní – "+[r.coins?r.coins+" mincí":"",r.gold?r.gold+"× zlatá hvězda":"",r.item&&SHOP_BY[r.item]?SHOP_BY[r.item].name:""].filter(Boolean).join(" + ")).join("\n• "))+'"><span class="fl">🔥</span><div><b>'+s.n+'</b> '+(s.n===1?"den":s.n>=2&&s.n<=4?"dny":"dní")+' v řadě<small>'+(s.today?"Dnes splněno.":"Dnes ještě udělej test, sbal batoh nebo domácí úkol.")+(next?" Za "+(next[0]-s.n)+" "+((next[0]-s.n)===1?"den":"dny")+" odměna"+(next[1].item?" a výjimečná věc!":"!"):"")+' Víkend sérii nepřeruší.</small></div></div>'+
     '<div class="ish-sec"><h4>Můj cíl</h4>'+goalCard()+'</div>'+
     '<div class="ish-sec"><h4>Dnešní úkoly</h4>'+qs+chest+'</div>'+
     '<div class="ish-sec"><h4>Odznaky <span>'+Object.keys(P.badges).length+' / '+BADGES.length+'</span></h4><div class="badges">'+BADGES.map(b=>'<div class="badge'+(P.badges[b.id]?" on":"")+'" role="button" tabindex="0" data-badge="'+b.id+'"><span class="be">'+b.e+'</span><b>'+esc(b.n)+'</b><small>'+esc(b.d)+'</small></div>').join("")+'</div></div>'+friend+'</div>';
@@ -2829,6 +2847,46 @@ function achieveHtml(){
 
 
 
+
+/* ---------- první spuštění: nastavení dítěte ---------- */
+const K_ONB="skolni-partak.onboarded";
+let onbOpen=false;
+function onbRender(){ let ov=document.getElementById("onbov"); if(!onbOpen){ if(ov) ov.remove(); return; }
+  if(!ov){ ov=document.createElement("div"); ov.className="overlay onb-ov"; ov.id="onbov"; document.body.appendChild(ov); }
+  ov.innerHTML='<div class="sheet onb" role="dialog" aria-modal="true" aria-labelledby="onbt"><h2 id="onbt">👋 Vítej ve Školním parťákovi!</h2>'+
+   '<p class="sub">Než začneme, řekni nám pár věcí o sobě. (Klidně s rodičem.) Všechno jde později změnit v Nastavení.</p>'+
+   '<form id="onbform" class="onb-grid">'+
+   '<label>Jméno *<input name="child" required autocomplete="given-name" placeholder="např. Honza"></label>'+
+   '<label>Příjmení<input name="childLast" autocomplete="family-name"></label>'+
+   '<label>Jsem<select name="gender"><option value="m">kluk</option><option value="f">holka</option></select></label>'+
+   '<label>Narozeniny<input type="date" name="birth"></label>'+
+   '<label>Svátek (den. měsíc.)<input name="nameday" placeholder="doplní se podle jména" inputmode="decimal"></label>'+
+   '<label>Oslovení (5. pád)<input name="voc" placeholder="doplní se podle jména"></label>'+
+   '<label>Třída<input name="cls" placeholder="např. 2. třída"></label>'+
+   '<label>Škola<input name="school" placeholder="např. ZŠ Lipová"></label>'+
+   '</form><p class="muted">Rozvrh hodin, pomůcky a prázdniny nastaví rodič v Nastavení. Zvířátko si vybereš v sekci Mazlíček.</p>'+
+   '<div class="sheet-foot"><span></span><button type="button" class="btn primary big" data-onbsave>Hotovo, jdeme na to!</button></div></div>';
+  const f=ov.querySelector("#onbform"), nm=f.elements.child;
+  nm.addEventListener("input",()=>{ f.elements.nameday.placeholder=namedayFor(nm.value)||"např. 25. 7."; f.elements.voc.placeholder=vocAuto(nm.value)||"doplní se podle jména"; });
+  setTimeout(()=>{ try{ nm.focus(); }catch(e){} },100); }
+function onbSave(){ const f=document.getElementById("onbform"); if(!f) return; const E=f.elements, v=k=>(E[k].value||"").trim();
+  if(!v("child")){ E.child.focus(); toast("Napiš prosím jméno."); return; }
+  cfg.child=v("child"); cfg.childLast=v("childLast"); cfg.gender=E.gender.value==="f"?"f":"m"; cfg.birth=E.birth.value||"";
+  cfg.nameday=v("nameday")||namedayFor(cfg.child); cfg.voc=v("voc"); cfg.cls=v("cls"); cfg.school=v("school");
+  saveCfg(); try{ localStorage.setItem(K_ONB,"1"); }catch(e){} onbOpen=false; onbRender(); render(); setTimeout(()=>{ try{ mornAuto(); }catch(e){} },900); toast("Ahoj, "+(cfg.voc||vocAuto(cfg.child))+"! Vítej."); }
+document.addEventListener("click",e=>{ const t=e.target.closest("[data-onbsave],[data-wipeall]"); if(!t) return; e.preventDefault(); e.stopPropagation();
+  if(t.hasAttribute("data-onbsave")) return onbSave();
+  if(confirm("Opravdu smazat všechna data v tomto zařízení a začít znovu pro jiné dítě? Tohle nejde vrátit.")){
+    try{ Object.keys(localStorage).filter(k=>k.indexOf("skolni-partak")===0).forEach(k=>localStorage.removeItem(k)); }catch(e){}
+    location.reload(); } },true);
+document.addEventListener("submit",e=>{ if(e.target&&e.target.id==="onbform"){ e.preventDefault(); onbSave(); } },true);
+function onbCheck(){ try{ if(!cfg.child&&!localStorage.getItem(K_ONB)){ onbOpen=true; onbRender(); } }catch(e){} }
+setTimeout(onbCheck,300);
+(function(){ const st=document.createElement("style"); st.textContent=
+ ".onb-ov .sheet{max-width:40rem}.onb-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem 1rem;margin:1rem 0}.onb-grid label{display:flex;flex-direction:column;gap:.25rem;font-weight:600;font-size:.9rem}"+
+ ".onb-grid input,.onb-grid select{font:inherit;font-weight:400;padding:.6rem .7rem;border-radius:.6rem;border:1.5px solid var(--line);background:var(--surface);color:inherit}"+
+ "@media (max-width:600px){.onb-grid{grid-template-columns:1fr}}";
+ document.head.appendChild(st); })();
 /* ---------- ranní přivítání od zvířátka (jednou denně, 5:00–11:59) ---------- */
 const K_MORN="skolni-partak.morning.v1";
 const MORN_FACTS=[
@@ -2856,7 +2914,7 @@ const MORN_FACTS=[
  "Kočka spí většinu dne – klidně i 15 hodin.",
  "Mravenec unese mnohem víc, než sám váží.",
  "Měsíc nesvítí sám. Odráží světlo ze Slunce."];
-function vocName(n){ n=(n||"").trim().split(/\s+/)[0]||""; if(/^chris$/i.test(n)) return n+"i"; return n; }
+function vocName(n){ return (cfg.voc||"").trim()||vocAuto(n); }
 function mornPick(list,salt){ let h=7; (pragueToday()+salt).split("").forEach(c=>h=(h*131+c.charCodeAt(0))%100003); return list[h%list.length]; }
 function mornLines(){
   const t=pragueToday(), wd=dow(t), d=toD(t), nm=vocName(cfg.child), L=[], pet=PET&&PET.name?PET:null;
@@ -2899,7 +2957,7 @@ function mornRender(){
 function mornClose(){ mornOpen=false; try{ speechSynthesis.cancel(); }catch(e){} mornRender();
   if(PET&&PET.name){ PET.stats.joy=Math.min(100,(PET.stats.joy||0)+3); savePet(); } render(); setTimeout(()=>{ try{ moodAutoAsk(); }catch(e){} },400); }
 function mornAuto(){ try{ const t=pragueToday(), hm=pragueHM(Date.now()); if(hm<5*60||hm>=12*60) return;
-  if(localStorage.getItem(K_MORN)===t||mornOpen||moodUI||document.querySelector(".overlay")) return;
+  if(localStorage.getItem(K_MORN)===t||mornOpen||moodUI||onbOpen||!cfg.child||document.querySelector(".overlay")) return;
   localStorage.setItem(K_MORN,t); mornOpen=true; mornRender(); }catch(e){} }
 document.addEventListener("click",e=>{ const t=e.target.closest("[data-mornok],[data-mornspeak],[data-mornopen]"); if(!t) return; e.preventDefault(); e.stopPropagation();
   if(t.hasAttribute("data-mornopen")){ mornOpen=true; mornRender(); return; }
@@ -2930,7 +2988,7 @@ function badgeRender(){
     '<button type="button" class="bv-nav l" data-bnav="-1" aria-label="Předchozí">‹</button><button type="button" class="bv-nav r" data-bnav="1" aria-label="Další">›</button>'+
     '<div class="bv-medal"><div class="bv-rays"></div><div class="bv-disc"><span>'+b.e+'</span></div>'+(got?"":'<div class="bv-lock">🔒</div>')+'</div>'+
     '<div class="eyebrow">Odznak '+(i+1)+' / '+BADGES.length+'</div><h2>'+esc(b.n)+'</h2>'+
-    (got?'<p class="bv-say">Skvělá práce'+(cfg.child?", "+esc(cfg.child):"")+'! Tenhle odznak sis vybojoval.</p>'+
+    (got?'<p class="bv-say">Skvělá práce'+(cfg.child?", "+esc(cfg.child):"")+'! Tenhle odznak sis '+G("vybojoval","vybojovala")+'.</p>'+
          '<div class="bv-facts"><div><small>Za co</small><b>'+esc(b.d)+'</b></div><div><small>Získáno</small><b>'+esc(fmtLong(got))+'</b></div><div><small>Odměna</small><b>+10 '+coinSvg(false)+'</b></div></div>'
         :'<p class="bv-say">Tenhle odznak tě ještě čeká. Zvládneš to!</p><div class="bv-facts"><div><small>Jak ho získat</small><b>'+esc(b.d)+'</b></div><div><small>Odměna</small><b>+10 '+coinSvg(false)+'</b></div></div>')+
     '<div class="bv-prog"><div class="eyebrow">Moje sbírka: '+have+' z '+BADGES.length+'</div><div class="bv-bar"><i style="width:'+Math.round(have/BADGES.length*100)+'%"></i></div></div>'+
@@ -3631,7 +3689,13 @@ function settingsHtml(){
     '<div class="addrow kidrow"><label>Jméno<input type="text" id="child-name" value="'+esc(cfg.child||"")+'" placeholder="Jméno" aria-label="Jméno dítěte"></label>'+
     '<label>Příjmení<input type="text" id="child-last" value="'+esc(cfg.childLast||"")+'" placeholder="Příjmení" aria-label="Příjmení dítěte"></label>'+
     '<label>Narozeniny<input type="date" id="child-birth" value="'+esc(cfg.birth||"")+'" aria-label="Datum narození"></label>'+
-    '<label>Svátek (den. měsíc.)<input type="text" id="child-nameday" value="'+esc(cfg.nameday||"")+'" placeholder="např. 25. 7." inputmode="decimal" aria-label="Svátek"></label></div>'+
+    '<label>Svátek (den. měsíc.)<input type="text" id="child-nameday" value="'+esc(cfg.nameday||"")+'" placeholder="'+esc(namedayFor(cfg.child)||"např. 25. 7.")+'" inputmode="decimal" aria-label="Svátek"></label></div>'+
+    '<div class="addrow kidrow"><label>Oslovení (5. pád)<input type="text" id="child-voc" value="'+esc(cfg.voc||"")+'" placeholder="'+esc(vocAuto(cfg.child)||"např. Honzo")+'" aria-label="Oslovení"></label>'+
+    '<label>Je to<select id="child-gender" aria-label="Kluk nebo holka"><option value="m"'+(cfg.gender!=="f"?" selected":"")+'>kluk</option><option value="f"'+(cfg.gender==="f"?" selected":"")+'>holka</option></select></label>'+
+    '<label>Třída<input type="text" id="child-cls" value="'+esc(cfg.cls||"")+'" placeholder="např. 3. třída" aria-label="Třída"></label>'+
+    '<label>Škola<input type="text" id="child-school" value="'+esc(cfg.school||"")+'" placeholder="např. ZŠ Brdičkova" aria-label="Škola"></label></div>'+
+    '<p class="muted" style="margin-top:.4rem">Svátek se doplní sám podle jména (když ho necháte prázdný). Oslovení se používá v ranním přivítání – když ho nevyplníte, aplikace ho odhadne.</p>'+
+    '<div class="addrow" style="margin-top:.6rem"><button type="button" class="btn" data-wipeall>Začít znovu pro jiné dítě…</button><span class="muted">Smaže v tomto zařízení všechno: rozvrh, pomůcky, úkoly, zvířátko, výsledky testů i nálady.</span></div>'+
     '<p style="margin:.9rem 0 .5rem">Export do kalendáře (Google, Apple): jedna událost na každý školní den do konce školního roku s hodinami a učebnicemi v popisu, k tomu prázdniny, úkoly a akce.</p>'+
     '<button type="button" class="btn primary" id="btn-ics">Stáhnout kalendář (.ics)</button>'+
     '<p class="muted" style="margin-top:.5rem">Google Kalendář: na počítači otevři calendar.google.com → Nastavení → Import a export → vyber soubor. Opakovaný import stejné události aktualizuje, nezdvojí.</p></section>'+
@@ -3804,7 +3868,11 @@ document.addEventListener("change", e=>{
   if(t.id==="plesson"){ printLesson=t.value; render(); return; }
   if(d.les!==undefined){ const a=curSched(); if(a) a[+d.les]=t.value; }
   else if(t.id==="ov-date"){ if(t.value){ editDate=t.value; } render(); return; }
-  else if(t.id==="child-name"){ cfg.child=val; }
+  else if(t.id==="child-name"){ cfg.child=val; if(!cfg.nameday){ const nd=namedayFor(val); if(nd) cfg.nameday=nd; } }
+  else if(t.id==="child-voc"){ cfg.voc=val; }
+  else if(t.id==="child-gender"){ cfg.gender=t.value==="f"?"f":"m"; }
+  else if(t.id==="child-cls"){ cfg.cls=val; }
+  else if(t.id==="child-school"){ cfg.school=val; }
   else if(t.id==="child-last"){ cfg.childLast=val; }
   else if(t.id==="child-birth"){ cfg.birth=t.value||""; }
   else if(t.id==="child-nameday"){ cfg.nameday=val; }
