@@ -1105,7 +1105,7 @@ body::before{background:#140A3C}
 const COLOR_HEX={pink:"#E0566F",blue:"#2F7FE0",green:"#2EA650",yellow:"#E3AE00",purple:"#8B5CF6",orange:"#F08A24",gray:"#8A96A8"};
 const COLOR_NAMES={pink:"růžová",blue:"modrá",green:"zelená",yellow:"žlutá",purple:"fialová",orange:"oranžová",gray:"šedá"};
 const ICON_NAMES={cj:"kniha",ma:"kalkulačka",pu:"list",aj:"vlajka",hv:"nota",tv:"běžec",pv:"nůžky",vv:"paleta",book:"sešit",q:"otazník"};
-const APP_VERSION="59"; window.APP_VERSION=APP_VERSION;
+const APP_VERSION="60"; window.APP_VERSION=APP_VERSION;
 const KIND={sdel:{icon:"i-msg",short:null},druz:{icon:"i-users",short:null},ukol:{icon:"i-flag",short:null},food:{icon:"i-food",short:"Svačina"},drink:{icon:"i-drop",short:"Pití"},other:{icon:"i-dot",short:null}};
 
 const DEFAULTS = {
@@ -1574,7 +1574,7 @@ function moodFace(v,size,on){ const M=MOODS[v], s=size||56;
     '<path d="'+mouth+'" stroke="#2B2B3A" stroke-width="3" fill="'+(v===5?"#fff":"none")+'" stroke-linecap="round" stroke-linejoin="round"/></svg>'; }
 function moodChip(){ const m=MOOD[pragueToday()];
   return m?'<button type="button" class="kb-chip mood-chip" data-moodopen data-tip="Dnešní den: '+MOODS[m.v].n+'. Klepni pro změnu nebo historii.">'+moodFace(m.v,20)+' Den</button>'
-          :'<button type="button" class="kb-chip mood-chip ask" data-moodopen data-tip="Klepni a řekni, jaký byl tvůj den.">'+moodFace(4,20)+' Jaký byl den?</button>'; }
+          :'<button type="button" class="kb-chip mood-chip'+(pragueHM(Date.now())>=17*60?" ask":"")+'" data-moodopen data-tip="Klepni a řekni, jaký byl tvůj den.">'+moodFace(4,20)+' Jaký byl den?</button>'; }
 function moodOpen(){ const m=MOOD[pragueToday()]; moodUI={v:m?m.v:0,f:m?[...(m.f||[])]:[],t:m?[...(m.t||[])]:[],step:m?"done":"pick"}; moodRender(); }
 function moodClose(){ moodUI=null; const o=document.getElementById("moodov"); if(o) o.remove(); render(); }
 function moodHist(){ const t=pragueToday(), out=[];
@@ -1620,9 +1620,9 @@ document.addEventListener("click",e=>{ const t=e.target.closest("[data-moodopen]
   else if(t.hasAttribute("data-mback")) U.step="done";
   else if(t.hasAttribute("data-medit")) U.step="feel";
   moodRender(); },true);
-// jednou denně od 15:00 se aplikace sama zeptá (jen na hlavní obrazovce, nic jiného otevřeného)
+// jednou denně večer od 18:00 se aplikace sama zeptá (jen na hlavní obrazovce, nic jiného otevřeného)
 function moodAutoAsk(){ try{ const d=pragueToday(); if(MOOD[d]||moodUI||view!=="home"||modalIso||document.querySelector(".overlay")) return;
-  if(pragueHM(Date.now())<15*60) return; if(localStorage.getItem(K_MOOD+".asked")===d) return;
+  if(pragueHM(Date.now())<18*60) return; if(localStorage.getItem(K_MOOD+".asked")===d) return;
   localStorage.setItem(K_MOOD+".asked",d); moodOpen(); }catch(e){} }
 setTimeout(moodAutoAsk,2500); setInterval(moodAutoAsk,10*60*1000);
 (function(){ const st=document.createElement("style"); st.textContent=
@@ -2828,6 +2828,97 @@ function achieveHtml(){
 }
 
 
+
+/* ---------- ranní přivítání od zvířátka (jednou denně, 5:00–11:59) ---------- */
+const K_MORN="skolni-partak.morning.v1";
+const MORN_FACTS=[
+ "Morčata pocházejí z Jižní Ameriky, z hor zvaných Andy.",
+ "Morče si neumí samo vyrobit vitamín C. Proto potřebuje zeleninu a ovoce – stejně jako ty!",
+ "Když má morče velkou radost, vyskakuje do vzduchu. Říká se tomu popcorning.",
+ "Morčata si povídají pískáním a vrněním.",
+ "Zuby morčeti rostou celý život, a proto pořád hryže seno.",
+ "Morčata nejsou ráda sama. Nejraději jsou s kamarády.",
+ "Malá morčátka se rodí s chlupy a s otevřenýma očima.",
+ "Chobotnice má tři srdce.",
+ "Sova umí otočit hlavu skoro úplně dozadu.",
+ "Kolibřík umí létat i pozpátku.",
+ "Delfíni spí s jedním okem otevřeným.",
+ "Nejvyšší hora Česka je Sněžka. Měří 1603 metrů.",
+ "Nejdelší řeka, která teče jen Českem, je Vltava.",
+ "Slunce je hvězda. Je to ta nejbližší hvězda k nám.",
+ "Mozek se nejlíp učí, když se dobře vyspíš.",
+ "Když se napiješ vody, mozek líp přemýšlí.",
+ "Chyba je kamarád. Každá chyba tě něco naučí.",
+ "Včela umí ukázat ostatním včelám, kde jsou květy – tancem.",
+ "Žirafa má na krku stejně obratlů jako ty – sedm. Jen jsou mnohem delší.",
+ "Srdce velryby je velké jako malé auto.",
+ "Sněhová vločka má vždycky šest cípů.",
+ "Kočka spí většinu dne – klidně i 15 hodin.",
+ "Mravenec unese mnohem víc, než sám váží.",
+ "Měsíc nesvítí sám. Odráží světlo ze Slunce."];
+function vocName(n){ n=(n||"").trim().split(/\s+/)[0]||""; if(/^chris$/i.test(n)) return n+"i"; return n; }
+function mornPick(list,salt){ let h=7; (pragueToday()+salt).split("").forEach(c=>h=(h*131+c.charCodeAt(0))%100003); return list[h%list.length]; }
+function mornLines(){
+  const t=pragueToday(), wd=dow(t), d=toD(t), nm=vocName(cfg.child), L=[], pet=PET&&PET.name?PET:null;
+  const hi=mornPick(["Dobré ráno","Krásné ráno","Ahoj, dobré ráno","Vstávej, dobré ráno"],"hi");
+  L.push(hi+(nm?", "+esc(nm):"")+"! "+(pet?"Tady "+esc(pet.name)+".":""));
+  L.push("Dnes je <b>"+DAY_NAMES[wd]+" "+d.getUTCDate()+". "+MONTHS[d.getUTCMonth()]+"</b>."+(wd===1?" Začíná nový týden – jdeme na to!":wd===5?" Poslední školní den před víkendem!":""));
+  const bd=cfg.birth&&cfg.birth.slice(5)===t.slice(5), nd=(()=>{ const n=kdNameday(); return n&&n===t; })();
+  if(bd) L.push("🎂 <b>Všechno nejlepší k narozeninám!</b> Dnes je tvůj velký den!");
+  else if(nd) L.push("🌸 <b>Dnes máš svátek!</b> Všechno nejlepší!");
+  const hol=holidayOf(t);
+  const nsd=nextSchoolDay(t), nsw=dayWord(nsd);
+  if(hol) L.push("🌴 "+(/volno/i.test(hol)?"Dnes máš "+esc(hol.toLowerCase()):"Máš prázdniny ("+esc(hol)+")")+". Do školy jdeš "+(nsw==="zítra"?"zítra":prepDay(dow(nsd)))+".");
+  else if(!isSchool(t)) L.push("Dnes se nejde do školy. Užij si víkend! Do školy jdeš "+(nsw==="zítra"?"zítra":prepDay(dow(nsd)))+".");
+  else { const P=dayPlan(t), off=offsiteOf(t);
+    if(off) L.push("🚌 Dnes je <b>"+esc(off.name||"akce mimo školu")+"</b>.");
+    else if(P.uniq.length){ const names=P.uniq.map(s=>s.name||s.short).filter(Boolean);
+      L.push("Ve škole tě čeká <b>"+P.lessons.length+" "+(P.lessons.length>=5?"hodin":P.lessons.length>1?"hodiny":"hodina")+"</b>: "+esc(names.join(", "))+"."); }
+    if(P.hasPE) L.push("👟 Je tělocvik – nezapomeň na cvičky!");
+    const tk=(P.tasks||[]).map(x=>x.name).filter(Boolean); if(tk.length) L.push("📌 Dnes: "+esc(tk.slice(0,3).join(", "))+".");
+    const all=P.bag.length, done=countDone(t,P.bag); if(all&&done<all) L.push("🎒 Zkontroluj tašku – sbaleno máš "+done+" z "+all+" věcí.");
+    else if(all) L.push("🎒 Taška je sbalená. Paráda!"); }
+  if(pet){ const S=pet.stats||{};
+    if((S.food||0)<40) L.push("🥕 Mám trochu hlad. Dáš mi něco dobrého?");
+    else if((S.water||0)<40) L.push("💧 Mám žízeň. Dáš mi napít?");
+    const X=xpToNext(); if(X.need) L.push("⭐ Do úrovně "+(X.l+1)+" mi chybí <b>"+X.need+" XP</b>."+(dailyPending()?" Test dne nám pomůže!":""));
+    else L.push("👑 Jsem král! Jsem na tebe pyšný."); }
+  L.push("💡 "+mornPick(MORN_FACTS,"fact"));
+  return L;
+}
+let mornOpen=false;
+function mornRender(){
+  let ov=document.getElementById("mornov"); if(!mornOpen){ if(ov) ov.remove(); return; }
+  if(!ov){ ov=document.createElement("div"); ov.className="overlay morn-ov"; ov.id="mornov"; document.body.appendChild(ov); }
+  const lvl=PET&&PET.name?petLevel():3, L=mornLines();
+  let art=""; try{ art='<svg viewBox="40 30 330 250" class="mo-pet" aria-hidden="true">'+pigSvg("happy",lvl,"love","mo")+'</svg>'; }catch(e){  }
+  ov.innerHTML='<div class="sheet mo" role="dialog" aria-modal="true" aria-labelledby="mot"><div class="mo-sun"></div>'+
+    '<div class="mo-row"><div class="mo-artw">'+art+'</div><div class="mo-bubble"><h2 id="mot">'+L[0]+'</h2>'+L.slice(1).map((x,i)=>'<p style="animation-delay:'+(.25+i*.18)+'s">'+x+'</p>').join("")+'</div></div>'+
+    '<div class="sheet-foot"><button type="button" class="btn" data-mornspeak>🔊 Přečti mi to</button><button type="button" class="btn primary big" data-mornok>'+(PET&&PET.name?"Dobré ráno, "+esc(PET.name)+"!":"Jdeme na to!")+'</button></div></div>';
+}
+function mornClose(){ mornOpen=false; try{ speechSynthesis.cancel(); }catch(e){} mornRender();
+  if(PET&&PET.name){ PET.stats.joy=Math.min(100,(PET.stats.joy||0)+3); savePet(); } render(); setTimeout(()=>{ try{ moodAutoAsk(); }catch(e){} },400); }
+function mornAuto(){ try{ const t=pragueToday(), hm=pragueHM(Date.now()); if(hm<5*60||hm>=12*60) return;
+  if(localStorage.getItem(K_MORN)===t||mornOpen||moodUI||document.querySelector(".overlay")) return;
+  localStorage.setItem(K_MORN,t); mornOpen=true; mornRender(); }catch(e){} }
+document.addEventListener("click",e=>{ const t=e.target.closest("[data-mornok],[data-mornspeak],[data-mornopen]"); if(!t) return; e.preventDefault(); e.stopPropagation();
+  if(t.hasAttribute("data-mornopen")){ mornOpen=true; mornRender(); return; }
+  if(t.hasAttribute("data-mornspeak")){ const tmp=document.createElement("div"); tmp.innerHTML=mornLines().join(" "); speak(tmp.textContent.replace(/[\u{1F300}-\u{1FAFF}☀-➿]/gu,"")); return; }
+  mornClose(); },true);
+setTimeout(mornAuto,1200); document.addEventListener("visibilitychange",()=>{ if(!document.hidden) setTimeout(mornAuto,800); });
+(function(){ const st=document.createElement("style"); st.textContent=
+ ".morn-ov .sheet{max-width:46rem;position:relative;overflow:hidden;background:linear-gradient(180deg,#FFF4D6 0%,var(--surface,#fff) 55%)}"+
+ "[data-theme=dark] .morn-ov .sheet,.dark .morn-ov .sheet{background:linear-gradient(180deg,#3A3150 0%,var(--surface) 55%)}"+
+ ".mo-sun{position:absolute;right:-3rem;top:-3rem;width:10rem;height:10rem;border-radius:50%;background:radial-gradient(circle,#FFE082,#FFC107 60%,transparent 62%);box-shadow:0 0 4rem 1.5rem rgba(255,193,7,.35);animation:mosun 6s ease-in-out infinite}"+
+ "@keyframes mosun{50%{transform:scale(1.08)}}"+
+ ".mo-row{display:flex;gap:1rem;align-items:center;position:relative}.mo-artw{flex:0 0 15rem;animation:mopop .6s cubic-bezier(.2,1.5,.4,1)}@keyframes mopop{from{transform:scale(.4) translateY(2rem);opacity:0}}"+
+ ".mo-pet{width:100%;height:auto;display:block}"+
+ ".mo-bubble{flex:1;position:relative;background:var(--surface,#fff);border:2px solid rgba(124,92,246,.35);border-radius:1.2rem;padding:1rem 1.2rem;box-shadow:0 .4rem 1.2rem rgba(0,0,0,.08)}"+
+ ".mo-bubble:before{content:'';position:absolute;left:-.8rem;top:3rem;border:.8rem solid transparent;border-right-color:rgba(124,92,246,.35);border-left:0}"+
+ ".mo-bubble h2{margin:0 0 .5rem;font-size:1.5rem}.mo-bubble p{margin:.35rem 0;font-size:1.08rem;line-height:1.4;opacity:0;animation:moin .4s ease forwards}@keyframes moin{from{opacity:0;transform:translateX(-6px)}to{opacity:1}}"+
+ "@media (max-width:700px){.mo-row{flex-direction:column}.mo-artw{flex-basis:auto;width:11rem}.mo-bubble:before{display:none}}";
+ document.head.appendChild(st); })();
+
 /* ---------- náhled odznaku (zvětšená karta úspěchu) ---------- */
 let badgeView=null;
 function badgeRender(){
@@ -3088,7 +3179,7 @@ function shopInit(){
 function grantGifts(lvl,quiet){ (LEVEL_GIFTS[lvl]||[]).forEach(id=>{ if(!PET.owned.includes(id)) PET.owned.push(id); equip(id,true); }); }
 function equip(id,on){ const it=SHOP_BY[id]; if(!it) return; if(it.slot==="cage"){ PET.cage[id]=on; } else { if(on) PET.eq[it.slot]=id; else if(PET.eq[it.slot]===id) delete PET.eq[it.slot]; } }
 function isOn(id){ const it=SHOP_BY[id]; return it.slot==="cage"?!!PET.cage[id]:PET.eq[it.slot]===id; }
-function slotItem(slot){ let id=PET.eq[slot]; if(petTry&&SHOP_BY[petTry]&&SHOP_BY[petTry].slot===slot) id=petTry; return id&&SHOP_BY[id]; }
+function slotItem(slot){ let id=(PET.eq||{})[slot]; if(petTry&&SHOP_BY[petTry]&&SHOP_BY[petTry].slot===slot) id=petTry; return id&&SHOP_BY[id]; }
 function placed(it){ return it.at?'<g transform="'+it.at+'">'+it.svg+'</g>':it.svg; }
 const SLOT_T={head:"translate(128 112) scale(1.55) translate(-134 -142)",face:"translate(115.5 166) scale(1.5) translate(-131 -187)",neck:"translate(130 240) scale(1.4) translate(-152 -232)",back:"translate(240 165) scale(1.12) translate(-240 -180)"};
 let pigNoWear=false, pigVector=false;
@@ -3488,7 +3579,7 @@ function moodParentHtml(){
   const grid=days.map(d=>{ const m=MOOD[d]; return '<div class="mp-d'+(d===t?" today":"")+'" data-tip="'+esc(cap(fmtLong(d))+(m?": "+MOODS[m.v].n+(m.f&&m.f.length?" · "+m.f.join(", "):"")+(m.t&&m.t.length?" · "+m.t.join(", "):""):": nevyplněno"))+'">'+(m?moodFace(m.v,28):'<span class="mh-empty" style="width:28px;height:28px"></span>')+'<small>'+(+d.slice(8))+'.'+(+d.slice(5,7))+'.</small></div>'; }).join("");
   const bars=[5,4,3,2,1].map(v=>'<div class="mp-bar">'+moodFace(v,22)+'<span>'+MOODS[v].n+'</span><div class="mbar"><i style="width:'+(rec.length?Math.round(cnt[v]/rec.length*100):0)+'%;background:'+MOODS[v].c+'"></i></div><b>'+cnt[v]+'</b></div>').join("");
   return '<section class="s-sec"><h3>Nálada – jak se '+(cfg.child?esc(cfg.child)+" měl":"dítě mělo")+'</h3><p>Dítě si každý den může zapsat, jaký byl jeho den. Zde je posledních 30 dní. Klepněte na den pro detail. Záznamy zůstávají jen v tomto zařízení.</p>'+
-    (!rec.length?'<p class="muted">Zatím žádný záznam. Tlačítko „Jaký byl den?“ je v horní liště a od 15:00 se aplikace jednou denně sama zeptá.</p>':
+    (!rec.length?'<p class="muted">Zatím žádný záznam. Tlačítko „Jaký byl den?“ je v horní liště a večer od 18:00 se aplikace jednou denně sama zeptá.</p>':
     (hard7>=3?'<div class="mhelp" style="margin:.6rem 0">💙 Za poslední týden zapsal <b>'+hard7+'</b> těžké nebo „nic moc“ dny. Možná stojí za to si v klidu popovídat – bez vyptávání, třeba při společné činnosti.</div>':"")+
     '<div class="mp-grid">'+grid+'</div>'+
     '<div class="mp-cols"><div><div class="eyebrow">Jaké byly dny ('+rec.length+' záznamů)</div>'+bars+'</div>'+
