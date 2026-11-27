@@ -211,6 +211,7 @@ function activityHtml(days) {
 function petView() {
   if (!kid) return '<h2>Morče</h2>' + noState();
   const p = kid.pet; if (!p) return '<h2>Morče</h2><div class="card empty">Morče zatím nemá jméno – ' + esc(childName()) + ' si ho ještě nepojmenoval v Parťákovi.</div>';
+  p.stats = p.stats || { food: 0, water: 0, joy: 0 }; ['coins', 'gold', 'owned', 'xp', 'level', 'levelMax'].forEach(k => { if (p[k] == null) p[k] = 0; });
   const mo = MOOD[p.mood] || MOOD.ok, prev = p.nextXp ? null : null, pct = p.nextXp ? Math.min(100, Math.round(100 * p.xp / p.nextXp)) : 100;
   let h = '<h2>🐹 ' + esc(p.name) + '</h2><div class="card"><div class="row" style="justify-content:space-between"><div><b style="font-size:1.1rem">' + mo[0] + ' ' + mo[1] + '</b><div class="muted">' + esc(p.msg || "") + '</div></div>' +
     (p.needs && p.mood !== "sleep" ? '<span class="score s-bad">potřebuje péči</span>' : '<span class="score s-ok">v pořádku</span>') + '</div>' +
@@ -219,7 +220,7 @@ function petView() {
     (p.nextXp ? '<div class="bars"><div class="bar"><span>Zkušenosti</span><div class="t"><i style="width:' + pct + '%"></i></div><span class="v">' + p.xp + '/' + p.nextXp + '</span></div></div><p class="muted">Další úroveň: ' + esc(p.nextStage) + (p.nextGift ? ' – dostane ' + esc(p.nextGift) : "") + '</p>' : '<p>Nejvyšší úroveň! 👑</p>') + '</div>' +
     '<div class="tiles"><div class="tile"><b>🪙 ' + p.coins + '</b><span>mincí</span></div><div class="tile"><b>⭐ ' + p.gold + '</b><span>zlatých hvězd</span></div><div class="tile"><b>' + p.owned + '</b><span>věcí z obchodu</span></div>' +
     (kid.badges ? '<div class="tile"><b>🏅 ' + kid.badges.total + '</b><span>odznaků z ' + kid.badges.of + '</span></div>' : "") + '</div>' +
-    '<div class="card"><h3 style="margin-top:0">Zásoby</h3><p>' + Object.keys(ITEMS).map(k => ITEMS[k] + ' <b>' + (p.inv[k] || 0) + '×</b>').join(" &nbsp;·&nbsp; ") + '</p></div>';
+    '<div class="card"><h3 style="margin-top:0">Zásoby</h3><p>' + Object.keys(ITEMS).map(k => ITEMS[k] + ' <b>' + ((p.inv || {})[k] || 0) + '×</b>').join(" &nbsp;·&nbsp; ") + '</p></div>';
   if (kid.goal) h += '<div class="card"><h3 style="margin-top:0">Cíl</h3><p>' + (kid.goal.won ? "✅ " : "🎯 ") + esc(kid.goal.t) + '</p></div>';
   if (kid.badges && kid.badges.recent.length) h += '<div class="card"><h3 style="margin-top:0">Poslední odznaky</h3>' + kid.badges.recent.map(b => '<div class="tog"><span>' + b.e + ' ' + esc(b.n) + '</span><span class="muted">' + dayLabel(b.d) + '</span></div>').join("") + '</div>';
   if (p.born) h += '<p class="muted">Ve hře od ' + new Date(p.born).toLocaleDateString("cs-CZ") + '.</p>';
@@ -271,7 +272,8 @@ function notifyView() {
   html += '</div><div class="card"><h3 style="margin-top:0">Kdy posílat</h3>' +
     [["each", "Po každém testu"], ["below", "Jen když test dopadne pod hranici"], ["daily", "Jednou denně souhrn (kolem 19:00)"], ["off", "Neposílat"]].map(([v, l]) =>
       '<label class="tog"><span>' + l + '</span><input type="radio" name="nm" value="' + v + '"' + (n.mode === v ? " checked" : "") + '></label>').join("") +
-    '<label class="f" style="margin-top:.7rem"' + (n.mode === "below" ? "" : " hidden") + ' id="thr">Hranice úspěšnosti (%)<input type="number" min="0" max="100" value="' + n.threshold + '" data-thr></label></div>';
+    '<label class="f" style="margin-top:.7rem"' + (n.mode === "below" ? "" : " hidden") + ' id="thr">Hranice úspěšnosti (%)<input type="number" min="0" max="100" value="' + n.threshold + '" data-thr></label></div>' +
+    '<div class="card"><h3 style="margin-top:0">🐹 Morče</h3><label class="tog"><span>Upozornit, když morče potřebuje nakrmit, napojit nebo pohladit<br><small class="muted">mezi 7:00 a 20:30, nejvýš jednou za 3 hodiny</small></span><input type="checkbox" data-petn' + (n.pet !== false ? " checked" : "") + '></label></div>';
   return html;
 }
 function b64u(s) { const p = "=".repeat((4 - s.length % 4) % 4), b = atob((s + p).replace(/-/g, "+").replace(/_/g, "/")); return Uint8Array.from([...b].map(c => c.charCodeAt(0))); }
@@ -323,7 +325,10 @@ async function start() {
   render();
   try { status = await fetch(API + "status", { headers: { Authorization: "Bearer " + key } }).then(r => r.json()); } catch (e) {}
   await refresh();
-  const id = new URLSearchParams(location.search).get("r"); if (id) { history.replaceState(null, "", location.pathname); openResult(id); }
+  const qs = new URLSearchParams(location.search), id = qs.get("r"), qt = qs.get("tab");
+  if (qt && TABS.some(x => x[0] === qt)) { tab = qt; render(); }
+  if (id || qt) history.replaceState(null, "", location.pathname);
+  if (id) openResult(id);
   if ("serviceWorker" in navigator) swReg().catch(() => {});
 }
 document.addEventListener("click", async e => {
@@ -345,10 +350,11 @@ document.addEventListener("change", e => {
   const t = e.target;
   if (t.dataset.s) { const v = t.type === "checkbox" ? t.checked : t.type === "number" ? +t.value : t.value; setPath(settings, t.dataset.s, v); dirty = true; const b = $("[data-save]"); if (b) b.disabled = false; return; }
   if (t.dataset.rt != null) { settings.watch.reminders[+t.dataset.rt].time = t.value; dirty = true; const b = $("[data-save]"); if (b) b.disabled = false; return; }
-  if (t.name === "nm") { saveSettings({ notify: { mode: t.value, threshold: settings.notify.threshold } }); return; }
-  if (t.dataset.thr != null) { saveSettings({ notify: { mode: settings.notify.mode, threshold: +t.value } }); return; }
+  if (t.name === "nm") { saveSettings({ notify: { mode: t.value, threshold: settings.notify.threshold, pet: settings.notify.pet } }); return; }
+  if (t.dataset.petn != null) { saveSettings({ notify: { mode: settings.notify.mode, threshold: settings.notify.threshold, pet: t.checked } }); return; }
+  if (t.dataset.thr != null) { saveSettings({ notify: { mode: settings.notify.mode, threshold: +t.value, pet: settings.notify.pet } }); return; }
 });
-if ("serviceWorker" in navigator) navigator.serviceWorker.addEventListener("message", e => { if (e.data && e.data.open) { const id = new URL(e.data.open).searchParams.get("r"); refresh(true).then(() => { if (id) openResult(id); }); } });
+if ("serviceWorker" in navigator) navigator.serviceWorker.addEventListener("message", e => { if (e.data && e.data.open) { const u = new URL(e.data.open), id = u.searchParams.get("r"), qt = u.searchParams.get("tab"); if (qt) { tab = qt; render(); } refresh(true).then(() => { if (id) openResult(id); }); } });
 document.addEventListener("visibilitychange", () => { if (!document.hidden && key) refresh(true); });
 setInterval(() => { if (!document.hidden && key && tab !== "settings") refresh(true); }, 60000);
 if (key) start(); else loginView();

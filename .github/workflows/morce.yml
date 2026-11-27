@@ -1,0 +1,17 @@
+# Každých 30 minut přes den zkontroluje, jestli morče v Parťákovi nepotřebuje péči,
+# a případně pošle rodičům notifikaci. Kód rodiny je v GitHub Secrets (PARTAK_KEY).
+name: Kontrola morčete
+on:
+  schedule:
+    - cron: "*/30 5-20 * * *"
+  workflow_dispatch:
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Zavolat /api/petcheck
+        env:
+          PARTAK_KEY: ${{ secrets.PARTAK_KEY }}
+        run: |
+          if [ -z "$PARTAK_KEY" ]; then echo "Chybí secret PARTAK_KEY"; exit 0; fi
+          curl -fsS -X POST -H "Authorization: Bearer $PARTAK_KEY" https://chrisschool-gamma.vercel.app/api/petcheck || true

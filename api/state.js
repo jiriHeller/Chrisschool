@@ -15,5 +15,6 @@ module.exports = L.handler(async (req, res) => {
   const s = JSON.stringify(b); if (s.length > 64 * 1024) throw L.httpError(413, "Stav je příliš velký.");
   b.receivedAt = new Date().toISOString();
   await L.redis("SET", KEY, JSON.stringify(b));
-  L.send(res, 200, { ok: true });
+  let pet = null; try { pet = await require("./petcheck").check({}); } catch (e) {}
+  L.send(res, 200, { ok: true, pet });
 });

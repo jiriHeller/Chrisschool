@@ -110,7 +110,7 @@ function defaultSettings() {
       haptics: true,
     },
     rewards: { pointsPerCorrect: 1, streakBonus: 5, perfectBonus: 10 },
-    notify: { mode: "each", threshold: 70, dailyAt: "19:00" }, // each | below | daily | off
+    notify: { mode: "each", threshold: 70, dailyAt: "19:00", pet: true }, // each | below | daily | off; pet = upozornění na morče
   };
 }
 const clampInt = (v, lo, hi, d) => { v = parseInt(v, 10); return Number.isFinite(v) ? Math.min(hi, Math.max(lo, v)) : d; };
@@ -149,6 +149,7 @@ function cleanSettings(inp, prev) {
     if (["each", "below", "daily", "off"].includes(s.notify.mode)) out.notify.mode = s.notify.mode;
     out.notify.threshold = clampInt(s.notify.threshold, 0, 100, out.notify.threshold);
     if (isTime(s.notify.dailyAt)) out.notify.dailyAt = s.notify.dailyAt;
+    if ("pet" in s.notify) out.notify.pet = !!s.notify.pet;
   }
   return out;
 }
