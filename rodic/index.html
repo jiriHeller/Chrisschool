@@ -96,7 +96,7 @@ const SUBJ = { ma: "Matematika", cj: "Čeština", aj: "Angličtina", pu: "Prvouk
 const SRC = { ipad: "📱 iPad", iphone: "📱 iPhone", watch: "⌚ hodinky", web: "💻 web" };
 const KIND = { lesson: "test z lekce", daily: "test dne", big: "velký test", subj: "test z předmětu", week: "opravný test", wrong: "oprava chyb", sprint: "sprint", dopl: "doplňovačka i/y", quiz: "kvíz" };
 const DAYS = ["Ne", "Po", "Út", "St", "Čt", "Pá", "So"];
-let key = localStorage.getItem(LS_KEY) || "", tab = "results", results = [], settings = null, status = null, filter = { src: "", subj: "" }, dirty = false;
+let key = localStorage.getItem(LS_KEY) || "", tab = "results", results = [], settings = null, kid = null, status = null, filter = { src: "", subj: "" }, dirty = false;
 
 const $ = (s, el) => (el || document).querySelector(s);
 const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -164,7 +164,7 @@ function overviewView() {
   const wk = results.filter(r => set.has(dPrague(r.finishedAt)));
   const n = wk.length, sec = wk.reduce((a, r) => a + r.durationSec, 0), avg = n ? Math.round(wk.reduce((a, r) => a + r.pct, 0) / n) : 0, mis = wk.reduce((a, r) => a + r.mistakes.length, 0);
   const goal = settings && settings.dailyGoal ? settings.dailyGoal : { quizzes: 0, minutes: 0 };
-  let html = '<h2>Posledních 7 dní</h2><div class="tiles"><div class="tile"><b>' + n + '</b><span>testů a kvízů</span></div><div class="tile"><b>' + Math.round(sec / 60) + ' min</b><span>procvičování</span></div>' +
+  let html = activityHtml(days) + '<h2>Posledních 7 dní</h2><div class="tiles"><div class="tile"><b>' + n + '</b><span>testů a kvízů</span></div><div class="tile"><b>' + Math.round(sec / 60) + ' min</b><span>procvičování</span></div>' +
     '<div class="tile"><b>' + avg + ' %</b><span>průměrná úspěšnost</span></div><div class="tile"><b>' + mis + '</b><span>chyb celkem</span></div></div>';
   const perDay = days.map(d => { const L = wk.filter(r => dPrague(r.finishedAt) === d); return { d, n: L.length, min: Math.round(L.reduce((a, r) => a + r.durationSec, 0) / 60) }; });
   const maxMin = Math.max(goal.minutes || 0, ...perDay.map(x => x.min), 1);
@@ -182,6 +182,49 @@ function overviewView() {
   return html;
 }
 
+
+/* ---------- aktivita a morče (stav posílá iPad) ---------- */
+const ago = iso => { if (!iso) return "–"; const m = Math.round((Date.now() - Date.parse(iso)) / 60000); if (m < 2) return "právě teď"; if (m < 60) return "před " + m + " min";
+  const h = Math.round(m / 60); if (h < 24) return "před " + h + " h"; return dayLabel(dPrague(iso)).toLowerCase() + " " + hm(iso); };
+const ITEMS = { hay: "🌾 Seno", carrot: "🥕 Mrkev", water: "💧 Voda", treat: "🍓 Jahoda" };
+const MOOD = { happy: ["😊", "Spokojené"], ok: ["🙂", "V pohodě"], sad: ["😟", "Potřebuje péči"], sleep: ["😴", "Spí"] };
+function noState() { return '<div class="card empty">Zatím žádná data z iPadu.<br>Otevři Školního parťáka na iPadu – v Nastavení musí být propojený kódem rodiny.</div>'; }
+function stamp() { return '<p class="muted">Stav z iPadu ' + ago(kid.at) + (kid.ver ? ' · Parťák v' + esc(kid.ver) : "") + '</p>'; }
+function meter(label, v) { const c = v >= 60 ? "var(--ok)" : v >= 30 ? "var(--warn)" : "var(--bad)";
+  return '<div class="bar"><span>' + label + '</span><div class="t"><i style="width:' + Math.max(2, v) + '%;background:' + c + '"></i></div><span class="v">' + v + ' %</span></div>'; }
+function activityHtml(days) {
+  if (!kid) return "";
+  const t = kid.appTime || {}, max = Math.max(1, ...days.map(d => t[d] || 0));
+  let h = '<h2>Aktivita</h2><div class="tiles"><div class="tile"><b style="font-size:1.15rem">' + ago(kid.lastActive) + '</b><span>naposledy v Parťákovi</span></div>' +
+    '<div class="tile"><b>' + Math.round((t[days[6]] || 0) / 60) + ' min</b><span>dnes v aplikaci</span></div>' +
+    (kid.streak ? '<div class="tile"><b>🔥 ' + kid.streak.n + '</b><span>dní v řadě' + (kid.streak.today ? " · dnes splněno" : " · dnes ještě ne") + '</span></div>' : "") +
+    '<div class="tile"><b>' + (kid.dailyToday && kid.dailyToday.done ? kid.dailyToday.ok + "/" + kid.dailyToday.n : "—") + '</b><span>dnešní Test dne</span></div></div>';
+  if (kid.quests && kid.quests.length) h += '<div class="card"><h3 style="margin-top:0">Dnešní úkoly' + (kid.chest === "ready" ? ' · <span style="color:var(--ok)">truhla čeká na otevření</span>' : kid.chest ? ' · <span style="color:var(--ok)">splněno ✓</span>' : "") + '</h3>' +
+    kid.quests.map(q => '<div class="tog"><span>' + (q.have >= q.need ? "✅ " : "⬜ ") + esc(q.t) + '</span><span class="muted">' + q.have + '/' + q.need + '</span></div>').join("") + '</div>';
+  h += '<div class="card"><h3 style="margin-top:0">Čas v Parťákovi po dnech</h3><div class="bars">' + days.map(d => { const m = Math.round((t[d] || 0) / 60);
+    return '<div class="bar"><span>' + dayLabel(d).replace(/ \d+\. \d+\.$/, "") + '</span><div class="t"><i style="width:' + Math.round(100 * (t[d] || 0) / max) + '%"></i></div><span class="v">' + m + ' min</span></div>'; }).join("") + '</div>' + stamp() + '</div>';
+  if (kid.week) { const w = kid.week; h += '<div class="card"><h3 style="margin-top:0">Tento týden na iPadu</h3><dl class="kv"><dt>Testy</dt><dd>' + w.tests + (w.avg != null ? ' · průměr ' + w.avg + ' %' : "") + '</dd><dt>Test dne</dt><dd>' + w.daily + '× za týden</dd>' +
+    '<dt>Dny s učením</dt><dd>' + w.days + '</dd>' + (w.sprint ? '<dt>Násobilkový sprint</dt><dd>nejlépe ' + w.sprint + ' příkladů</dd>' : "") + (w.hw ? '<dt>Domácí úkoly</dt><dd>' + w.hw + ' hotové</dd>' : "") + '</dl>' +
+    (w.wrong && w.wrong.length ? '<h3>Co mu tento týden nešlo</h3>' + w.wrong.map(x => '<div class="tog"><span>' + esc(x.t) + '</span><span class="muted">' + x.n + '×</span></div>').join("") : "") + '</div>'; }
+  return h;
+}
+function petView() {
+  if (!kid) return '<h2>Morče</h2>' + noState();
+  const p = kid.pet; if (!p) return '<h2>Morče</h2><div class="card empty">Morče zatím nemá jméno – ' + esc(childName()) + ' si ho ještě nepojmenoval v Parťákovi.</div>';
+  const mo = MOOD[p.mood] || MOOD.ok, prev = p.nextXp ? null : null, pct = p.nextXp ? Math.min(100, Math.round(100 * p.xp / p.nextXp)) : 100;
+  let h = '<h2>🐹 ' + esc(p.name) + '</h2><div class="card"><div class="row" style="justify-content:space-between"><div><b style="font-size:1.1rem">' + mo[0] + ' ' + mo[1] + '</b><div class="muted">' + esc(p.msg || "") + '</div></div>' +
+    (p.needs && p.mood !== "sleep" ? '<span class="score s-bad">potřebuje péči</span>' : '<span class="score s-ok">v pořádku</span>') + '</div>' +
+    '<h3>Jak se má</h3><div class="bars">' + meter("🌾 Jídlo", p.stats.food) + meter("💧 Voda", p.stats.water) + meter("💜 Radost", p.stats.joy) + '</div>' + stamp() + '</div>' +
+    '<div class="card"><h3 style="margin-top:0">Růst</h3><p><b>Úroveň ' + p.level + ' z ' + p.levelMax + '</b> · ' + esc(p.stage) + '</p>' +
+    (p.nextXp ? '<div class="bars"><div class="bar"><span>Zkušenosti</span><div class="t"><i style="width:' + pct + '%"></i></div><span class="v">' + p.xp + '/' + p.nextXp + '</span></div></div><p class="muted">Další úroveň: ' + esc(p.nextStage) + (p.nextGift ? ' – dostane ' + esc(p.nextGift) : "") + '</p>' : '<p>Nejvyšší úroveň! 👑</p>') + '</div>' +
+    '<div class="tiles"><div class="tile"><b>🪙 ' + p.coins + '</b><span>mincí</span></div><div class="tile"><b>⭐ ' + p.gold + '</b><span>zlatých hvězd</span></div><div class="tile"><b>' + p.owned + '</b><span>věcí z obchodu</span></div>' +
+    (kid.badges ? '<div class="tile"><b>🏅 ' + kid.badges.total + '</b><span>odznaků z ' + kid.badges.of + '</span></div>' : "") + '</div>' +
+    '<div class="card"><h3 style="margin-top:0">Zásoby</h3><p>' + Object.keys(ITEMS).map(k => ITEMS[k] + ' <b>' + (p.inv[k] || 0) + '×</b>').join(" &nbsp;·&nbsp; ") + '</p></div>';
+  if (kid.goal) h += '<div class="card"><h3 style="margin-top:0">Cíl</h3><p>' + (kid.goal.won ? "✅ " : "🎯 ") + esc(kid.goal.t) + '</p></div>';
+  if (kid.badges && kid.badges.recent.length) h += '<div class="card"><h3 style="margin-top:0">Poslední odznaky</h3>' + kid.badges.recent.map(b => '<div class="tog"><span>' + b.e + ' ' + esc(b.n) + '</span><span class="muted">' + dayLabel(b.d) + '</span></div>').join("") + '</div>';
+  if (p.born) h += '<p class="muted">Ve hře od ' + new Date(p.born).toLocaleDateString("cs-CZ") + '.</p>';
+  return h;
+}
 /* ---------- nastavení hodinek a telefonu ---------- */
 function settingsView() {
   if (!settings) return '<div class="card empty">Načítám nastavení…</div>';
@@ -261,18 +304,18 @@ function linkView() {
 }
 
 /* ---------- kostra ---------- */
-const TABS = [["results", "Výsledky", "📋"], ["overview", "Přehled", "📊"], ["settings", "Hodinky", "⌚"], ["notify", "Oznámení", "🔔"], ["link", "Propojení", "🔗"]];
+const TABS = [["results", "Výsledky", "📋"], ["overview", "Přehled", "📊"], ["pet", "Morče", "🐹"], ["settings", "Hodinky", "⌚"], ["notify", "Oznámení", "🔔"], ["link", "Propojení", "🔗"]];
 function childName() { return settings && settings.childName || "dítě"; }
 function render() {
   $("#top").hidden = false; $("#tabs").hidden = false;
   $("#sub").textContent = "Přehled pro rodiče · " + childName();
   $("#tabs").innerHTML = TABS.map(([id, l, ic]) => '<button data-tab="' + id + '"' + (tab === id ? ' aria-current="page"' : "") + '><span>' + ic + '</span>' + l + '</button>').join("");
-  $("#app").innerHTML = tab === "results" ? resultsView() : tab === "overview" ? overviewView() : tab === "settings" ? settingsView() : tab === "notify" ? notifyView() : linkView();
+  $("#app").innerHTML = tab === "results" ? resultsView() : tab === "overview" ? overviewView() : tab === "pet" ? petView() : tab === "settings" ? settingsView() : tab === "notify" ? notifyView() : linkView();
 }
 async function refresh(silent) {
   try {
-    const [r, s] = await Promise.all([api("results?limit=500"), settings && dirty ? Promise.resolve({ settings }) : api("settings")]);
-    results = r.results; settings = s.settings; setConn(true);
+    const [r, s, st] = await Promise.all([api("results?limit=500"), settings && dirty ? Promise.resolve({ settings }) : api("settings"), api("state").catch(() => ({ state: null }))]);
+    results = r.results; settings = s.settings; kid = st.state; setConn(true);
     if (!(tab === "settings" && dirty)) render();
   } catch (e) { setConn(false); if (e.status === 401) { localStorage.removeItem(LS_KEY); return loginView("Kód rodiny už neplatí."); } if (!silent) toast(e.message); }
 }

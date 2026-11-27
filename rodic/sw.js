@@ -1,5 +1,5 @@
 /* Parťák – rodič: notifikace o testech + jednoduchá offline cache panelu. */
-const CACHE = "partak-rodic-v1";
+const CACHE = "partak-rodic-v2";
 const FILES = ["./", "./index.html", "./manifest.json", "./qrcode.js", "../icon-192.png", "../apple-touch-icon.png"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES)).then(() => self.skipWaiting())); });
 self.addEventListener("activate", e => { e.waitUntil(caches.keys().then(k => Promise.all(k.filter(x => x.startsWith("partak-rodic-") && x !== CACHE).map(x => caches.delete(x)))).then(() => self.clients.claim())); });

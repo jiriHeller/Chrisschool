@@ -7,11 +7,13 @@
   - `settings`: nastavení pro telefon a hodinky,
   - `content`: lekce pro aplikace,
   - `push`: odběr notifikací,
+  - `state`: stav z iPadu (morče, série, dnešní úkoly, týden, čas v aplikaci),
   - `status`: stav serveru,
   - `daily`: denní souhrn přes Vercel Cron kolem 19:00.
 - **`/rodic/`** je rodičovský panel. Dá se přidat na plochu iPhonu i iPadu. Obsahuje:
   - výsledky (kdy, jak dlouho, jak dopadl, chyby),
-  - týdenní přehled,
+  - aktivitu (naposledy v Parťákovi, čas v aplikaci po dnech, dnešní úkoly, série) a týdenní přehled,
+  - morče (jak se má, úroveň, mince, zásoby, odznaky, cíl),
   - nastavení hodinek a telefonu,
   - notifikace,
   - QR kód pro spárování aplikace v iPhonu.

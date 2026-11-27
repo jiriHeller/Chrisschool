@@ -1118,7 +1118,7 @@ body::before{background:#140A3C}
 const COLOR_HEX={pink:"#E0566F",blue:"#2F7FE0",green:"#2EA650",yellow:"#E3AE00",purple:"#8B5CF6",orange:"#F08A24",gray:"#8A96A8"};
 const COLOR_NAMES={pink:"růžová",blue:"modrá",green:"zelená",yellow:"žlutá",purple:"fialová",orange:"oranžová",gray:"šedá"};
 const ICON_NAMES={cj:"kniha",ma:"kalkulačka",pu:"list",aj:"vlajka",hv:"nota",tv:"běžec",pv:"nůžky",vv:"paleta",book:"sešit",q:"otazník"};
-const APP_VERSION="69"; window.APP_VERSION=APP_VERSION;
+const APP_VERSION="70"; window.APP_VERSION=APP_VERSION;
 const KIND={sdel:{icon:"i-msg",short:null},druz:{icon:"i-users",short:null},ukol:{icon:"i-flag",short:null},food:{icon:"i-food",short:"Svačina"},drink:{icon:"i-drop",short:"Pití"},other:{icon:"i-dot",short:null}};
 
 const DEFAULTS = {
@@ -2286,7 +2286,7 @@ function syncReportQuiz(n,pct){
 function syncReport(r){
   r.id=Date.now().toString(36)+"-"+Math.random().toString(36).slice(2,10); r.source="ipad";
   if(!r.durationSec&&r.startedAt) r.durationSec=Math.max(0,Math.round((Date.parse(r.finishedAt)-Date.parse(r.startedAt))/1000));
-  SYNC_OUT.push(r); syncSave(); syncFlush();
+  SYNC_OUT.push(r); syncSave(); syncFlush(); setTimeout(()=>syncState(true),1500);
 }
 async function syncFlush(){
   if(!SYNC.key||syncBusy||!SYNC_OUT.length||(navigator.onLine===false)) return; syncBusy=true;
@@ -2309,7 +2309,7 @@ function syncSection(){
 document.addEventListener("click",async e=>{ const t=e.target; if(!t||!t.closest) return;
   if(t.closest("[data-syncset]")){ e.stopPropagation(); const v=((document.getElementById("sync-key")||{}).value||"").trim(); if(!v){ toast("Zadej kód rodiny."); return; }
     try{ const s=await fetch("api/status",{headers:{Authorization:"Bearer "+v}}).then(r=>r.json()); if(!s.key){ toast("Server ještě není nastavený."); return; } if(!s.auth){ toast("Kód nesedí."); return; }
-      SYNC={key:v}; syncSave(); toast("Propojeno ✓"); render(); syncFlush(); }catch(x){ toast("Server není dostupný."); } return; }
+      SYNC={key:v}; syncSave(); toast("Propojeno ✓"); render(); syncFlush(); syncState(true); }catch(x){ toast("Server není dostupný."); } return; }
   if(t.closest("[data-syncnow]")){ e.stopPropagation(); SYNC.err=""; await syncFlush(); render(); toast(SYNC_OUT.length?"Zatím se nepodařilo odeslat.":"Odesláno ✓"); return; }
   if(t.closest("[data-syncoff]")){ e.stopPropagation(); if(await askConfirm("Odpojit tablet od rodičovského panelu? Výsledky se přestanou posílat.","Odpojit")){ SYNC={}; syncSave(); render(); } return; }
 },true);
@@ -2317,6 +2317,32 @@ window.addEventListener("online",()=>syncFlush());
 document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="visible") syncFlush(); });
 setTimeout(syncFlush,3000);
 window.__partakReport=r=>syncReport(r);
+/* stav pro rodičovský panel: morče, série, dnešní úkoly, týden, čas v aplikaci */
+function syncActTick(){ try{ if(document.visibilityState!=="visible") return; const d=pragueToday(), A=SYNC.act=SYNC.act||{}; A[d]=(A[d]||0)+30; SYNC.lastActive=Date.now();
+  Object.keys(A).filter(x=>x<addDays(d,-21)).forEach(x=>delete A[x]); syncSave(); }catch(e){} }
+function syncSnapshot(){
+  const d=pragueToday(), o={at:new Date().toISOString(),ver:APP_VERSION,child:cfg.child||"",lastActive:SYNC.lastActive?new Date(SYNC.lastActive).toISOString():null,appTime:SYNC.act||{}};
+  try{ if(PET&&PET.name){ petTick(); const l=petLevel(), st=PET_STAGES[l-1]||{}, nx=PET_STAGES[l]||null;
+    o.pet={name:PET.name,level:l,levelMax:PET_STAGES.length,stage:st.name||"",xp:Math.round(PET.xp||0),nextXp:nx?nx.xp:null,nextStage:nx?nx.name:null,nextGift:nx?nx.gift:null,
+      coins:PET.coins||0,gold:PET.gold||0,stats:{food:Math.round(PET.stats.food),water:Math.round(PET.stats.water),joy:Math.round(PET.stats.joy)},
+      mood:petMood(),needs:petNeeds(),msg:petMsg(),inv:PET.inv||{},owned:(PET.owned||[]).length,born:PET.born?new Date(PET.born).toISOString():null}; } }catch(e){}
+  try{ if(PET&&PET.name){ const s=streakInfo(), P=progInit(); o.streak={n:s.n,today:s.today};
+    o.quests=questsFor(d).map(id=>({t:QUESTS[id].t,have:Math.min(questProg(d,id),QUESTS[id].need),need:QUESTS[id].need}));
+    o.chest=P.chest[d]||null; const G=goal(); o.goal=G?{t:goalText(G),won:!!G.won}:null;
+    const B=typeof BADGES!=="undefined"?BADGES:[]; o.badges={total:Object.keys(P.badges).length,of:B.length,recent:Object.entries(P.badges).sort((a,b)=>a[1]<b[1]?1:-1).slice(0,6).map(([id,dd])=>{ const b=B.find(x=>x.id===id)||{}; return {e:b.e||"🏅",n:b.n||id,d:dd}; })}; } }catch(e){}
+  try{ const w=weekSummary(); o.week={tests:w.tests,avg:w.avg,daily:w.daily,days:w.days.size,sprint:w.sprint,hw:w.hw,
+    wrong:Object.entries(w.wrongCount||{}).sort((a,b)=>b[1]-a[1]).slice(0,6).map(([t,n])=>({t,n}))}; }catch(e){}
+  try{ const x=(LEARN._daily||{})[d]; o.dailyToday=x?{done:!!x.done,ok:x.ok||0,n:x.n||0}:null; }catch(e){}
+  return o;
+}
+let syncStateAt=0;
+function syncState(force){ if(!SYNC.key||(navigator.onLine===false)) return; if(!force&&Date.now()-syncStateAt<60*1000) return; syncStateAt=Date.now();
+  try{ fetch("api/state",{method:"POST",keepalive:true,headers:{"Content-Type":"application/json",Authorization:"Bearer "+SYNC.key},body:JSON.stringify(syncSnapshot())}).catch(()=>{}); }catch(e){} }
+setInterval(syncActTick,30000);
+setInterval(()=>syncState(),4*60*1000);
+document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="hidden") syncState(true); });
+setTimeout(()=>syncState(true),4000);
+
 /* ---------- rodičovský zámek (PIN) ---------- */
 let pinOkUntil=0;
 function pinLocked(){ return !!cfg.pin && Date.now()>pinOkUntil; }
