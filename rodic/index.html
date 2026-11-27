@@ -94,7 +94,7 @@ const API = new URL("../api/", location.href).href;
 const LS_KEY = "partak-rodic.key", LS_SEEN = "partak-rodic.seen";
 const SUBJ = { ma: "Matematika", cj: "Čeština", aj: "Angličtina", pu: "Prvouka", zp: "Zeměpis a přírodopis" };
 const SRC = { ipad: "📱 iPad", iphone: "📱 iPhone", watch: "⌚ hodinky", web: "💻 web" };
-const KIND = { lesson: "test z lekce", daily: "test dne", big: "velký test", subj: "test z předmětu", week: "opravný test", wrong: "oprava chyb", sprint: "sprint", quiz: "kvíz" };
+const KIND = { lesson: "test z lekce", daily: "test dne", big: "velký test", subj: "test z předmětu", week: "opravný test", wrong: "oprava chyb", sprint: "sprint", dopl: "doplňovačka i/y", quiz: "kvíz" };
 const DAYS = ["Ne", "Po", "Út", "St", "Čt", "Pá", "So"];
 let key = localStorage.getItem(LS_KEY) || "", tab = "results", results = [], settings = null, status = null, filter = { src: "", subj: "" }, dirty = false;
 

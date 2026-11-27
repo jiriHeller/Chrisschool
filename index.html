@@ -1118,7 +1118,7 @@ body::before{background:#140A3C}
 const COLOR_HEX={pink:"#E0566F",blue:"#2F7FE0",green:"#2EA650",yellow:"#E3AE00",purple:"#8B5CF6",orange:"#F08A24",gray:"#8A96A8"};
 const COLOR_NAMES={pink:"růžová",blue:"modrá",green:"zelená",yellow:"žlutá",purple:"fialová",orange:"oranžová",gray:"šedá"};
 const ICON_NAMES={cj:"kniha",ma:"kalkulačka",pu:"list",aj:"vlajka",hv:"nota",tv:"běžec",pv:"nůžky",vv:"paleta",book:"sešit",q:"otazník"};
-const APP_VERSION="68"; window.APP_VERSION=APP_VERSION;
+const APP_VERSION="69"; window.APP_VERSION=APP_VERSION;
 const KIND={sdel:{icon:"i-msg",short:null},druz:{icon:"i-users",short:null},ukol:{icon:"i-flag",short:null},food:{icon:"i-food",short:"Svačina"},drink:{icon:"i-drop",short:"Pití"},other:{icon:"i-dot",short:null}};
 
 const DEFAULTS = {
@@ -2161,6 +2161,111 @@ function openSprint(){
   });
   document.body.appendChild(ov); draw();
 }
+/* ---------- Doplňovačka i/y – psací písmo, vyjmenovaná slova ---------- */
+/* {y} {ý} {i} {í} = vynechané písmeno; {y:p} = předpona vy-/vý-. Doplňuje se jen kořen slova, nikdy koncovky. */
+const DOPL=[
+ "Naše bab{i}čka b{y}dlí na vesnici.","Na louce rostou léčivé b{y}linky.","Kob{y}la se pase vedle b{í}lého koně.","B{ý}k má velké rohy.","Náš pes je velmi b{y}strý.",
+ "Do nového b{y}tu jsme koupili náb{y}tek.","Na statku chovají dob{y}tek.","Ob{y}vatelé města slavili.","Táta b{i}l kladivem do hřebíku.","Na poli roste ob{i}lí.",
+ "Řidič sedí v kab{i}ně.","B{y}li jsme v zoo.","Je ob{y}čejný den.",
+ "V zimě jezdíme na l{y}žích.","Sl{y}šíš zpívat ptáky?","Ml{y}nář mele mouku ve ml{ý}ně.","L{i}ška běží lesem.","L{í}pa voní celé léto.","Na stromě zbyl poslední l{i}st.",
+ "Pol{y}kej jídlo pomalu.","Dědeček má l{y}sou hlavu.","Na stole stojí l{i}monáda.","Řeka pomalu pl{y}ne.","Medvídek je z měkkého pl{y}še.","Kocour se l{í}ně protáhl.",
+ "M{y} jsme kamarádi.","Po jídle si um{y}j ruce m{ý}dlem.","M{y}ška se schovala do díry.","Hm{y}z bzučí nad loukou.","Hlem{ý}žď leze po listu.",
+ "M{y}slím, že zítra bude pršet.","Každý se někdy m{ý}lí.","Bab{i}čka je m{i}lá a hodná.","Polévka je v m{í}se.","Za m{i}nutu jedeme.","Táta zam{y}ká dveře.","Našel jsem hezký kam{í}nek.",
+ "Netop{ý}r létá v noci.","Včela sbírá p{y}l z květů.","Táta nese p{y}tel brambor.","Kůň má na noze kop{y}to.","Nebuď p{y}šný.","Na cestě se třp{y}tí kaluže.",
+ "Děti si hrají na p{í}sku.","P{i}lot řídí letadlo.","Táta řeže dřevo p{i}lou.","Kreslím na čistý pap{í}r.","Kůň klop{ý}tl o kámen.","Ptáček ztratil p{í}rko.",
+ "S{y}n pomáhá tátovi na zahradě.","S{ý}kora sedí na krmítku.","S{y}sel si v{y:p}hrabal noru.","Na stole voní s{ý}r.","Po obědě jsem s{y}tý.","Had s{y}čí v trávě.",
+ "S{y}peme ptáčkům zrní.","Na podzim je s{y}chravé počasí.","Táta je s{i}lný.","Do čaje dám s{i}rup.","Rybář hodil s{í}ť do vody.",
+ "V{y}dra plave v řece.","V{ý}r houká v lese.","Ta věž je v{y}soká.","Kráva žv{ý}ká trávu.","Ptáci v{y:p}letěli z hnízda.","V{i}dím na nebi duhu.",
+ "Venku fouká s{i}lný v{í}tr.","V pohádce tančí v{í}la.","Jím lžící, ne v{i}dličkou.","Musíš si zv{y}knout na nové boty.","V{y} jste naši sousedé.",
+ "Ráno jsme brz{y} vstávali.","Pejsek má dlouhý jaz{y}k.","Jak se naz{ý}vá tvůj pes?","Z{i}ma je studená.","Z{í}tra pojedeme k bab{i}čce.","Kotě z{í}vá.","Mám nové z{i}mní boty."
+];
+const DOPL_LET=["b","l","m","p","s","v","z"], DOPL_N=6;
+function doplParse(s){ const parts=[], gaps=[]; let last=0; const re=/\{([iyíý])(:p)?\}/g; let m;
+  while((m=re.exec(s))){ if(m.index>last) parts.push(s.slice(last,m.index)); const g={c:m[1],p:!!m[2],k:s[m.index-1].toLowerCase(),gi:gaps.length}; gaps.push(g); parts.push(g); last=re.lastIndex; }
+  if(last<s.length) parts.push(s.slice(last));
+  const plain=parts.map(x=>typeof x==="string"?x:x.c).join(""); let pos=0;
+  parts.forEach(x=>{ if(typeof x==="string"){ pos+=x.length; return; } let a=pos, b=pos+1; while(a>0&&/\p{L}/u.test(plain[a-1])) a--; while(b<plain.length&&/\p{L}/u.test(plain[b])) b++; x.word=plain.slice(a,b); x.off=pos-a; pos++; });
+  return {src:s,parts,gaps,plain,lets:[...new Set(gaps.map(g=>g.k))]}; }
+function doplWhy(g){ const hard=g.c==="y"||g.c==="ý", K=g.k.toUpperCase();
+  if(g.p) return "Předpona vy-/vý- se píše vždycky s tvrdým y.";
+  return hard?"„"+g.word+"“ je vyjmenované slovo po "+K+" (nebo slovo příbuzné), proto tvrdé "+g.c+".":"„"+g.word+"“ není vyjmenované slovo, proto měkké "+g.c+"."; }
+function openDopl(){
+  const D=LEARN._dopl||(LEARN._dopl={best:null,hist:[],miss:{},lets:DOPL_LET.slice()});
+  const ov=document.createElement("div"); ov.className="overlay dopl-ov"; ov.id="dopl";
+  let S=null; // {items,fill:[[...]],act:[si,gi],checked,t0,ok,n}
+  const pick=()=>{ const sel=new Set(D.lets&&D.lets.length?D.lets:DOPL_LET), pool=DOPL.map(doplParse).filter(x=>x.lets.every(k=>sel.has(k)));
+    const r=Math.random, w=pool.map(x=>1+3*x.gaps.reduce((s,g)=>s+(D.miss[g.word.toLowerCase()]||0),0)), out=[];
+    while(out.length<DOPL_N&&pool.length){ const tot=w.reduce((a,b)=>a+b,0); let x=r()*tot, k=0; for(;k<pool.length-1;k++){ x-=w[k]; if(x<=0) break; } out.push(pool[k]); pool.splice(k,1); w.splice(k,1); }
+    return out; };
+  const firstEmpty=()=>{ for(let i=0;i<S.items.length;i++) for(let j=0;j<S.items[i].gaps.length;j++) if(!S.fill[i][j]) return [i,j]; return null; };
+  const filled=()=>S.fill.every(a=>a.every(Boolean));
+  const gapHtml=(si,g)=>{ const v=S.fill[si][g.gi], act=S.act&&S.act[0]===si&&S.act[1]===g.gi;
+    let cls="dp-gap"+(v?" on":"")+(act&&!S.checked?" act":""); if(S.checked) cls+=v===g.c?" good":" bad";
+    return '<button type="button" class="'+cls+'" data-dpg="'+si+':'+g.gi+'">'+(v?esc(v):"&nbsp;")+'</button>'+(S.checked&&v!==g.c?'<sup class="dp-fix">'+esc(g.c)+'</sup>':""); };
+  const draw=()=>{
+    if(!S){ const sel=new Set(D.lets&&D.lets.length?D.lets:DOPL_LET), cnt=DOPL.map(doplParse).filter(x=>x.lets.every(k=>sel.has(k))).length;
+      ov.innerHTML='<div class="sheet dopl"><span class="eyebrow">Čeština · vyjmenovaná slova</span><h2>Doplň i, nebo y</h2><p>Přečti si věty v psacím písmu a do každého okénka doplň <b class="dp-cur">i</b> nebo <b class="dp-cur">y</b>. Pozor na vyjmenovaná slova!</p>'+
+        '<p class="dp-lab">Po kterých písmenech chceš procvičovat?</p><div class="dp-lets">'+DOPL_LET.map(k=>'<button type="button" class="dp-let'+(sel.has(k)?" on":"")+'" data-dpl="'+k+'">'+k.toUpperCase()+'</button>').join("")+'</div>'+
+        '<p class="muted">'+(cnt?DOPL_N+' vět s okénky v každém kole.':'Vyber aspoň jedno písmeno.')+(D.best!=null?' · Tvůj nejlepší výsledek: <b>'+D.best+' %</b>':"")+'</p>'+
+        '<div class="pk-foot" style="justify-content:center"><button type="button" class="btn" data-dpclose>Zpět</button><button type="button" class="btn primary big" data-dpgo'+(cnt?"":" disabled")+'>Začít!</button></div></div>';
+      return; }
+    const lines=S.items.map((it,si)=>'<div class="dp-line"><button type="button" class="dp-say" data-dpsay="'+si+'" aria-label="Přečíst větu">'+ic("i-sound")+'</button><p class="dp-txt">'+it.parts.map(x=>typeof x==="string"?esc(x):gapHtml(si,x)).join("")+'</p></div>').join("");
+    const gl=S.act&&!S.checked?S.items[S.act[0]].gaps[S.act[1]]:null, lg=gl&&(gl.c==="í"||gl.c==="ý");
+    const pad=S.checked?"":'<div class="dp-pad"><button type="button" class="dp-o" data-dpa="'+(lg?"í":"i")+'">'+(lg?"í":"i")+'<small>měkké</small></button><button type="button" class="dp-o" data-dpa="'+(lg?"ý":"y")+'">'+(lg?"ý":"y")+'<small>tvrdé</small></button></div>';
+    let res="";
+    if(S.checked){ const bad=[]; S.items.forEach((it,si)=>it.gaps.forEach(g=>{ if(S.fill[si][g.gi]!==g.c) bad.push(g); }));
+      res='<div class="dp-res"><div class="sp-score">'+S.ok+' / '+S.n+'</div>'+(bad.length?'<h3>Na tohle si dej pozor</h3><ul>'+bad.map(g=>'<li>'+esc(doplWhy(g))+'</li>').join("")+'</ul>':'<p><b>Všechno správně! Výborně!</b> 🎉</p>')+(S.rew||"")+'</div>'; }
+    ov.innerHTML='<div class="sheet dopl run"><div class="dp-top"><span class="eyebrow">Doplň i, nebo y</span><span class="dp-prog">'+S.fill.flat().filter(Boolean).length+' / '+S.n+'</span></div><div class="dp-paper">'+lines+'</div>'+pad+res+
+      '<div class="pk-foot" style="justify-content:center"><button type="button" class="btn" data-dpclose>Zavřít</button>'+(S.checked?'<button type="button" class="btn primary big" data-dpgo>Nové věty</button>':'<button type="button" class="btn primary big" data-dpcheck'+(filled()?"":" disabled")+'>Zkontrolovat</button>')+'</div></div>';
+  };
+  const finish=()=>{ let ok=0, n=0; const mistakes=[];
+    S.items.forEach((it,si)=>it.gaps.forEach(g=>{ n++; const v=S.fill[si][g.gi], w=g.word.toLowerCase(); if(v===g.c){ ok++; if(D.miss[w]) D.miss[w]=Math.max(0,D.miss[w]-1); } else { D.miss[w]=(D.miss[w]||0)+1;
+      mistakes.push({q:it.parts.map(x=>typeof x==="string"?x:(x===g?"_":x.c)).join(""),given:g.word.slice(0,g.off)+v+g.word.slice(g.off+1),correct:g.word,e:doplWhy(g)}); } }));
+    S.ok=ok; S.n=n; S.checked=true; const pct=n?Math.round(ok/n*100):0;
+    D.best=Math.max(D.best||0,pct); D.hist=(D.hist||[]).concat([{d:pragueToday(),ok,n}]).slice(-50); Object.keys(D.miss).forEach(k=>{ if(!D.miss[k]) delete D.miss[k]; }); saveLearn();
+    if(PET.name&&ok>0){ const c=Math.min(ok,20)+(pct===100?5:0); earnCoins(c); PET.inv.hay=(PET.inv.hay||0)+Math.min(ok,8); if(pct===100) PET.inv.treat=(PET.inv.treat||0)+1; petXP(Math.min(12,ok)); savePet();
+      S.rew='<p class="pk-rew">'+esc(PET.name)+' dostal <b>'+c+' mincí</b>'+(pct===100?' a <b>jahodu</b>':"")+'.</p>'; }
+    try{ prog("tests"); }catch(e){}
+    try{ doplReport({kind:"dopl",subject:"cj",title:"Doplň i/y – psací písmo",startedAt:new Date(S.t0).toISOString(),finishedAt:new Date().toISOString(),total:n,correct:ok,mistakes}); }catch(e){}
+    if(pct===100) toast("Super! Všechno správně!"); };
+  ov.addEventListener("click",e=>{ e.stopPropagation(); const t=e.target;
+    if(t.closest("[data-dpclose]")){ try{ speechSynthesis.cancel(); }catch(x){} ov.remove(); render(); return; }
+    const l=t.closest("[data-dpl]"); if(l){ const k=l.dataset.dpl, cur=new Set(D.lets&&D.lets.length?D.lets:DOPL_LET); cur.has(k)?cur.delete(k):cur.add(k); D.lets=DOPL_LET.filter(x=>cur.has(x)); if(!D.lets.length) D.lets=[]; saveLearn(); draw(); return; }
+    if(t.closest("[data-dpgo]")){ const items=pick(); if(!items.length) return; S={items,fill:items.map(it=>it.gaps.map(()=>null)),act:null,checked:false,t0:Date.now(),n:items.reduce((a,x)=>a+x.gaps.length,0)}; S.act=firstEmpty(); draw(); ov.querySelector(".sheet").scrollTop=0; return; }
+    const g=t.closest("[data-dpg]"); if(g&&S&&!S.checked){ S.act=g.dataset.dpg.split(":").map(Number); draw(); return; }
+    const a=t.closest("[data-dpa]"); if(a&&S&&S.act&&!S.checked){ S.fill[S.act[0]][S.act[1]]=a.dataset.dpa; S.act=firstEmpty()||S.act; draw(); return; }
+    const sy=t.closest("[data-dpsay]"); if(sy&&S){ speak(S.items[+sy.dataset.dpsay].plain); return; }
+    if(t.closest("[data-dpcheck]")&&S&&filled()){ finish(); draw(); return; }
+  });
+  document.body.appendChild(ov); draw();
+}
+function doplReport(r){ /* napojení na rodičovský přehled doplní modul propojení se serverem */ if(typeof window.__partakReport==="function") window.__partakReport(r); }
+function doplCard(){ const D=LEARN._dopl;
+  return '<article class="lcard dopl-card"><div class="lc-top">'+ic("i-pencil")+'<b>Doplň i / y</b><span class="lc-src">vyjmenovaná slova · psací písmo</span></div>'+
+    '<p class="dp-demo">b<span>_</span>linky · l<span>_</span>ška · m<span>_</span>dlo</p>'+
+    '<div class="lc-foot">'+(D&&D.best!=null?starsHtml(starsFor(D.best))+'<span class="lc-best">nejlépe '+D.best+' %</span>':'<span class="lc-best">zatím nezkoušeno</span>')+'<span class="sp"></span><button type="button" class="btn small primary" data-dopl>'+ic("i-pencil")+'Doplňovat</button></div></article>'; }
+document.addEventListener("click",e=>{ const t=e.target; if(t&&t.closest&&t.closest("[data-dopl]")){ e.stopPropagation(); openDopl(); } },true);
+(function(){ const st=document.createElement("style"); st.textContent=
+ "@font-face{font-family:'Playwrite CZ';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/PlaywriteCZ-Regular.woff2) format('woff2')}"+
+ ".dopl-ov .sheet.dopl{max-width:60rem}.dopl h2{margin:.1rem 0 .4rem}.dp-cur,.dp-demo{font-family:'Playwrite CZ',cursive}"+
+ ".dp-demo{font-size:1.5rem;margin:.4rem 0 .2rem}.dp-demo span{display:inline-block;min-width:1.1em;border-bottom:2px dashed currentColor;text-align:center;opacity:.7}"+
+ ".dp-lab{margin:.8rem 0 .4rem;font-weight:600}.dp-lets{display:flex;gap:.5rem;flex-wrap:wrap}.dp-let{width:3.3rem;height:3.3rem;border-radius:.8rem;border:2px solid var(--line);background:var(--surface);color:var(--ink-2);font:inherit;font-weight:700;font-size:1.4rem;cursor:pointer}"+
+ ".dp-let.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}"+
+ ".dp-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem}.dp-prog{font-family:var(--f-mono);color:var(--ink-3)}"+
+ ".dp-paper{background:#FFFDF5;color:#1B2A6B;border-radius:.8rem;border:1px solid #E8E1C8;padding:.6rem 1rem .6rem 1rem;background-image:repeating-linear-gradient(transparent 0 4.15rem,#C9D8F2 4.15rem 4.25rem);background-position:0 .2rem;box-shadow:inset 3.2rem 0 0 -3.1rem #F2B8B8}"+
+ ".dp-line{display:flex;align-items:flex-start;gap:.5rem;min-height:4.25rem}.dp-txt{flex:1;margin:0;font-family:'Playwrite CZ',cursive;font-size:1.65rem;line-height:4.25rem;letter-spacing:.01em}"+
+ ".dp-say{flex:none;margin-top:1.15rem;width:2.1rem;height:2.1rem;border-radius:50%;border:1px solid #D8D2BC;background:#fff;color:#6B6F8A;display:grid;place-items:center;cursor:pointer}.dp-say svg{width:1.1rem;height:1.1rem}"+
+ ".dp-gap{font:inherit;font-family:'Playwrite CZ',cursive;font-size:1.65rem;line-height:1;min-width:1.7rem;height:2.6rem;padding:0 .25rem;margin:0 .05rem;vertical-align:baseline;border:2px dashed #8A93C4;border-radius:.45rem;background:#F1F3FF;color:#1B2A6B;cursor:pointer}"+
+ ".dp-gap.on{border-style:solid;background:#fff}.dp-gap.act{border-color:#7C5CF6;box-shadow:0 0 0 4px rgba(124,92,246,.25);background:#fff}"+
+ ".dp-gap.good{border:2px solid #1E8E4E;background:#E3F6EA;color:#14703C}.dp-gap.bad{border:2px solid #C0392B;background:#FDECEA;color:#C0392B;text-decoration:line-through}"+
+ ".dp-fix{font-family:'Playwrite CZ',cursive;color:#1E8E4E;font-weight:700;font-size:1.3rem;margin-left:.1rem}"+
+ ".dp-pad{position:sticky;bottom:-1.3rem;display:flex;gap:1rem;justify-content:center;padding:.9rem 0 .4rem;background:linear-gradient(transparent,var(--surface) 30%)}"+
+ ".dopl-card{grid-column:1/-1}.dopl-card .lc-top svg{width:1.25rem;height:1.25rem;flex:none}"+
+ ".dp-o{width:7rem;height:6rem;padding-top:.2rem;border-radius:1rem;border:3px solid var(--line);background:var(--surface);color:var(--ink);font-family:'Playwrite CZ',cursive;font-size:2.4rem;line-height:1;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.25rem;box-shadow:0 3px 0 var(--line)}"+
+ ".dp-o small{font-family:var(--f-sans);font-size:.8rem;color:var(--ink-3);margin-top:1rem}.dp-o:active{transform:translateY(2px);box-shadow:none}"+
+ ".dp-res{text-align:center;margin-top:.8rem}.dp-res ul{text-align:left;max-width:40rem;margin:.3rem auto;line-height:1.5}"+
+ "@media (prefers-color-scheme:dark){.dp-paper{filter:none}}";
+ document.head.appendChild(st); })();
 /* ---------- propojení se serverem: výsledky pro rodiče, hodinky a telefon (api/) ---------- */
 const K_SYNC="skolni-partak.sync.v1", K_OUT="skolni-partak.outbox.v1";
 let SYNC=(function(){ try{ return JSON.parse(localStorage.getItem(K_SYNC)||"null")||{}; }catch(e){ return {}; } })();
@@ -2211,6 +2316,7 @@ document.addEventListener("click",async e=>{ const t=e.target; if(!t||!t.closest
 window.addEventListener("online",()=>syncFlush());
 document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="visible") syncFlush(); });
 setTimeout(syncFlush,3000);
+window.__partakReport=r=>syncReport(r);
 /* ---------- rodičovský zámek (PIN) ---------- */
 let pinOkUntil=0;
 function pinLocked(){ return !!cfg.pin && Date.now()>pinOkUntil; }
@@ -2295,7 +2401,7 @@ function learnHtml(){
     })(); }).join("");
     return detailCard("Výuka","i-learn",'<button type="button" class="btn small" data-lstats>'+ic("i-users")+'Přehled pro rodiče</button>',
       '<div class="quote">💬 '+esc(quoteOfDay())+'</div>'+(goal()?goalCard(true):"")+
-      (LESSONS.length?'<div class="lgrid">'+weekCard()+daily+bigCard+list+'</div>':'<p class="empty">Zatím tu není žádné učivo.</p>')+'<p class="tip">Nové učivo přidá táta: stačí poslat fotky stránek ze sešitu. Na hvězdičky, mince nebo tlačítka klepni nebo na nich podrž prst – appka ti vysvětlí, jak fungují.</p>');
+      (LESSONS.length?'<div class="lgrid">'+weekCard()+daily+doplCard()+bigCard+list+'</div>':'<p class="empty">Zatím tu není žádné učivo.</p>')+'<p class="tip">Nové učivo přidá táta: stačí poslat fotky stránek ze sešitu. Na hvězdičky, mince nebo tlačítka klepni nebo na nich podrž prst – appka ti vysvětlí, jak fungují.</p>');
   }
   if(learnMode==="stats"){
     const today=pragueToday(), days=[]; for(let i=13;i>=0;i--) days.push(addDays(today,-i));
