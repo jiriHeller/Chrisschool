@@ -1,0 +1,9 @@
+{
+  "name": "skolni-partak",
+  "private": true,
+  "description": "Školní parťák – statická PWA + serverové funkce v /api (Vercel)",
+  "engines": { "node": ">=18" },
+  "dependencies": {
+    "web-push": "^3.6.7"
+  }
+}

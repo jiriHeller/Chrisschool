@@ -1,0 +1,6 @@
+{
+  "crons": [{ "path": "/api/daily", "schedule": "0 18 * * *" }],
+  "headers": [
+    { "source": "/rodic/sw.js", "headers": [{ "key": "Service-Worker-Allowed", "value": "/rodic/" }, { "key": "Cache-Control", "value": "no-cache" }] }
+  ]
+}
