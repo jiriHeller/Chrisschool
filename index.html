@@ -1046,6 +1046,7 @@ body::before{background:#140A3C}
 .pin-keys button{min-height:3.6rem;font-size:1.5rem;font-family:var(--f-game);border-radius:.8rem;border:2px solid var(--line);background:var(--surface-2);color:var(--ink)}
 .pinsec{border:2px solid var(--line);border-radius:.8rem;padding:.7rem .9rem;margin-bottom:1rem}
 .pinsec h3{display:flex;gap:.5rem;align-items:center;margin:0 0 .3rem}
+.pinsec h3 svg{width:1.4rem;height:1.4rem;flex:none}
 .wsum .kv{display:grid;grid-template-columns:repeat(auto-fill,minmax(6.5rem,1fr))}
 @media print{
   @page{size:A4 landscape;margin:8mm}
@@ -1117,7 +1118,7 @@ body::before{background:#140A3C}
 const COLOR_HEX={pink:"#E0566F",blue:"#2F7FE0",green:"#2EA650",yellow:"#E3AE00",purple:"#8B5CF6",orange:"#F08A24",gray:"#8A96A8"};
 const COLOR_NAMES={pink:"růžová",blue:"modrá",green:"zelená",yellow:"žlutá",purple:"fialová",orange:"oranžová",gray:"šedá"};
 const ICON_NAMES={cj:"kniha",ma:"kalkulačka",pu:"list",aj:"vlajka",hv:"nota",tv:"běžec",pv:"nůžky",vv:"paleta",book:"sešit",q:"otazník"};
-const APP_VERSION="67"; window.APP_VERSION=APP_VERSION;
+const APP_VERSION="68"; window.APP_VERSION=APP_VERSION;
 const KIND={sdel:{icon:"i-msg",short:null},druz:{icon:"i-users",short:null},ukol:{icon:"i-flag",short:null},food:{icon:"i-food",short:"Svačina"},drink:{icon:"i-drop",short:"Pití"},other:{icon:"i-dot",short:null}};
 
 const DEFAULTS = {
@@ -2069,6 +2070,7 @@ function startQuiz(mode,lid,col){
   const sk=mode==="subj"?lid:null;
   quiz={mode, col:col||null, lid:(mode==="subj"||mode==="big"||mode==="daily"||mode==="week")?null:(lid||null), subjKey:sk, title, refs, opts:{}, i:0, picked:null, ok:0, wrong:[]};
   refs.forEach(([a,qi])=>{ const q=lessonById(a).quiz[qi]; quiz.opts[a+":"+qi]=shuf(q.a.map((_,k)=>k)); });
+  quiz.t0=Date.now(); quiz.qt=Date.now(); quiz.log=[];
   if(mode!=="subj"&&mode!=="big"&&mode!=="week") learnId=lid||learnId; learnMode="test";
 }
 function finishQuiz(){
@@ -2099,6 +2101,7 @@ function finishQuiz(){
     else if(pct===100) earnGold(quiz.mode==="daily"?"daily":"l-"+quiz.lid);
     if(pct===100 && !big) earnCoins(10);
   }
+  try{ syncReportQuiz(n,pct); }catch(e){}
   prog("tests"); if(quiz.mode==="daily") prog("daily");
   petXP(quiz.mode==="big"?BIG.big.xp:quiz.mode==="subj"?BIG.subj.xp:quiz.mode==="daily"?10:5);
   if(pct===100) toast("Super! Všechno správně!");
@@ -2143,6 +2146,7 @@ function openSprint(){
   const S=LEARN._sprint||(LEARN._sprint={best:0,hist:[]});
   const next=()=>{ q=genQ(r,r()<0.7?"mul":"div"); ord=shuf([0,1,2],r); };
   const finish=()=>{ clearInterval(timer); const rec=ok>S.best; if(rec) S.best=ok; S.hist.push({d:pragueToday(),ok,bad}); S.hist=S.hist.slice(-50); saveLearn();
+    try{ syncReport({kind:"sprint",subject:"ma",title:"Násobilkový sprint",startedAt:new Date(end-60000).toISOString(),finishedAt:new Date(Math.min(Date.now(),end)).toISOString(),durationSec:60,total:ok+bad,correct:ok,mistakes:[]}); }catch(e){}
     let rew=""; if(PET.name&&ok>0){ const c=Math.min(ok,30); earnCoins(c); if(ok>=15) PET.inv.treat=(PET.inv.treat||0)+1; PET.inv.hay=(PET.inv.hay||0)+Math.min(ok,10); petXP(Math.min(15,ok)); savePet(); prog("sprint",ok); rew='<p class="pk-rew">'+esc(PET.name)+' dostal <b>'+c+' mincí</b>, '+Math.min(ok,10)+'× seno'+(ok>=15?' a <b>jahodu</b>':"")+'.</p>'; }
     ov.innerHTML='<div class="sheet sprint"><div class="pk-win"><h2>'+(rec?"Nový rekord!":"Čas vypršel!")+'</h2><div class="sp-score">'+ok+'</div><p>správně za 60 sekund'+(bad?' · '+bad+'× chyba':"")+'</p><p>Tvůj rekord: <b>'+S.best+'</b></p>'+rew+
       '<div class="pk-foot" style="justify-content:center"><button type="button" class="btn" data-spclose>Zavřít</button><button type="button" class="btn primary big" data-spgo>Znovu</button></div></div></div>'; };
@@ -2157,6 +2161,56 @@ function openSprint(){
   });
   document.body.appendChild(ov); draw();
 }
+/* ---------- propojení se serverem: výsledky pro rodiče, hodinky a telefon (api/) ---------- */
+const K_SYNC="skolni-partak.sync.v1", K_OUT="skolni-partak.outbox.v1";
+let SYNC=(function(){ try{ return JSON.parse(localStorage.getItem(K_SYNC)||"null")||{}; }catch(e){ return {}; } })();
+let SYNC_OUT=(function(){ try{ const v=JSON.parse(localStorage.getItem(K_OUT)||"[]"); return Array.isArray(v)?v:[]; }catch(e){ return []; } })();
+let syncBusy=false;
+function syncSave(){ try{ localStorage.setItem(K_SYNC,JSON.stringify(SYNC)); localStorage.setItem(K_OUT,JSON.stringify(SYNC_OUT.slice(-300))); }catch(e){} }
+function syncTxt(h){ return String(h==null?"":h).replace(/<[^>]*>/g,"").replace(/&nbsp;/g," ").replace(/&amp;/g,"&").replace(/\s+/g," ").trim(); }
+function syncQText(q){ let t=syncTxt(q.q); if(q.say) t+=" „"+q.say+"“"; if(q.clk) t+=" (hodiny ukazují "+q.clk[0]+":"+String(q.clk[1]).padStart(2,"0")+")"; return t.slice(0,300); }
+function syncLog(lid,qi,ok,given){ try{ if(!quiz||!quiz.log) return; const q=lessonById(lid).quiz[qi];
+  quiz.log.push({ok:!!ok,sec:Math.round((Date.now()-(quiz.qt||Date.now()))/1000),q:syncQText(q),given:syncTxt(given),correct:syncTxt(q.w||q.a[q.c]),e:syncTxt(q.e).slice(0,300)}); }catch(e){} }
+function syncReportQuiz(n,pct){
+  if(!quiz) return; const l=quiz.lid?lessonById(quiz.lid):null;
+  const subj=l?l.subject:(quiz.mode==="subj"?({ma:"ma",cj:"cj"}[quiz.subjKey]||null):null);
+  const kind=quiz.mode==="lesson"&&quiz.col?"lesson":quiz.mode;
+  syncReport({kind,lessonId:quiz.lid||null,subject:subj,title:quiz.title||"Test",startedAt:new Date(quiz.t0||Date.now()).toISOString(),finishedAt:new Date().toISOString(),
+    total:n,correct:quiz.ok,mistakes:(quiz.log||[]).filter(x=>!x.ok).map(x=>({q:x.q,given:x.given,correct:x.correct,e:x.e,sec:x.sec}))});
+}
+function syncReport(r){
+  r.id=Date.now().toString(36)+"-"+Math.random().toString(36).slice(2,10); r.source="ipad";
+  if(!r.durationSec&&r.startedAt) r.durationSec=Math.max(0,Math.round((Date.parse(r.finishedAt)-Date.parse(r.startedAt))/1000));
+  SYNC_OUT.push(r); syncSave(); syncFlush();
+}
+async function syncFlush(){
+  if(!SYNC.key||syncBusy||!SYNC_OUT.length||(navigator.onLine===false)) return; syncBusy=true;
+  try{ const batch=SYNC_OUT.slice(0,50);
+    const res=await fetch("api/results",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+SYNC.key},body:JSON.stringify({results:batch})});
+    const j=await res.json().catch(()=>({}));
+    if(res.ok&&j.ok){ const sent=new Set(batch.map(b=>b.id)); SYNC_OUT=SYNC_OUT.filter(x=>!sent.has(x.id)); SYNC.last=Date.now(); SYNC.err=""; }
+    else if(res.status===400){ SYNC_OUT=SYNC_OUT.filter(x=>!batch.includes(x)); SYNC.err=j.error||"Neplatná data"; }
+    else SYNC.err=j.error||("Chyba "+res.status);
+  }catch(e){ SYNC.err="Bez připojení – odešle se později."; }
+  syncBusy=false; syncSave(); if(SYNC_OUT.length&&!SYNC.err) setTimeout(syncFlush,1500);
+}
+function syncSection(){
+  const n=SYNC_OUT.length;
+  return '<section class="setsec pinsec"><h3>'+ic("i-users")+'Rodičovský přehled, telefon a hodinky</h3>'+(SYNC.key?
+    '<p class="muted">Propojeno. Výsledky testů (kdy, jak dlouho, jak dopadl a chyby) se posílají do rodičovského panelu'+(SYNC.last?' · naposledy odesláno '+new Date(SYNC.last).toLocaleString("cs-CZ",{day:"numeric",month:"numeric",hour:"2-digit",minute:"2-digit"}):"")+'.'+(n?' Čeká na odeslání: <b>'+n+'</b>.':"")+(SYNC.err?' <span style="color:var(--warn)">'+esc(SYNC.err)+'</span>':"")+'</p>'+
+    '<div class="addrow"><a class="btn primary" href="rodic/" target="_blank" rel="noopener">Otevřít rodičovský panel</a>'+(n?'<button type="button" class="btn" data-syncnow>Odeslat teď</button>':"")+'<button type="button" class="btn danger" data-syncoff>Odpojit</button></div>':
+    '<p class="muted">Zadej kód rodiny. Pak se výsledky testů posílají do rodičovského panelu (v telefonu i tady na tabletu) a odtud se nastavují hodinky a telefon.</p><div class="addrow"><input id="sync-key" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="kód rodiny" style="max-width:16rem"><button type="button" class="btn primary" data-syncset>Propojit</button></div>')+'</section>';
+}
+document.addEventListener("click",async e=>{ const t=e.target; if(!t||!t.closest) return;
+  if(t.closest("[data-syncset]")){ e.stopPropagation(); const v=((document.getElementById("sync-key")||{}).value||"").trim(); if(!v){ toast("Zadej kód rodiny."); return; }
+    try{ const s=await fetch("api/status",{headers:{Authorization:"Bearer "+v}}).then(r=>r.json()); if(!s.key){ toast("Server ještě není nastavený."); return; } if(!s.auth){ toast("Kód nesedí."); return; }
+      SYNC={key:v}; syncSave(); toast("Propojeno ✓"); render(); syncFlush(); }catch(x){ toast("Server není dostupný."); } return; }
+  if(t.closest("[data-syncnow]")){ e.stopPropagation(); SYNC.err=""; await syncFlush(); render(); toast(SYNC_OUT.length?"Zatím se nepodařilo odeslat.":"Odesláno ✓"); return; }
+  if(t.closest("[data-syncoff]")){ e.stopPropagation(); if(await askConfirm("Odpojit tablet od rodičovského panelu? Výsledky se přestanou posílat.","Odpojit")){ SYNC={}; syncSave(); render(); } return; }
+},true);
+window.addEventListener("online",()=>syncFlush());
+document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="visible") syncFlush(); });
+setTimeout(syncFlush,3000);
 /* ---------- rodičovský zámek (PIN) ---------- */
 let pinOkUntil=0;
 function pinLocked(){ return !!cfg.pin && Date.now()>pinOkUntil; }
@@ -3775,7 +3829,7 @@ function settingsHtml(){
    '<section class="s-sec"><h3>Obnovit výchozí nastavení</h3><p>Vrátí původní rozvrh, časy a seznamy pomůcek. Odškrtnuté věci zůstanou.</p>'+
     '<button type="button" class="btn danger" id="btn-reset">Obnovit výchozí</button></section>';
   return '<section class="card c-detail" id="c-detail"><div class="card-h"><button type="button" class="back" data-view="home" id="btn-back">'+ic("i-chev")+'Přehled</button>'+ic("i-sliders")+'<h2>Nastavení pro rodiče</h2></div>'+
-    '<div class="body" data-scroll="set">'+pinSection()+inner+'</div></section>';
+    '<div class="body" data-scroll="set">'+pinSection()+syncSection()+inner+'</div></section>';
 }
 
 /* ---------- vykreslení ---------- */
@@ -3815,6 +3869,7 @@ document.addEventListener("submit",e=>{ if(!e.target||e.target.id!=="lwform") re
   try{ if(inp) inp.blur(); }catch(_){}
   const [a,qi]=quiz.refs[quiz.i], q=lessonById(a).quiz[qi], res=wrCheck(q.w,v); quiz.wres=res; quiz.picked=res.ok?q.c:1;
   if(res.ok) quiz.ok++; else quiz.wrong.push([a,qi]);
+  syncLog(a,qi,res.ok,v);
   recordAnswer(a,qi,res.ok); if(res.ok){ petEarn("hay",1); petXP(q.wl?3:2); if(PET.name) earnCoins(q.wl?4:3); }
   render(); },true);
 /* ---------- události ---------- */
@@ -3864,11 +3919,12 @@ document.addEventListener("click", async e=>{
   const lp=t.closest("[data-lpick]"); if(lp && quiz && quiz.picked==null){
     const [a,qi]=quiz.refs[quiz.i], q=lessonById(a).quiz[qi], k=+lp.dataset.lpick; quiz.picked=k;
     if(k===q.c) quiz.ok++; else quiz.wrong.push([a,qi]);
+    syncLog(a,qi,k===q.c,q.a[k]);
     recordAnswer(a,qi,k===q.c); if(k===q.c){ petEarn("hay",1); petXP(1); if(PET.name) earnCoins(quiz.mode==="big"||quiz.mode==="subj"?BIG.big.coin:2); }
     render(); return; }
   if(t.closest("[data-lnext]") && quiz){
     try{ speechSynthesis.cancel(); }catch(e){}
-    quiz.i++; quiz.picked=null;
+    quiz.i++; quiz.picked=null; quiz.qt=Date.now();
     if(quiz.i>=quiz.refs.length) finishQuiz();
     resetScroll=true; render(); return; }
   { const v0=t.closest("[data-view]"); if(v0&&v0.dataset.view==="settings"&&view!=="settings"&&pinLocked()){ askPin(()=>{ view="settings"; resetScroll=true; render(); }); return; } }
